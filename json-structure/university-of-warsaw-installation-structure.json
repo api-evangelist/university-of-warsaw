@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/university-of-warsaw/main/json-structure/university-of-warsaw-installation-structure.json",
+  "name": "USOSInstallation",
+  "description": "JSON Structure for a University of Warsaw USOS API installation object (services/apisrv/installation).",
+  "type": "object",
+  "properties": {
+    "base_url": { "type": "string", "description": "Base URL of this installation." },
+    "version": { "type": "string", "description": "Human-readable version string." },
+    "machine_version": { "type": "string", "description": "Machine-readable version in 0.0.0.0-0 format." },
+    "usos_schema_version": { "type": "string", "description": "USOS database schema version." },
+    "institution_name": { "type": { "$ref": "#/definitions/LangDict" }, "description": "Owning institution name.", "nullable": true },
+    "contact_emails": {
+      "type": "array",
+      "description": "Administrator email addresses.",
+      "items": { "type": "string" }
+    },
+    "schac_id": { "type": "string", "description": "Institution ID in SCHAC format." },
+    "mcards_support": { "type": "boolean" },
+    "mobile_usos_support": { "type": "boolean" }
+  },
+  "definitions": {
+    "LangDict": {
+      "type": "object",
+      "properties": {
+        "pl": { "type": "string" },
+        "en": { "type": "string" }
+      }
+    }
+  }
+}

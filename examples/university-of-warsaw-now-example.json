@@ -1,0 +1,7 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://usosapps.uw.edu.pl/services/apisrv/now"
+  },
+  "response": "2026-06-04 05:26:17.217315"
+}

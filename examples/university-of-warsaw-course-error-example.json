@@ -1,0 +1,11 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://usosapps.uw.edu.pl/services/courses/course?course_id=does-not-exist&fields=id|name"
+  },
+  "response": {
+    "message": "Referenced course does not exist.",
+    "error": "object_not_found",
+    "reason": "course"
+  }
+}

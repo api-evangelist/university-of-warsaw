@@ -1,0 +1,74 @@
+vocabulary:
+  name: University of Warsaw USOS API Vocabulary
+  description: >-
+    Controlled vocabulary of the key terms used by the University of Warsaw USOS
+    API, derived from the live USOS API machine-readable reference. Covers core
+    academic-data concepts and USOS-specific data types observed in the spec.
+  version: "1.0.0"
+  terms:
+    - term: USOS
+      definition: >-
+        Uniwersytecki System Obslugi Studiow, the University Study-Oriented
+        System, the academic information system whose database the USOS API
+        exposes.
+      tags: [system, academic-data]
+    - term: USOS API
+      definition: >-
+        A REST-like protocol exposing the USOS academic database, with anonymous
+        access to a subset of methods and OAuth-authorized access to user data.
+      tags: [api, protocol]
+    - term: Installation
+      definition: >-
+        A single deployment of the USOS API at a given institution, identified
+        by base_url, version, schac_id and institution_name.
+      tags: [object, infrastructure]
+    - term: LangDict
+      definition: >-
+        A language dictionary object mapping ISO language codes (e.g. pl, en) to
+        localized string values, used throughout USOS responses.
+      tags: [datatype, localization]
+    - term: Course
+      definition: >-
+        A unit of study identified by a course_id, with a localized name,
+        faculty, language, ECTS credits and the academic terms it is conducted in.
+      tags: [object, academic-data]
+    - term: Course edition
+      definition: >-
+        A course conducted in a specific academic term, identified by course_id
+        plus term_id, including coordinators, lecturers and user groups.
+      tags: [object, academic-data]
+    - term: Faculty
+      definition: >-
+        A faculty or organizational unit of the university, identified by a
+        fac_id, with name, contact details and public/private status.
+      tags: [object, organization]
+    - term: Term
+      definition: >-
+        An academic term (e.g. a semester) during which courses are conducted,
+        referenced by term_id.
+      tags: [concept, academic-data]
+    - term: ECTS credits
+      definition: >-
+        European Credit Transfer and Accumulation System credits, exposed
+        approximately as ects_credits_simplified on a course.
+      tags: [concept, academic-data]
+    - term: fields selector
+      definition: >-
+        A pipe-separated list passed in the "fields" parameter selecting which
+        result fields a method should return.
+      tags: [parameter, query]
+    - term: SCHAC ID
+      definition: >-
+        A unique institution identifier in SCHAC format, derived from the
+        institution's primary domain name (e.g. uw.edu.pl).
+      tags: [identifier, institution]
+    - term: OAuth 1.0a
+      definition: >-
+        The authorization protocol USOS API uses for accessing protected user
+        data, requiring a Consumer Key/Secret and an access token.
+      tags: [authentication, security]
+    - term: object_not_found
+      definition: >-
+        The machine-readable error code returned when a referenced object (e.g.
+        a course) does not exist.
+      tags: [error, response]

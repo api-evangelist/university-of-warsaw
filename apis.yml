@@ -48,6 +48,30 @@ apis:
         url: https://usosapps.uw.edu.pl/developers/api/authorization/
       - type: SignUp
         url: https://usosapps.uw.edu.pl/developers/
+      - type: OpenAPI
+        url: openapi/university-of-warsaw-usos-api.yaml
+      - type: JSONSchema
+        url: json-schema/university-of-warsaw-course-schema.json
+      - type: JSONSchema
+        url: json-schema/university-of-warsaw-faculty-schema.json
+      - type: JSONSchema
+        url: json-schema/university-of-warsaw-installation-schema.json
+      - type: x-json-structure
+        url: json-structure/university-of-warsaw-course-structure.json
+      - type: x-json-structure
+        url: json-structure/university-of-warsaw-installation-structure.json
+      - type: x-example
+        url: examples/university-of-warsaw-installation-example.json
+      - type: x-example
+        url: examples/university-of-warsaw-now-example.json
+      - type: x-example
+        url: examples/university-of-warsaw-course-error-example.json
+      - type: x-spectral-rules
+        url: rules/university-of-warsaw-rules.yml
+      - type: x-vocabulary
+        url: vocabulary/university-of-warsaw-vocabulary.yml
+      - type: x-json-ld-context
+        url: json-ld/university-of-warsaw-context.jsonld
   - aid: university-of-warsaw:rdr-rest
     name: Dane Badawcze UW Research Data Repository REST API
     description: >-

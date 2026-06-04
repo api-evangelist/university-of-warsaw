@@ -1,0 +1,50 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "schema": "https://schema.org/",
+    "uw": "https://danebadawcze.uw.edu.pl/vocab/",
+    "usos": "https://usosapps.uw.edu.pl/developers/api/vocab/",
+    "name": "schema:name",
+    "url": "schema:url",
+    "email": "schema:email",
+    "Organization": "schema:CollegeOrUniversity",
+    "institution": {
+      "@id": "schema:CollegeOrUniversity",
+      "@context": {
+        "name": "schema:name",
+        "url": "schema:url",
+        "schac_id": "usos:schacId"
+      }
+    },
+    "Course": "schema:Course",
+    "course_id": "schema:courseCode",
+    "ects_credits_simplified": "schema:numberOfCredits",
+    "is_currently_conducted": "usos:isCurrentlyConducted",
+    "homepage_url": { "@id": "schema:url", "@type": "@id" },
+    "profile_url": { "@id": "schema:sameAs", "@type": "@id" },
+    "fac_id": "usos:facultyId",
+    "lang_id": "schema:inLanguage",
+    "description": "schema:description",
+    "learning_outcomes": "schema:teaches",
+    "Faculty": "schema:CollegeDepartment",
+    "fac": "schema:CollegeDepartment",
+    "phone_numbers": "schema:telephone",
+    "postal_address": "schema:address",
+    "is_public": "usos:isPublic",
+    "Term": "usos:Term",
+    "term_id": "usos:termId",
+    "terms": "usos:terms",
+    "CalendarEvent": "schema:Event",
+    "start_date": { "@id": "schema:startDate", "@type": "schema:Date" },
+    "end_date": { "@id": "schema:endDate", "@type": "schema:Date" },
+    "machine_version": "schema:softwareVersion",
+    "base_url": { "@id": "schema:url", "@type": "@id" },
+    "contact_emails": "schema:email",
+    "pl": { "@id": "schema:name", "@language": "pl" },
+    "en": { "@id": "schema:name", "@language": "en" }
+  },
+  "@type": "Organization",
+  "name": "University of Warsaw",
+  "url": "https://en.uw.edu.pl/",
+  "schac_id": "uw.edu.pl"
+}

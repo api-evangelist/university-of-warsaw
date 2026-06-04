@@ -1,0 +1,13 @@
+{
+  "base_url": "https://usosapps.uw.edu.pl/",
+  "version": "7.3.0.0-4, c34017e9, dirty (2026-05-13)",
+  "machine_version": "7.3.0.0-4",
+  "institution_name": {
+    "pl": "Uniwersytet Warszawski",
+    "en": "The University of Warsaw"
+  },
+  "contact_emails": [
+    "dsksysadm@adm.uw.edu.pl"
+  ],
+  "schac_id": "uw.edu.pl"
+}

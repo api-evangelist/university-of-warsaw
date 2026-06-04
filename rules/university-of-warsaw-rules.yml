@@ -1,0 +1,62 @@
+extends: []
+formats:
+  - oas3
+documentationUrl: https://usosapps.uw.edu.pl/developers/api/
+rules:
+  usos-info-contact:
+    description: USOS API spec should declare a contact.
+    given: $.info
+    severity: warn
+    then:
+      field: contact
+      function: truthy
+
+  usos-server-https:
+    description: USOS API servers must use HTTPS even though base_url advertises http.
+    given: $.servers[*].url
+    severity: error
+    then:
+      function: pattern
+      functionOptions:
+        match: '^https://'
+
+  usos-operation-external-docs:
+    description: Each USOS operation should link back to its reference page.
+    given: $.paths[*][get]
+    severity: warn
+    then:
+      field: externalDocs
+      function: truthy
+
+  usos-fields-parameter:
+    description: >-
+      USOS read operations that return field-selectable objects should expose a
+      "fields" selector parameter.
+    given: $.paths[*][get].parameters
+    severity: info
+    then:
+      function: truthy
+
+  usos-format-parameter-enum:
+    description: The format parameter should be limited to supported output formats.
+    given: $..parameters[?(@.name=='format')].schema
+    severity: warn
+    then:
+      field: enum
+      function: truthy
+
+  usos-error-envelope:
+    description: An Error schema with error/message fields should be defined.
+    given: $.components.schemas.Error.properties
+    severity: warn
+    then:
+      field: error
+      function: truthy
+
+  usos-langdict-defined:
+    description: A LangDict schema should be defined for localized strings.
+    given: $.components.schemas
+    severity: info
+    then:
+      field: LangDict
+      function: truthy

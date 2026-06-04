@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/university-of-warsaw/main/json-structure/university-of-warsaw-course-structure.json",
+  "name": "USOSCourse",
+  "description": "JSON Structure for a University of Warsaw USOS API course object (services/courses/course).",
+  "type": "object",
+  "properties": {
+    "id": { "type": "string", "description": "ID of the course." },
+    "name": { "type": { "$ref": "#/definitions/LangDict" }, "description": "Course name as a language dictionary." },
+    "homepage_url": { "type": "string", "description": "Course homepage URL.", "nullable": true },
+    "profile_url": { "type": "string", "description": "Course USOSweb profile URL." },
+    "is_currently_conducted": { "type": "boolean", "description": "Conducted in an active term." },
+    "terms": {
+      "type": "array",
+      "description": "Academic terms the course was conducted in.",
+      "items": {
+        "type": "object",
+        "properties": { "id": { "type": "string" } }
+      }
+    },
+    "fac_id": { "type": "string", "description": "Faculty that runs this course." },
+    "lang_id": { "type": "string", "description": "Language id, or null.", "nullable": true },
+    "ects_credits_simplified": { "type": "number", "description": "Approximate ECTS credits.", "nullable": true }
+  },
+  "required": ["id", "name"],
+  "definitions": {
+    "LangDict": {
+      "type": "object",
+      "description": "Language dictionary mapping language codes to localized strings.",
+      "properties": {
+        "pl": { "type": "string" },
+        "en": { "type": "string" }
+      }
+    }
+  }
+}

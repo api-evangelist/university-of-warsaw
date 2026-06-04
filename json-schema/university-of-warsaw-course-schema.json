@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/university-of-warsaw/main/json-schema/university-of-warsaw-course-schema.json",
+  "title": "USOS Course",
+  "description": "JSON Schema for a University of Warsaw USOS API course object (services/courses/course). Derived from the live USOS API machine-readable reference.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "ID of the course."
+    },
+    "name": {
+      "$ref": "#/$defs/LangDict",
+      "description": "A LangDict object with the course's name."
+    },
+    "homepage_url": {
+      "type": ["string", "null"],
+      "format": "uri",
+      "description": "Course's homepage URL, or null if none."
+    },
+    "profile_url": {
+      "type": "string",
+      "format": "uri",
+      "description": "Course's USOSweb profile URL."
+    },
+    "is_currently_conducted": {
+      "type": "boolean",
+      "description": "Indicates if the course is conducted in an active academic term."
+    },
+    "terms": {
+      "type": "array",
+      "description": "Academic terms the course was conducted in (newest to oldest).",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" }
+        }
+      }
+    },
+    "fac_id": {
+      "type": "string",
+      "description": "ID of the faculty which runs this course."
+    },
+    "lang_id": {
+      "type": ["string", "null"],
+      "description": "ID of the language the course is conducted in, or null if unknown."
+    },
+    "ects_credits_simplified": {
+      "type": ["number", "null"],
+      "description": "Approximate number of ECTS credits, or null if unknown."
+    },
+    "description": { "$ref": "#/$defs/LangDict" },
+    "bibliography": { "$ref": "#/$defs/LangDict" },
+    "learning_outcomes": { "$ref": "#/$defs/LangDict" },
+    "assessment_criteria": { "$ref": "#/$defs/LangDict" },
+    "practical_placement": { "$ref": "#/$defs/LangDict" }
+  },
+  "required": ["id", "name"],
+  "$defs": {
+    "LangDict": {
+      "type": "object",
+      "description": "Language dictionary mapping ISO language codes to localized strings.",
+      "properties": {
+        "pl": { "type": "string" },
+        "en": { "type": "string" }
+      }
+    }
+  }
+}

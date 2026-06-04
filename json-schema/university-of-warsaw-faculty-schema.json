@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/university-of-warsaw/main/json-schema/university-of-warsaw-faculty-schema.json",
+  "title": "USOS Faculty",
+  "description": "JSON Schema for a University of Warsaw USOS API faculty / organizational unit object (services/fac/faculty). Derived from the live USOS API machine-readable reference.",
+  "type": "object",
+  "properties": {
+    "id": { "type": "string", "description": "The ID of the faculty." },
+    "name": { "$ref": "#/$defs/LangDict", "description": "A LangDict object with the name of the faculty." },
+    "profile_url": { "type": "string", "format": "uri", "description": "Faculty's USOSweb URL." },
+    "homepage_url": { "type": ["string", "null"], "format": "uri", "description": "Faculty's home page URL." },
+    "phone_numbers": {
+      "type": "array",
+      "description": "List of phone number strings (undocumented format).",
+      "items": { "type": "string" }
+    },
+    "phone_numbers2": {
+      "type": "array",
+      "description": "List of structured phone number objects.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "comment": { "type": ["string", "null"] },
+          "number": { "type": "string" },
+          "type": { "type": "string" }
+        }
+      }
+    },
+    "postal_address": { "type": ["string", "null"], "description": "Short plain-text postal address, or null if unknown." },
+    "email": { "type": ["string", "null"], "format": "email", "description": "Faculty's email address." },
+    "is_public": { "type": "boolean", "description": "Whether the faculty is public." }
+  },
+  "required": ["id"],
+  "$defs": {
+    "LangDict": {
+      "type": "object",
+      "properties": {
+        "pl": { "type": "string" },
+        "en": { "type": "string" }
+      }
+    }
+  }
+}
