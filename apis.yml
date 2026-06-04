@@ -1,0 +1,101 @@
+---
+aid: university-of-warsaw
+name: University of Warsaw
+description: >-
+  The University of Warsaw (Uniwersytet Warszawski) is Poland's largest and
+  highest-ranked university, placed #258 in the QS World University Rankings
+  2025. Its public developer footprint centers on the USOS API, a documented
+  OAuth-secured REST-like protocol exposing the institution's academic database
+  (courses, grades, exams, users, payments and more), and on the Dane Badawcze
+  UW research data repository, a Dataverse instance that offers a native REST
+  API and an OAI-PMH endpoint for metadata harvesting. Developer access to
+  USOS requires registration for an API key (Consumer Key/Secret) via the USOS
+  developers portal.
+type: Index
+position: Consumer
+access: 3rd-Party
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+url: https://raw.githubusercontent.com/api-evangelist/university-of-warsaw/refs/heads/main/apis.yml
+tags:
+  - Education
+  - Higher Education
+  - University
+  - Poland
+  - Academic Data
+  - Research Data
+  - Open Data
+created: '2026-06-03'
+modified: '2026-06-03'
+specificationVersion: '0.19'
+apis:
+  - aid: university-of-warsaw:usos-api
+    name: USOS API (University of Warsaw)
+    description: >-
+      The University of Warsaw installation of the USOS API, a REST-like
+      protocol providing access to the university's academic database. It
+      exposes 60+ documented services covering courses, grades, exams, user
+      information, payments, housing and events, with both anonymous access to
+      a subset of methods and OAuth-authorized access to user data. Developers
+      must sign up for an API key (Consumer Key/Secret) and use the OAuth flow
+      to obtain access tokens.
+    humanURL: https://usosapps.uw.edu.pl/developers/api/
+    baseURL: https://usosapps.uw.edu.pl/services/
+    tags: [ Academic Data, Courses, Students, OAuth, Education ]
+    properties:
+      - type: Documentation
+        url: https://usosapps.uw.edu.pl/developers/api/
+      - type: Authentication
+        url: https://usosapps.uw.edu.pl/developers/api/authorization/
+      - type: SignUp
+        url: https://usosapps.uw.edu.pl/developers/
+  - aid: university-of-warsaw:rdr-rest
+    name: Dane Badawcze UW Research Data Repository REST API
+    description: >-
+      The University of Warsaw Research Data Repository (Dane Badawcze UW) is a
+      Dataverse-based institutional repository for long-term storage and open
+      sharing of research data across all disciplines, with DOI assignment,
+      versioning and Central Authentication System integration. As a Dataverse
+      instance it exposes the native Dataverse REST API for search, dataset and
+      file operations.
+    humanURL: https://danebadawcze.uw.edu.pl/
+    baseURL: https://danebadawcze.uw.edu.pl/api/
+    tags: [ Research Data, Repository, Dataverse, REST, Open Data ]
+    properties:
+      - type: Documentation
+        url: https://info.danebadawcze.uw.edu.pl/en/about-the-service/
+  - aid: university-of-warsaw:rdr-oai-pmh
+    name: Dane Badawcze UW OAI-PMH Endpoint
+    description: >-
+      OAI-PMH 2.0 metadata harvesting endpoint for the University of Warsaw
+      Research Data Repository (Dataverse). The repository identifies itself as
+      the "Dane Badawcze UW Dataverse OAI Archive" and supports standard verbs
+      such as Identify, ListRecords and GetRecord for harvesting research
+      dataset metadata.
+    humanURL: https://danebadawcze.uw.edu.pl/
+    baseURL: https://danebadawcze.uw.edu.pl/oai
+    tags: [ Research Data, OAI-PMH, Metadata, Harvesting, Open Data ]
+    properties:
+      - type: Documentation
+        url: https://info.danebadawcze.uw.edu.pl/en/about-the-service/
+common:
+  - type: Website
+    url: https://en.uw.edu.pl/
+  - type: GitHub
+    url: https://github.com/icm-uw
+  - type: LinkedIn
+    url: https://www.linkedin.com/school/uniwersytet-warszawski
+  - type: DeveloperPortal
+    url: https://usosapps.uw.edu.pl/developers/
+  - type: Authentication
+    url: https://usosapps.uw.edu.pl/developers/api/authorization/
+  - type: Plans
+    url: plans/university-of-warsaw-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/university-of-warsaw-rate-limits.yml
+  - type: FinOps
+    url: finops/university-of-warsaw-finops.yml
+  - type: Review
+    url: review.yml
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

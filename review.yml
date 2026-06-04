@@ -1,0 +1,46 @@
+---
+name: University of Warsaw
+description: University of Warsaw public developer/API footprint review for APIs.json cataloging.
+url: https://raw.githubusercontent.com/api-evangelist/university-of-warsaw/refs/heads/main/review.yml
+created: '2026-06-03'
+modified: '2026-06-03'
+reviews:
+  - date: '2026-06-03'
+    rating: 4
+    summary: >-
+      Verified a strong, real public API footprint. The USOS API for the
+      University of Warsaw is well documented with 60+ services and an OAuth
+      authorization flow; its documentation page resolved live (200). The Dane
+      Badawcze UW research data repository is a live Dataverse instance whose
+      native REST API version endpoint and OAI-PMH Identify verb both returned
+      valid responses (200). The USOS developers/sign-up page returned 403 to
+      automated probing (likely bot protection) rather than being dead. No
+      endpoints were fabricated; only confirmed resources cataloged.
+    endpoints:
+      - url: https://usosapps.uw.edu.pl/developers/api/
+        status: 200
+        note: USOS API reference for the University of Warsaw, version 7.3.0.0-4.
+      - url: https://usosapps.uw.edu.pl/developers/api/authorization/
+        status: 200
+        note: OAuth authorization flow documentation (Consumer Key/Secret, tokens).
+      - url: https://usosapps.uw.edu.pl/developers/
+        status: 403
+        note: Documented developer sign-up portal; 403 to automated probe (bot protection).
+      - url: https://danebadawcze.uw.edu.pl/
+        status: 200
+        note: Research data repository home; footer "Powered by RepOD, based on Dataverse".
+      - url: https://danebadawcze.uw.edu.pl/api/info/version
+        status: 200
+        note: Dataverse REST API responded {"status":"OK","data":{"version":"1.1.6..."}}.
+      - url: https://danebadawcze.uw.edu.pl/oai
+        status: 200
+        note: OAI-PMH 2.0; Identify returned "Dane Badawcze UW Dataverse OAI Archive".
+      - url: https://info.danebadawcze.uw.edu.pl/en/about-the-service/
+        status: 200
+        note: Repository documentation confirming API access and DOI/versioning.
+      - url: https://en.uw.edu.pl/
+        status: 200
+        note: Official English-language university website.
+      - url: https://github.com/icm-uw
+        status: 200
+        note: ICM at the University of Warsaw GitHub org (operates the data repository).
