@@ -46,7 +46,7 @@ apis:
         url: https://usosapps.uw.edu.pl/developers/api/
       - type: Authentication
         url: https://usosapps.uw.edu.pl/developers/api/authorization/
-      - type: SignUp
+      - type: Signup
         url: https://usosapps.uw.edu.pl/developers/
       - type: OpenAPI
         url: openapi/university-of-warsaw-usos-api.yaml
