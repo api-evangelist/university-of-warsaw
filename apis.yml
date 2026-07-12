@@ -102,6 +102,10 @@ apis:
       - type: Documentation
         url: https://info.danebadawcze.uw.edu.pl/en/about-the-service/
 common:
+  - type: DomainSecurity
+    url: security/university-of-warsaw-domain-security.yml
+  - type: Authentication
+    url: authentication/university-of-warsaw-authentication.yml
   - type: Website
     url: https://en.uw.edu.pl/
   - type: GitHub
@@ -120,6 +124,8 @@ common:
     url: finops/university-of-warsaw-finops.yml
   - type: Review
     url: review.yml
+  - url: https://en.uw.edu.pl/category/news/feed/
+    type: Blog
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com

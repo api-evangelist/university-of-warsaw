@@ -1,0 +1,19 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/university-of-warsaw-usos-api.yaml
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - query
+schemes:
+- name: oauth1a
+  type: apiKey
+  in: query
+  parameter: oauth_token
+  description: USOS API uses OAuth 1.0a for authorized methods. A Consumer Key/Secret is obtained
+    from the USOS developers portal (https://usosapps.uw.edu.pl/developers/), and an access
+    token is obtained via the OAuth flow documented at https://usosapps.uw.edu.pl/developers/api/authorization/.
+    The methods described in this file are anonymous and do not require it.
+  sources:
+  - openapi/university-of-warsaw-usos-api.yaml
