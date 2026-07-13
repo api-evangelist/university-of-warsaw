@@ -1,0 +1,14 @@
+{
+  "repo": "university-of-warsaw",
+  "feeds": [
+    {
+      "source": "https://en.uw.edu.pl/category/news/feed/",
+      "feed_url": "https://en.uw.edu.pl/category/news/feed/",
+      "title": "",
+      "saved": 0,
+      "method": "feed"
+    }
+  ],
+  "fetched": "2026-07-11T11:50:51Z",
+  "post_count": 50
+}
