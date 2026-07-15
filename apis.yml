@@ -102,6 +102,8 @@ apis:
       - type: Documentation
         url: https://info.danebadawcze.uw.edu.pl/en/about-the-service/
 common:
+  - type: AgenticAccess
+    url: agentic-access/university-of-warsaw-agentic-access.yml
   - type: DomainSecurity
     url: security/university-of-warsaw-domain-security.yml
   - type: Authentication
