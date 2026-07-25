@@ -1,0 +1,171 @@
+openapi: 3.0.3
+info:
+  title: USOS API (University of Warsaw) apiref fac API
+  description: The University of Warsaw installation of the USOS API, a REST-like protocol providing access to the university's academic database. This OpenAPI 3.0 description was derived faithfully from the live machine-readable USOS API reference (services/apiref/method_index and services/apiref/method) of the Warsaw installation, covering anonymous-access methods only. Most methods accept a "fields" selector (a pipe-separated list of result fields) and a "format" parameter (json, jsonp, xml). Many methods returning user or administrative data require OAuth 1.0a authorization and a Consumer Key/Secret obtained from the USOS developers portal; those are not described here. Field semantics, arguments and the error envelope shown below were confirmed against live responses on 2026-06-03.
+  version: 7.3.0.0-4
+  contact:
+    name: USOS API Team (University of Warsaw)
+    url: https://usosapps.uw.edu.pl/developers/api/
+    email: dsksysadm@adm.uw.edu.pl
+  license:
+    name: USOS API Terms
+    url: https://usosapps.uw.edu.pl/developers/api/
+servers:
+- url: https://usosapps.uw.edu.pl/services
+  description: University of Warsaw USOS API installation
+tags:
+- name: fac
+  description: Faculties and organizational units
+paths:
+  /fac/faculty:
+    get:
+      tags:
+      - fac
+      operationId: getFaculty
+      summary: Get information on a faculty (organizational unit)
+      description: Get information on a single faculty / organizational unit by ID. Anonymous access.
+      externalDocs:
+        url: https://usosapps.uw.edu.pl/developers/api/services/fac/#faculty
+      parameters:
+      - name: fac_id
+        in: query
+        required: true
+        description: ID of the faculty.
+        schema:
+          type: string
+      - name: fields
+        in: query
+        required: false
+        description: Pipe-separated selector of result fields.
+        schema:
+          type: string
+          default: id|name
+      - $ref: '#/components/parameters/format'
+      - $ref: '#/components/parameters/callback'
+      responses:
+        '200':
+          description: A dictionary of selected faculty fields.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Faculty'
+        '400':
+          $ref: '#/components/responses/Error'
+components:
+  parameters:
+    callback:
+      name: callback
+      in: query
+      required: false
+      description: Required only if jsonp is chosen as the return format.
+      schema:
+        type: string
+    format:
+      name: format
+      in: query
+      required: false
+      description: Output format. See supported output formats in the USOS API datatypes documentation.
+      schema:
+        type: string
+        enum:
+        - json
+        - jsonp
+        - xml
+        default: json
+  responses:
+    Error:
+      description: USOS API error envelope.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    LangDict:
+      type: object
+      description: A language dictionary mapping ISO language codes to localized strings, as used throughout the USOS API.
+      properties:
+        pl:
+          type: string
+          description: Polish-language value.
+        en:
+          type: string
+          description: English-language value.
+      example:
+        pl: Uniwersytet Warszawski
+        en: The University of Warsaw
+    Faculty:
+      type: object
+      description: A faculty or organizational unit.
+      properties:
+        id:
+          type: string
+          description: The ID of the faculty.
+        name:
+          allOf:
+          - $ref: '#/components/schemas/LangDict'
+          description: A LangDict object with the name of the faculty.
+        profile_url:
+          type: string
+          format: uri
+          description: Faculty's USOSweb URL.
+        homepage_url:
+          type: string
+          format: uri
+          nullable: true
+          description: Faculty's home page URL.
+        phone_numbers:
+          type: array
+          description: List of phone number strings (undocumented format).
+          items:
+            type: string
+        phone_numbers2:
+          type: array
+          description: List of structured phone number objects.
+          items:
+            type: object
+            properties:
+              comment:
+                type: string
+                nullable: true
+              number:
+                type: string
+              type:
+                type: string
+        postal_address:
+          type: string
+          nullable: true
+          description: Short plain-text postal address, or null if unknown.
+        email:
+          type: string
+          format: email
+          nullable: true
+          description: Faculty's email address.
+        is_public:
+          type: boolean
+          description: Whether the faculty is public.
+    Error:
+      type: object
+      description: Error envelope returned by USOS API methods (confirmed against live responses, e.g. an unknown course_id returns object_not_found).
+      properties:
+        message:
+          type: string
+          description: Human-readable error message.
+        error:
+          type: string
+          description: Machine-readable error code, e.g. object_not_found.
+        reason:
+          type: string
+          description: Additional reason detail, e.g. the offending object type.
+      example:
+        message: Referenced course does not exist.
+        error: object_not_found
+        reason: course
+  securitySchemes:
+    oauth1a:
+      type: apiKey
+      in: query
+      name: oauth_token
+      description: USOS API uses OAuth 1.0a for authorized methods. A Consumer Key/Secret is obtained from the USOS developers portal (https://usosapps.uw.edu.pl/developers/), and an access token is obtained via the OAuth flow documented at https://usosapps.uw.edu.pl/developers/api/authorization/. The methods described in this file are anonymous and do not require it.
+externalDocs:
+  description: USOS API developer documentation
+  url: https://usosapps.uw.edu.pl/developers/api/

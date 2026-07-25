@@ -1,0 +1,152 @@
+openapi: 3.0.3
+info:
+  title: USOS API (University of Warsaw) apiref calendar API
+  description: The University of Warsaw installation of the USOS API, a REST-like protocol providing access to the university's academic database. This OpenAPI 3.0 description was derived faithfully from the live machine-readable USOS API reference (services/apiref/method_index and services/apiref/method) of the Warsaw installation, covering anonymous-access methods only. Most methods accept a "fields" selector (a pipe-separated list of result fields) and a "format" parameter (json, jsonp, xml). Many methods returning user or administrative data require OAuth 1.0a authorization and a Consumer Key/Secret obtained from the USOS developers portal; those are not described here. Field semantics, arguments and the error envelope shown below were confirmed against live responses on 2026-06-03.
+  version: 7.3.0.0-4
+  contact:
+    name: USOS API Team (University of Warsaw)
+    url: https://usosapps.uw.edu.pl/developers/api/
+    email: dsksysadm@adm.uw.edu.pl
+  license:
+    name: USOS API Terms
+    url: https://usosapps.uw.edu.pl/developers/api/
+servers:
+- url: https://usosapps.uw.edu.pl/services
+  description: University of Warsaw USOS API installation
+tags:
+- name: calendar
+  description: Academic calendar events
+paths:
+  /calendar/search:
+    get:
+      tags:
+      - calendar
+      operationId: searchCalendar
+      summary: Search academic calendar events
+      description: Search calendar events, optionally filtered by faculty and date range. Returns a list of calendar event objects.
+      externalDocs:
+        url: https://usosapps.uw.edu.pl/developers/api/services/calendar/#search
+      parameters:
+      - name: faculty_id
+        in: query
+        required: false
+        description: ID of a faculty to filter events by.
+        schema:
+          type: string
+      - name: start_date
+        in: query
+        required: false
+        description: Start of the date range (yyyy-mm-dd).
+        schema:
+          type: string
+          format: date
+      - name: end_date
+        in: query
+        required: false
+        description: End of the date range (yyyy-mm-dd).
+        schema:
+          type: string
+          format: date
+      - name: fields
+        in: query
+        required: false
+        description: Pipe-separated selector of result fields.
+        schema:
+          type: string
+      - $ref: '#/components/parameters/format'
+      - $ref: '#/components/parameters/callback'
+      responses:
+        '200':
+          description: List of calendar event objects.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CalendarEvent'
+        '400':
+          $ref: '#/components/responses/Error'
+components:
+  parameters:
+    callback:
+      name: callback
+      in: query
+      required: false
+      description: Required only if jsonp is chosen as the return format.
+      schema:
+        type: string
+    format:
+      name: format
+      in: query
+      required: false
+      description: Output format. See supported output formats in the USOS API datatypes documentation.
+      schema:
+        type: string
+        enum:
+        - json
+        - jsonp
+        - xml
+        default: json
+  responses:
+    Error:
+      description: USOS API error envelope.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    CalendarEvent:
+      type: object
+      description: An academic calendar event.
+      properties:
+        start_date:
+          type: string
+          format: date
+        end_date:
+          type: string
+          format: date
+        name:
+          $ref: '#/components/schemas/LangDict'
+        type:
+          type: string
+        is_day_off:
+          type: boolean
+    LangDict:
+      type: object
+      description: A language dictionary mapping ISO language codes to localized strings, as used throughout the USOS API.
+      properties:
+        pl:
+          type: string
+          description: Polish-language value.
+        en:
+          type: string
+          description: English-language value.
+      example:
+        pl: Uniwersytet Warszawski
+        en: The University of Warsaw
+    Error:
+      type: object
+      description: Error envelope returned by USOS API methods (confirmed against live responses, e.g. an unknown course_id returns object_not_found).
+      properties:
+        message:
+          type: string
+          description: Human-readable error message.
+        error:
+          type: string
+          description: Machine-readable error code, e.g. object_not_found.
+        reason:
+          type: string
+          description: Additional reason detail, e.g. the offending object type.
+      example:
+        message: Referenced course does not exist.
+        error: object_not_found
+        reason: course
+  securitySchemes:
+    oauth1a:
+      type: apiKey
+      in: query
+      name: oauth_token
+      description: USOS API uses OAuth 1.0a for authorized methods. A Consumer Key/Secret is obtained from the USOS developers portal (https://usosapps.uw.edu.pl/developers/), and an access token is obtained via the OAuth flow documented at https://usosapps.uw.edu.pl/developers/api/authorization/. The methods described in this file are anonymous and do not require it.
+externalDocs:
+  description: USOS API developer documentation
+  url: https://usosapps.uw.edu.pl/developers/api/

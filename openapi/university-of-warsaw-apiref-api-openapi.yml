@@ -1,0 +1,211 @@
+openapi: 3.0.3
+info:
+  title: USOS API (University of Warsaw) apiref API
+  description: The University of Warsaw installation of the USOS API, a REST-like protocol providing access to the university's academic database. This OpenAPI 3.0 description was derived faithfully from the live machine-readable USOS API reference (services/apiref/method_index and services/apiref/method) of the Warsaw installation, covering anonymous-access methods only. Most methods accept a "fields" selector (a pipe-separated list of result fields) and a "format" parameter (json, jsonp, xml). Many methods returning user or administrative data require OAuth 1.0a authorization and a Consumer Key/Secret obtained from the USOS developers portal; those are not described here. Field semantics, arguments and the error envelope shown below were confirmed against live responses on 2026-06-03.
+  version: 7.3.0.0-4
+  contact:
+    name: USOS API Team (University of Warsaw)
+    url: https://usosapps.uw.edu.pl/developers/api/
+    email: dsksysadm@adm.uw.edu.pl
+  license:
+    name: USOS API Terms
+    url: https://usosapps.uw.edu.pl/developers/api/
+servers:
+- url: https://usosapps.uw.edu.pl/services
+  description: University of Warsaw USOS API installation
+tags:
+- name: apiref
+  description: Machine-readable method reference
+paths:
+  /apiref/method_index:
+    get:
+      tags:
+      - apiref
+      operationId: getMethodIndex
+      summary: List all available USOS API methods
+      description: Returns a list of all methods available in this installation, each with a name and a brief description. Anonymous access.
+      externalDocs:
+        url: https://usosapps.uw.edu.pl/developers/api/services/apiref/#method_index
+      parameters:
+      - $ref: '#/components/parameters/format'
+      - $ref: '#/components/parameters/callback'
+      responses:
+        '200':
+          description: List of method index entries.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MethodIndexEntry'
+  /apiref/method:
+    get:
+      tags:
+      - apiref
+      operationId: getMethod
+      summary: Get the reference for a single USOS API method
+      description: Returns the machine-readable reference for a single method, including its arguments, returned fields, authentication options and errors. Anonymous access.
+      externalDocs:
+        url: https://usosapps.uw.edu.pl/developers/api/services/apiref/#method
+      parameters:
+      - name: name
+        in: query
+        required: true
+        description: Full method name, e.g. services/courses/course.
+        schema:
+          type: string
+          example: services/courses/course
+      - name: fields
+        in: query
+        required: false
+        description: Pipe-separated selector of reference fields, e.g. name|brief_description|arguments|result_fields.
+        schema:
+          type: string
+      - $ref: '#/components/parameters/format'
+      - $ref: '#/components/parameters/callback'
+      responses:
+        '200':
+          description: Method reference object.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MethodReference'
+        '400':
+          $ref: '#/components/responses/Error'
+components:
+  parameters:
+    callback:
+      name: callback
+      in: query
+      required: false
+      description: Required only if jsonp is chosen as the return format.
+      schema:
+        type: string
+    format:
+      name: format
+      in: query
+      required: false
+      description: Output format. See supported output formats in the USOS API datatypes documentation.
+      schema:
+        type: string
+        enum:
+        - json
+        - jsonp
+        - xml
+        default: json
+  schemas:
+    MethodReference:
+      type: object
+      description: Machine-readable reference for a single method.
+      properties:
+        name:
+          type: string
+        brief_description:
+          type: string
+        description:
+          type: string
+        ref_url:
+          type: string
+          format: uri
+        auth_options:
+          $ref: '#/components/schemas/AuthOptions'
+        arguments:
+          type: array
+          items:
+            $ref: '#/components/schemas/MethodArgument'
+        returns:
+          type: string
+        errors:
+          type: string
+        result_fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResultField'
+    MethodIndexEntry:
+      type: object
+      description: A single entry in the method index.
+      properties:
+        name:
+          type: string
+          description: Full method name, e.g. services/courses/course.
+        brief_description:
+          type: string
+          description: Short description of the method.
+    ResultField:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        is_primary:
+          type: boolean
+        is_secondary:
+          type: boolean
+    MethodArgument:
+      type: object
+      properties:
+        name:
+          type: string
+        is_required:
+          type: boolean
+        is_deprecated:
+          type: boolean
+        type:
+          type: string
+        default_value:
+          type: string
+          nullable: true
+        description:
+          type: string
+    AuthOptions:
+      type: object
+      description: Authentication requirements for a method.
+      properties:
+        consumer:
+          type: string
+          description: Consumer requirement (e.g. ignored, required, optional).
+        token:
+          type: string
+          description: Token requirement (e.g. ignored, required, optional).
+        administrative_only:
+          type: boolean
+        ssl_required:
+          type: boolean
+        scopes:
+          type: array
+          items:
+            type: string
+    Error:
+      type: object
+      description: Error envelope returned by USOS API methods (confirmed against live responses, e.g. an unknown course_id returns object_not_found).
+      properties:
+        message:
+          type: string
+          description: Human-readable error message.
+        error:
+          type: string
+          description: Machine-readable error code, e.g. object_not_found.
+        reason:
+          type: string
+          description: Additional reason detail, e.g. the offending object type.
+      example:
+        message: Referenced course does not exist.
+        error: object_not_found
+        reason: course
+  responses:
+    Error:
+      description: USOS API error envelope.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    oauth1a:
+      type: apiKey
+      in: query
+      name: oauth_token
+      description: USOS API uses OAuth 1.0a for authorized methods. A Consumer Key/Secret is obtained from the USOS developers portal (https://usosapps.uw.edu.pl/developers/), and an access token is obtained via the OAuth flow documented at https://usosapps.uw.edu.pl/developers/api/authorization/. The methods described in this file are anonymous and do not require it.
+externalDocs:
+  description: USOS API developer documentation
+  url: https://usosapps.uw.edu.pl/developers/api/
