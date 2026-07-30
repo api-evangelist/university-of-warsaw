@@ -12,9 +12,22 @@ description: >-
   USOS requires registration for an API key (Consumer Key/Secret) via the USOS
   developers portal.
 type: Index
+accessModel:
+  pricing: free
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Free · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
 position: Consumer
 access: 3rd-Party
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/university-of-warsaw.png
 url: https://raw.githubusercontent.com/api-evangelist/university-of-warsaw/refs/heads/main/apis.yml
 tags:
   - Education
@@ -28,79 +41,231 @@ created: '2026-06-03'
 modified: '2026-06-03'
 specificationVersion: '0.19'
 apis:
-  - aid: university-of-warsaw:usos-api
-    name: USOS API (University of Warsaw)
-    description: >-
-      The University of Warsaw installation of the USOS API, a REST-like
-      protocol providing access to the university's academic database. It
-      exposes 60+ documented services covering courses, grades, exams, user
-      information, payments, housing and events, with both anonymous access to
-      a subset of methods and OAuth-authorized access to user data. Developers
-      must sign up for an API key (Consumer Key/Secret) and use the OAuth flow
-      to obtain access tokens.
-    humanURL: https://usosapps.uw.edu.pl/developers/api/
-    baseURL: https://usosapps.uw.edu.pl/services/
-    tags: [ Academic Data, Courses, Students, OAuth, Education ]
-    properties:
-      - type: Documentation
-        url: https://usosapps.uw.edu.pl/developers/api/
-      - type: Authentication
-        url: https://usosapps.uw.edu.pl/developers/api/authorization/
-      - type: Signup
-        url: https://usosapps.uw.edu.pl/developers/
-      - type: OpenAPI
-        url: openapi/university-of-warsaw-usos-api.yaml
-      - type: JSONSchema
-        url: json-schema/university-of-warsaw-course-schema.json
-      - type: JSONSchema
-        url: json-schema/university-of-warsaw-faculty-schema.json
-      - type: JSONSchema
-        url: json-schema/university-of-warsaw-installation-schema.json
-      - type: x-json-structure
-        url: json-structure/university-of-warsaw-course-structure.json
-      - type: x-json-structure
-        url: json-structure/university-of-warsaw-installation-structure.json
-      - type: x-example
-        url: examples/university-of-warsaw-installation-example.json
-      - type: x-example
-        url: examples/university-of-warsaw-now-example.json
-      - type: x-example
-        url: examples/university-of-warsaw-course-error-example.json
-      - type: x-spectral-rules
-        url: rules/university-of-warsaw-rules.yml
-      - type: x-vocabulary
-        url: vocabulary/university-of-warsaw-vocabulary.yml
-      - type: x-json-ld-context
-        url: json-ld/university-of-warsaw-context.jsonld
-  - aid: university-of-warsaw:rdr-rest
-    name: Dane Badawcze UW Research Data Repository REST API
-    description: >-
-      The University of Warsaw Research Data Repository (Dane Badawcze UW) is a
-      Dataverse-based institutional repository for long-term storage and open
-      sharing of research data across all disciplines, with DOI assignment,
-      versioning and Central Authentication System integration. As a Dataverse
-      instance it exposes the native Dataverse REST API for search, dataset and
-      file operations.
-    humanURL: https://danebadawcze.uw.edu.pl/
-    baseURL: https://danebadawcze.uw.edu.pl/api/
-    tags: [ Research Data, Repository, Dataverse, REST, Open Data ]
-    properties:
-      - type: Documentation
-        url: https://info.danebadawcze.uw.edu.pl/en/about-the-service/
-  - aid: university-of-warsaw:rdr-oai-pmh
-    name: Dane Badawcze UW OAI-PMH Endpoint
-    description: >-
-      OAI-PMH 2.0 metadata harvesting endpoint for the University of Warsaw
-      Research Data Repository (Dataverse). The repository identifies itself as
-      the "Dane Badawcze UW Dataverse OAI Archive" and supports standard verbs
-      such as Identify, ListRecords and GetRecord for harvesting research
-      dataset metadata.
-    humanURL: https://danebadawcze.uw.edu.pl/
-    baseURL: https://danebadawcze.uw.edu.pl/oai
-    tags: [ Research Data, OAI-PMH, Metadata, Harvesting, Open Data ]
-    properties:
-      - type: Documentation
-        url: https://info.danebadawcze.uw.edu.pl/en/about-the-service/
+- aid: university-of-warsaw:rdr-rest
+  name: Dane Badawcze UW Research Data Repository REST API
+  description: >-
+    The University of Warsaw Research Data Repository (Dane Badawcze UW) is a Dataverse-based institutional
+    repository for long-term storage and open sharing of research data across all disciplines, with DOI
+    assignment, versioning and Central Authentication System integration. As a Dataverse instance it exposes
+    the native Dataverse REST API for search, dataset and file operations.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - Research Data
+  - Repository
+  - Dataverse
+  - REST
+  - Open Data
+  properties:
+  - type: Documentation
+    url: https://info.danebadawcze.uw.edu.pl/en/about-the-service/
+- aid: university-of-warsaw:rdr-oai-pmh
+  name: Dane Badawcze UW OAI-PMH Endpoint
+  description: >-
+    OAI-PMH 2.0 metadata harvesting endpoint for the University of Warsaw Research Data Repository (Dataverse).
+    The repository identifies itself as the "Dane Badawcze UW Dataverse OAI Archive" and supports standard
+    verbs such as Identify, ListRecords and GetRecord for harvesting research dataset metadata.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/oai
+  tags:
+  - Research Data
+  - OAI-PMH
+  - Metadata
+  - Harvesting
+  - Open Data
+  properties:
+  - type: Documentation
+    url: https://info.danebadawcze.uw.edu.pl/en/about-the-service/
+- aid: university-of-warsaw:university-of-warsaw-apiref-api
+  name: University of Warsaw apiref API
+  description: Machine-readable method reference
+  humanURL: https://usosapps.uw.edu.pl/developers/api/
+  baseURL: https://usosapps.uw.edu.pl/services/
+  tags:
+  - apiref
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-apiref-api-openapi.yml
+  - type: Documentation
+    url: https://usosapps.uw.edu.pl/developers/api/
+  - type: Authentication
+    url: https://usosapps.uw.edu.pl/developers/api/authorization/
+  - type: Signup
+    url: https://usosapps.uw.edu.pl/developers/
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-course-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-faculty-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-installation-schema.json
+  - type: x-json-structure
+    url: json-structure/university-of-warsaw-course-structure.json
+  - type: x-json-structure
+    url: json-structure/university-of-warsaw-installation-structure.json
+  - type: x-example
+    url: examples/university-of-warsaw-installation-example.json
+  - type: x-example
+    url: examples/university-of-warsaw-now-example.json
+  - type: x-example
+    url: examples/university-of-warsaw-course-error-example.json
+  - type: x-spectral-rules
+    url: rules/university-of-warsaw-rules.yml
+  - type: x-vocabulary
+    url: vocabulary/university-of-warsaw-vocabulary.yml
+  - type: x-json-ld-context
+    url: json-ld/university-of-warsaw-context.jsonld
+- aid: university-of-warsaw:university-of-warsaw-apisrv-api
+  name: University of Warsaw apisrv API
+  description: USOS API server information and time
+  humanURL: https://usosapps.uw.edu.pl/developers/api/
+  baseURL: https://usosapps.uw.edu.pl/services/
+  tags:
+  - apisrv
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-apisrv-api-openapi.yml
+  - type: Documentation
+    url: https://usosapps.uw.edu.pl/developers/api/
+  - type: Authentication
+    url: https://usosapps.uw.edu.pl/developers/api/authorization/
+  - type: Signup
+    url: https://usosapps.uw.edu.pl/developers/
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-course-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-faculty-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-installation-schema.json
+  - type: x-json-structure
+    url: json-structure/university-of-warsaw-course-structure.json
+  - type: x-json-structure
+    url: json-structure/university-of-warsaw-installation-structure.json
+  - type: x-example
+    url: examples/university-of-warsaw-installation-example.json
+  - type: x-example
+    url: examples/university-of-warsaw-now-example.json
+  - type: x-example
+    url: examples/university-of-warsaw-course-error-example.json
+  - type: x-spectral-rules
+    url: rules/university-of-warsaw-rules.yml
+  - type: x-vocabulary
+    url: vocabulary/university-of-warsaw-vocabulary.yml
+  - type: x-json-ld-context
+    url: json-ld/university-of-warsaw-context.jsonld
+- aid: university-of-warsaw:university-of-warsaw-calendar-api
+  name: University of Warsaw calendar API
+  description: Academic calendar events
+  humanURL: https://usosapps.uw.edu.pl/developers/api/
+  baseURL: https://usosapps.uw.edu.pl/services/
+  tags:
+  - calendar
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-calendar-api-openapi.yml
+  - type: Documentation
+    url: https://usosapps.uw.edu.pl/developers/api/
+  - type: Authentication
+    url: https://usosapps.uw.edu.pl/developers/api/authorization/
+  - type: Signup
+    url: https://usosapps.uw.edu.pl/developers/
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-course-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-faculty-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-installation-schema.json
+  - type: x-json-structure
+    url: json-structure/university-of-warsaw-course-structure.json
+  - type: x-json-structure
+    url: json-structure/university-of-warsaw-installation-structure.json
+  - type: x-example
+    url: examples/university-of-warsaw-installation-example.json
+  - type: x-example
+    url: examples/university-of-warsaw-now-example.json
+  - type: x-example
+    url: examples/university-of-warsaw-course-error-example.json
+  - type: x-spectral-rules
+    url: rules/university-of-warsaw-rules.yml
+  - type: x-vocabulary
+    url: vocabulary/university-of-warsaw-vocabulary.yml
+  - type: x-json-ld-context
+    url: json-ld/university-of-warsaw-context.jsonld
+- aid: university-of-warsaw:university-of-warsaw-courses-api
+  name: University of Warsaw courses API
+  description: Courses and course editions
+  humanURL: https://usosapps.uw.edu.pl/developers/api/
+  baseURL: https://usosapps.uw.edu.pl/services/
+  tags:
+  - courses
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-courses-api-openapi.yml
+  - type: Documentation
+    url: https://usosapps.uw.edu.pl/developers/api/
+  - type: Authentication
+    url: https://usosapps.uw.edu.pl/developers/api/authorization/
+  - type: Signup
+    url: https://usosapps.uw.edu.pl/developers/
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-course-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-faculty-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-installation-schema.json
+  - type: x-json-structure
+    url: json-structure/university-of-warsaw-course-structure.json
+  - type: x-json-structure
+    url: json-structure/university-of-warsaw-installation-structure.json
+  - type: x-example
+    url: examples/university-of-warsaw-installation-example.json
+  - type: x-example
+    url: examples/university-of-warsaw-now-example.json
+  - type: x-example
+    url: examples/university-of-warsaw-course-error-example.json
+  - type: x-spectral-rules
+    url: rules/university-of-warsaw-rules.yml
+  - type: x-vocabulary
+    url: vocabulary/university-of-warsaw-vocabulary.yml
+  - type: x-json-ld-context
+    url: json-ld/university-of-warsaw-context.jsonld
+- aid: university-of-warsaw:university-of-warsaw-fac-api
+  name: University of Warsaw fac API
+  description: Faculties and organizational units
+  humanURL: https://usosapps.uw.edu.pl/developers/api/
+  baseURL: https://usosapps.uw.edu.pl/services/
+  tags:
+  - fac
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-fac-api-openapi.yml
+  - type: Documentation
+    url: https://usosapps.uw.edu.pl/developers/api/
+  - type: Authentication
+    url: https://usosapps.uw.edu.pl/developers/api/authorization/
+  - type: Signup
+    url: https://usosapps.uw.edu.pl/developers/
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-course-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-faculty-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-installation-schema.json
+  - type: x-json-structure
+    url: json-structure/university-of-warsaw-course-structure.json
+  - type: x-json-structure
+    url: json-structure/university-of-warsaw-installation-structure.json
+  - type: x-example
+    url: examples/university-of-warsaw-installation-example.json
+  - type: x-example
+    url: examples/university-of-warsaw-now-example.json
+  - type: x-example
+    url: examples/university-of-warsaw-course-error-example.json
+  - type: x-spectral-rules
+    url: rules/university-of-warsaw-rules.yml
+  - type: x-vocabulary
+    url: vocabulary/university-of-warsaw-vocabulary.yml
+  - type: x-json-ld-context
+    url: json-ld/university-of-warsaw-context.jsonld
 common:
   - type: AgenticAccess
     url: agentic-access/university-of-warsaw-agentic-access.yml
