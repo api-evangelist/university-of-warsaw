@@ -1,0 +1,22 @@
+{
+  "provider": "university-of-warsaw",
+  "sources": [
+    "university-of-warsaw-apiref-api-openapi.yml",
+    "university-of-warsaw-apisrv-api-openapi.yml",
+    "university-of-warsaw-calendar-api-openapi.yml",
+    "university-of-warsaw-courses-api-openapi.yml",
+    "university-of-warsaw-fac-api-openapi.yml"
+  ],
+  "outputs": [
+    "university-of-warsaw-apiref-api-openapi.yml",
+    "university-of-warsaw-apisrv-api-openapi.yml",
+    "university-of-warsaw-calendar-api-openapi.yml",
+    "university-of-warsaw-courses-api-openapi.yml",
+    "university-of-warsaw-fac-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

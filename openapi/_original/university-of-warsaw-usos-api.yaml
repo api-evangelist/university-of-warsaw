@@ -1,0 +1,686 @@
+openapi: 3.0.3
+info:
+  title: USOS API (University of Warsaw)
+  description: >-
+    The University of Warsaw installation of the USOS API, a REST-like protocol
+    providing access to the university's academic database. This OpenAPI 3.0
+    description was derived faithfully from the live machine-readable USOS API
+    reference (services/apiref/method_index and services/apiref/method) of the
+    Warsaw installation, covering anonymous-access methods only. Most methods
+    accept a "fields" selector (a pipe-separated list of result fields) and a
+    "format" parameter (json, jsonp, xml). Many methods returning user or
+    administrative data require OAuth 1.0a authorization and a Consumer
+    Key/Secret obtained from the USOS developers portal; those are not described
+    here. Field semantics, arguments and the error envelope shown below were
+    confirmed against live responses on 2026-06-03.
+  version: 7.3.0.0-4
+  contact:
+    name: USOS API Team (University of Warsaw)
+    url: https://usosapps.uw.edu.pl/developers/api/
+    email: dsksysadm@adm.uw.edu.pl
+  license:
+    name: USOS API Terms
+    url: https://usosapps.uw.edu.pl/developers/api/
+externalDocs:
+  description: USOS API developer documentation
+  url: https://usosapps.uw.edu.pl/developers/api/
+servers:
+  - url: https://usosapps.uw.edu.pl/services
+    description: University of Warsaw USOS API installation
+tags:
+  - name: apisrv
+    description: USOS API server information and time
+  - name: apiref
+    description: Machine-readable method reference
+  - name: courses
+    description: Courses and course editions
+  - name: fac
+    description: Faculties and organizational units
+  - name: calendar
+    description: Academic calendar events
+paths:
+  /apisrv/now:
+    get:
+      tags: [apisrv]
+      operationId: getNow
+      summary: Get current USOS API time
+      description: >-
+        Get the current USOS API server local time. Returns a DateTime string
+        (yyyy-mm-dd hh:mm:ss.dddddd). Anonymous access; consumer and token are
+        ignored.
+      externalDocs:
+        url: https://usosapps.uw.edu.pl/developers/api/services/apisrv/#now
+      parameters:
+        - $ref: '#/components/parameters/format'
+        - $ref: '#/components/parameters/callback'
+      responses:
+        '200':
+          description: Current server time as a DateTime string.
+          content:
+            application/json:
+              schema:
+                type: string
+                example: '2026-06-04 05:26:17.217315'
+  /apisrv/installation:
+    get:
+      tags: [apisrv]
+      operationId: getInstallation
+      summary: Get information on this USOS API installation
+      description: >-
+        Get basic information on this USOS API installation. Anonymous access;
+        consumer and token are ignored.
+      externalDocs:
+        url: https://usosapps.uw.edu.pl/developers/api/services/apisrv/#installation
+      parameters:
+        - name: fields
+          in: query
+          required: false
+          description: >-
+            Pipe-separated selector of result fields. Defaults to
+            base_url|version|machine_version|usos_schema_version|institution_name|contact_emails.
+          schema:
+            type: string
+            default: base_url|version|machine_version|usos_schema_version|institution_name|contact_emails
+        - $ref: '#/components/parameters/format'
+        - $ref: '#/components/parameters/callback'
+      responses:
+        '200':
+          description: A dictionary of the selected installation fields.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Installation'
+        '400':
+          $ref: '#/components/responses/Error'
+  /apiref/method_index:
+    get:
+      tags: [apiref]
+      operationId: getMethodIndex
+      summary: List all available USOS API methods
+      description: >-
+        Returns a list of all methods available in this installation, each with
+        a name and a brief description. Anonymous access.
+      externalDocs:
+        url: https://usosapps.uw.edu.pl/developers/api/services/apiref/#method_index
+      parameters:
+        - $ref: '#/components/parameters/format'
+        - $ref: '#/components/parameters/callback'
+      responses:
+        '200':
+          description: List of method index entries.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MethodIndexEntry'
+  /apiref/method:
+    get:
+      tags: [apiref]
+      operationId: getMethod
+      summary: Get the reference for a single USOS API method
+      description: >-
+        Returns the machine-readable reference for a single method, including
+        its arguments, returned fields, authentication options and errors.
+        Anonymous access.
+      externalDocs:
+        url: https://usosapps.uw.edu.pl/developers/api/services/apiref/#method
+      parameters:
+        - name: name
+          in: query
+          required: true
+          description: Full method name, e.g. services/courses/course.
+          schema:
+            type: string
+            example: services/courses/course
+        - name: fields
+          in: query
+          required: false
+          description: >-
+            Pipe-separated selector of reference fields, e.g.
+            name|brief_description|arguments|result_fields.
+          schema:
+            type: string
+        - $ref: '#/components/parameters/format'
+        - $ref: '#/components/parameters/callback'
+      responses:
+        '200':
+          description: Method reference object.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MethodReference'
+        '400':
+          $ref: '#/components/responses/Error'
+  /courses/course:
+    get:
+      tags: [courses]
+      operationId: getCourse
+      summary: Get information on a given course
+      description: >-
+        Get information on one or more courses by ID. Anonymous access;
+        consumer and token are ignored.
+      externalDocs:
+        url: https://usosapps.uw.edu.pl/developers/api/services/courses/#course
+      parameters:
+        - name: course_id
+          in: query
+          required: true
+          description: Pipe-separated list of course IDs.
+          schema:
+            type: string
+        - name: fields
+          in: query
+          required: false
+          description: Pipe-separated selector of result fields.
+          schema:
+            type: string
+            default: id|name
+        - $ref: '#/components/parameters/format'
+        - $ref: '#/components/parameters/callback'
+      responses:
+        '200':
+          description: A dictionary of selected course fields and their values.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Course'
+        '400':
+          $ref: '#/components/responses/Error'
+  /courses/course_edition:
+    get:
+      tags: [courses]
+      operationId: getCourseEdition
+      summary: Get information on a course edition
+      description: >-
+        Get information on a single edition of a course (a course conducted in a
+        specific academic term).
+      externalDocs:
+        url: https://usosapps.uw.edu.pl/developers/api/services/courses/#course_edition
+      parameters:
+        - name: course_id
+          in: query
+          required: true
+          description: ID of the course.
+          schema:
+            type: string
+        - name: term_id
+          in: query
+          required: true
+          description: ID of the academic term.
+          schema:
+            type: string
+        - name: fields
+          in: query
+          required: false
+          description: Pipe-separated selector of result fields.
+          schema:
+            type: string
+        - $ref: '#/components/parameters/format'
+        - $ref: '#/components/parameters/callback'
+      responses:
+        '200':
+          description: A dictionary of selected course-edition fields.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CourseEdition'
+        '400':
+          $ref: '#/components/responses/Error'
+  /fac/faculty:
+    get:
+      tags: [fac]
+      operationId: getFaculty
+      summary: Get information on a faculty (organizational unit)
+      description: >-
+        Get information on a single faculty / organizational unit by ID.
+        Anonymous access.
+      externalDocs:
+        url: https://usosapps.uw.edu.pl/developers/api/services/fac/#faculty
+      parameters:
+        - name: fac_id
+          in: query
+          required: true
+          description: ID of the faculty.
+          schema:
+            type: string
+        - name: fields
+          in: query
+          required: false
+          description: Pipe-separated selector of result fields.
+          schema:
+            type: string
+            default: id|name
+        - $ref: '#/components/parameters/format'
+        - $ref: '#/components/parameters/callback'
+      responses:
+        '200':
+          description: A dictionary of selected faculty fields.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Faculty'
+        '400':
+          $ref: '#/components/responses/Error'
+  /calendar/search:
+    get:
+      tags: [calendar]
+      operationId: searchCalendar
+      summary: Search academic calendar events
+      description: >-
+        Search calendar events, optionally filtered by faculty and date range.
+        Returns a list of calendar event objects.
+      externalDocs:
+        url: https://usosapps.uw.edu.pl/developers/api/services/calendar/#search
+      parameters:
+        - name: faculty_id
+          in: query
+          required: false
+          description: ID of a faculty to filter events by.
+          schema:
+            type: string
+        - name: start_date
+          in: query
+          required: false
+          description: Start of the date range (yyyy-mm-dd).
+          schema:
+            type: string
+            format: date
+        - name: end_date
+          in: query
+          required: false
+          description: End of the date range (yyyy-mm-dd).
+          schema:
+            type: string
+            format: date
+        - name: fields
+          in: query
+          required: false
+          description: Pipe-separated selector of result fields.
+          schema:
+            type: string
+        - $ref: '#/components/parameters/format'
+        - $ref: '#/components/parameters/callback'
+      responses:
+        '200':
+          description: List of calendar event objects.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CalendarEvent'
+        '400':
+          $ref: '#/components/responses/Error'
+components:
+  parameters:
+    format:
+      name: format
+      in: query
+      required: false
+      description: >-
+        Output format. See supported output formats in the USOS API datatypes
+        documentation.
+      schema:
+        type: string
+        enum: [json, jsonp, xml]
+        default: json
+    callback:
+      name: callback
+      in: query
+      required: false
+      description: Required only if jsonp is chosen as the return format.
+      schema:
+        type: string
+  responses:
+    Error:
+      description: USOS API error envelope.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    LangDict:
+      type: object
+      description: >-
+        A language dictionary mapping ISO language codes to localized strings,
+        as used throughout the USOS API.
+      properties:
+        pl:
+          type: string
+          description: Polish-language value.
+        en:
+          type: string
+          description: English-language value.
+      example:
+        pl: Uniwersytet Warszawski
+        en: The University of Warsaw
+    Installation:
+      type: object
+      description: Information on a USOS API installation.
+      properties:
+        base_url:
+          type: string
+          description: >-
+            Base URL of this installation. For backward compatibility this
+            always starts with http://, but https:// should be used.
+        version:
+          type: string
+          description: Human-readable version string (undocumented structure).
+        machine_version:
+          type: string
+          description: Machine-readable version in 0.0.0.0-0 format.
+          pattern: '^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+-[0-9]+$'
+        usos_schema_version:
+          type: string
+          description: Version of the USOS database used by this installation.
+        institution_name:
+          allOf:
+            - $ref: '#/components/schemas/LangDict'
+          nullable: true
+          description: Name of the owning institution, or null if unknown.
+        institution:
+          allOf:
+            - $ref: '#/components/schemas/Faculty'
+          description: The primary faculty object for this institution.
+        contact_emails:
+          type: array
+          description: Email addresses of local USOS API administrators.
+          items:
+            type: string
+            format: email
+        schac_id:
+          type: string
+          description: Unique institution ID in SCHAC format (primary domain name).
+        mcards_support:
+          type: boolean
+          description: True if mCards (mLegitymacje) are supported.
+        mobile_usos_support:
+          type: boolean
+          description: True if Mobile USOS is supported.
+    MethodIndexEntry:
+      type: object
+      description: A single entry in the method index.
+      properties:
+        name:
+          type: string
+          description: Full method name, e.g. services/courses/course.
+        brief_description:
+          type: string
+          description: Short description of the method.
+    MethodReference:
+      type: object
+      description: Machine-readable reference for a single method.
+      properties:
+        name:
+          type: string
+        brief_description:
+          type: string
+        description:
+          type: string
+        ref_url:
+          type: string
+          format: uri
+        auth_options:
+          $ref: '#/components/schemas/AuthOptions'
+        arguments:
+          type: array
+          items:
+            $ref: '#/components/schemas/MethodArgument'
+        returns:
+          type: string
+        errors:
+          type: string
+        result_fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResultField'
+    AuthOptions:
+      type: object
+      description: Authentication requirements for a method.
+      properties:
+        consumer:
+          type: string
+          description: Consumer requirement (e.g. ignored, required, optional).
+        token:
+          type: string
+          description: Token requirement (e.g. ignored, required, optional).
+        administrative_only:
+          type: boolean
+        ssl_required:
+          type: boolean
+        scopes:
+          type: array
+          items:
+            type: string
+    MethodArgument:
+      type: object
+      properties:
+        name:
+          type: string
+        is_required:
+          type: boolean
+        is_deprecated:
+          type: boolean
+        type:
+          type: string
+        default_value:
+          type: string
+          nullable: true
+        description:
+          type: string
+    ResultField:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        is_primary:
+          type: boolean
+        is_secondary:
+          type: boolean
+    Course:
+      type: object
+      description: A University of Warsaw course.
+      properties:
+        id:
+          type: string
+          description: ID of the course.
+        name:
+          allOf:
+            - $ref: '#/components/schemas/LangDict'
+          description: A LangDict object with the course's name.
+        homepage_url:
+          type: string
+          format: uri
+          nullable: true
+          description: Course's homepage URL, or null if none.
+        profile_url:
+          type: string
+          format: uri
+          description: Course's USOSweb profile URL.
+        is_currently_conducted:
+          type: boolean
+          description: Indicates if the course is conducted in an active academic term.
+        terms:
+          type: array
+          description: >-
+            List of academic terms the course was conducted in (newest to
+            oldest). Currently only the term id is returned.
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+        fac_id:
+          type: string
+          description: ID of the faculty which runs this course.
+        lang_id:
+          type: string
+          nullable: true
+          description: ID of the language the course is conducted in, or null if unknown.
+        ects_credits_simplified:
+          type: number
+          format: float
+          nullable: true
+          description: >-
+            Number of ECTS credits usually rewarded for completing this course,
+            or null if unknown. This value is approximate and should not be
+            fully trusted.
+        description:
+          allOf:
+            - $ref: '#/components/schemas/LangDict'
+          description: A LangDict object (secondary field).
+        bibliography:
+          allOf:
+            - $ref: '#/components/schemas/LangDict'
+          description: A LangDict object (secondary field).
+        learning_outcomes:
+          allOf:
+            - $ref: '#/components/schemas/LangDict'
+          description: A LangDict object (secondary field).
+        assessment_criteria:
+          allOf:
+            - $ref: '#/components/schemas/LangDict'
+          description: A LangDict object (secondary field).
+        practical_placement:
+          allOf:
+            - $ref: '#/components/schemas/LangDict'
+          description: A LangDict object (secondary field).
+    CourseEdition:
+      type: object
+      description: An edition of a course conducted in a specific academic term.
+      properties:
+        course_id:
+          type: string
+        course_name:
+          $ref: '#/components/schemas/LangDict'
+        term_id:
+          type: string
+        homepage_url:
+          type: string
+          format: uri
+          nullable: true
+        profile_url:
+          type: string
+          format: uri
+        coordinators:
+          type: array
+          items:
+            type: object
+        lecturers:
+          type: array
+          items:
+            type: object
+        passing_status:
+          type: string
+          nullable: true
+        user_groups:
+          type: array
+          items:
+            type: object
+        description:
+          $ref: '#/components/schemas/LangDict'
+        bibliography:
+          $ref: '#/components/schemas/LangDict'
+        notes:
+          type: string
+          nullable: true
+    Faculty:
+      type: object
+      description: A faculty or organizational unit.
+      properties:
+        id:
+          type: string
+          description: The ID of the faculty.
+        name:
+          allOf:
+            - $ref: '#/components/schemas/LangDict'
+          description: A LangDict object with the name of the faculty.
+        profile_url:
+          type: string
+          format: uri
+          description: Faculty's USOSweb URL.
+        homepage_url:
+          type: string
+          format: uri
+          nullable: true
+          description: Faculty's home page URL.
+        phone_numbers:
+          type: array
+          description: List of phone number strings (undocumented format).
+          items:
+            type: string
+        phone_numbers2:
+          type: array
+          description: List of structured phone number objects.
+          items:
+            type: object
+            properties:
+              comment:
+                type: string
+                nullable: true
+              number:
+                type: string
+              type:
+                type: string
+        postal_address:
+          type: string
+          nullable: true
+          description: Short plain-text postal address, or null if unknown.
+        email:
+          type: string
+          format: email
+          nullable: true
+          description: Faculty's email address.
+        is_public:
+          type: boolean
+          description: Whether the faculty is public.
+    CalendarEvent:
+      type: object
+      description: An academic calendar event.
+      properties:
+        start_date:
+          type: string
+          format: date
+        end_date:
+          type: string
+          format: date
+        name:
+          $ref: '#/components/schemas/LangDict'
+        type:
+          type: string
+        is_day_off:
+          type: boolean
+    Error:
+      type: object
+      description: >-
+        Error envelope returned by USOS API methods (confirmed against live
+        responses, e.g. an unknown course_id returns object_not_found).
+      properties:
+        message:
+          type: string
+          description: Human-readable error message.
+        error:
+          type: string
+          description: Machine-readable error code, e.g. object_not_found.
+        reason:
+          type: string
+          description: Additional reason detail, e.g. the offending object type.
+      example:
+        message: Referenced course does not exist.
+        error: object_not_found
+        reason: course
+  securitySchemes:
+    oauth1a:
+      type: apiKey
+      in: query
+      name: oauth_token
+      description: >-
+        USOS API uses OAuth 1.0a for authorized methods. A Consumer Key/Secret
+        is obtained from the USOS developers portal
+        (https://usosapps.uw.edu.pl/developers/), and an access token is
+        obtained via the OAuth flow documented at
+        https://usosapps.uw.edu.pl/developers/api/authorization/. The methods
+        described in this file are anonymous and do not require it.
