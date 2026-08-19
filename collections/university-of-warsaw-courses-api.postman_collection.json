@@ -1,0 +1,380 @@
+{
+  "item": [
+    {
+      "id": "8ddd8823-86c2-405a-be4d-bce2511430df",
+      "name": "courses",
+      "description": {
+        "content": "Courses and course editions",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c67a0d1f-b66f-4311-b0a8-33e91269e653",
+          "name": "Get information on a given course",
+          "request": {
+            "name": "Get information on a given course",
+            "description": {
+              "content": "Get information on one or more courses by ID. Anonymous access; consumer and token are ignored.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "courses",
+                "course"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "course_id",
+                  "value": "<string>",
+                  "description": "(Required) Pipe-separated list of course IDs."
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "id|name",
+                  "description": "Pipe-separated selector of result fields."
+                },
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "json",
+                  "description": "Output format. See supported output formats in the USOS API datatypes documentation."
+                },
+                {
+                  "disabled": false,
+                  "key": "callback",
+                  "value": "<string>",
+                  "description": "Required only if jsonp is chosen as the return format."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "49075d17-9772-46a4-b0d9-7d63541a0df8",
+              "name": "A dictionary of selected course fields and their values.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "courses",
+                    "course"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "course_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "id|name"
+                    },
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "callback",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"name\": {\n    \"pl\": \"Uniwersytet Warszawski\",\n    \"en\": \"The University of Warsaw\"\n  },\n  \"homepage_url\": \"https://IVbXdnGZ.qydu6-CH7DTaCjSJNg-vtmKVwT\",\n  \"profile_url\": \"http://ZBNBWgeKJuuEEwVgixQjV.wncYRFurnOHC9FYGHh1sf4Dt1\",\n  \"is_currently_conducted\": false,\n  \"terms\": [\n    {\n      \"id\": \"string\"\n    },\n    {\n      \"id\": \"string\"\n    }\n  ],\n  \"fac_id\": \"string\",\n  \"lang_id\": \"string\",\n  \"ects_credits_simplified\": 8398.946308031804,\n  \"description\": {\n    \"pl\": \"Uniwersytet Warszawski\",\n    \"en\": \"The University of Warsaw\"\n  },\n  \"bibliography\": {\n    \"pl\": \"Uniwersytet Warszawski\",\n    \"en\": \"The University of Warsaw\"\n  },\n  \"learning_outcomes\": {\n    \"pl\": \"Uniwersytet Warszawski\",\n    \"en\": \"The University of Warsaw\"\n  },\n  \"assessment_criteria\": {\n    \"pl\": \"Uniwersytet Warszawski\",\n    \"en\": \"The University of Warsaw\"\n  },\n  \"practical_placement\": {\n    \"pl\": \"Uniwersytet Warszawski\",\n    \"en\": \"The University of Warsaw\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4ca773cb-1195-4908-ac06-95dafb50b831",
+              "name": "USOS API error envelope.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "courses",
+                    "course"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "course_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "id|name"
+                    },
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "callback",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Referenced course does not exist.\",\n  \"error\": \"object_not_found\",\n  \"reason\": \"course\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6da8d4f1-1451-4f60-ad79-0bd0be922e80",
+          "name": "Get information on a course edition",
+          "request": {
+            "name": "Get information on a course edition",
+            "description": {
+              "content": "Get information on a single edition of a course (a course conducted in a specific academic term).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "courses",
+                "course_edition"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "course_id",
+                  "value": "<string>",
+                  "description": "(Required) ID of the course."
+                },
+                {
+                  "disabled": false,
+                  "key": "term_id",
+                  "value": "<string>",
+                  "description": "(Required) ID of the academic term."
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Pipe-separated selector of result fields."
+                },
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "json",
+                  "description": "Output format. See supported output formats in the USOS API datatypes documentation."
+                },
+                {
+                  "disabled": false,
+                  "key": "callback",
+                  "value": "<string>",
+                  "description": "Required only if jsonp is chosen as the return format."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "55922d6a-62a3-4bf1-9ec9-7068938ee99b",
+              "name": "A dictionary of selected course-edition fields.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "courses",
+                    "course_edition"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "course_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "term_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "callback",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"course_id\": \"string\",\n  \"course_name\": {\n    \"pl\": \"Uniwersytet Warszawski\",\n    \"en\": \"The University of Warsaw\"\n  },\n  \"term_id\": \"string\",\n  \"homepage_url\": \"http://NGjtXRTSLbgQq.lfmmrPiIhwfRQFpLP+kDRc7bsy-kKoTIZe0ShnTA2yfu0G9gvaz,UvkQ2+SdXl1wwJsV89\",\n  \"profile_url\": \"http://lOgleUOIWrKdRdwlhwOGoOorG.gfibJvG,nTVK4.vesCXnOf83KhXBdSakI1q7IYwWfq\",\n  \"passing_status\": \"string\",\n  \"description\": {\n    \"pl\": \"Uniwersytet Warszawski\",\n    \"en\": \"The University of Warsaw\"\n  },\n  \"bibliography\": {\n    \"pl\": \"Uniwersytet Warszawski\",\n    \"en\": \"The University of Warsaw\"\n  },\n  \"notes\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "53654078-1d6f-442e-93d5-3916cd97145c",
+              "name": "USOS API error envelope.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "courses",
+                    "course_edition"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "course_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "term_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "callback",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Referenced course does not exist.\",\n  \"error\": \"object_not_found\",\n  \"reason\": \"course\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://usosapps.uw.edu.pl/services",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "8dc9695e-0b7b-403a-b780-05b124bce05d",
+    "name": "USOS API (University of Warsaw) apiref courses API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The University of Warsaw installation of the USOS API, a REST-like protocol providing access to the university's academic database. This OpenAPI 3.0 description was derived faithfully from the live machine-readable USOS API reference (services/apiref/method_index and services/apiref/method) of the Warsaw installation, covering anonymous-access methods only. Most methods accept a \"fields\" selector (a pipe-separated list of result fields) and a \"format\" parameter (json, jsonp, xml). Many methods returning user or administrative data require OAuth 1.0a authorization and a Consumer Key/Secret obtained from the USOS developers portal; those are not described here. Field semantics, arguments and the error envelope shown below were confirmed against live responses on 2026-06-03.\n\nContact Support:\n Name: USOS API Team (University of Warsaw)\n Email: dsksysadm@adm.uw.edu.pl",
+      "type": "text/plain"
+    }
+  }
+}

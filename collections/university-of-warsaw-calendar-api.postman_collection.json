@@ -1,0 +1,227 @@
+{
+  "item": [
+    {
+      "id": "355782f2-ccb1-428e-b028-08ca8c8c524e",
+      "name": "calendar",
+      "description": {
+        "content": "Academic calendar events",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "24e8e2cf-2c59-409f-8dc0-4d1f7881a95b",
+          "name": "Search academic calendar events",
+          "request": {
+            "name": "Search academic calendar events",
+            "description": {
+              "content": "Search calendar events, optionally filtered by faculty and date range. Returns a list of calendar event objects.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "calendar",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "faculty_id",
+                  "value": "<string>",
+                  "description": "ID of a faculty to filter events by."
+                },
+                {
+                  "disabled": false,
+                  "key": "start_date",
+                  "value": "<date>",
+                  "description": "Start of the date range (yyyy-mm-dd)."
+                },
+                {
+                  "disabled": false,
+                  "key": "end_date",
+                  "value": "<date>",
+                  "description": "End of the date range (yyyy-mm-dd)."
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Pipe-separated selector of result fields."
+                },
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "json",
+                  "description": "Output format. See supported output formats in the USOS API datatypes documentation."
+                },
+                {
+                  "disabled": false,
+                  "key": "callback",
+                  "value": "<string>",
+                  "description": "Required only if jsonp is chosen as the return format."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "515e0950-c06e-4eea-bbed-76bc69e5c8e1",
+              "name": "List of calendar event objects.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "calendar",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "faculty_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "callback",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"start_date\": \"2021-03-31\",\n    \"end_date\": \"2013-04-11\",\n    \"name\": {\n      \"pl\": \"Uniwersytet Warszawski\",\n      \"en\": \"The University of Warsaw\"\n    },\n    \"type\": \"string\",\n    \"is_day_off\": false\n  },\n  {\n    \"start_date\": \"1954-08-03\",\n    \"end_date\": \"2017-08-02\",\n    \"name\": {\n      \"pl\": \"Uniwersytet Warszawski\",\n      \"en\": \"The University of Warsaw\"\n    },\n    \"type\": \"string\",\n    \"is_day_off\": false\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "30c96d2f-1608-490e-9611-0453782009f3",
+              "name": "USOS API error envelope.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "calendar",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "faculty_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "callback",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Referenced course does not exist.\",\n  \"error\": \"object_not_found\",\n  \"reason\": \"course\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://usosapps.uw.edu.pl/services",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "b92eab82-023a-4b9e-9af6-ecb9bdf3a6a5",
+    "name": "USOS API (University of Warsaw) apiref calendar API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The University of Warsaw installation of the USOS API, a REST-like protocol providing access to the university's academic database. This OpenAPI 3.0 description was derived faithfully from the live machine-readable USOS API reference (services/apiref/method_index and services/apiref/method) of the Warsaw installation, covering anonymous-access methods only. Most methods accept a \"fields\" selector (a pipe-separated list of result fields) and a \"format\" parameter (json, jsonp, xml). Many methods returning user or administrative data require OAuth 1.0a authorization and a Consumer Key/Secret obtained from the USOS developers portal; those are not described here. Field semantics, arguments and the error envelope shown below were confirmed against live responses on 2026-06-03.\n\nContact Support:\n Name: USOS API Team (University of Warsaw)\n Email: dsksysadm@adm.uw.edu.pl",
+      "type": "text/plain"
+    }
+  }
+}

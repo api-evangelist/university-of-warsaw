@@ -1,0 +1,199 @@
+{
+  "item": [
+    {
+      "id": "cfbf315e-c652-4cd0-a6c0-bc9fa1b9480a",
+      "name": "fac",
+      "description": {
+        "content": "Faculties and organizational units",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a455e90e-3d7b-4bce-b45d-9348276f6078",
+          "name": "Get information on a faculty (organizational unit)",
+          "request": {
+            "name": "Get information on a faculty (organizational unit)",
+            "description": {
+              "content": "Get information on a single faculty / organizational unit by ID. Anonymous access.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "fac",
+                "faculty"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fac_id",
+                  "value": "<string>",
+                  "description": "(Required) ID of the faculty."
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "id|name",
+                  "description": "Pipe-separated selector of result fields."
+                },
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "json",
+                  "description": "Output format. See supported output formats in the USOS API datatypes documentation."
+                },
+                {
+                  "disabled": false,
+                  "key": "callback",
+                  "value": "<string>",
+                  "description": "Required only if jsonp is chosen as the return format."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3ac41afd-b9bf-46f2-b0ec-3b2e73755d4d",
+              "name": "A dictionary of selected faculty fields.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fac",
+                    "faculty"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fac_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "id|name"
+                    },
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "callback",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"name\": {\n    \"pl\": \"Uniwersytet Warszawski\",\n    \"en\": \"The University of Warsaw\"\n  },\n  \"profile_url\": \"http://ElHwFBCmXNFWxnUiQsdtneVL.utmngMshrAWuPSLhjcCkj8mBfeJVGiOesKCgLkzoe5RurRUVT76ASXoM2jFUf,KAZIksPlsE\",\n  \"homepage_url\": \"https://pJLQkSVIKhxFrOGfCO.mpyR0OWDOoJsCZKblUbtZbLy2EinVGmK2\",\n  \"phone_numbers\": [\n    \"string\",\n    \"string\"\n  ],\n  \"phone_numbers2\": [\n    {\n      \"comment\": \"string\",\n      \"number\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"comment\": \"string\",\n      \"number\": \"string\",\n      \"type\": \"string\"\n    }\n  ],\n  \"postal_address\": \"string\",\n  \"email\": \"2HJxlDSwjFL0Nou@KrjDYRwTOk.ltrf\",\n  \"is_public\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "49fefbc0-c103-4fc3-ba38-4aee4aaf22cf",
+              "name": "USOS API error envelope.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fac",
+                    "faculty"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fac_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "id|name"
+                    },
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "callback",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Referenced course does not exist.\",\n  \"error\": \"object_not_found\",\n  \"reason\": \"course\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://usosapps.uw.edu.pl/services",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "7c7042b7-efd2-4683-bf20-0b07ecb701e6",
+    "name": "USOS API (University of Warsaw) apiref fac API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The University of Warsaw installation of the USOS API, a REST-like protocol providing access to the university's academic database. This OpenAPI 3.0 description was derived faithfully from the live machine-readable USOS API reference (services/apiref/method_index and services/apiref/method) of the Warsaw installation, covering anonymous-access methods only. Most methods accept a \"fields\" selector (a pipe-separated list of result fields) and a \"format\" parameter (json, jsonp, xml). Many methods returning user or administrative data require OAuth 1.0a authorization and a Consumer Key/Secret obtained from the USOS developers portal; those are not described here. Field semantics, arguments and the error envelope shown below were confirmed against live responses on 2026-06-03.\n\nContact Support:\n Name: USOS API Team (University of Warsaw)\n Email: dsksysadm@adm.uw.edu.pl",
+      "type": "text/plain"
+    }
+  }
+}

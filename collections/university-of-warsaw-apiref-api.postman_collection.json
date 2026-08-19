@@ -1,0 +1,293 @@
+{
+  "item": [
+    {
+      "id": "f328095b-5f29-4134-a8ae-2dd2eac75fb3",
+      "name": "apiref",
+      "description": {
+        "content": "Machine-readable method reference",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "15fe2f1b-41f6-4574-b3b1-348faef89a5e",
+          "name": "List all available USOS API methods",
+          "request": {
+            "name": "List all available USOS API methods",
+            "description": {
+              "content": "Returns a list of all methods available in this installation, each with a name and a brief description. Anonymous access.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "apiref",
+                "method_index"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "json",
+                  "description": "Output format. See supported output formats in the USOS API datatypes documentation."
+                },
+                {
+                  "disabled": false,
+                  "key": "callback",
+                  "value": "<string>",
+                  "description": "Required only if jsonp is chosen as the return format."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9952e891-da46-4d77-b717-bdf88f99952b",
+              "name": "List of method index entries.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apiref",
+                    "method_index"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "callback",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"name\": \"string\",\n    \"brief_description\": \"string\"\n  },\n  {\n    \"name\": \"string\",\n    \"brief_description\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c5b04080-aa2e-4e1c-b0f7-f7f9f5894438",
+          "name": "Get the reference for a single USOS API method",
+          "request": {
+            "name": "Get the reference for a single USOS API method",
+            "description": {
+              "content": "Returns the machine-readable reference for a single method, including its arguments, returned fields, authentication options and errors. Anonymous access.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "apiref",
+                "method"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>",
+                  "description": "(Required) Full method name, e.g. services/courses/course."
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Pipe-separated selector of reference fields, e.g. name|brief_description|arguments|result_fields."
+                },
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "json",
+                  "description": "Output format. See supported output formats in the USOS API datatypes documentation."
+                },
+                {
+                  "disabled": false,
+                  "key": "callback",
+                  "value": "<string>",
+                  "description": "Required only if jsonp is chosen as the return format."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8a6ac3ed-87e0-4091-baf1-8ce11b23f89f",
+              "name": "Method reference object.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apiref",
+                    "method"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "name",
+                      "value": "services/courses/course"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "callback",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"string\",\n  \"brief_description\": \"string\",\n  \"description\": \"string\",\n  \"ref_url\": \"http://NtcLLTO.inap+KhksHA1xITbta5mO+2TWLAC\",\n  \"auth_options\": {\n    \"consumer\": \"string\",\n    \"token\": \"string\",\n    \"administrative_only\": false,\n    \"ssl_required\": true,\n    \"scopes\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  \"arguments\": [\n    {\n      \"name\": \"string\",\n      \"is_required\": false,\n      \"is_deprecated\": false,\n      \"type\": \"string\",\n      \"default_value\": \"string\",\n      \"description\": \"string\"\n    },\n    {\n      \"name\": \"string\",\n      \"is_required\": true,\n      \"is_deprecated\": false,\n      \"type\": \"string\",\n      \"default_value\": \"string\",\n      \"description\": \"string\"\n    }\n  ],\n  \"returns\": \"string\",\n  \"errors\": \"string\",\n  \"result_fields\": [\n    {\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"is_primary\": true,\n      \"is_secondary\": false\n    },\n    {\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"is_primary\": false,\n      \"is_secondary\": false\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "acfabdad-d9ee-4bd9-8a5d-996e9877cc6a",
+              "name": "USOS API error envelope.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apiref",
+                    "method"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "name",
+                      "value": "services/courses/course"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "callback",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Referenced course does not exist.\",\n  \"error\": \"object_not_found\",\n  \"reason\": \"course\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://usosapps.uw.edu.pl/services",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "d294638a-35a8-45f2-a2d8-30ed3692905f",
+    "name": "USOS API (University of Warsaw) apiref API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The University of Warsaw installation of the USOS API, a REST-like protocol providing access to the university's academic database. This OpenAPI 3.0 description was derived faithfully from the live machine-readable USOS API reference (services/apiref/method_index and services/apiref/method) of the Warsaw installation, covering anonymous-access methods only. Most methods accept a \"fields\" selector (a pipe-separated list of result fields) and a \"format\" parameter (json, jsonp, xml). Many methods returning user or administrative data require OAuth 1.0a authorization and a Consumer Key/Secret obtained from the USOS developers portal; those are not described here. Field semantics, arguments and the error envelope shown below were confirmed against live responses on 2026-06-03.\n\nContact Support:\n Name: USOS API Team (University of Warsaw)\n Email: dsksysadm@adm.uw.edu.pl",
+      "type": "text/plain"
+    }
+  }
+}

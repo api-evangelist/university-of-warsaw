@@ -1,0 +1,279 @@
+{
+  "item": [
+    {
+      "id": "6951c0a2-3078-4ecf-acfa-e57b0c9f9b5d",
+      "name": "apisrv",
+      "description": {
+        "content": "USOS API server information and time",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "4a6af58e-5829-4905-80df-29fed5232c8d",
+          "name": "Get current USOS API time",
+          "request": {
+            "name": "Get current USOS API time",
+            "description": {
+              "content": "Get the current USOS API server local time. Returns a DateTime string (yyyy-mm-dd hh:mm:ss.dddddd). Anonymous access; consumer and token are ignored.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "apisrv",
+                "now"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "json",
+                  "description": "Output format. See supported output formats in the USOS API datatypes documentation."
+                },
+                {
+                  "disabled": false,
+                  "key": "callback",
+                  "value": "<string>",
+                  "description": "Required only if jsonp is chosen as the return format."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9ec34bcb-7c28-42a4-8f5b-784a6395ae27",
+              "name": "Current server time as a DateTime string.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apisrv",
+                    "now"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "callback",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"2026-06-04 05:26:17.217315\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d4ec4bcf-8c6b-4c71-b379-4ec82896294a",
+          "name": "Get information on this USOS API installation",
+          "request": {
+            "name": "Get information on this USOS API installation",
+            "description": {
+              "content": "Get basic information on this USOS API installation. Anonymous access; consumer and token are ignored.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "apisrv",
+                "installation"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "base_url|version|machine_version|usos_schema_version|institution_name|contact_emails",
+                  "description": "Pipe-separated selector of result fields. Defaults to base_url|version|machine_version|usos_schema_version|institution_name|contact_emails."
+                },
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "json",
+                  "description": "Output format. See supported output formats in the USOS API datatypes documentation."
+                },
+                {
+                  "disabled": false,
+                  "key": "callback",
+                  "value": "<string>",
+                  "description": "Required only if jsonp is chosen as the return format."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a3d84b37-d5bb-42cb-8b25-7a1ad4079a7d",
+              "name": "A dictionary of the selected installation fields.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apisrv",
+                    "installation"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "base_url|version|machine_version|usos_schema_version|institution_name|contact_emails"
+                    },
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "callback",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"base_url\": \"string\",\n  \"version\": \"string\",\n  \"machine_version\": \"596016.25339.62.66434-6270521588\",\n  \"usos_schema_version\": \"string\",\n  \"institution_name\": {\n    \"pl\": \"Uniwersytet Warszawski\",\n    \"en\": \"The University of Warsaw\"\n  },\n  \"institution\": {\n    \"id\": \"string\",\n    \"name\": {\n      \"pl\": \"Uniwersytet Warszawski\",\n      \"en\": \"The University of Warsaw\"\n    },\n    \"profile_url\": \"http://soPievpu.iyekskKcFrbJb2NgROfi\",\n    \"homepage_url\": \"https://CoYSxQqxXzRwVLeVcarDDpZVC.ivhoEHLD.VEX.YLMK\",\n    \"phone_numbers\": [\n      \"string\",\n      \"string\"\n    ],\n    \"phone_numbers2\": [\n      {\n        \"comment\": \"string\",\n        \"number\": \"string\",\n        \"type\": \"string\"\n      },\n      {\n        \"comment\": \"string\",\n        \"number\": \"string\",\n        \"type\": \"string\"\n      }\n    ],\n    \"postal_address\": \"string\",\n    \"email\": \"E-9j@uJrFr.ha\",\n    \"is_public\": false\n  },\n  \"contact_emails\": [\n    \"odcM8GOB@jvrfaqX.jvl\",\n    \"suRp8M0treZ2Yv@LXvLNYqfHqMP.vgki\"\n  ],\n  \"schac_id\": \"string\",\n  \"mcards_support\": true,\n  \"mobile_usos_support\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2c488aa6-3ad2-4628-893a-c21dedc0d2c6",
+              "name": "USOS API error envelope.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apisrv",
+                    "installation"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "base_url|version|machine_version|usos_schema_version|institution_name|contact_emails"
+                    },
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "callback",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Referenced course does not exist.\",\n  \"error\": \"object_not_found\",\n  \"reason\": \"course\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://usosapps.uw.edu.pl/services",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "55d73c5d-ad23-4064-ae33-7d0b67fc4595",
+    "name": "USOS API (University of Warsaw) apiref apisrv API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The University of Warsaw installation of the USOS API, a REST-like protocol providing access to the university's academic database. This OpenAPI 3.0 description was derived faithfully from the live machine-readable USOS API reference (services/apiref/method_index and services/apiref/method) of the Warsaw installation, covering anonymous-access methods only. Most methods accept a \"fields\" selector (a pipe-separated list of result fields) and a \"format\" parameter (json, jsonp, xml). Many methods returning user or administrative data require OAuth 1.0a authorization and a Consumer Key/Secret obtained from the USOS developers portal; those are not described here. Field semantics, arguments and the error envelope shown below were confirmed against live responses on 2026-06-03.\n\nContact Support:\n Name: USOS API Team (University of Warsaw)\n Email: dsksysadm@adm.uw.edu.pl",
+      "type": "text/plain"
+    }
+  }
+}

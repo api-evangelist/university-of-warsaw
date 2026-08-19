@@ -1,0 +1,80 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "USOS API (University of Warsaw) apiref API",
+    "version": "7.3.0.0-4"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "apiref",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all available USOS API methods",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://usosapps.uw.edu.pl/services/apiref/method_index",
+            "params": [
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Output format. See supported output formats in the USOS API datatypes documentation."
+              },
+              {
+                "name": "callback",
+                "value": "",
+                "type": "query",
+                "description": "Required only if jsonp is chosen as the return format."
+              }
+            ]
+          },
+          "docs": "Returns a list of all methods available in this installation, each with a name and a brief description. Anonymous access."
+        },
+        {
+          "info": {
+            "name": "Get the reference for a single USOS API method",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://usosapps.uw.edu.pl/services/apiref/method",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Full method name, e.g. services/courses/course."
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Pipe-separated selector of reference fields, e.g. name|brief_description|arguments|result_fields."
+              },
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Output format. See supported output formats in the USOS API datatypes documentation."
+              },
+              {
+                "name": "callback",
+                "value": "",
+                "type": "query",
+                "description": "Required only if jsonp is chosen as the return format."
+              }
+            ]
+          },
+          "docs": "Returns the machine-readable reference for a single method, including its arguments, returned fields, authentication options and errors. Anonymous access."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

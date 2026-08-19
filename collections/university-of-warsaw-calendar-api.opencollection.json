@@ -1,0 +1,67 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "USOS API (University of Warsaw) apiref calendar API",
+    "version": "7.3.0.0-4"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "calendar",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Search academic calendar events",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://usosapps.uw.edu.pl/services/calendar/search",
+            "params": [
+              {
+                "name": "faculty_id",
+                "value": "",
+                "type": "query",
+                "description": "ID of a faculty to filter events by."
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query",
+                "description": "Start of the date range (yyyy-mm-dd)."
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query",
+                "description": "End of the date range (yyyy-mm-dd)."
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Pipe-separated selector of result fields."
+              },
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Output format. See supported output formats in the USOS API datatypes documentation."
+              },
+              {
+                "name": "callback",
+                "value": "",
+                "type": "query",
+                "description": "Required only if jsonp is chosen as the return format."
+              }
+            ]
+          },
+          "docs": "Search calendar events, optionally filtered by faculty and date range. Returns a list of calendar event objects."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

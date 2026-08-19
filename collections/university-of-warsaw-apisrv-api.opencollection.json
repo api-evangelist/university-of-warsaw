@@ -1,0 +1,74 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "USOS API (University of Warsaw) apiref apisrv API",
+    "version": "7.3.0.0-4"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "apisrv",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get current USOS API time",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://usosapps.uw.edu.pl/services/apisrv/now",
+            "params": [
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Output format. See supported output formats in the USOS API datatypes documentation."
+              },
+              {
+                "name": "callback",
+                "value": "",
+                "type": "query",
+                "description": "Required only if jsonp is chosen as the return format."
+              }
+            ]
+          },
+          "docs": "Get the current USOS API server local time. Returns a DateTime string (yyyy-mm-dd hh:mm:ss.dddddd). Anonymous access; consumer and token are ignored."
+        },
+        {
+          "info": {
+            "name": "Get information on this USOS API installation",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://usosapps.uw.edu.pl/services/apisrv/installation",
+            "params": [
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Pipe-separated selector of result fields. Defaults to base_url|version|machine_version|usos_schema_version|institution_name|contact_emails."
+              },
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Output format. See supported output formats in the USOS API datatypes documentation."
+              },
+              {
+                "name": "callback",
+                "value": "",
+                "type": "query",
+                "description": "Required only if jsonp is chosen as the return format."
+              }
+            ]
+          },
+          "docs": "Get basic information on this USOS API installation. Anonymous access; consumer and token are ignored."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

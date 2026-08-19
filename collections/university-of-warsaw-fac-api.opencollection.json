@@ -1,0 +1,55 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "USOS API (University of Warsaw) apiref fac API",
+    "version": "7.3.0.0-4"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "fac",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get information on a faculty (organizational unit)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://usosapps.uw.edu.pl/services/fac/faculty",
+            "params": [
+              {
+                "name": "fac_id",
+                "value": "",
+                "type": "query",
+                "description": "ID of the faculty."
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Pipe-separated selector of result fields."
+              },
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Output format. See supported output formats in the USOS API datatypes documentation."
+              },
+              {
+                "name": "callback",
+                "value": "",
+                "type": "query",
+                "description": "Required only if jsonp is chosen as the return format."
+              }
+            ]
+          },
+          "docs": "Get information on a single faculty / organizational unit by ID. Anonymous access."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
