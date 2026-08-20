@@ -158,6 +158,8 @@ apis:
   humanURL: https://usosapps.uw.edu.pl/developers/api/
   baseURL: https://usosapps.uw.edu.pl/services/
   tags:
+  - Calendar
+  tags_raw:
   - calendar
   properties:
   - type: OpenAPI
@@ -196,6 +198,8 @@ apis:
   humanURL: https://usosapps.uw.edu.pl/developers/api/
   baseURL: https://usosapps.uw.edu.pl/services/
   tags:
+  - Courses
+  tags_raw:
   - courses
   properties:
   - type: OpenAPI
