@@ -283,6 +283,9 @@ apis:
   - type: x-json-ld-context
     url: json-ld/university-of-warsaw-context.jsonld
 common:
+  - type: CapabilityMap
+    url: capabilities/university-of-warsaw-capability-edges.yml
+    name: University of Warsaw Business Capability Map
   - type: AgenticAccess
     url: agentic-access/university-of-warsaw-agentic-access.yml
   - type: DomainSecurity
