@@ -2,15 +2,22 @@
 aid: university-of-warsaw
 name: University of Warsaw
 description: >-
-  The University of Warsaw (Uniwersytet Warszawski) is Poland's largest and
-  highest-ranked university, placed #258 in the QS World University Rankings
-  2025. Its public developer footprint centers on the USOS API, a documented
-  OAuth-secured REST-like protocol exposing the institution's academic database
-  (courses, grades, exams, users, payments and more), and on the Dane Badawcze
-  UW research data repository, a Dataverse instance that offers a native REST
-  API and an OAI-PMH endpoint for metadata harvesting. Developer access to
-  USOS requires registration for an API key (Consumer Key/Secret) via the USOS
-  developers portal.
+  The University of Warsaw (Uniwersytet Warszawski) is Poland's largest and highest-ranked
+  university and a member of the 4EU+ European University Alliance. Unusually for this cohort it
+  operates real first-party programmable surfaces rather than only vendor tenancies: the USOS API
+  at usosapps.uw.edu.pl, a documented OAuth 1.0a REST-like protocol over the institution's own
+  academic database (courses, faculties, calendar, users, payments), and the Student Portal 4EU+
+  API at api.sp4eu.uw.edu.pl, which publishes its own OpenAPI 3.1 (74 paths) and Swagger UI and
+  answers read requests anonymously. Research data is handled by two institution-hosted
+  repositories — Dane Badawcze UW (Dataverse, DOI prefix 10.58132) and ReIn UW (DSpace-CRIS 8.1) —
+  each with a native REST API and an OAI-PMH 2.0 endpoint. The university runs its own Shibboleth
+  SAML identity provider at login.uw.edu.pl, registered in eduGAIN through the Polish PIONIER.Id
+  federation, and it is a DataCite repository client and a Crossref member with 31 DOI prefixes.
+  What it does NOT have is a single central developer portal: the USOS developers site is the only
+  signup surface, the library discovery layer is an Ex Libris Alma/Primo tenancy, and the LMS is a
+  Moodle install with no public LTI advertisement.
+x-type: university
+x-category: Public Research University
 type: Index
 deliveryModel:
   model: saas
@@ -46,14 +53,21 @@ tags:
   - Higher Education
   - University
   - Poland
+  - Europe
+  - 4EU+ Alliance
   - Academic Data
+  - Course Catalog
   - Research Data
+  - Research Repository
+  - Identity Federation
+  - Library
   - Open Data
 created: '2026-06-03'
-modified: '2026-06-03'
+modified: '2026-09-01'
 specificationVersion: '0.23'
 apis:
 - aid: university-of-warsaw:rdr-rest
+  x-operator: institution
   name: Dane Badawcze UW Research Data Repository REST API
   description: >-
     The University of Warsaw Research Data Repository (Dane Badawcze UW) is a Dataverse-based institutional
@@ -72,6 +86,7 @@ apis:
   - type: Documentation
     url: https://info.danebadawcze.uw.edu.pl/en/about-the-service/
 - aid: university-of-warsaw:rdr-oai-pmh
+  x-operator: institution
   name: Dane Badawcze UW OAI-PMH Endpoint
   description: >-
     OAI-PMH 2.0 metadata harvesting endpoint for the University of Warsaw Research Data Repository (Dataverse).
@@ -89,6 +104,7 @@ apis:
   - type: Documentation
     url: https://info.danebadawcze.uw.edu.pl/en/about-the-service/
 - aid: university-of-warsaw:university-of-warsaw-apiref-api
+  x-operator: institution
   name: University of Warsaw apiref API
   description: Machine-readable method reference
   humanURL: https://usosapps.uw.edu.pl/developers/api/
@@ -127,6 +143,7 @@ apis:
   - type: x-json-ld-context
     url: json-ld/university-of-warsaw-context.jsonld
 - aid: university-of-warsaw:university-of-warsaw-apisrv-api
+  x-operator: institution
   name: University of Warsaw apisrv API
   description: USOS API server information and time
   humanURL: https://usosapps.uw.edu.pl/developers/api/
@@ -165,6 +182,7 @@ apis:
   - type: x-json-ld-context
     url: json-ld/university-of-warsaw-context.jsonld
 - aid: university-of-warsaw:university-of-warsaw-calendar-api
+  x-operator: institution
   name: University of Warsaw calendar API
   description: Academic calendar events
   humanURL: https://usosapps.uw.edu.pl/developers/api/
@@ -205,6 +223,7 @@ apis:
   - type: x-json-ld-context
     url: json-ld/university-of-warsaw-context.jsonld
 - aid: university-of-warsaw:university-of-warsaw-courses-api
+  x-operator: institution
   name: University of Warsaw courses API
   description: Courses and course editions
   humanURL: https://usosapps.uw.edu.pl/developers/api/
@@ -245,6 +264,7 @@ apis:
   - type: x-json-ld-context
     url: json-ld/university-of-warsaw-context.jsonld
 - aid: university-of-warsaw:university-of-warsaw-fac-api
+  x-operator: institution
   name: University of Warsaw fac API
   description: Faculties and organizational units
   humanURL: https://usosapps.uw.edu.pl/developers/api/
@@ -282,6 +302,219 @@ apis:
     url: vocabulary/university-of-warsaw-vocabulary.yml
   - type: x-json-ld-context
     url: json-ld/university-of-warsaw-context.jsonld
+- aid: university-of-warsaw:sp4eu-api
+  x-operator: institution
+  name: Student Portal 4EU+ API
+  description: >-
+    The REST API behind the Student Portal 4EU+, the shared student services portal of the 4EU+
+    European University Alliance, built and operated by the University of Warsaw. It publishes its
+    own springdoc-generated OpenAPI 3.1 (74 paths, 44 schemas) at /v3/api-docs and serves Swagger
+    UI at the API root. Resources cover the alliance course catalogue and syllabi, mobility
+    options, housing, tutorials, person roles, profiles and student documents. Read endpoints such
+    as GET /api/v1/Tutorial answer anonymously; Admin and User surfaces need a bearer token from
+    /access/login, and the portal authenticates users against the University of Warsaw SAML IdP.
+    Operator evidence: servers[0] is https://api.sp4eu.uw.edu.pl, the build info at /system/build
+    reports group pl.edu.uw.dsk.sp4eu, and the SP's eduGAIN registration names University of
+    Warsaw as the entity organisation.
+  humanURL: https://sp4eu.uw.edu.pl/
+  baseURL: https://api.sp4eu.uw.edu.pl
+  tags:
+  - Course Catalog
+  - Mobility
+  - Student Services
+  - 4EU+ Alliance
+  - OpenAPI
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-sp4eu-api-openapi.yml
+  - type: OpenAPI
+    url: https://api.sp4eu.uw.edu.pl/v3/api-docs
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+- aid: university-of-warsaw:rein-uw-rest
+  x-operator: institution
+  name: ReIn UW Institutional Repository REST API
+  description: >-
+    The Institutional Repository of the University of Warsaw (ReIn UW, Repozytorium Instytucjonalne
+    Uniwersytetu Warszawskiego) runs DSpace-CRIS 8.1 (cris-2024.02.01) on the university's own host
+    and exposes the DSpace 7+ HAL REST API at /server/api, whose root advertises dspaceName "The
+    Institutional Repository of the University of Warsaw (ReIn UW)". Administered by the University
+    of Warsaw Library (repozytorium.buw@uw.edu.pl). The deployment and the content are the
+    university's; the API contract itself is DSpace's, so no DSpace spec is saved under this slug.
+  humanURL: https://repozytorium.uw.edu.pl/
+  baseURL: https://repozytorium.uw.edu.pl/server/api
+  tags:
+  - Research Repository
+  - DSpace
+  - CRIS
+  - REST
+  - Open Access
+  properties:
+  - type: APIReference
+    url: https://repozytorium.uw.edu.pl/server/api
+  - type: Website
+    url: https://repozytorium.uw.edu.pl/
+- aid: university-of-warsaw:rein-uw-oai-pmh
+  x-operator: institution
+  name: ReIn UW OAI-PMH Endpoint
+  description: >-
+    OAI-PMH 2.0 metadata harvesting endpoint for the Institutional Repository of the University of
+    Warsaw. verb=Identify returns repositoryName "The Institutional Repository of the University of
+    Warsaw (ReIn UW)" and adminEmail repozytorium.buw@uw.edu.pl. Note that the front-end path
+    /oai/request on the same host returns the Angular SPA shell with HTTP 200 — a soft 200; the
+    real endpoint is under /server.
+  humanURL: https://repozytorium.uw.edu.pl/
+  baseURL: https://repozytorium.uw.edu.pl/server/oai/request
+  tags:
+  - Research Repository
+  - OAI-PMH
+  - Metadata
+  - Harvesting
+  - Open Access
+  properties:
+  - type: APIReference
+    url: https://repozytorium.uw.edu.pl/server/oai/request?verb=Identify
+- aid: university-of-warsaw:saml-idp
+  x-operator: federation
+  name: University of Warsaw SAML Identity Provider (eduGAIN / PIONIER.Id)
+  description: >-
+    The university's own Shibboleth SAML 2.0 identity provider, entityID https://login.uw.edu.pl/idp,
+    fronted by an Apereo CAS login at logowanie.uw.edu.pl. Its metadata is machine-readable at the
+    entityID URL and declares shibmd:Scope login.uw.edu.pl, OrganizationName "Uniwersytet
+    Warszawski" and SingleSignOnService bindings for HTTP-POST, HTTP-POST-SimpleSign, HTTP-Redirect
+    and SOAP. The entity is registered in eduGAIN (id 676121) by registration authority
+    https://aai.pionier.net.pl — PIONIER.Id, the Polish national identity federation — alongside
+    three University of Warsaw service providers, including the Student Portal 4EU+ SP. A
+    federation is shared by definition; the IdP behind it is the institution's own.
+  humanURL: https://logowanie.uw.edu.pl/
+  baseURL: https://login.uw.edu.pl/idp
+  tags:
+  - Identity Federation
+  - SAML
+  - Shibboleth
+  - eduGAIN
+  - PIONIER.Id
+  properties:
+  - type: IdentityFederation
+    url: https://login.uw.edu.pl/idp
+  - type: APIReference
+    url: https://api.sp4eu.uw.edu.pl/saml2/service-provider-metadata
+  - type: Documentation
+    url: https://aai.pionier.net.pl/
+- aid: university-of-warsaw:datacite-membership
+  x-operator: registry
+  name: DataCite DOI Registration (REPOD / REPOD.DBUW)
+  description: >-
+    The University of Warsaw registers DOIs through DataCite. Its DataCite provider is `repod` —
+    "University of Warsaw – Interdisciplinary Centre for Mathematical and Computational Modelling",
+    memberType consortium_organization, country PL, rorId https://ror.org/039bjqg32 — and its
+    repository client is REPOD.DBUW, "University of Warsaw Research Data Repository", domains
+    *.uw.edu.pl, DOI prefix 10.58132, re3data https://doi.org/10.17616/R31NJNHR. The same provider
+    also holds client TIB.REPOD (RepOD, the national open research data repository operated by ICM
+    at repod.icm.edu.pl). This is a membership record, not a contract: DataCite's own API is
+    DataCite's.
+  humanURL: https://commons.datacite.org/repositories/repod.dbuw
+  baseURL: https://api.datacite.org/clients/repod.dbuw
+  tags:
+  - DataCite
+  - DOI
+  - Registry
+  - Research Data
+  - Persistent Identifiers
+  properties:
+  - type: APIReference
+    url: https://api.datacite.org/clients/repod.dbuw
+  - type: APIReference
+    url: https://api.datacite.org/providers/repod
+  - type: APIReference
+    url: https://api.datacite.org/prefixes/10.58132
+- aid: university-of-warsaw:crossref-membership
+  x-operator: registry
+  name: Crossref Membership (member 4211)
+  description: >-
+    The University of Warsaw is Crossref member 4211, holding 31 DOI prefixes used across its
+    journals and press imprints (10.7311, 10.14394, 10.7172, 10.55226, 10.67180 and others). The
+    membership is a fact about the institution and is recorded as such; Crossref's REST API is
+    Crossref's contract, not the university's.
+  humanURL: https://www.crossref.org/
+  baseURL: https://api.crossref.org/members/4211
+  tags:
+  - Crossref
+  - DOI
+  - Registry
+  - Scholarly Publishing
+  - Persistent Identifiers
+  properties:
+  - type: APIReference
+    url: https://api.crossref.org/members/4211
+- aid: university-of-warsaw:ror-registration
+  x-operator: registry
+  name: ROR Registration (039bjqg32)
+  description: >-
+    The Research Organization Registry record for the University of Warsaw,
+    https://ror.org/039bjqg32, resolvable through the ROR API. It is the identifier the DataCite
+    provider record for the university's ICM points at, and the canonical machine-readable identity
+    for the institution across scholarly infrastructure.
+  humanURL: https://ror.org/039bjqg32
+  baseURL: https://api.ror.org/organizations/039bjqg32
+  tags:
+  - ROR
+  - Registry
+  - Persistent Identifiers
+  - Organization Identity
+  - Research Data
+  properties:
+  - type: APIReference
+    url: https://api.ror.org/organizations/039bjqg32
+- aid: university-of-warsaw:buw-primo
+  x-operator: tenant
+  name: BUW Library Discovery (Ex Libris Alma / Primo, OMNIS)
+  description: >-
+    The University of Warsaw Library (BUW) migrated off NUKAT to Ex Libris Alma with Primo
+    discovery in December 2024, joining the national OMNIS shared catalogue. The discovery view is
+    the institution-specific tenancy 48OMNIS_UOW:48UOW on omnis-buw.primo.exlibrisgroup.com. The
+    collection, the holdings and the patrons are the university's; the API contract is Ex Libris'
+    and is not saved here.
+  humanURL: https://omnis-buw.primo.exlibrisgroup.com/discovery/search?vid=48OMNIS_UOW:48UOW
+  baseURL: https://omnis-buw.primo.exlibrisgroup.com/discovery
+  tags:
+  - Library
+  - Discovery
+  - Ex Libris
+  - Alma
+  - Primo
+  properties:
+  - type: LibraryCatalog
+    url: https://omnis-buw.primo.exlibrisgroup.com/discovery/search?vid=48OMNIS_UOW:48UOW
+  - type: Documentation
+    url: https://www.buw.uw.edu.pl/alma-w-buw/
+- aid: university-of-warsaw:repod
+  x-operator: institution
+  name: RepOD — Repository for Open Data (ICM UW)
+  description: >-
+    RepOD is Poland's general-purpose repository for open research data, running the same Dataverse
+    build (1.3.2) as Dane Badawcze UW and operated by the Interdisciplinary Centre for Mathematical
+    and Computational Modelling (ICM), a unit of the University of Warsaw. Recorded as
+    institution-operated on registry evidence rather than hostname: the DataCite provider that owns
+    its client TIB.REPOD is named "University of Warsaw – Interdisciplinary Centre for Mathematical
+    and Computational Modelling" and carries the university's ROR id 039bjqg32. The host
+    repod.icm.edu.pl sits on ICM's own registrable domain, not uw.edu.pl, which is why a host-based
+    verdict cannot see this one.
+  humanURL: https://repod.icm.edu.pl/
+  baseURL: https://repod.icm.edu.pl/api
+  tags:
+  - Research Data
+  - Repository
+  - Dataverse
+  - Open Data
+  - National Infrastructure
+  properties:
+  - type: APIReference
+    url: https://repod.icm.edu.pl/api/info/version
+  - type: Website
+    url: https://repod.icm.edu.pl/
 common:
   - type: CapabilityMap
     url: capabilities/university-of-warsaw-capability-edges.yml
@@ -312,6 +545,93 @@ common:
     url: review.yml
   - url: https://en.uw.edu.pl/category/news/feed/
     type: Blog
+  - type: Conformance
+    url: conformance/university-of-warsaw-conformance.yml
+  - type: ResearchRepository
+    url: https://danebadawcze.uw.edu.pl/
+  - type: ResearchRepository
+    url: https://repozytorium.uw.edu.pl/
+  - type: LibraryCatalog
+    url: https://omnis-buw.primo.exlibrisgroup.com/discovery/search?vid=48OMNIS_UOW:48UOW
+  - type: CourseCatalog
+    url: https://usosapps.uw.edu.pl/developers/api/services/courses/
+  - type: IdentityFederation
+    url: https://login.uw.edu.pl/idp
+  - type: ResearchComputing
+    url: https://kdm.icm.edu.pl/
+  - type: AIPolicy
+    url: https://urk.uw.edu.pl/wytyczne_sztuczna_inteligencja/
+  - type: Documentation
+    url: https://usosapps.uw.edu.pl/developers/api/
+  - type: APIReference
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: PrivacyPolicy
+    url: https://www.uw.edu.pl/informacja-o-przetwarzaniu-danych-osobowych/
+  - type: Support
+    url: https://it.uw.edu.pl/pl/
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
+x-coverage:
+  state: covered
+  reason: covered
+  detail: >-
+    The University of Warsaw is one of the few institutions in this cohort with genuinely
+    first-party programmable surfaces, and every one of them was probed live on 2026-09-01. Two
+    institution-operated API families answer publicly: the USOS API at usosapps.uw.edu.pl
+    (machine-readable method reference at services/apiref/method_index, OAuth 1.0a for anything
+    beyond anonymous methods) and, newly found in this run, the Student Portal 4EU+ API at
+    api.sp4eu.uw.edu.pl, which serves its own OpenAPI 3.1 at /v3/api-docs plus Swagger UI and
+    returns real data anonymously. Two institution-hosted research repositories expose native REST
+    plus OAI-PMH 2.0 (Dane Badawcze UW on Dataverse, ReIn UW on DSpace-CRIS 8.1). The university
+    runs its own Shibboleth SAML IdP at login.uw.edu.pl, registered in eduGAIN by PIONIER.Id, and
+    is a DataCite repository client (REPOD.DBUW, prefix 10.58132) and Crossref member 4211.
+    Limits worth stating: there is no central developer portal and no open-data portal — no host
+    answered at data./dane./otwartedane.uw.edu.pl; library discovery is an Ex Libris Alma/Primo
+    tenancy on the national OMNIS catalogue, recorded as a tenant relationship rather than a
+    contract; the LMS is Moodle with no public LTI advertisement; and the USOS developer signup
+    page returns HTTP 403 to non-browser clients while rendering the real registration form, so it
+    is graded live, not dead.
+  evidence:
+  - url: https://usosapps.uw.edu.pl/services/apiref/method_index
+    status: 200
+  - url: https://usosapps.uw.edu.pl/services/apisrv/now
+    status: 200
+  - url: https://usosapps.uw.edu.pl/developers/api/
+    status: 200
+  - url: https://usosapps.uw.edu.pl/developers/
+    status: 403
+  - url: https://api.sp4eu.uw.edu.pl/v3/api-docs
+    status: 200
+  - url: https://api.sp4eu.uw.edu.pl/api/v1/Tutorial
+    status: 200
+  - url: https://api.sp4eu.uw.edu.pl/saml2/service-provider-metadata
+    status: 200
+  - url: https://login.uw.edu.pl/idp
+    status: 200
+  - url: https://danebadawcze.uw.edu.pl/api/info/version
+    status: 200
+  - url: https://danebadawcze.uw.edu.pl/oai?verb=Identify
+    status: 200
+  - url: https://repozytorium.uw.edu.pl/server/api
+    status: 200
+  - url: https://repozytorium.uw.edu.pl/server/oai/request?verb=Identify
+    status: 200
+  - url: https://repod.icm.edu.pl/api/info/version
+    status: 200
+  - url: https://api.datacite.org/clients/repod.dbuw
+    status: 200
+  - url: https://api.crossref.org/members/4211
+    status: 200
+  - url: https://api.ror.org/organizations/039bjqg32
+    status: 200
+  - url: https://omnis-buw.primo.exlibrisgroup.com/discovery/search?vid=48OMNIS_UOW:48UOW
+    status: 200
+  - url: https://kampus.come.uw.edu.pl/
+    status: 200
+  - url: https://data.uw.edu.pl/
+    status: 0
+  - url: https://api.uw.edu.pl/
+    status: 0
+  generated: '2026-09-01'
+  method: probed
