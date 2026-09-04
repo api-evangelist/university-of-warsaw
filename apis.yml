@@ -6,9 +6,11 @@ description: >-
   university and a member of the 4EU+ European University Alliance. Unusually for this cohort it
   operates real first-party programmable surfaces rather than only vendor tenancies: the USOS API
   at usosapps.uw.edu.pl, a documented OAuth 1.0a REST-like protocol over the institution's own
-  academic database (courses, faculties, calendar, users, payments), and the Student Portal 4EU+
-  API at api.sp4eu.uw.edu.pl, which publishes its own OpenAPI 3.1 (74 paths) and Swagger UI and
-  answers read requests anonymously. Research data is handled by two institution-hosted
+  academic database (courses, faculties, calendar, users, payments), and two springdoc services that publish
+  their own OpenAPI and Swagger UI — the Student Portal 4EU+ API at api.sp4eu.uw.edu.pl (OpenAPI
+  3.1, 74 paths, read endpoints answer anonymously) and Jaskier at api.jaskier.uw.edu.pl, the
+  university's central institutional API (OpenAPI 3.0.1, 729 paths, 458 schemas, bearer-gated
+  data). Research data is handled by two institution-hosted
   repositories — Dane Badawcze UW (Dataverse, DOI prefix 10.58132) and ReIn UW (DSpace-CRIS 8.1) —
   each with a native REST API and an OAI-PMH 2.0 endpoint. The university runs its own Shibboleth
   SAML identity provider at login.uw.edu.pl, registered in eduGAIN through the Polish PIONIER.Id
@@ -38,13 +40,15 @@ accessModel:
   try_now: true
   public: false
   label: Free · Self-serve signup
-  confidence: high
+  confidence: medium
+  probe_state: covered
   source:
   - plans
   - authentication
-  generated: '2026-07-22'
+  - security
+  generated: '2026-09-03'
   method: derived
-position: Consumer
+position: Consuming
 access: 3rd-Party
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/university-of-warsaw.png
 url: https://raw.githubusercontent.com/api-evangelist/university-of-warsaw/refs/heads/main/apis.yml
@@ -302,6 +306,39 @@ apis:
     url: vocabulary/university-of-warsaw-vocabulary.yml
   - type: x-json-ld-context
     url: json-ld/university-of-warsaw-context.jsonld
+- aid: university-of-warsaw:jaskier-api
+  x-operator: institution
+  name: Jaskier API
+  description: >-
+    Jaskier is the University of Warsaw's central institutional data and services API — the backend
+    behind MyUW and the university's in-house applications, built and operated by the university's
+    own IT department (build artifact group pl.edu.uw.dsk, version 1.2.25). It publishes its own
+    springdoc-generated OpenAPI 3.0.1 at /v3/api-docs with 729 paths, 458 schemas and 125 tags,
+    covering people and profiles, courses and course registration, buildings, campuses and building
+    accessibility, laboratories and research sets, projects and programmes, publications, patents,
+    licences, framework agreements, public procurement plans, student organisations, events, IT
+    services, dictionaries and translations, plus the Sp4eu subtree that feeds the Student Portal
+    4EU+. The specification and /api/v1/system/build answer anonymously; every data endpoint probed
+    returned 401 and needs an Authorization: Bearer token, with users authenticated through the
+    university's SAML IdP. Discovered on 2026-09-01 from an upstream URL leaked in a Student Portal
+    4EU+ error envelope — it is not linked from any UW developer page.
+  humanURL: https://api.jaskier.uw.edu.pl/
+  baseURL: https://api.jaskier.uw.edu.pl
+  tags:
+  - Academic Data
+  - Course Catalog
+  - Campus
+  - Research Administration
+  - OpenAPI
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-jaskier-api-openapi.yml
+  - type: OpenAPI
+    url: https://api.jaskier.uw.edu.pl/v3/api-docs
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
 - aid: university-of-warsaw:sp4eu-api
   x-operator: institution
   name: Student Portal 4EU+ API
@@ -333,6 +370,14 @@ apis:
     url: https://api.sp4eu.uw.edu.pl/
   - type: Website
     url: https://sp4eu.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
 - aid: university-of-warsaw:rein-uw-rest
   x-operator: institution
   name: ReIn UW Institutional Repository REST API
@@ -582,7 +627,10 @@ x-coverage:
     (machine-readable method reference at services/apiref/method_index, OAuth 1.0a for anything
     beyond anonymous methods) and, newly found in this run, the Student Portal 4EU+ API at
     api.sp4eu.uw.edu.pl, which serves its own OpenAPI 3.1 at /v3/api-docs plus Swagger UI and
-    returns real data anonymously. Two institution-hosted research repositories expose native REST
+    returns real data anonymously — and behind it Jaskier at api.jaskier.uw.edu.pl, the
+    university's central institutional API, whose OpenAPI 3.0.1 (729 paths, 458 schemas) is public
+    while every data endpoint is bearer-gated. Jaskier is linked from no UW developer page; it was
+    found because a Student Portal 4EU+ 500 response leaked its upstream URL. Two institution-hosted research repositories expose native REST
     plus OAI-PMH 2.0 (Dane Badawcze UW on Dataverse, ReIn UW on DSpace-CRIS 8.1). The university
     runs its own Shibboleth SAML IdP at login.uw.edu.pl, registered in eduGAIN by PIONIER.Id, and
     is a DataCite repository client (REPOD.DBUW, prefix 10.58132) and Crossref member 4211.
@@ -605,6 +653,12 @@ x-coverage:
     status: 200
   - url: https://api.sp4eu.uw.edu.pl/api/v1/Tutorial
     status: 200
+  - url: https://api.jaskier.uw.edu.pl/v3/api-docs
+    status: 200
+  - url: https://api.jaskier.uw.edu.pl/api/v1/system/build
+    status: 200
+  - url: https://api.jaskier.uw.edu.pl/api/v1/UniversityInfo
+    status: 401
   - url: https://api.sp4eu.uw.edu.pl/saml2/service-provider-metadata
     status: 200
   - url: https://login.uw.edu.pl/idp
