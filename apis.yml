@@ -306,88 +306,16 @@ apis:
     url: vocabulary/university-of-warsaw-vocabulary.yml
   - type: x-json-ld-context
     url: json-ld/university-of-warsaw-context.jsonld
-- aid: university-of-warsaw:jaskier-api
-  x-operator: institution
-  name: Jaskier API
-  description: >-
-    Jaskier is the University of Warsaw's central institutional data and services API — the backend
-    behind MyUW and the university's in-house applications, built and operated by the university's
-    own IT department (build artifact group pl.edu.uw.dsk, version 1.2.25). It publishes its own
-    springdoc-generated OpenAPI 3.0.1 at /v3/api-docs with 729 paths, 458 schemas and 125 tags,
-    covering people and profiles, courses and course registration, buildings, campuses and building
-    accessibility, laboratories and research sets, projects and programmes, publications, patents,
-    licences, framework agreements, public procurement plans, student organisations, events, IT
-    services, dictionaries and translations, plus the Sp4eu subtree that feeds the Student Portal
-    4EU+. The specification and /api/v1/system/build answer anonymously; every data endpoint probed
-    returned 401 and needs an Authorization: Bearer token, with users authenticated through the
-    university's SAML IdP. Discovered on 2026-09-01 from an upstream URL leaked in a Student Portal
-    4EU+ error envelope — it is not linked from any UW developer page.
-  humanURL: https://api.jaskier.uw.edu.pl/
-  baseURL: https://api.jaskier.uw.edu.pl
-  tags:
-  - Academic Data
-  - Course Catalog
-  - Campus
-  - Research Administration
-  - OpenAPI
-  properties:
-  - type: OpenAPI
-    url: openapi/university-of-warsaw-jaskier-api-openapi.yml
-  - type: OpenAPI
-    url: https://api.jaskier.uw.edu.pl/v3/api-docs
-  - type: Documentation
-    url: https://api.jaskier.uw.edu.pl/
-  - type: x-errors
-    url: errors/university-of-warsaw-spring-error-envelope.yml
-- aid: university-of-warsaw:sp4eu-api
-  x-operator: institution
-  name: Student Portal 4EU+ API
-  description: >-
-    The REST API behind the Student Portal 4EU+, the shared student services portal of the 4EU+
-    European University Alliance, built and operated by the University of Warsaw. It publishes its
-    own springdoc-generated OpenAPI 3.1 (74 paths, 44 schemas) at /v3/api-docs and serves Swagger
-    UI at the API root. Resources cover the alliance course catalogue and syllabi, mobility
-    options, housing, tutorials, person roles, profiles and student documents. Read endpoints such
-    as GET /api/v1/Tutorial answer anonymously; Admin and User surfaces need a bearer token from
-    /access/login, and the portal authenticates users against the University of Warsaw SAML IdP.
-    Operator evidence: servers[0] is https://api.sp4eu.uw.edu.pl, the build info at /system/build
-    reports group pl.edu.uw.dsk.sp4eu, and the SP's eduGAIN registration names University of
-    Warsaw as the entity organisation.
-  humanURL: https://sp4eu.uw.edu.pl/
-  baseURL: https://api.sp4eu.uw.edu.pl
-  tags:
-  - Course Catalog
-  - Mobility
-  - Student Services
-  - 4EU+ Alliance
-  - OpenAPI
-  properties:
-  - type: OpenAPI
-    url: openapi/university-of-warsaw-sp4eu-api-openapi.yml
-  - type: OpenAPI
-    url: https://api.sp4eu.uw.edu.pl/v3/api-docs
-  - type: Documentation
-    url: https://api.sp4eu.uw.edu.pl/
-  - type: Website
-    url: https://sp4eu.uw.edu.pl/
-  - type: x-errors
-    url: errors/university-of-warsaw-spring-error-envelope.yml
-  - type: x-example
-    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
-  - type: JSONSchema
-    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
-  - type: JSONSchema
-    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
 - aid: university-of-warsaw:rein-uw-rest
   x-operator: institution
   name: ReIn UW Institutional Repository REST API
   description: >-
-    The Institutional Repository of the University of Warsaw (ReIn UW, Repozytorium Instytucjonalne
-    Uniwersytetu Warszawskiego) runs DSpace-CRIS 8.1 (cris-2024.02.01) on the university's own host
-    and exposes the DSpace 7+ HAL REST API at /server/api, whose root advertises dspaceName "The
-    Institutional Repository of the University of Warsaw (ReIn UW)". Administered by the University
-    of Warsaw Library (repozytorium.buw@uw.edu.pl). The deployment and the content are the
-    university's; the API contract itself is DSpace's, so no DSpace spec is saved under this slug.
+    The Institutional Repository of the University of Warsaw (ReIn UW, Repozytorium Instytucjonalne Uniwersytetu
+    Warszawskiego) runs DSpace-CRIS 8.1 (cris-2024.02.01) on the university's own host and exposes the
+    DSpace 7+ HAL REST API at /server/api, whose root advertises dspaceName "The Institutional Repository
+    of the University of Warsaw (ReIn UW)". Administered by the University of Warsaw Library (repozytorium.buw@uw.edu.pl).
+    The deployment and the content are the university's; the API contract itself is DSpace's, so no DSpace
+    spec is saved under this slug.
   humanURL: https://repozytorium.uw.edu.pl/
   baseURL: https://repozytorium.uw.edu.pl/server/api
   tags:
@@ -405,11 +333,10 @@ apis:
   x-operator: institution
   name: ReIn UW OAI-PMH Endpoint
   description: >-
-    OAI-PMH 2.0 metadata harvesting endpoint for the Institutional Repository of the University of
-    Warsaw. verb=Identify returns repositoryName "The Institutional Repository of the University of
-    Warsaw (ReIn UW)" and adminEmail repozytorium.buw@uw.edu.pl. Note that the front-end path
-    /oai/request on the same host returns the Angular SPA shell with HTTP 200 — a soft 200; the
-    real endpoint is under /server.
+    OAI-PMH 2.0 metadata harvesting endpoint for the Institutional Repository of the University of Warsaw.
+    verb=Identify returns repositoryName "The Institutional Repository of the University of Warsaw (ReIn
+    UW)" and adminEmail repozytorium.buw@uw.edu.pl. Note that the front-end path /oai/request on the same
+    host returns the Angular SPA shell with HTTP 200 — a soft 200; the real endpoint is under /server.
   humanURL: https://repozytorium.uw.edu.pl/
   baseURL: https://repozytorium.uw.edu.pl/server/oai/request
   tags:
@@ -426,13 +353,13 @@ apis:
   name: University of Warsaw SAML Identity Provider (eduGAIN / PIONIER.Id)
   description: >-
     The university's own Shibboleth SAML 2.0 identity provider, entityID https://login.uw.edu.pl/idp,
-    fronted by an Apereo CAS login at logowanie.uw.edu.pl. Its metadata is machine-readable at the
-    entityID URL and declares shibmd:Scope login.uw.edu.pl, OrganizationName "Uniwersytet
-    Warszawski" and SingleSignOnService bindings for HTTP-POST, HTTP-POST-SimpleSign, HTTP-Redirect
-    and SOAP. The entity is registered in eduGAIN (id 676121) by registration authority
-    https://aai.pionier.net.pl — PIONIER.Id, the Polish national identity federation — alongside
-    three University of Warsaw service providers, including the Student Portal 4EU+ SP. A
-    federation is shared by definition; the IdP behind it is the institution's own.
+    fronted by an Apereo CAS login at logowanie.uw.edu.pl. Its metadata is machine-readable at the entityID
+    URL and declares shibmd:Scope login.uw.edu.pl, OrganizationName "Uniwersytet Warszawski" and SingleSignOnService
+    bindings for HTTP-POST, HTTP-POST-SimpleSign, HTTP-Redirect and SOAP. The entity is registered in
+    eduGAIN (id 676121) by registration authority https://aai.pionier.net.pl — PIONIER.Id, the Polish
+    national identity federation — alongside three University of Warsaw service providers, including the
+    Student Portal 4EU+ SP. A federation is shared by definition; the IdP behind it is the institution's
+    own.
   humanURL: https://logowanie.uw.edu.pl/
   baseURL: https://login.uw.edu.pl/idp
   tags:
@@ -452,14 +379,12 @@ apis:
   x-operator: registry
   name: DataCite DOI Registration (REPOD / REPOD.DBUW)
   description: >-
-    The University of Warsaw registers DOIs through DataCite. Its DataCite provider is `repod` —
-    "University of Warsaw – Interdisciplinary Centre for Mathematical and Computational Modelling",
-    memberType consortium_organization, country PL, rorId https://ror.org/039bjqg32 — and its
-    repository client is REPOD.DBUW, "University of Warsaw Research Data Repository", domains
-    *.uw.edu.pl, DOI prefix 10.58132, re3data https://doi.org/10.17616/R31NJNHR. The same provider
-    also holds client TIB.REPOD (RepOD, the national open research data repository operated by ICM
-    at repod.icm.edu.pl). This is a membership record, not a contract: DataCite's own API is
-    DataCite's.
+    The University of Warsaw registers DOIs through DataCite. Its DataCite provider is `repod` — "University
+    of Warsaw – Interdisciplinary Centre for Mathematical and Computational Modelling", memberType consortium_organization,
+    country PL, rorId https://ror.org/039bjqg32 — and its repository client is REPOD.DBUW, "University
+    of Warsaw Research Data Repository", domains *.uw.edu.pl, DOI prefix 10.58132, re3data https://doi.org/10.17616/R31NJNHR.
+    The same provider also holds client TIB.REPOD (RepOD, the national open research data repository operated
+    by ICM at repod.icm.edu.pl). This is a membership record, not a contract: DataCite's own API is DataCite's.
   humanURL: https://commons.datacite.org/repositories/repod.dbuw
   baseURL: https://api.datacite.org/clients/repod.dbuw
   tags:
@@ -479,10 +404,10 @@ apis:
   x-operator: registry
   name: Crossref Membership (member 4211)
   description: >-
-    The University of Warsaw is Crossref member 4211, holding 31 DOI prefixes used across its
-    journals and press imprints (10.7311, 10.14394, 10.7172, 10.55226, 10.67180 and others). The
-    membership is a fact about the institution and is recorded as such; Crossref's REST API is
-    Crossref's contract, not the university's.
+    The University of Warsaw is Crossref member 4211, holding 31 DOI prefixes used across its journals
+    and press imprints (10.7311, 10.14394, 10.7172, 10.55226, 10.67180 and others). The membership is
+    a fact about the institution and is recorded as such; Crossref's REST API is Crossref's contract,
+    not the university's.
   humanURL: https://www.crossref.org/
   baseURL: https://api.crossref.org/members/4211
   tags:
@@ -498,10 +423,9 @@ apis:
   x-operator: registry
   name: ROR Registration (039bjqg32)
   description: >-
-    The Research Organization Registry record for the University of Warsaw,
-    https://ror.org/039bjqg32, resolvable through the ROR API. It is the identifier the DataCite
-    provider record for the university's ICM points at, and the canonical machine-readable identity
-    for the institution across scholarly infrastructure.
+    The Research Organization Registry record for the University of Warsaw, https://ror.org/039bjqg32,
+    resolvable through the ROR API. It is the identifier the DataCite provider record for the university's
+    ICM points at, and the canonical machine-readable identity for the institution across scholarly infrastructure.
   humanURL: https://ror.org/039bjqg32
   baseURL: https://api.ror.org/organizations/039bjqg32
   tags:
@@ -517,11 +441,10 @@ apis:
   x-operator: tenant
   name: BUW Library Discovery (Ex Libris Alma / Primo, OMNIS)
   description: >-
-    The University of Warsaw Library (BUW) migrated off NUKAT to Ex Libris Alma with Primo
-    discovery in December 2024, joining the national OMNIS shared catalogue. The discovery view is
-    the institution-specific tenancy 48OMNIS_UOW:48UOW on omnis-buw.primo.exlibrisgroup.com. The
-    collection, the holdings and the patrons are the university's; the API contract is Ex Libris'
-    and is not saved here.
+    The University of Warsaw Library (BUW) migrated off NUKAT to Ex Libris Alma with Primo discovery in
+    December 2024, joining the national OMNIS shared catalogue. The discovery view is the institution-specific
+    tenancy 48OMNIS_UOW:48UOW on omnis-buw.primo.exlibrisgroup.com. The collection, the holdings and the
+    patrons are the university's; the API contract is Ex Libris' and is not saved here.
   humanURL: https://omnis-buw.primo.exlibrisgroup.com/discovery/search?vid=48OMNIS_UOW:48UOW
   baseURL: https://omnis-buw.primo.exlibrisgroup.com/discovery
   tags:
@@ -539,14 +462,13 @@ apis:
   x-operator: institution
   name: RepOD — Repository for Open Data (ICM UW)
   description: >-
-    RepOD is Poland's general-purpose repository for open research data, running the same Dataverse
-    build (1.3.2) as Dane Badawcze UW and operated by the Interdisciplinary Centre for Mathematical
-    and Computational Modelling (ICM), a unit of the University of Warsaw. Recorded as
-    institution-operated on registry evidence rather than hostname: the DataCite provider that owns
-    its client TIB.REPOD is named "University of Warsaw – Interdisciplinary Centre for Mathematical
-    and Computational Modelling" and carries the university's ROR id 039bjqg32. The host
-    repod.icm.edu.pl sits on ICM's own registrable domain, not uw.edu.pl, which is why a host-based
-    verdict cannot see this one.
+    RepOD is Poland's general-purpose repository for open research data, running the same Dataverse build
+    (1.3.2) as Dane Badawcze UW and operated by the Interdisciplinary Centre for Mathematical and Computational
+    Modelling (ICM), a unit of the University of Warsaw. Recorded as institution-operated on registry
+    evidence rather than hostname: the DataCite provider that owns its client TIB.REPOD is named "University
+    of Warsaw – Interdisciplinary Centre for Mathematical and Computational Modelling" and carries the
+    university's ROR id 039bjqg32. The host repod.icm.edu.pl sits on ICM's own registrable domain, not
+    uw.edu.pl, which is why a host-based verdict cannot see this one.
   humanURL: https://repod.icm.edu.pl/
   baseURL: https://repod.icm.edu.pl/api
   tags:
@@ -560,6 +482,3341 @@ apis:
     url: https://repod.icm.edu.pl/api/info/version
   - type: Website
     url: https://repod.icm.edu.pl/
+- aid: university-of-warsaw:university-of-warsaw-achievementssummary-api
+  name: University of Warsaw Achievements Summary API
+  description: >-
+    The AchievementsSummary API from University of Warsaw — 2 operation(s) for achievementssummary.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - AchievementsSummary
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-achievementssummary-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-admin-api
+  name: University of Warsaw Admin API
+  description: The Admin API from University of Warsaw — 9 operation(s) for admin.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - Admin
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-admin-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-analysis-api
+  name: University of Warsaw Analysis API
+  description: The Analysis API from University of Warsaw — 2 operation(s) for analysis.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - Analysis
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-analysis-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-apikeyprincipal-api
+  name: University of Warsaw API Key Principal API
+  description: The ApiKeyPrincipal API from University of Warsaw — 3 operation(s) for apikeyprincipal.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - ApiKeyPrincipal
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-apikeyprincipal-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-article-api
+  name: University of Warsaw Article API
+  description: The Article API from University of Warsaw — 3 operation(s) for article.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - Article
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-article-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-articlemyuw-api
+  name: University of Warsaw Article My Uw API
+  description: The ArticleMyUw API from University of Warsaw — 2 operation(s) for articlemyuw.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - ArticleMyUw
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-articlemyuw-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-assetmigration-api
+  name: University of Warsaw Asset Migration API
+  description: The AssetMigration API from University of Warsaw — 4 operation(s) for assetmigration.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - AssetMigration
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-assetmigration-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-assets-api
+  name: University of Warsaw Assets API
+  description: The Assets API from University of Warsaw — 5 operation(s) for assets.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - Assets
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-assets-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-building-api
+  name: University of Warsaw Building API
+  description: The Building API from University of Warsaw — 25 operation(s) for building.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - Building
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-building-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-buildingaccessibility-api
+  name: University of Warsaw Building Accessibility API
+  description: >-
+    The BuildingAccessibility API from University of Warsaw — 13 operation(s) for buildingaccessibility.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - BuildingAccessibility
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-buildingaccessibility-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-buildingattribute-api
+  name: University of Warsaw Building Attribute API
+  description: >-
+    The BuildingAttribute API from University of Warsaw — 3 operation(s) for buildingattribute.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - BuildingAttribute
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-buildingattribute-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-buildingbon-api
+  name: University of Warsaw Building Bon API
+  description: The BuildingBon API from University of Warsaw — 7 operation(s) for buildingbon.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - BuildingBon
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-buildingbon-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-buildingmigration-api
+  name: University of Warsaw Building Migration API
+  description: >-
+    The BuildingMigration API from University of Warsaw — 5 operation(s) for buildingmigration.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - BuildingMigration
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-buildingmigration-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-buildingmyuw-api
+  name: University of Warsaw Building My Uw API
+  description: The BuildingMyUw API from University of Warsaw — 10 operation(s) for buildingmyuw.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - BuildingMyUw
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-buildingmyuw-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-buildingokuw-api
+  name: University of Warsaw Building Ok Uw API
+  description: The BuildingOkUw API from University of Warsaw — 11 operation(s) for buildingokuw.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - BuildingOkUw
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-buildingokuw-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-businessentity-api
+  name: University of Warsaw Business Entity API
+  description: The BusinessEntity API from University of Warsaw — 3 operation(s) for businessentity.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - BusinessEntity
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-businessentity-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-calculatepermissions-api
+  name: University of Warsaw Calculate Permissions API
+  description: >-
+    The CalculatePermissions API from University of Warsaw — 4 operation(s) for calculatepermissions.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - CalculatePermissions
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-calculatepermissions-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-campus-api
+  name: University of Warsaw Campus API
+  description: The Campus API from University of Warsaw — 2 operation(s) for campus.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - Campus
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-campus-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-country-api
+  name: University of Warsaw Country API
+  description: The Country API from University of Warsaw — 1 operation(s) for country.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - Country
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-country-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-course-api
+  name: University of Warsaw Course API
+  description: The Course API from University of Warsaw — 27 operation(s) for course.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - Course
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-course-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-courseadmin-api
+  name: University of Warsaw Course Admin API
+  description: The CourseAdmin API from University of Warsaw — 16 operation(s) for courseadmin.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - CourseAdmin
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-courseadmin-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-courseareasinterests-api
+  name: University of Warsaw Course Areas Interests API
+  description: >-
+    The CourseAreasInterests API from University of Warsaw — 2 operation(s) for courseareasinterests.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - CourseAreasInterests
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-courseareasinterests-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-coursecertificateadmin-api
+  name: University of Warsaw Course Certificate Admin API
+  description: >-
+    The CourseCertificateAdmin API from University of Warsaw — 10 operation(s) for coursecertificateadmin.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - CourseCertificateAdmin
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-coursecertificateadmin-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-courseimportsp4eu-export-api
+  name: University of Warsaw Course Import Sp4eu/Export API
+  description: >-
+    The CourseImportSp4eu/Export API from University of Warsaw — 6 operation(s) for courseimportsp4eu/export.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - CourseImportSp4eu/Export
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-courseimportsp4eu-export-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-coursemigration-api
+  name: University of Warsaw Course Migration API
+  description: The CourseMigration API from University of Warsaw — 7 operation(s) for coursemigration.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - CourseMigration
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-coursemigration-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-coursemyuw-api
+  name: University of Warsaw Course My Uw API
+  description: The CourseMyUw API from University of Warsaw — 3 operation(s) for coursemyuw.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - CourseMyUw
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-coursemyuw-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-courseregistrationinfo-api
+  name: University of Warsaw Course Registration Info API
+  description: >-
+    The CourseRegistrationInfo API from University of Warsaw — 2 operation(s) for courseregistrationinfo.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - CourseRegistrationInfo
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-courseregistrationinfo-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-coursesp4eu-api
+  name: University of Warsaw Course Sp4eu API
+  description: The CourseSp4eu API from University of Warsaw — 14 operation(s) for coursesp4eu.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - CourseSp4eu
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-coursesp4eu-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-cpvcode-api
+  name: University of Warsaw Cpv Code API
+  description: The CpvCode API from University of Warsaw — 6 operation(s) for cpvcode.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - CpvCode
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-cpvcode-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-currency-api
+  name: University of Warsaw Currency API
+  description: The Currency API from University of Warsaw — 2 operation(s) for currency.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - Currency
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-currency-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-event-api
+  name: University of Warsaw Event API
+  description: The Event API from University of Warsaw — 16 operation(s) for event.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - Event
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-event-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-faq-api
+  name: University of Warsaw FAQ API
+  description: The FAQ API from University of Warsaw — 2 operation(s) for faq.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - FAQ
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-faq-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-frameworkagreement-api
+  name: University of Warsaw Framework Agreement API
+  description: >-
+    The FrameworkAgreement API from University of Warsaw — 20 operation(s) for frameworkagreement.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - FrameworkAgreement
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-frameworkagreement-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-frameworkagreementmigration-api
+  name: University of Warsaw Framework Agreement Migration API
+  description: >-
+    The FrameworkAgreementMigration API from University of Warsaw — 4 operation(s) for frameworkagreementmigration.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - FrameworkAgreementMigration
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-frameworkagreementmigration-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-giveaway-api
+  name: University of Warsaw Giveaway API
+  description: The Giveaway API from University of Warsaw — 7 operation(s) for giveaway.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - Giveaway
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-giveaway-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-giveawaymyuw-api
+  name: University of Warsaw Giveaway My Uw API
+  description: The GiveawayMyUw API from University of Warsaw — 3 operation(s) for giveawaymyuw.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - GiveawayMyUw
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-giveawaymyuw-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-history-api
+  name: University of Warsaw History API
+  description: The History API from University of Warsaw — 2 operation(s) for history.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - History
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-history-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-home-api
+  name: University of Warsaw Home API
+  description: The Home API from University of Warsaw — 3 operation(s) for home.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - Home
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-home-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-housingoption-api
+  name: University of Warsaw Housing Option API
+  description: The HousingOption API from University of Warsaw — 6 operation(s) for housingoption.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - HousingOption
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-housingoption-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-housingoptions-api
+  name: University of Warsaw Housing Options API
+  description: The HousingOptions API from University of Warsaw — 8 operation(s) for housingoptions.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - HousingOptions
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-housingoptions-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-housingoptionssp4eu-api
+  name: University of Warsaw Housing Options Sp4eu API
+  description: >-
+    The HousingOptionsSp4eu API from University of Warsaw — 6 operation(s) for housingoptionssp4eu.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - HousingOptionsSp4eu
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-housingoptionssp4eu-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-idcard-api
+  name: University of Warsaw ID Card API
+  description: The IdCard API from University of Warsaw — 4 operation(s) for idcard.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - IdCard
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-idcard-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-idcardmyuw-api
+  name: University of Warsaw ID Card My Uw API
+  description: The IdCardMyUw API from University of Warsaw — 1 operation(s) for idcardmyuw.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - IdCardMyUw
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-idcardmyuw-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-idpperson-api
+  name: University of Warsaw Idp Person API
+  description: The IdpPerson API from University of Warsaw — 3 operation(s) for idpperson.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - IdpPerson
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-idpperson-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-itemused-api
+  name: University of Warsaw Item Used API
+  description: The ItemUsed API from University of Warsaw — 9 operation(s) for itemused.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - ItemUsed
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-itemused-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-itemusedmyuw-api
+  name: University of Warsaw Item Used My Uw API
+  description: The ItemUsedMyUw API from University of Warsaw — 4 operation(s) for itemusedmyuw.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - ItemUsedMyUw
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-itemusedmyuw-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-itservice-api
+  name: University of Warsaw It Service API
+  description: The ItService API from University of Warsaw — 8 operation(s) for itservice.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - ItService
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-itservice-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-itservicemyuw-api
+  name: University of Warsaw It Service My Uw API
+  description: The ItServiceMyUw API from University of Warsaw — 2 operation(s) for itservicemyuw.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - ItServiceMyUw
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-itservicemyuw-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-keywords-api
+  name: University of Warsaw Keywords API
+  description: The Keywords API from University of Warsaw — 4 operation(s) for keywords.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - Keywords
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-keywords-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-laboratory-api
+  name: University of Warsaw Laboratory API
+  description: The Laboratory API from University of Warsaw — 12 operation(s) for laboratory.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - Laboratory
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-laboratory-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-laboratorytype-api
+  name: University of Warsaw Laboratory Type API
+  description: The LaboratoryType API from University of Warsaw — 2 operation(s) for laboratorytype.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - LaboratoryType
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-laboratorytype-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-language-api
+  name: University of Warsaw Language API
+  description: The Language API from University of Warsaw — 1 operation(s) for language.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - Language
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-language-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-license-api
+  name: University of Warsaw License API
+  description: The License API from University of Warsaw — 6 operation(s) for license.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - License
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-license-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-licensemigration-api
+  name: University of Warsaw License Migration API
+  description: >-
+    The LicenseMigration API from University of Warsaw — 5 operation(s) for licensemigration.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - LicenseMigration
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-licensemigration-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-magazine-api
+  name: University of Warsaw Magazine API
+  description: The Magazine API from University of Warsaw — 2 operation(s) for magazine.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - Magazine
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-magazine-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-magazinemigration-api
+  name: University of Warsaw Magazine Migration API
+  description: >-
+    The MagazineMigration API from University of Warsaw — 3 operation(s) for magazinemigration.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - MagazineMigration
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-magazinemigration-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-mobilityoption-api
+  name: University of Warsaw Mobility Option API
+  description: The MobilityOption API from University of Warsaw — 5 operation(s) for mobilityoption.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - MobilityOption
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-mobilityoption-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-mobilityoptionadmin-api
+  name: University of Warsaw Mobility Option Admin API
+  description: >-
+    The MobilityOptionAdmin API from University of Warsaw — 4 operation(s) for mobilityoptionadmin.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - MobilityOptionAdmin
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-mobilityoptionadmin-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-mobilityoptionhome-api
+  name: University of Warsaw Mobility Option Home API
+  description: >-
+    The MobilityOptionHome API from University of Warsaw — 3 operation(s) for mobilityoptionhome.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - MobilityOptionHome
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-mobilityoptionhome-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-mobilityoptionsp4eu-api
+  name: University of Warsaw Mobility Option Sp4eu API
+  description: >-
+    The MobilityOptionSp4eu API from University of Warsaw — 4 operation(s) for mobilityoptionsp4eu.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - MobilityOptionSp4eu
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-mobilityoptionsp4eu-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-monographpublisher-api
+  name: University of Warsaw Monograph Publisher API
+  description: >-
+    The MonographPublisher API from University of Warsaw — 2 operation(s) for monographpublisher.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - MonographPublisher
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-monographpublisher-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-monographpublishermigration-api
+  name: University of Warsaw Monograph Publisher Migration API
+  description: >-
+    The MonographPublisherMigration API from University of Warsaw — 3 operation(s) for monographpublishermigration.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - MonographPublisherMigration
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-monographpublishermigration-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-passcontrol-api
+  name: University of Warsaw Pass Control API
+  description: The PassControl API from University of Warsaw — 5 operation(s) for passcontrol.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - PassControl
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-passcontrol-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-passcontrolmigration-api
+  name: University of Warsaw Pass Control Migration API
+  description: >-
+    The PassControlMigration API from University of Warsaw — 5 operation(s) for passcontrolmigration.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - PassControlMigration
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-passcontrolmigration-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-passcontrolmyuw-api
+  name: University of Warsaw Pass Control My Uw API
+  description: The PassControlMyUw API from University of Warsaw — 2 operation(s) for passcontrolmyuw.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - PassControlMyUw
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-passcontrolmyuw-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-patent-api
+  name: University of Warsaw Patent API
+  description: The Patent API from University of Warsaw — 29 operation(s) for patent.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - Patent
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-patent-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-patentpublic-api
+  name: University of Warsaw Patent Public API
+  description: The PatentPublic API from University of Warsaw — 1 operation(s) for patentpublic.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - PatentPublic
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-patentpublic-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-permdepartmentcasrole-api
+  name: University of Warsaw Perm Department Cas Role API
+  description: >-
+    The PermDepartmentCasRole API from University of Warsaw — 2 operation(s) for permdepartmentcasrole.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - PermDepartmentCasRole
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-permdepartmentcasrole-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-permdepartmentperson-api
+  name: University of Warsaw Perm Department Person API
+  description: >-
+    The PermDepartmentPerson API from University of Warsaw — 4 operation(s) for permdepartmentperson.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - PermDepartmentPerson
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-permdepartmentperson-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-permissions-api
+  name: University of Warsaw Permissions API
+  description: The Permissions API from University of Warsaw — 14 operation(s) for permissions.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - Permissions
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-permissions-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-permsgroup-api
+  name: University of Warsaw Perms Group API
+  description: The PermsGroup API from University of Warsaw — 7 operation(s) for permsgroup.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - PermsGroup
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-permsgroup-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-person-api
+  name: University of Warsaw Person API
+  description: The Person API from University of Warsaw — 3 operation(s) for person.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - Person
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-person-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-personadmin-api
+  name: University of Warsaw Person Admin API
+  description: The PersonAdmin API from University of Warsaw — 3 operation(s) for personadmin.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - PersonAdmin
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-personadmin-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-persondocument-api
+  name: University of Warsaw Person Document API
+  description: The PersonDocument API from University of Warsaw — 3 operation(s) for persondocument.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - PersonDocument
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-persondocument-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-personprincipal-api
+  name: University of Warsaw Person Principal API
+  description: The PersonPrincipal API from University of Warsaw — 8 operation(s) for personprincipal.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - PersonPrincipal
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-personprincipal-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-personprofile-api
+  name: University of Warsaw Person Profile API
+  description: The PersonProfile API from University of Warsaw — 4 operation(s) for personprofile.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - PersonProfile
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-personprofile-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-personrole-api
+  name: University of Warsaw Person Role API
+  description: The PersonRole API from University of Warsaw — 4 operation(s) for personrole.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - PersonRole
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-personrole-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-personsystemrole-api
+  name: University of Warsaw Person System Role API
+  description: >-
+    The PersonSystemRole API from University of Warsaw — 10 operation(s) for personsystemrole.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - PersonSystemRole
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-personsystemrole-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-personsystemroledocsense-api
+  name: University of Warsaw Person System Role Docsense API
+  description: >-
+    The PersonSystemRoleDocsense API from University of Warsaw — 2 operation(s) for personsystemroledocsense.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - PersonSystemRoleDocsense
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-personsystemroledocsense-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-personsystemrolemigration-api
+  name: University of Warsaw Person System Role Migration API
+  description: >-
+    The PersonSystemRoleMigration API from University of Warsaw — 5 operation(s) for personsystemrolemigration.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - PersonSystemRoleMigration
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-personsystemrolemigration-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-personsystemrolesap-api
+  name: University of Warsaw Person System Role Sap API
+  description: >-
+    The PersonSystemRoleSap API from University of Warsaw — 16 operation(s) for personsystemrolesap.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - PersonSystemRoleSap
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-personsystemrolesap-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-phonenumber-export-api
+  name: University of Warsaw Phone Number/Export API
+  description: >-
+    The PhoneNumber/Export API from University of Warsaw — 2 operation(s) for phonenumber/export.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - PhoneNumber/Export
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-phonenumber-export-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-principal-api
+  name: University of Warsaw Principal API
+  description: The Principal API from University of Warsaw — 3 operation(s) for principal.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - Principal
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-principal-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-profile-api
+  name: University of Warsaw Profile API
+  description: The Profile API from University of Warsaw — 32 operation(s) for profile.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - Profile
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-profile-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-profiledspace-api
+  name: University of Warsaw Profile Dspace API
+  description: The ProfileDspace API from University of Warsaw — 3 operation(s) for profiledspace.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - ProfileDspace
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-profiledspace-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-profilemigration-api
+  name: University of Warsaw Profile Migration API
+  description: >-
+    The ProfileMigration API from University of Warsaw — 11 operation(s) for profilemigration.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - ProfileMigration
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-profilemigration-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-profilemyuw-api
+  name: University of Warsaw Profile My Uw API
+  description: The ProfileMyUw API from University of Warsaw — 7 operation(s) for profilemyuw.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - ProfileMyUw
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-profilemyuw-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-profileokuw-api
+  name: University of Warsaw Profile Ok Uw API
+  description: The ProfileOkUw API from University of Warsaw — 11 operation(s) for profileokuw.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - ProfileOkUw
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-profileokuw-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-profileperson-api
+  name: University of Warsaw Profile Person API
+  description: The ProfilePerson API from University of Warsaw — 4 operation(s) for profileperson.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - ProfilePerson
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-profileperson-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-project-api
+  name: University of Warsaw Project API
+  description: The Project API from University of Warsaw — 26 operation(s) for project.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - Project
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-project-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-projectcontracttype-api
+  name: University of Warsaw Project Contract Type API
+  description: >-
+    The ProjectContractType API from University of Warsaw — 2 operation(s) for projectcontracttype.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - ProjectContractType
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-projectcontracttype-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-projectinternationaldetail-api
+  name: University of Warsaw Project International Detail API
+  description: >-
+    The ProjectInternationalDetail API from University of Warsaw — 3 operation(s) for projectinternationaldetail.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - ProjectInternationalDetail
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-projectinternationaldetail-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-projectmemberrole-api
+  name: University of Warsaw Project Member Role API
+  description: >-
+    The ProjectMemberRole API from University of Warsaw — 5 operation(s) for projectmemberrole.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - ProjectMemberRole
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-projectmemberrole-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-projectmigration-api
+  name: University of Warsaw Project Migration API
+  description: >-
+    The ProjectMigration API from University of Warsaw — 12 operation(s) for projectmigration.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - ProjectMigration
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-projectmigration-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-projectmyuw-api
+  name: University of Warsaw Project My Uw API
+  description: The ProjectMyUw API from University of Warsaw — 5 operation(s) for projectmyuw.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - ProjectMyUw
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-projectmyuw-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-projectokuw-api
+  name: University of Warsaw Project Ok Uw API
+  description: The ProjectOkUw API from University of Warsaw — 3 operation(s) for projectokuw.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - ProjectOkUw
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-projectokuw-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-projectprogram-api
+  name: University of Warsaw Project Program API
+  description: The ProjectProgram API from University of Warsaw — 3 operation(s) for projectprogram.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - ProjectProgram
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-projectprogram-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-projectprogramdetailed-api
+  name: University of Warsaw Project Program Detailed API
+  description: >-
+    The ProjectProgramDetailed API from University of Warsaw — 3 operation(s) for projectprogramdetailed.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - ProjectProgramDetailed
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-projectprogramdetailed-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-projectpublic-api
+  name: University of Warsaw Project Public API
+  description: The ProjectPublic API from University of Warsaw — 1 operation(s) for projectpublic.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - ProjectPublic
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-projectpublic-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-projectreport-api
+  name: University of Warsaw Project Report API
+  description: The ProjectReport API from University of Warsaw — 6 operation(s) for projectreport.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - ProjectReport
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-projectreport-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-pspelement-api
+  name: University of Warsaw Psp Element API
+  description: The PspElement API from University of Warsaw — 2 operation(s) for pspelement.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - PspElement
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-pspelement-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-publication-api
+  name: University of Warsaw Publication API
+  description: The Publication API from University of Warsaw — 13 operation(s) for publication.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - Publication
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-publication-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-publicationmigration-api
+  name: University of Warsaw Publication Migration API
+  description: >-
+    The PublicationMigration API from University of Warsaw — 4 operation(s) for publicationmigration.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - PublicationMigration
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-publicationmigration-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-publicationmyuw-api
+  name: University of Warsaw Publication My Uw API
+  description: The PublicationMyUw API from University of Warsaw — 3 operation(s) for publicationmyuw.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - PublicationMyUw
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-publicationmyuw-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-publicprocurementlegalbasis-api
+  name: University of Warsaw Public Procurement Legal Basis API
+  description: >-
+    The PublicProcurementLegalBasis API from University of Warsaw — 2 operation(s) for publicprocurementlegalbasis.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - PublicProcurementLegalBasis
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-publicprocurementlegalbasis-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-publicprocurementplan-api
+  name: University of Warsaw Public Procurement Plan API
+  description: >-
+    The PublicProcurementPlan API from University of Warsaw — 7 operation(s) for publicprocurementplan.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - PublicProcurementPlan
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-publicprocurementplan-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-publicprocurementplancategory-api
+  name: University of Warsaw Public Procurement Plan Category API
+  description: >-
+    The PublicProcurementPlanCategory API from University of Warsaw — 2 operation(s) for publicprocurementplancategory.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - PublicProcurementPlanCategory
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-publicprocurementplancategory-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-publicprocurementplanmigration-api
+  name: University of Warsaw Public Procurement Plan Migration API
+  description: >-
+    The PublicProcurementPlanMigration API from University of Warsaw — 5 operation(s) for publicprocurementplanmigration.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - PublicProcurementPlanMigration
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-publicprocurementplanmigration-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-registrationadmin-api
+  name: University of Warsaw Registration Admin API
+  description: >-
+    The RegistrationAdmin API from University of Warsaw — 3 operation(s) for registrationadmin.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - RegistrationAdmin
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-registrationadmin-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-researchset-api
+  name: University of Warsaw Research Set API
+  description: The ResearchSet API from University of Warsaw — 7 operation(s) for researchset.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - ResearchSet
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-researchset-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-samlmetadata-api
+  name: University of Warsaw Saml Metadata API
+  description: The SamlMetadata API from University of Warsaw — 2 operation(s) for samlmetadata.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - SamlMetadata
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-samlmetadata-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-saprole-api
+  name: University of Warsaw Sap Role API
+  description: The SapRole API from University of Warsaw — 2 operation(s) for saprole.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - SapRole
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-saprole-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-sciencefield-sciencediscipline-api
+  name: University of Warsaw Science Field/Science Discipline API
+  description: >-
+    The ScienceField/ScienceDiscipline API from University of Warsaw — 6 operation(s) for sciencefield/sciencediscipline.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - ScienceField/ScienceDiscipline
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-sciencefield-sciencediscipline-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-studentorganization-api
+  name: University of Warsaw Student Organization API
+  description: >-
+    The StudentOrganization API from University of Warsaw — 16 operation(s) for studentorganization.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - StudentOrganization
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-studentorganization-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-studentorganizationmyuw-api
+  name: University of Warsaw Student Organization My Uw API
+  description: >-
+    The StudentOrganizationMyUw API from University of Warsaw — 2 operation(s) for studentorganizationmyuw.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - StudentOrganizationMyUw
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-studentorganizationmyuw-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-system-api
+  name: University of Warsaw System API
+  description: The System API from University of Warsaw — 2 operation(s) for system.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - System
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-system-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-system-rest-api
+  name: University of Warsaw System Rest API
+  description: The system-rest API from University of Warsaw — 2 operation(s) for system-rest.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - system-rest
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-system-rest-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-systemrole-api
+  name: University of Warsaw System Role API
+  description: The SystemRole API from University of Warsaw — 2 operation(s) for systemrole.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - SystemRole
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-systemrole-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-translation-api
+  name: University of Warsaw Translation API
+  description: The Translation API from University of Warsaw — 3 operation(s) for translation.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - Translation
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-translation-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-translationcategory-api
+  name: University of Warsaw Translation Category API
+  description: >-
+    The TranslationCategory API from University of Warsaw — 2 operation(s) for translationcategory.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - TranslationCategory
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-translationcategory-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-translationmigration-api
+  name: University of Warsaw Translation Migration API
+  description: >-
+    The TranslationMigration API from University of Warsaw — 4 operation(s) for translationmigration.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - TranslationMigration
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-translationmigration-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-tutorial-api
+  name: University of Warsaw Tutorial API
+  description: The Tutorial API from University of Warsaw — 6 operation(s) for tutorial.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - Tutorial
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-tutorial-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-tutorialadmin-api
+  name: University of Warsaw Tutorial Admin API
+  description: The TutorialAdmin API from University of Warsaw — 3 operation(s) for tutorialadmin.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - TutorialAdmin
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-tutorialadmin-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-tutorialmigration-api
+  name: University of Warsaw Tutorial Migration API
+  description: >-
+    The TutorialMigration API from University of Warsaw — 4 operation(s) for tutorialmigration.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - TutorialMigration
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-tutorialmigration-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-tutorialsp4eu-api
+  name: University of Warsaw Tutorial Sp4eu API
+  description: The TutorialSp4eu API from University of Warsaw — 4 operation(s) for tutorialsp4eu.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - TutorialSp4eu
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-tutorialsp4eu-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-unit-api
+  name: University of Warsaw Unit API
+  description: The Unit API from University of Warsaw — 8 operation(s) for unit.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - Unit
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-unit-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-universityinfo-api
+  name: University of Warsaw University Info API
+  description: The UniversityInfo API from University of Warsaw — 3 operation(s) for universityinfo.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - UniversityInfo
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-universityinfo-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-userpreference-api
+  name: University of Warsaw User Preference API
+  description: The UserPreference API from University of Warsaw — 1 operation(s) for userpreference.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - UserPreference
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-userpreference-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-uweconomicdepartment-api
+  name: University of Warsaw Uw Economic Department API
+  description: >-
+    The UwEconomicDepartment API from University of Warsaw — 3 operation(s) for uweconomicdepartment.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - UwEconomicDepartment
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-uweconomicdepartment-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-uwperson-api
+  name: University of Warsaw Uw Person API
+  description: The UwPerson API from University of Warsaw — 7 operation(s) for uwperson.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - UwPerson
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-uwperson-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-uwpersondocsense-api
+  name: University of Warsaw Uw Person Docsense API
+  description: >-
+    The UwPersonDocsense API from University of Warsaw — 3 operation(s) for uwpersondocsense.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - UwPersonDocsense
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-uwpersondocsense-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-uwpersonmyuw-api
+  name: University of Warsaw Uw Person My Uw API
+  description: The UwPersonMyUw API from University of Warsaw — 1 operation(s) for uwpersonmyuw.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - UwPersonMyUw
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-uwpersonmyuw-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-uwunit-api
+  name: University of Warsaw Uw Unit API
+  description: The UwUnit API from University of Warsaw — 6 operation(s) for uwunit.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - UwUnit
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-uwunit-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-uwunitmyuw-api
+  name: University of Warsaw Uw Unit My Uw API
+  description: The UwUnitMyUw API from University of Warsaw — 2 operation(s) for uwunitmyuw.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - UwUnitMyUw
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-uwunitmyuw-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-api-key-api
+  name: University of Warsaw API Key API
+  description: The API Key API from University of Warsaw — 3 operation(s) for api key.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - API Key
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-api-key-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-phone-number-api
+  name: University of Warsaw Phone Number API
+  description: The Phone Number API from University of Warsaw — 7 operation(s) for phone number.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - Phone Number
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-phone-number-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
+- aid: university-of-warsaw:university-of-warsaw-project-type-api
+  name: University of Warsaw Project Type API
+  description: The Project Type API from University of Warsaw — 3 operation(s) for project type.
+  humanURL: https://danebadawcze.uw.edu.pl/
+  baseURL: https://danebadawcze.uw.edu.pl/api/
+  tags:
+  - Project Type
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-warsaw-project-type-api-openapi.yml
+  - type: Documentation
+    url: https://api.jaskier.uw.edu.pl/
+  - type: x-errors
+    url: errors/university-of-warsaw-spring-error-envelope.yml
+  - type: Documentation
+    url: https://api.sp4eu.uw.edu.pl/
+  - type: Website
+    url: https://sp4eu.uw.edu.pl/
+  - type: x-example
+    url: examples/university-of-warsaw-sp4eu-tutorial-example.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-tutorial-schema.json
+  - type: JSONSchema
+    url: json-schema/university-of-warsaw-sp4eu-course-schema.json
 common:
   - type: CapabilityMap
     url: capabilities/university-of-warsaw-capability-edges.yml
