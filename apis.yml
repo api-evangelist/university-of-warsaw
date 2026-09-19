@@ -321,6 +321,12 @@ apis:
   tags:
   - Research Repository
   - DSpace
+  - CRI
+  - REST
+  - Open Access
+  tags_raw:
+  - Research Repository
+  - DSpace
   - CRIS
   - REST
   - Open Access
@@ -681,6 +687,8 @@ apis:
   humanURL: https://danebadawcze.uw.edu.pl/
   baseURL: https://danebadawcze.uw.edu.pl/api/
   tags:
+  - Buildings
+  tags_raw:
   - Building
   properties:
   - type: OpenAPI
@@ -1387,6 +1395,8 @@ apis:
   humanURL: https://danebadawcze.uw.edu.pl/
   baseURL: https://danebadawcze.uw.edu.pl/api/
   tags:
+  - Homes
+  tags_raw:
   - Home
   properties:
   - type: OpenAPI
@@ -2068,6 +2078,8 @@ apis:
   humanURL: https://danebadawcze.uw.edu.pl/
   baseURL: https://danebadawcze.uw.edu.pl/api/
   tags:
+  - Patents
+  tags_raw:
   - Patent
   properties:
   - type: OpenAPI
@@ -2214,6 +2226,8 @@ apis:
   humanURL: https://danebadawcze.uw.edu.pl/
   baseURL: https://danebadawcze.uw.edu.pl/api/
   tags:
+  - Persons
+  tags_raw:
   - Person
   properties:
   - type: OpenAPI
@@ -2507,6 +2521,8 @@ apis:
   humanURL: https://danebadawcze.uw.edu.pl/
   baseURL: https://danebadawcze.uw.edu.pl/api/
   tags:
+  - Profiles
+  tags_raw:
   - Profile
   properties:
   - type: OpenAPI
@@ -3751,6 +3767,8 @@ apis:
   humanURL: https://danebadawcze.uw.edu.pl/
   baseURL: https://danebadawcze.uw.edu.pl/api/
   tags:
+  - APIKeys
+  tags_raw:
   - API Key
   properties:
   - type: OpenAPI
@@ -3775,6 +3793,8 @@ apis:
   humanURL: https://danebadawcze.uw.edu.pl/
   baseURL: https://danebadawcze.uw.edu.pl/api/
   tags:
+  - Phone Numbers
+  tags_raw:
   - Phone Number
   properties:
   - type: OpenAPI
