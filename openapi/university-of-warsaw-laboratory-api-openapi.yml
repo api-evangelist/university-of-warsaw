@@ -1,0 +1,1003 @@
+openapi: 3.2.0
+info:
+  title: Jaskier Laboratory API
+  version: 1.2.25
+servers:
+- url: https://api.jaskier.uw.edu.pl
+tags:
+- name: Laboratory
+paths:
+  /api/v1/Laboratory/{id}:
+    get:
+      tags:
+      - Laboratory
+      operationId: getLaboratoryById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/LaboratoryResponse'
+      security:
+      - Authorization: []
+      summary: Get laboratory by id
+      x-summary-source: derived
+    put:
+      tags:
+      - Laboratory
+      operationId: updateLaboratory
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LaboratoryRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/LaboratoryResponse'
+      security:
+      - Authorization: []
+      summary: Update laboratory
+      x-summary-source: derived
+    delete:
+      tags:
+      - Laboratory
+      operationId: deleteLaboratory
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: isRemoveCascade
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: false
+      responses:
+        '200':
+          description: OK
+      security:
+      - Authorization: []
+      summary: Delete laboratory
+      x-summary-source: derived
+  /api/v1/Laboratory/{id}/Types:
+    get:
+      tags:
+      - Laboratory
+      operationId: getLaboratoryTypes
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LaboratoryTypeLaboratoryResponse'
+      security:
+      - Authorization: []
+      summary: Get laboratory types
+      x-summary-source: derived
+    put:
+      tags:
+      - Laboratory
+      operationId: upsertLaboratoryTypes
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/LaboratoryTypeLaboratoryRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LaboratoryTypeLaboratoryResponse'
+      security:
+      - Authorization: []
+      summary: Upsert laboratory types
+      x-summary-source: derived
+  /api/v1/Laboratory/{id}/Owners:
+    get:
+      tags:
+      - Laboratory
+      operationId: getLaboratoryOwners
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/LaboratoryOwnersResponse'
+      security:
+      - Authorization: []
+      summary: Get laboratory owners
+      x-summary-source: derived
+    put:
+      tags:
+      - Laboratory
+      operationId: upsertLaboratoryOwners
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LaboratoryOwnersRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/LaboratoryOwnersResponse'
+      security:
+      - Authorization: []
+      summary: Upsert laboratory owners
+      x-summary-source: derived
+  /api/v1/Laboratory/{id}/Description:
+    get:
+      tags:
+      - Laboratory
+      operationId: getLaboratoryDescription
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/LaboratoryDescriptionResponse'
+      security:
+      - Authorization: []
+      summary: Get laboratory description
+      x-summary-source: derived
+    put:
+      tags:
+      - Laboratory
+      operationId: updateLaboratoryDescription
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LaboratoryDescriptionRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/LaboratoryDescriptionResponse'
+      security:
+      - Authorization: []
+      summary: Update laboratory description
+      x-summary-source: derived
+  /api/v1/Laboratory/{id}/Assets:
+    get:
+      tags:
+      - Laboratory
+      operationId: getLaboratoryAssets
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LaboratoryAssetResponse'
+      security:
+      - Authorization: []
+      summary: Get laboratory assets
+      x-summary-source: derived
+    put:
+      tags:
+      - Laboratory
+      operationId: upsertLaboratoryAssets
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LaboratoryAssetRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LaboratoryAssetResponse'
+      security:
+      - Authorization: []
+      summary: Upsert laboratory assets
+      x-summary-source: derived
+  /api/v1/Laboratory:
+    get:
+      tags:
+      - Laboratory
+      operationId: findAllLaboratories
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LaboratoryResponse'
+      security:
+      - Authorization: []
+      summary: Find all laboratories
+      x-summary-source: derived
+    post:
+      tags:
+      - Laboratory
+      operationId: addLaboratory
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LaboratoryRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/LaboratoryResponse'
+      security:
+      - Authorization: []
+      summary: Add laboratory
+      x-summary-source: derived
+  /api/v1/Laboratory/SearchPerson:
+    get:
+      tags:
+      - Laboratory
+      summary: Wyszukiwanie osoby
+      operationId: searchPersonForLaboratory
+      parameters:
+      - name: $skip
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int64
+          default: 0
+      - name: $top
+        in: query
+        required: false
+        schema:
+          maximum: 100
+          type: integer
+          format: int64
+          default: 10
+      - name: $inlinecount
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: $orderby
+        in: query
+        required: false
+        schema:
+          type: string
+          default: lastName,firstName,email
+      - name: searchValue
+        in: query
+        required: false
+        schema:
+          type: string
+          default: searchValue
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/OdataResponsePersonViewResponse'
+      security:
+      - Authorization: []
+  /api/v1/Laboratory/SearchPerson('{personId}'):
+    get:
+      tags:
+      - Laboratory
+      summary: Czytanie informacji o osobie
+      operationId: getSearchPersonForProject_2
+      parameters:
+      - name: personId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PersonViewResponse'
+      security:
+      - Authorization: []
+  /api/v1/Laboratory/SearchBuilding:
+    get:
+      tags:
+      - Laboratory
+      summary: Wyszukiwanie budynku
+      operationId: searchBuildingForLaboratory
+      parameters:
+      - name: $skip
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int64
+          default: 0
+      - name: $top
+        in: query
+        required: false
+        schema:
+          maximum: 100
+          type: integer
+          format: int64
+          default: 10
+      - name: $inlinecount
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: $orderby
+        in: query
+        required: false
+        schema:
+          type: string
+          default: namePl,nameEn
+      - name: searchValue
+        in: query
+        required: false
+        schema:
+          type: string
+          default: searchValue
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/OdataResponseBuildingResponse'
+      security:
+      - Authorization: []
+  /api/v1/Laboratory/SearchBuilding('{buildingId}'):
+    get:
+      tags:
+      - Laboratory
+      summary: Czytanie informacji o budynku
+      operationId: getBuildingForLaboratory
+      parameters:
+      - name: buildingId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/BuildingResponse'
+      security:
+      - Authorization: []
+  /api/v1/Laboratory/SearchAsset:
+    get:
+      tags:
+      - Laboratory
+      summary: Wyszukiwanie danych o środkach trwałych laboratorium (z paginacją - odata)
+      operationId: searchAssetForLaboratory
+      parameters:
+      - name: $skip
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int64
+          default: 0
+      - name: $top
+        in: query
+        required: false
+        schema:
+          maximum: 1000
+          type: integer
+          format: int64
+          default: 10
+      - name: $inlinecount
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: $orderby
+        in: query
+        required: false
+        schema:
+          type: string
+          default: name desc
+      - name: searchValue
+        in: query
+        required: false
+        schema:
+          type: string
+          default: searchValue
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/OdataResponseAssetQueryResponse'
+      security:
+      - Authorization: []
+  /api/v1/Laboratory/SearchAsset('{sapId}'):
+    get:
+      tags:
+      - Laboratory
+      summary: Czytanie informacji o środkach trwałych
+      operationId: getAssetForLaboratory
+      parameters:
+      - name: sapId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/AssetResponse'
+      security:
+      - Authorization: []
+components:
+  schemas:
+    AssetResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        initialValue:
+          type: number
+        depreciationAmount:
+          type: number
+        currencyCode:
+          type: string
+        amortizationMethod:
+          type: string
+        inventoryNumber:
+          type: string
+        initialSapId:
+          type: string
+        sapId:
+          type: string
+        departmentCode:
+          type: string
+        unitName:
+          type: string
+        uwCode:
+          type: string
+        objectType:
+          type: string
+        grwName:
+          type: string
+        kst:
+          type: string
+        documentNumber:
+          type: string
+        admissionDate:
+          type: string
+        liquidationDate:
+          type: string
+        otDate:
+          type: string
+          format: date
+        otNumber:
+          type: string
+        purchaseDate:
+          type: string
+        personId:
+          type: string
+        description:
+          type: string
+        shelfLifeFrom:
+          type: string
+          format: date
+        shelfLifeTo:
+          type: string
+          format: date
+        commercialUsage:
+          type: boolean
+        commercialUsageFrom:
+          type: string
+          format: date
+        purposeOfUse:
+          type: string
+        yearAcquisition:
+          type: string
+    LaboratoryTypeLaboratoryResponse:
+      type: object
+      properties:
+        typeId:
+          type: string
+        typeNamePl:
+          type: string
+        typeNameEn:
+          type: string
+        main:
+          type: boolean
+    LaboratoryDescriptionResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        description:
+          type: string
+        technicalDescription:
+          type: string
+        keywords:
+          type: array
+          items:
+            type: string
+    OdataResponseAssetQueryResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/AssetQueryResponse'
+        totalCount:
+          type: integer
+          format: int32
+    LaboratoryDescriptionRequest:
+      type: object
+      properties:
+        description:
+          maxLength: 5000
+          minLength: 0
+          type: string
+        technicalDescription:
+          maxLength: 5000
+          minLength: 0
+          type: string
+        keywords:
+          type: array
+          items:
+            type: string
+    LaboratoryTypeLaboratoryRequest:
+      type: object
+      properties:
+        typeId:
+          type: string
+        main:
+          type: boolean
+    AssetQueryResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        sapId:
+          type: string
+        name:
+          type: string
+        departmentCode:
+          type: string
+        inventoryNumber:
+          type: string
+        grwName:
+          type: string
+        initialValue:
+          type: number
+        objectType:
+          type: string
+        description:
+          type: string
+        shelfLifeFrom:
+          type: string
+          format: date
+        shelfLifeTo:
+          type: string
+          format: date
+        commercialUsage:
+          type: boolean
+        commercialUsageFrom:
+          type: string
+          format: date
+        purposeOfUse:
+          type: string
+        yearAcquisition:
+          type: string
+    OdataResponsePersonViewResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/PersonViewResponse'
+        totalCount:
+          type: integer
+          format: int32
+    LaboratoryOwnersResponse:
+      type: object
+      properties:
+        persons:
+          type: array
+          items:
+            $ref: '#/components/schemas/LaboratoryPersonResponse'
+        units:
+          type: array
+          items:
+            $ref: '#/components/schemas/LaboratoryUnitResponse'
+    LaboratoryPersonResponse:
+      type: object
+      properties:
+        laboratoryId:
+          type: string
+        personId:
+          type: string
+        personName:
+          type: string
+        supervisor:
+          type: boolean
+        substitute:
+          type: boolean
+        contactPerson:
+          type: boolean
+    LaboratoryResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        keywords:
+          type: array
+          items:
+            type: string
+        buildingId:
+          type: string
+        buildingNamePl:
+          type: string
+        buildingNameEn:
+          type: string
+        roomNumber:
+          type: string
+        mainTypeId:
+          type: string
+        mainTypeNamePl:
+          type: string
+        mainTypeNameEn:
+          type: string
+        secondaryTypes:
+          type: array
+          items:
+            type: string
+        coreFacility:
+          type: boolean
+        scienceDisciplines:
+          type: array
+          items:
+            $ref: '#/components/schemas/LaboratoryScienceDisciplineResponse'
+        technicalStatus:
+          type: string
+          enum:
+          - OPERATIONAL
+          - INSPECTION_DUE
+          - IN_MAINTENANCE
+          - NON_OPERATIONAL
+        lastInspectionDate:
+          type: string
+          format: date
+        supervisor:
+          $ref: '#/components/schemas/LaboratoryPersonShortResponse'
+        contactPerson:
+          $ref: '#/components/schemas/LaboratoryPersonShortResponse'
+        url:
+          type: string
+    OdataResponseBuildingResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/BuildingResponse'
+        totalCount:
+          type: integer
+          format: int32
+    LaboratoryRequest:
+      type: object
+      properties:
+        name:
+          maxLength: 255
+          minLength: 0
+          type: string
+        buildingId:
+          type: string
+        roomNumber:
+          type: string
+        coreFacility:
+          type: boolean
+        scienceDisciplineCodes:
+          type: array
+          items:
+            type: string
+        technicalStatus:
+          type: string
+          enum:
+          - OPERATIONAL
+          - INSPECTION_DUE
+          - IN_MAINTENANCE
+          - NON_OPERATIONAL
+        lastInspectionDate:
+          type: string
+          format: date
+        url:
+          type: string
+    LaboratoryAssetResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        laboratoryId:
+          type: string
+        assetId:
+          type: string
+        assetSapId:
+          type: string
+        assetName:
+          type: string
+    LaboratoryUnitResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        laboratoryId:
+          type: string
+        unitCode:
+          type: string
+        unitNamePl:
+          type: string
+        unitNameEn:
+          type: string
+    LaboratoryScienceDisciplineResponse:
+      type: object
+      properties:
+        code:
+          type: string
+        name:
+          type: string
+        nameEn:
+          type: string
+    LaboratoryPersonShortResponse:
+      type: object
+      properties:
+        personId:
+          type: string
+        personName:
+          type: string
+    LaboratoryAssetRequest:
+      type: object
+      properties:
+        sapIds:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+    LaboratoryPersonRequest:
+      required:
+      - personId
+      type: object
+      properties:
+        personId:
+          type: string
+        supervisor:
+          type: boolean
+        substitute:
+          type: boolean
+        contactPerson:
+          type: boolean
+    BuildingResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        namePl:
+          type: string
+        nameEn:
+          type: string
+        namePlAlt:
+          type: string
+        nameEnAlt:
+          type: string
+        phone:
+          type: string
+        campusCode:
+          type: string
+        campusNamePl:
+          type: string
+        campusNameEn:
+          type: string
+        usosCode:
+          type: string
+        latitude:
+          type: number
+        longitude:
+          type: number
+        street:
+          type: string
+        number:
+          type: string
+        postalCode:
+          type: string
+        city:
+          type: string
+        administratorPersonId:
+          type: string
+        administratorFirstName:
+          type: string
+        administratorLastName:
+          type: string
+        administratorEmail:
+          type: string
+        descriptionPl:
+          type: string
+        descriptionEn:
+          type: string
+        descriptionPlAlt:
+          type: string
+        descriptionEnAlt:
+          type: string
+        publicId:
+          type: string
+        visibleUsos:
+          type: boolean
+        visibleOkUw:
+          type: boolean
+        visibleMyUw:
+          type: boolean
+        hasFloorPlan:
+          type: boolean
+        importSourceId:
+          type: string
+        importSourceType:
+          type: string
+        benNumber:
+          type: string
+          description: Numer biura ewidencji nieruchomości
+        buildingAttributeCodes:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      description: Informacje o budynku
+    PersonViewResponse:
+      type: object
+      properties:
+        personId:
+          type: string
+        university:
+          type: string
+          enum:
+          - CUNI
+          - UAH
+          - SU
+          - KU
+          - UNIMI
+          - UW
+          - UNIGE
+          - PARIS_2
+        orcid:
+          type: string
+        firstName:
+          type: string
+        middleNames:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        profileId:
+          type: string
+        degree:
+          type: string
+        universityIndexNumber:
+          type: string
+    LaboratoryOwnersRequest:
+      type: object
+      properties:
+        persons:
+          type: array
+          items:
+            $ref: '#/components/schemas/LaboratoryPersonRequest'
+        unitCodes:
+          type: array
+          items:
+            type: string
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

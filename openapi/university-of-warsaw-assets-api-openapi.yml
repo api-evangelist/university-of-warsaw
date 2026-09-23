@@ -1,0 +1,382 @@
+openapi: 3.2.0
+info:
+  title: Jaskier Assets API
+  version: 1.2.25
+servers:
+- url: https://api.jaskier.uw.edu.pl
+tags:
+- name: Assets
+paths:
+  /api/v1/Asset/{sapId}/Details:
+    get:
+      tags:
+      - Assets
+      summary: Czytaj szczegóły ze środka trwałego
+      operationId: getAssetDetails
+      parameters:
+      - name: sapId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/AssetDetailsResponse'
+      security:
+      - Authorization: []
+    post:
+      tags:
+      - Assets
+      summary: Aktualizuj informacje o środku trwałym
+      operationId: updateAsset
+      parameters:
+      - name: sapId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AssetDetailsRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/AssetDetailsResponse'
+      security:
+      - Authorization: []
+  /api/v1/Asset:
+    get:
+      tags:
+      - Assets
+      summary: Listowanie danych o środkach trwałych
+      operationId: queryForAssets
+      parameters:
+      - name: $skip
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int64
+          default: 0
+      - name: $top
+        in: query
+        required: false
+        schema:
+          maximum: 1000
+          type: integer
+          format: int64
+          default: 10
+      - name: $inlinecount
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: $orderby
+        in: query
+        required: false
+        schema:
+          type: string
+          default: name
+      - name: $filter
+        in: query
+        required: false
+        schema:
+          type: string
+          default: ()
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/OdataResponseAssetQueryResponse'
+      security:
+      - Authorization: []
+  /api/v1/Asset/{sapId}:
+    get:
+      tags:
+      - Assets
+      summary: Czytanie informacji o środku trwałym
+      operationId: getAssetById
+      parameters:
+      - name: sapId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/AssetResponse'
+      security:
+      - Authorization: []
+    delete:
+      tags:
+      - Assets
+      summary: Usuwanie środka trwałego
+      operationId: removeAsset
+      parameters:
+      - name: sapId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      security:
+      - Authorization: []
+  /api/v1/Asset/{sapId}/ResearchSet:
+    get:
+      tags:
+      - Assets
+      summary: Czytaj zbiory aparatury powiązane ze środkiem trwałym
+      operationId: getAssetResearchSet
+      parameters:
+      - name: sapId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AssetResearchSetResponse'
+      security:
+      - Authorization: []
+  /api/v1/Asset/{sapId}/Projects:
+    get:
+      tags:
+      - Assets
+      summary: Czytaj projekty powiązane ze środkiem trwałym
+      operationId: getAssetProjects
+      parameters:
+      - name: sapId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AssetProjectResponse'
+      security:
+      - Authorization: []
+components:
+  schemas:
+    AssetResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        initialValue:
+          type: number
+        depreciationAmount:
+          type: number
+        currencyCode:
+          type: string
+        amortizationMethod:
+          type: string
+        inventoryNumber:
+          type: string
+        initialSapId:
+          type: string
+        sapId:
+          type: string
+        departmentCode:
+          type: string
+        unitName:
+          type: string
+        uwCode:
+          type: string
+        objectType:
+          type: string
+        grwName:
+          type: string
+        kst:
+          type: string
+        documentNumber:
+          type: string
+        admissionDate:
+          type: string
+        liquidationDate:
+          type: string
+        otDate:
+          type: string
+          format: date
+        otNumber:
+          type: string
+        purchaseDate:
+          type: string
+        personId:
+          type: string
+        description:
+          type: string
+        shelfLifeFrom:
+          type: string
+          format: date
+        shelfLifeTo:
+          type: string
+          format: date
+        commercialUsage:
+          type: boolean
+        commercialUsageFrom:
+          type: string
+          format: date
+        purposeOfUse:
+          type: string
+        yearAcquisition:
+          type: string
+    AssetResearchSetResponse:
+      type: object
+      properties:
+        cfSetId:
+          type: string
+        name:
+          type: string
+        creationTime:
+          type: string
+          format: date-time
+    OdataResponseAssetQueryResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/AssetQueryResponse'
+        totalCount:
+          type: integer
+          format: int32
+    AssetDetailsResponse:
+      type: object
+      properties:
+        sapId:
+          type: string
+        otDate:
+          type: string
+          format: date
+        otNumber:
+          type: string
+        shelfLifeFrom:
+          type: string
+          format: date
+        shelfLifeTo:
+          type: string
+          format: date
+        purposeOfUsage:
+          type: string
+        commercialUsage:
+          type: boolean
+        commercialUsageFrom:
+          type: string
+          format: date
+        description:
+          type: string
+    AssetProjectResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        startDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+        acro:
+          type: string
+        projectName:
+          type: string
+        projectNumber:
+          type: string
+    AssetQueryResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        sapId:
+          type: string
+        name:
+          type: string
+        departmentCode:
+          type: string
+        inventoryNumber:
+          type: string
+        grwName:
+          type: string
+        initialValue:
+          type: number
+        objectType:
+          type: string
+        description:
+          type: string
+        shelfLifeFrom:
+          type: string
+          format: date
+        shelfLifeTo:
+          type: string
+          format: date
+        commercialUsage:
+          type: boolean
+        commercialUsageFrom:
+          type: string
+          format: date
+        purposeOfUse:
+          type: string
+        yearAcquisition:
+          type: string
+    AssetDetailsRequest:
+      type: object
+      properties:
+        otDate:
+          type: string
+          format: date
+        otNumber:
+          type: string
+        shelfLifeFrom:
+          type: string
+          format: date
+        shelfLifeTo:
+          type: string
+          format: date
+        purposeOfUsage:
+          type: string
+        commercialUsage:
+          type: boolean
+        commercialUsageFrom:
+          type: string
+          format: date
+        description:
+          maxLength: 5000
+          minLength: 0
+          type: string
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

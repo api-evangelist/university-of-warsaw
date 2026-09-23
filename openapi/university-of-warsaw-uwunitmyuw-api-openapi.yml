@@ -1,0 +1,90 @@
+openapi: 3.2.0
+info:
+  title: Jaskier Uw Unit My Uw API
+  version: 1.2.25
+servers:
+- url: https://api.jaskier.uw.edu.pl
+tags:
+- name: UwUnitMyUw
+paths:
+  /api/v1/MyUw/UwUnit:
+    get:
+      tags:
+      - UwUnitMyUw
+      summary: Listowanie jednostek UW
+      operationId: queryForUwUnits_1
+      parameters:
+      - name: date
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UwUnitResponse'
+      security:
+      - Authorization: []
+  /api/v1/MyUw/UwUnit/{code}:
+    get:
+      tags:
+      - UwUnitMyUw
+      summary: Czytanie jednostki UW na podstawie kodu
+      operationId: getUwUnitByCode_1
+      parameters:
+      - name: code
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UwUnitResponse'
+      security:
+      - Authorization: []
+components:
+  schemas:
+    UwUnitResponse:
+      type: object
+      properties:
+        uwCode:
+          type: string
+          description: Unikalny kod jednostki
+        namePl:
+          type: string
+          description: Polska nazwa jednostki
+        nameEn:
+          type: string
+          description: Angielska nazwa jednostki
+        parentUnitCode:
+          type: string
+          description: Unikalny kod jednostki nadrzędnej
+        url:
+          type: string
+          description: Adres strony jednostki
+        isVisible:
+          type: boolean
+        sapUnitCode:
+          type: string
+        existsFrom:
+          type: string
+          format: date
+        existsTo:
+          type: string
+          format: date
+      description: Jednostki organizacyjne UW
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

@@ -1,0 +1,170 @@
+openapi: 3.2.0
+info:
+  title: Jaskier Person API
+  version: 1.2.25
+servers:
+- url: https://api.jaskier.uw.edu.pl
+tags:
+- name: Person
+paths:
+  /api/v1/Person:
+    get:
+      tags:
+      - Person
+      summary: Listowanie danych o osobach
+      operationId: queryForPerson
+      parameters:
+      - name: $skip
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int64
+          default: 0
+      - name: $top
+        in: query
+        required: false
+        schema:
+          maximum: 1000
+          type: integer
+          format: int64
+          default: 10
+      - name: $inlinecount
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: $orderby
+        in: query
+        required: false
+        schema:
+          type: string
+          default: firstName,middleNames,lastName
+      - name: $filter
+        in: query
+        required: false
+        schema:
+          type: string
+          default: ()
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/OdataResponsePersonViewResponse'
+      security:
+      - Authorization: []
+  /api/v1/Person/{personId}:
+    get:
+      tags:
+      - Person
+      summary: Czytanie osoby o podanym id
+      operationId: getPersonById
+      parameters:
+      - name: personId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PersonViewResponse'
+      security:
+      - Authorization: []
+  /api/v1/Person/{personId}/University:
+    get:
+      tags:
+      - Person
+      summary: Dodatkowe informacje w związku z uniwersystetem
+      operationId: getPersonUniversityById
+      parameters:
+      - name: personId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PersonUniversityResponse'
+      security:
+      - Authorization: []
+components:
+  schemas:
+    OdataResponsePersonViewResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/PersonViewResponse'
+        totalCount:
+          type: integer
+          format: int32
+    PersonUniversityUWResponse:
+      type: object
+      properties:
+        usosId:
+          type: string
+        masterId:
+          type: string
+        uidPolon:
+          type: string
+        uidPolonStud:
+          type: string
+        uidPolonDokt:
+          type: string
+        sapLogin:
+          type: string
+      description: Dodatkowe informacje o osobie jeżeli z UW. Może być nullem, jeżeli osoba nie ma związku z UW.
+    PersonViewResponse:
+      type: object
+      properties:
+        personId:
+          type: string
+        university:
+          type: string
+          enum:
+          - CUNI
+          - UAH
+          - SU
+          - KU
+          - UNIMI
+          - UW
+          - UNIGE
+          - PARIS_2
+        orcid:
+          type: string
+        firstName:
+          type: string
+        middleNames:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        profileId:
+          type: string
+        degree:
+          type: string
+        universityIndexNumber:
+          type: string
+    PersonUniversityResponse:
+      type: object
+      properties:
+        UW:
+          $ref: '#/components/schemas/PersonUniversityUWResponse'
+      description: Dodatkowe informacje z uniwersytetów, do których należy dana osoba. W tym momencie tylko UW, w przyszłości mogą pojawić się kolejne.
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

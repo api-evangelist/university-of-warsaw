@@ -1,0 +1,136 @@
+openapi: 3.2.0
+info:
+  title: Jaskier Monograph Publisher API
+  version: 1.2.25
+servers:
+- url: https://api.jaskier.uw.edu.pl
+tags:
+- name: MonographPublisher
+paths:
+  /api/v1/MonographPublisher/{id}:
+    get:
+      tags:
+      - MonographPublisher
+      summary: Czytanie wydawcy monografii
+      operationId: getMonographPublisher
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/MonographPublisherResponse'
+      security:
+      - Authorization: []
+    put:
+      tags:
+      - MonographPublisher
+      summary: Aktualizacja wydawcy monografii
+      operationId: updateMonographPublisher
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MonographPublisherRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/MonographPublisherResponse'
+      security:
+      - Authorization: []
+    delete:
+      tags:
+      - MonographPublisher
+      summary: Usunięcie wydawcy monografii
+      operationId: removeMonographPublisher
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+      security:
+      - Authorization: []
+  /api/v1/MonographPublisher:
+    get:
+      tags:
+      - MonographPublisher
+      summary: Czytanie listy wydawców monografii
+      operationId: findAllMonographPublisher
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MonographPublisherResponse'
+      security:
+      - Authorization: []
+    post:
+      tags:
+      - MonographPublisher
+      summary: Dodawanie wydawcy monografii
+      operationId: addMonographPublisher
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MonographPublisherRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/MonographPublisherResponse'
+      security:
+      - Authorization: []
+components:
+  schemas:
+    MonographPublisherRequest:
+      type: object
+      properties:
+        level:
+          type: string
+        publishingHouse:
+          type: string
+    MonographPublisherResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        level:
+          type: string
+        publishingHouse:
+          type: string
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

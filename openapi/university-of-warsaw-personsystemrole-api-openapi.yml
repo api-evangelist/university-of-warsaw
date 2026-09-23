@@ -1,0 +1,465 @@
+openapi: 3.2.0
+info:
+  title: Jaskier Person System Role API
+  version: 1.2.25
+servers:
+- url: https://api.jaskier.uw.edu.pl
+tags:
+- name: PersonSystemRole
+paths:
+  /api/v1/PersonSystemRole:
+    get:
+      tags:
+      - PersonSystemRole
+      summary: Listowanie ról przypisanych do osób z paginacją
+      operationId: queryForPersonSystemRoles
+      parameters:
+      - name: $skip
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int64
+          default: 0
+      - name: $top
+        in: query
+        required: false
+        schema:
+          maximum: 1000
+          type: integer
+          format: int64
+          default: 10
+      - name: $inlinecount
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: $orderby
+        in: query
+        required: false
+        schema:
+          type: string
+          default: economicDepartmentCode,personId
+      - name: $filter
+        in: query
+        required: false
+        schema:
+          type: string
+          default: ()
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/OdataResponsePersonSystemRoleResponse'
+      security:
+      - Authorization: []
+    post:
+      tags:
+      - PersonSystemRole
+      summary: Dodanie roli do osoby
+      operationId: addPersonSystemRole
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PersonSystemRoleRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PersonSystemRoleResponse'
+      security:
+      - Authorization: []
+  /api/v1/PersonSystemRole/{personSystemRoleId}:
+    get:
+      tags:
+      - PersonSystemRole
+      summary: Pobieranie ról przypisanych do osoby na podstawie id
+      operationId: getPersonSystemRole
+      parameters:
+      - name: personSystemRoleId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PersonSystemRoleResponse'
+      security:
+      - Authorization: []
+    post:
+      tags:
+      - PersonSystemRole
+      summary: Aktualizacja roli przypisanej do osoby
+      operationId: updatePersonSystemRole
+      parameters:
+      - name: personSystemRoleId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PersonSystemRoleRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PersonSystemRoleResponse'
+      security:
+      - Authorization: []
+    delete:
+      tags:
+      - PersonSystemRole
+      summary: Usunięcie roli przypisanej do osoby
+      operationId: removePersonSystemRole
+      parameters:
+      - name: personSystemRoleId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      security:
+      - Authorization: []
+  /api/v1/PersonSystemRole/RoleCode/{roleCode}/Assign:
+    post:
+      tags:
+      - PersonSystemRole
+      summary: Przypisanie roli do rekordu
+      operationId: assignSystemRole
+      parameters:
+      - name: roleCode
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PersonRoleCodeRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+      security:
+      - Authorization: []
+  /api/v1/PersonSystemRole/Convert/Selected:
+    post:
+      tags:
+      - PersonSystemRole
+      description: Converts person system roles into person department permissions for selected persons. Returns errors list. If the operation is successful, an empty list is returned
+      operationId: copyFromOrganizationRoleByPersonId
+      requestBody:
+        content:
+          application/json:
+            schema:
+              uniqueItems: true
+              type: array
+              items:
+                type: string
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  type: string
+      security:
+      - Authorization: []
+      summary: Copy from organization role by person id
+      x-summary-source: derived
+  /api/v1/PersonSystemRole/Convert/All:
+    post:
+      tags:
+      - PersonSystemRole
+      description: Converts person system roles into person department permissions for all persons. Returns errors list. If the operation is successful, an empty list is returned
+      operationId: copyFromOrganizationRole
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  type: string
+      security:
+      - Authorization: []
+      summary: Copy from organization role
+      x-summary-source: derived
+  /api/v1/PersonSystemRole/SearchPerson:
+    get:
+      tags:
+      - PersonSystemRole
+      summary: Wyszukiwanie osoby
+      operationId: searchPersonForPersonSystemRole
+      parameters:
+      - name: $skip
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int64
+          default: 0
+      - name: $top
+        in: query
+        required: false
+        schema:
+          maximum: 100
+          type: integer
+          format: int64
+          default: 10
+      - name: $inlinecount
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: $orderby
+        in: query
+        required: false
+        schema:
+          type: string
+          default: lastName,firstName,email
+      - name: searchValue
+        in: query
+        required: false
+        schema:
+          type: string
+          default: searchValue
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/OdataResponsePersonViewResponse'
+      security:
+      - Authorization: []
+  /api/v1/PersonSystemRole/SearchPerson('{personId}'):
+    get:
+      tags:
+      - PersonSystemRole
+      summary: Czytanie informacji o osobie
+      operationId: getSearchPersonForPersonSystemRole
+      parameters:
+      - name: personId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PersonViewResponse'
+      security:
+      - Authorization: []
+  /api/v1/PersonSystemRole/RoleCode/{roleCode}:
+    get:
+      tags:
+      - PersonSystemRole
+      summary: Lista rekordów z daną rolą w dziale gospodarczym
+      operationId: findAllForRole
+      parameters:
+      - name: roleCode
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: departmentCode
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PersonSystemRoleResponse'
+      security:
+      - Authorization: []
+  /api/v1/PersonSystemRole/All:
+    get:
+      tags:
+      - PersonSystemRole
+      summary: Listowanie ról przypisanych do osoby w zależności od typu systemu
+      operationId: queryForPersonSystemRolesAll
+      parameters:
+      - name: economicDepartments
+        in: query
+        required: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PersonSystemRoleResponse'
+      security:
+      - Authorization: []
+  /api/v1/PersonSystemRole/RoleCode/{roleCode}/Unassign:
+    delete:
+      tags:
+      - PersonSystemRole
+      summary: Odebranie roli
+      operationId: unassignSystemRole
+      parameters:
+      - name: roleCode
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PersonRoleCodeRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+      security:
+      - Authorization: []
+components:
+  schemas:
+    OdataResponsePersonSystemRoleResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/PersonSystemRoleResponse'
+        totalCount:
+          type: integer
+          format: int32
+    PersonViewResponse:
+      type: object
+      properties:
+        personId:
+          type: string
+        university:
+          type: string
+          enum:
+          - CUNI
+          - UAH
+          - SU
+          - KU
+          - UNIMI
+          - UW
+          - UNIGE
+          - PARIS_2
+        orcid:
+          type: string
+        firstName:
+          type: string
+        middleNames:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        profileId:
+          type: string
+        degree:
+          type: string
+        universityIndexNumber:
+          type: string
+    PersonRoleCodeRequest:
+      type: object
+      properties:
+        departmentCode:
+          type: string
+        personIds:
+          type: array
+          items:
+            type: string
+    OdataResponsePersonViewResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/PersonViewResponse'
+        totalCount:
+          type: integer
+          format: int32
+    PersonSystemRoleResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        personId:
+          type: string
+        personFirstName:
+          type: string
+        personLastName:
+          type: string
+        personEmail:
+          type: string
+        personSapLogin:
+          type: string
+        economicDepartmentCode:
+          type: string
+        economicDepartmentNamePl:
+          type: string
+        economicDepartmentNameEn:
+          type: string
+        systemRoleCodes:
+          type: array
+          items:
+            type: string
+      description: Informacje o rolach osób
+    PersonSystemRoleRequest:
+      required:
+      - personId
+      - systemRoleCodes
+      type: object
+      properties:
+        personId:
+          type: string
+        economicDepartmentCode:
+          type: string
+        systemRoleCodes:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

@@ -1,0 +1,1062 @@
+openapi: 3.2.0
+info:
+  title: Jaskier Publication API
+  version: 1.2.25
+servers:
+- url: https://api.jaskier.uw.edu.pl
+tags:
+- name: Publication
+paths:
+  /api/v1/Publication/{publicationId}:
+    get:
+      tags:
+      - Publication
+      summary: Czytanie publikacji z podanym id
+      operationId: getPublicationById
+      parameters:
+      - name: publicationId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PublicationResponse'
+      security:
+      - Authorization: []
+    put:
+      tags:
+      - Publication
+      summary: Aktualizacja publikacji
+      operationId: updatePublication
+      parameters:
+      - name: publicationId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PublicationRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PublicationResponse'
+      security:
+      - Authorization: []
+  /api/v1/Publication/{publicationId}/Profile:
+    get:
+      tags:
+      - Publication
+      summary: Lista autorów publikacji
+      description: 'Lista autorów publikacji
+
+
+        Filtry:
+
+        * role
+
+        - gdy brak -> zwraca wszystkich autorów publikacje niezależnie od roli'
+      operationId: getPublicationProfile
+      parameters:
+      - name: publicationId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: role
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - AUTHOR
+          - SUPERVISOR
+          - EDITOR
+          - TRANSLATOR
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PublicationProfileResponse'
+      security:
+      - Authorization: []
+    put:
+      tags:
+      - Publication
+      summary: Dodawanie profilu (autora) publikacji
+      operationId: addPublicationProfile
+      parameters:
+      - name: publicationId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PublicationProfileRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PublicationProfileResponse'
+      security:
+      - Authorization: []
+  /api/v1/Publication/{publicationId}/Abstract:
+    get:
+      tags:
+      - Publication
+      summary: Lista abstraktów publikacji
+      operationId: getPublicationAbstracts
+      parameters:
+      - name: publicationId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AbstractResponse'
+      security:
+      - Authorization: []
+    put:
+      tags:
+      - Publication
+      summary: Dodawanie abstraktu do publikacji
+      operationId: addPublicationAbstract
+      parameters:
+      - name: publicationId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AbstractRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/AbstractResponse'
+      security:
+      - Authorization: []
+  /api/v1/Publication:
+    get:
+      tags:
+      - Publication
+      summary: Listowanie danych o publikacjach (z paginacją - odata)
+      description: 'Listowanie danych o publikacjach (z paginacją - odata).
+
+
+        Filtry dodatkowe (niezależne od $filter):
+
+        * firstName
+
+        - opcjonalny filtr po imieniu autora
+
+        * lastName
+
+        - opcjonalny filtr po nazwisku autora'
+      operationId: queryForPublication
+      parameters:
+      - name: $skip
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int64
+          default: 0
+      - name: $top
+        in: query
+        required: false
+        schema:
+          maximum: 1000
+          type: integer
+          format: int64
+          default: 10
+      - name: $inlinecount
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: $orderby
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: $filter
+        in: query
+        required: false
+        schema:
+          type: string
+          default: ()
+      - name: firstName
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: lastName
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/OdataResponseQueryPublicationItemResponse'
+      security:
+      - Authorization: []
+    post:
+      tags:
+      - Publication
+      summary: Dodawanie publikacji
+      operationId: addPublication
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PublicationRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PublicationResponse'
+      security:
+      - Authorization: []
+  /api/v1/Publication/{publicationId}/Profile/{publicationProfileId}:
+    post:
+      tags:
+      - Publication
+      summary: Aktualizacja profilu (autora) publikacji
+      operationId: updatePublicationProfile
+      parameters:
+      - name: publicationId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: publicationProfileId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PublicationProfileRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PublicationProfileResponse'
+      security:
+      - Authorization: []
+    delete:
+      tags:
+      - Publication
+      summary: Usunięcie powiązania profilu z publikacją
+      operationId: removePublicationProfile
+      parameters:
+      - name: publicationId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: publicationProfileId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      security:
+      - Authorization: []
+  /api/v1/Publication/{publicationId}/Abstract/{cfAbstrId}:
+    post:
+      tags:
+      - Publication
+      summary: Aktualizacja abstraktu publikacji
+      operationId: updatePublicationAbstract
+      parameters:
+      - name: publicationId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: cfAbstrId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AbstractRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/AbstractResponse'
+      security:
+      - Authorization: []
+    delete:
+      tags:
+      - Publication
+      summary: Usunięcie abstraktu publikacji
+      operationId: removePublicationAbstract
+      parameters:
+      - name: publicationId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: cfAbstrId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      security:
+      - Authorization: []
+  /api/v1/Publication/{publicationId}/Venue:
+    get:
+      tags:
+      - Publication
+      summary: Lista miejsc publikacji
+      operationId: getPublicationVenue
+      parameters:
+      - name: publicationId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PublicationVenueResponse'
+      security:
+      - Authorization: []
+  /api/v1/Publication/Years:
+    get:
+      tags:
+      - Publication
+      summary: Zwraca listę lat dla publikacji (lookup)
+      operationId: queryPublicationYearsLookup
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  type: integer
+                  format: int32
+      security:
+      - Authorization: []
+  /api/v1/Publication/SearchPublications:
+    get:
+      tags:
+      - Publication
+      summary: Przeszukiwanie publikacji
+      operationId: searchPublication
+      parameters:
+      - name: $skip
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int64
+          default: 0
+      - name: $top
+        in: query
+        required: false
+        schema:
+          maximum: 1000
+          type: integer
+          format: int64
+          default: 10
+      - name: $inlinecount
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: $orderby
+        in: query
+        required: false
+        schema:
+          type: string
+          default: creationTime desc
+      - name: searchValue
+        in: query
+        required: false
+        schema:
+          type: string
+          default: searchValue
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/OdataResponseQueryPublicationItemResponse'
+      security:
+      - Authorization: []
+  /api/v1/Publication/SearchProfile:
+    get:
+      tags:
+      - Publication
+      summary: Wyszukiwanie profilu (np. w celu dodania autora publikacji)
+      operationId: searchProfileForPublication
+      parameters:
+      - name: $skip
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int64
+          default: 0
+      - name: $top
+        in: query
+        required: false
+        schema:
+          maximum: 100
+          type: integer
+          format: int64
+          default: 10
+      - name: $inlinecount
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: $orderby
+        in: query
+        required: false
+        schema:
+          type: string
+          default: firstName,middleNames,lastName
+      - name: searchValue
+        in: query
+        required: false
+        schema:
+          type: string
+          default: searchValue
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/OdataResponseQueryProfileItemResponse'
+      security:
+      - Authorization: []
+  /api/v1/Publication/SearchProfile/{profileId}:
+    get:
+      tags:
+      - Publication
+      summary: Czytanie informacji o profilu
+      operationId: getSearchProfileForPublication
+      parameters:
+      - name: profileId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ProfileResponse'
+      security:
+      - Authorization: []
+  /api/v1/Publication/PublicationTypes:
+    get:
+      tags:
+      - Publication
+      summary: Czytanie listy typów publikacji dostępnych w bazie danych
+      operationId: getExistingPublicationTypes
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                uniqueItems: true
+                type: array
+                items:
+                  type: string
+      security:
+      - Authorization: []
+  /api/v1/Publication/All:
+    get:
+      tags:
+      - Publication
+      summary: Listowanie danych o publikacjach (bez paginacji)
+      description: 'Listowanie danych o publikacjach (bez paginacji)
+
+
+        Filtry:
+
+        * years
+
+        - gdy brak -> zwraca publikacje niezależnie od roku
+
+        - gdy years=2022,2021,null -> zwraca publikacje z lat 2022,2021 + publikacje bez zdefiniowanego roku
+
+        - gdy years=2022,2021 -> zwraca publikacje z lat 2022,2021
+
+        * profileId
+
+        - gdy brak -> zwraca wszystkie publikacje
+
+        - gdy profileId=... -> zwraca publikacje powiązane z danym profilem (autorem)
+
+        * firstName
+
+        - opcjonalny filtr po imieniu autora
+
+        * lastName
+
+        - opcjonalny filtr po nazwisku autora
+
+        * howManyRecords
+
+        - opcjonalny filtr ile rekordów ma zwrócić'
+      operationId: queryForPublicationWithoutPagination
+      parameters:
+      - name: years
+        in: query
+        required: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      - name: profileId
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: firstName
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: lastName
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: howManyRecords
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/QueryPublicationItemResponse'
+      security:
+      - Authorization: []
+components:
+  schemas:
+    AbstractRequest:
+      required:
+      - keyw
+      type: object
+      properties:
+        id:
+          type: string
+        langCode:
+          type: string
+          description: kod języka typu PL, EN, EN-GB, itp - klucz naturalny do Language, zgodny z ISO (patrz Language)
+        title:
+          type: string
+          description: 'tytuł wynalazku/patentu/wzoru użytkowego/nazwa gatunku/nazwa botaniczna/nazwa odmiany w danym języku '
+        abstr:
+          type: string
+          description: streszczenie opisu wynalazku/wzoru użytkowego w danym języku
+        keyw:
+          maxItems: 100
+          minItems: 0
+          uniqueItems: true
+          type: array
+          description: słowa kluczowe w danym języku
+          items:
+            type: string
+            description: słowa kluczowe w danym języku
+        orderIndex:
+          minimum: 0
+          type: integer
+          description: 'kolejność wyświetlania abstraktów (domyślnie: 0)'
+          format: int32
+        original:
+          type: boolean
+          description: czy streszczenie jest w języku oryginału
+    PublicationProfileResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: id relacji course_person
+        publicationId:
+          type: string
+          description: id kursu
+        name:
+          type: string
+          description: imię i nazwisko autora (ustawiane dowolnie)
+        profileId:
+          type: string
+          description: id profilu
+        profilePublicId:
+          type: string
+          description: id publiczne profilu
+        profileFirstName:
+          type: string
+          description: imię osoby
+        profileLastName:
+          type: string
+          description: nazwisko osoby
+        profileEmails:
+          type: array
+          description: emaile osoby
+          items:
+            type: string
+            description: emaile osoby
+        profileDegree:
+          type: string
+          description: stopień naukowy osoby
+        role:
+          type: string
+          description: rola osoby
+        email:
+          type: string
+          description: email
+        isPubliclyVisible:
+          type: boolean
+          description: czy profil jest publiczny
+    OdataResponseQueryProfileItemResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/QueryProfileItemResponse'
+        totalCount:
+          type: integer
+          format: int32
+    PublicationResponse:
+      type: object
+      properties:
+        publicationId:
+          type: string
+          description: id publikacji
+        cfUri:
+          type: string
+          description: link do publikacji
+        doi:
+          type: string
+          description: link do globalnie unikalnego identyfikatora
+        publicationDate:
+          type: string
+          description: data wydania publikacji
+        year:
+          type: integer
+          description: rok wydania publikacji
+          format: int32
+        types:
+          type: array
+          description: typ publikacji
+          items:
+            type: string
+            description: typ publikacji
+        languages:
+          type: array
+          description: lista języków publikacji
+          items:
+            type: string
+            description: lista języków publikacji
+        cfTitle:
+          type: string
+          description: tytuł publikacji pobierany z abstraktu o najniższym indeksie
+        cfKeyw:
+          type: array
+          description: słowa kluczowe pobierane z abstraktu o najniższym indeksie
+          items:
+            type: string
+            description: słowa kluczowe pobierane z abstraktu o najniższym indeksie
+        creationTime:
+          type: string
+          format: date-time
+      description: Informacje o publikacji
+    OdataResponseQueryPublicationItemResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/QueryPublicationItemResponse'
+        totalCount:
+          type: integer
+          format: int32
+    PublicationRequest:
+      required:
+      - languages
+      - types
+      type: object
+      properties:
+        cfUri:
+          type: string
+          description: link do publikacji
+        year:
+          type: integer
+          description: rok wydania publikacji
+          format: int32
+        doi:
+          type: string
+          description: link do globalnie unikalnego identyfikatora
+        publicationDate:
+          type: string
+          description: data publikacji
+        types:
+          uniqueItems: true
+          type: array
+          description: lista (zbiór) typów publikacji
+          items:
+            type: string
+            description: lista (zbiór) typów publikacji
+        languages:
+          uniqueItems: true
+          type: array
+          description: lista języków publikacji
+          items:
+            type: string
+            description: lista języków publikacji
+    ProfileResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        firstName:
+          type: string
+        middleNames:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        emailsOther:
+          type: array
+          items:
+            type: string
+        phone:
+          type: string
+        personId:
+          type: string
+        orcid:
+          type: string
+        uidPolon:
+          type: string
+        uidPolonStud:
+          type: string
+        uidPolonDokt:
+          type: string
+        pbnId:
+          type: string
+        scopusId:
+          type: string
+        degree:
+          type: string
+        cfKeyw:
+          type: array
+          items:
+            type: string
+        articleId:
+          type: string
+        scienceDisciplinesStatementDate:
+          type: string
+          format: date
+        roles:
+          type: array
+          items:
+            type: string
+        isPubliclyVisible:
+          type: boolean
+        profilePublicId:
+          type: string
+    PublicationProfileRequest:
+      required:
+      - name
+      type: object
+      properties:
+        name:
+          type: string
+          description: imię i nazwisko osoby
+        profileId:
+          type: string
+          description: id profilu
+        role:
+          type: string
+          description: Rola osoby w procesie wytwarzania publikacji. Jeśli nic nie zostanie podane rola = AUTHOR
+          enum:
+          - AUTHOR
+          - SUPERVISOR
+          - EDITOR
+          - TRANSLATOR
+    AbstractResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Id abstraltu
+        langCode:
+          type: string
+          description: kod języka typu PL, EN, EN-GB, itp - klucz naturalny do Language, zgodny z ISO (patrz Language)
+        title:
+          type: string
+          description: 'tytuł wynalazku/patentu/wzoru użytkowego/nazwa gatunku/nazwa botaniczna/nazwa odmiany w danym języku '
+        abstr:
+          type: string
+          description: streszczenie opisu wynalazku/wzoru użytkowego w danym języku
+        keyw:
+          type: array
+          description: słowa kluczowe w danym języku
+          items:
+            type: string
+            description: słowa kluczowe w danym języku
+        orderIndex:
+          type: integer
+          description: 'kolejność wyświetlania abstraktów (domyślnie: 0)'
+          format: int32
+        objectId:
+          type: string
+          description: Id obiektu
+        objectType:
+          type: string
+          description: Typ obiektu
+        original:
+          type: boolean
+          description: czy streszczenie jest w języku oryginału
+    QueryProfileItemResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        firstName:
+          type: string
+        middleNames:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        emailsOther:
+          type: array
+          items:
+            type: string
+        phone:
+          type: string
+        personId:
+          type: string
+        orcid:
+          type: string
+        uidPolon:
+          type: string
+        uidPolonStud:
+          type: string
+        uidPolonDokt:
+          type: string
+        pbnId:
+          type: string
+        scopusId:
+          type: string
+        degree:
+          type: string
+        cfKeyw:
+          type: array
+          items:
+            type: string
+        articleId:
+          type: string
+        scienceDisciplinesStatementDate:
+          type: string
+          format: date
+        roles:
+          type: array
+          items:
+            type: string
+        isPubliclyVisible:
+          type: boolean
+        profilePublicId:
+          type: string
+        emails:
+          type: array
+          items:
+            type: string
+        profileRoles:
+          type: array
+          items:
+            type: string
+        keyw:
+          type: array
+          items:
+            type: string
+        units:
+          type: array
+          items:
+            type: string
+        unitsAll:
+          type: array
+          items:
+            type: string
+        scienceDisciplines:
+          type: array
+          items:
+            type: string
+        patentsCount:
+          type: integer
+          format: int64
+        projectsCount:
+          type: integer
+          format: int64
+        coursesCount:
+          type: integer
+          format: int64
+        publicationsCount:
+          type: integer
+          format: int64
+        promotedPublicationsCount:
+          type: integer
+          format: int64
+    PublicationVenueResponse:
+      type: object
+      properties:
+        publicationId:
+          type: string
+        title:
+          type: string
+        issn:
+          type: string
+        eissn:
+          type: string
+        isbn:
+          type: string
+        publisher:
+          type: string
+        doi:
+          type: string
+        uri:
+          type: string
+    QueryPublicationItemResponse:
+      type: object
+      properties:
+        publicationId:
+          type: string
+          description: id publikacji
+        cfUri:
+          type: string
+          description: link do publikacji
+        doi:
+          type: string
+          description: link do globalnie unikalnego identyfikatora
+        publicationDate:
+          type: string
+          description: data wydania publikacji
+        year:
+          type: integer
+          description: rok wydania publikacji
+          format: int32
+        types:
+          type: array
+          description: typ publikacji
+          items:
+            type: string
+            description: typ publikacji
+        languages:
+          type: array
+          description: lista języków publikacji
+          items:
+            type: string
+            description: lista języków publikacji
+        cfTitle:
+          type: string
+          description: tytuł publikacji pobierany z abstraktu o najniższym indeksie
+        cfKeyw:
+          type: array
+          description: słowa kluczowe pobierane z abstraktu o najniższym indeksie
+          items:
+            type: string
+            description: słowa kluczowe pobierane z abstraktu o najniższym indeksie
+        creationTime:
+          type: string
+          format: date-time
+        importSourceType:
+          type: string
+      description: Podstawowe informacje o publikacji
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

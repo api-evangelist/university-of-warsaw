@@ -1,0 +1,210 @@
+openapi: 3.2.0
+info:
+  title: Jaskier Building Attribute API
+  version: 1.2.25
+servers:
+- url: https://api.jaskier.uw.edu.pl
+tags:
+- name: BuildingAttribute
+paths:
+  /api/v1/BuildingAttribute/{code}:
+    get:
+      tags:
+      - BuildingAttribute
+      summary: Czytanie informacji o atrybucie budynku o danym kodzie
+      operationId: getBuildingAttributeByCode
+      parameters:
+      - name: code
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/BuildingAttributeResponse'
+      security:
+      - Authorization: []
+    put:
+      tags:
+      - BuildingAttribute
+      summary: Aktualizacja atrybutu budynku o podanym kodzie
+      operationId: updateBuildingAttribute
+      parameters:
+      - name: code
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BuildingAttributeRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/BuildingAttributeResponse'
+      security:
+      - Authorization: []
+    delete:
+      tags:
+      - BuildingAttribute
+      summary: Usunięcie atrybutu budynku
+      operationId: deleteBuildingAttribute
+      parameters:
+      - name: code
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      security:
+      - Authorization: []
+  /api/v1/BuildingAttribute/Category:
+    get:
+      tags:
+      - BuildingAttribute
+      summary: Listowanie danych o kategoriach atrybutu budynków
+      operationId: findAllBuildingAttributesCategories_1
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BuildingAttributeCategoryResponse'
+      security:
+      - Authorization: []
+    put:
+      tags:
+      - BuildingAttribute
+      summary: Aktualizacja kategorii atrybutu budynku
+      operationId: updateBuildingAttributeCategory
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpsertBuildingAttributeCategoryRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BuildingAttributeCategoryResponse'
+      security:
+      - Authorization: []
+  /api/v1/BuildingAttribute:
+    get:
+      tags:
+      - BuildingAttribute
+      summary: Listowanie danych o atrybutach budynków
+      operationId: findAllBuildingAttributes
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BuildingAttributeResponse'
+      security:
+      - Authorization: []
+    post:
+      tags:
+      - BuildingAttribute
+      summary: Dodanie atrybutu budynku
+      operationId: addBuildingAttribute
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BuildingAttributeRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/BuildingAttributeResponse'
+      security:
+      - Authorization: []
+components:
+  schemas:
+    BuildingAttributeResponse:
+      type: object
+      properties:
+        code:
+          type: string
+        namePl:
+          type: string
+        nameEn:
+          type: string
+        category:
+          type: string
+    BuildingAttributeCategoryRequest:
+      required:
+      - code
+      type: object
+      properties:
+        code:
+          type: string
+        namePl:
+          type: string
+        nameEn:
+          type: string
+    BuildingAttributeRequest:
+      required:
+      - category
+      - code
+      type: object
+      properties:
+        code:
+          type: string
+        namePl:
+          type: string
+        nameEn:
+          type: string
+        category:
+          type: string
+    UpsertBuildingAttributeCategoryRequest:
+      required:
+      - categories
+      type: object
+      properties:
+        categories:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/BuildingAttributeCategoryRequest'
+    BuildingAttributeCategoryResponse:
+      type: object
+      properties:
+        code:
+          type: string
+        namePl:
+          type: string
+        nameEn:
+          type: string
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

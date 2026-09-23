@@ -1,0 +1,351 @@
+openapi: 3.2.0
+info:
+  title: OpenAPI definition Mobility Option Admin API
+  version: v0
+servers:
+- url: https://api.sp4eu.uw.edu.pl
+tags:
+- name: MobilityOptionAdmin
+paths:
+  /api/v1/Admin/MobilityOption/{id}:
+    get:
+      tags:
+      - MobilityOptionAdmin
+      summary: Czytanie informacji o opcji mobilności z podanym id
+      operationId: getMobilityOption4euById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/MobilityOptionResponse'
+      security:
+      - Authorization: []
+    put:
+      tags:
+      - MobilityOptionAdmin
+      summary: Aktualizacja opcji mobilności
+      operationId: updateMobilityOptions
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MobilityOptionRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/MobilityOptionResponse'
+      security:
+      - Authorization: []
+    delete:
+      tags:
+      - MobilityOptionAdmin
+      summary: Usuwanie opcji mobilności
+      operationId: removeMobilityOption
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      security:
+      - Authorization: []
+  /api/v1/Admin/MobilityOption/{id}/HostApplicationProcedure:
+    get:
+      tags:
+      - MobilityOptionAdmin
+      summary: Czytanie procedury aplikacji dla opcji mobilności po id
+      operationId: getHostApplicationProceduresForOption
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ArticlePreviewResponse'
+      security:
+      - Authorization: []
+    put:
+      tags:
+      - MobilityOptionAdmin
+      summary: Ustawianie procedury aplikacji
+      operationId: setContentEnHost_1
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ArticleRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ArticlePreviewResponse'
+      security:
+      - Authorization: []
+    delete:
+      tags:
+      - MobilityOptionAdmin
+      summary: Usuwanie procedury aplikacji dla opcji mobilności po id
+      operationId: removeApplicationProcedure
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      security:
+      - Authorization: []
+  /api/v1/Admin/MobilityOption:
+    post:
+      tags:
+      - MobilityOptionAdmin
+      summary: Utworzenie opcji mobilności wraz z artykułem i powiązaniem
+      operationId: createMobilityOptionAndSetApplicationProcedure
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MobilityOptionAndArticleDto'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/MobilityOptionResponse'
+      security:
+      - Authorization: []
+  /api/v1/Admin/MobilityOption/All:
+    get:
+      tags:
+      - MobilityOptionAdmin
+      summary: Listowanie wszystkich opcji mobilności
+      operationId: getAllMobilityOptions
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MobilityOptionResponse'
+      security:
+      - Authorization: []
+components:
+  schemas:
+    MobilityOptionAndArticleDto:
+      type: object
+      properties:
+        mobilityOptionRequest:
+          $ref: '#/components/schemas/MobilityOptionRequest'
+        articleRequest:
+          $ref: '#/components/schemas/ArticleSp4euRequest'
+    ArticleRequest:
+      type: object
+      properties:
+        titlePl:
+          type: string
+        titleEn:
+          type: string
+        contentPl:
+          type: string
+        contentEn:
+          type: string
+        signification:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+          uniqueItems: true
+        created:
+          type: string
+        visible:
+          type: boolean
+        visibleFrom:
+          type: string
+          format: date
+        visibleTo:
+          type: string
+          format: date
+    MobilityOptionResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        mobilityProgram:
+          type: string
+        university:
+          type: string
+          enum:
+          - CUNI
+          - UAH
+          - SU
+          - KU
+          - UNIMI
+          - UW
+          - UNIGE
+          - PARIS_2
+        suitableFor:
+          type: array
+          items:
+            type: string
+            enum:
+            - BA
+            - MA
+            - PhD
+            - Staff
+        fundingSource:
+          type: string
+        action:
+          type: string
+        contactDetails:
+          type: string
+        description:
+          type: string
+        applicationProcedureArticleId:
+          type: string
+        is4eu:
+          type: boolean
+        type:
+          type: string
+        duration:
+          type: string
+        applicationDeadline:
+          type: string
+        areaOfStudy:
+          type: string
+    MobilityOptionRequest:
+      type: object
+      properties:
+        mobilityProgram:
+          type: string
+        fundingSource:
+          type: string
+        action:
+          type: string
+        university:
+          type: string
+          enum:
+          - CUNI
+          - UAH
+          - SU
+          - KU
+          - UNIMI
+          - UW
+          - UNIGE
+          - PARIS_2
+        suitableFor:
+          type: array
+          items:
+            type: string
+            enum:
+            - BA
+            - MA
+            - PhD
+            - Staff
+          uniqueItems: true
+        contactDetails:
+          type: string
+        duration:
+          type: string
+        description:
+          type: string
+        applicationDeadline:
+          type: string
+        areaOfStudy:
+          type: string
+        type:
+          type: string
+    ArticleSp4euRequest:
+      type: object
+      properties:
+        titlePl:
+          type: string
+        titleEn:
+          type: string
+        contentPl:
+          type: string
+        contentEn:
+          type: string
+        signification:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+          uniqueItems: true
+    ArticlePreviewResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        titlePl:
+          type: string
+        titleEn:
+          type: string
+        contentPl:
+          type: string
+        contentEn:
+          type: string
+        visibleFrom:
+          type: string
+          format: date
+        visibleTo:
+          type: string
+          format: date
+        signification:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+        visible:
+          type: boolean
+        created:
+          type: string
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

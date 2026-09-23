@@ -1,0 +1,153 @@
+openapi: 3.2.0
+info:
+  title: Jaskier Translation Migration API
+  version: 1.2.25
+servers:
+- url: https://api.jaskier.uw.edu.pl
+tags:
+- name: TranslationMigration
+paths:
+  /api/v1/Translation/ReadFromFile:
+    post:
+      tags:
+      - TranslationMigration
+      summary: czytanie tłumaczeń z pliku xls i xlsx
+      operationId: readTranslationFromXLSX
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              required:
+              - multipartFile
+              type: object
+              properties:
+                multipartFile:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TranslationImportRequest'
+      security:
+      - Authorization: []
+  /api/v1/Translation/Import:
+    post:
+      tags:
+      - TranslationMigration
+      summary: importowanie tłumaczenia
+      operationId: importTranslation
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TranslationImportRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/TranslationResponse'
+      security:
+      - Authorization: []
+  /api/v1/Translation/Import/FileTemplate:
+    get:
+      tags:
+      - TranslationMigration
+      summary: pobieranie szablonu pliku xlsx eksportu tłumaczeń do pliku
+      operationId: getTranslationFileTemplate
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+                format: binary
+          x-is-file: 'true'
+      security:
+      - Authorization: []
+  /api/v1/Translation/Export:
+    get:
+      tags:
+      - TranslationMigration
+      summary: Eksport tłumaczeń do pliku xlsx
+      operationId: exportTranslations
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+                format: binary
+          x-is-file: 'true'
+      security:
+      - Authorization: []
+components:
+  schemas:
+    TranslationImportRequest:
+      type: object
+      properties:
+        id:
+          type: string
+        en:
+          type: string
+        pl:
+          type: string
+        fr:
+          type: string
+        it:
+          type: string
+        da:
+          type: string
+        de:
+          type: string
+        cs:
+          type: string
+        uk:
+          type: string
+        ru:
+          type: string
+        be:
+          type: string
+        category:
+          type: string
+    TranslationResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        en:
+          type: string
+        pl:
+          type: string
+        fr:
+          type: string
+        it:
+          type: string
+        da:
+          type: string
+        de:
+          type: string
+        cs:
+          type: string
+        uk:
+          type: string
+        ru:
+          type: string
+        be:
+          type: string
+        category:
+          type: string
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

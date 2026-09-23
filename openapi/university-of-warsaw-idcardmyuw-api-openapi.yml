@@ -1,0 +1,49 @@
+openapi: 3.2.0
+info:
+  title: Jaskier ID Card My Uw API
+  version: 1.2.25
+servers:
+- url: https://api.jaskier.uw.edu.pl
+tags:
+- name: IdCardMyUw
+paths:
+  /api/v1/MyUw/IdCard/Status/{mifare}:
+    get:
+      tags:
+      - IdCardMyUw
+      operationId: getPersonIdCardStatus
+      parameters:
+      - name: mifare
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PersonIdCardStatusResponse'
+      security:
+      - Authorization: []
+      summary: Get person id card status
+      x-summary-source: derived
+components:
+  schemas:
+    PersonIdCardStatusResponse:
+      type: object
+      properties:
+        mifare:
+          type: string
+        status:
+          type: string
+          enum:
+          - ACTIVE
+          - INACTIVE
+          - NOT_FOUND
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

@@ -1,0 +1,502 @@
+openapi: 3.2.0
+info:
+  title: Jaskier Tutorial Sp4eu API
+  version: 1.2.25
+servers:
+- url: https://api.jaskier.uw.edu.pl
+tags:
+- name: TutorialSp4eu
+paths:
+  /api/v1/Sp4eu/Tutorial/{tutorialId}:
+    get:
+      tags:
+      - TutorialSp4eu
+      summary: Czytanie informacji o tutorialu z podanym id
+      operationId: getTutorialByIdForSp4eu
+      parameters:
+      - name: tutorialId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: isPublished
+        in: query
+        required: false
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Sp4euTutorialResponse'
+      security:
+      - Authorization: []
+    put:
+      tags:
+      - TutorialSp4eu
+      summary: Aktualizacja tutorialu
+      operationId: updateSp4euTutorial
+      parameters:
+      - name: tutorialId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TutorialRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Sp4euTutorialResponse'
+      security:
+      - Authorization: []
+    delete:
+      tags:
+      - TutorialSp4eu
+      summary: Usuwanie tutorialu z powiązannymi relacjami
+      operationId: removeSp4euTutorial
+      parameters:
+      - name: tutorialId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      security:
+      - Authorization: []
+  /api/v1/Sp4eu/Tutorial:
+    get:
+      tags:
+      - TutorialSp4eu
+      summary: Listowanie danych o tutorialach (z paginacją - odata)
+      operationId: queryForSp4euTutorials
+      parameters:
+      - name: $skip
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int64
+          default: 0
+      - name: $top
+        in: query
+        required: false
+        schema:
+          maximum: 1000
+          type: integer
+          format: int64
+          default: 10
+      - name: $inlinecount
+        in: query
+        required: false
+        schema:
+          type: string
+          default: allpages
+      - name: $orderby
+        in: query
+        required: false
+        schema:
+          type: string
+          default: creationTime desc
+      - name: $filter
+        in: query
+        required: false
+        schema:
+          type: string
+          default: ()
+      - name: isPublished
+        in: query
+        required: false
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/OdataResponseQueryTutorialItemSp4euResponse'
+      security:
+      - Authorization: []
+    post:
+      tags:
+      - TutorialSp4eu
+      summary: Dodawanie tutorialu
+      operationId: addSp4euTutorial
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TutorialRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Sp4euTutorialResponse'
+      security:
+      - Authorization: []
+  /api/v1/Sp4eu/Tutorial/{tutorialId}/Abstract:
+    get:
+      tags:
+      - TutorialSp4eu
+      summary: Lista abstraktów dla danego tutorialu
+      operationId: getTutorialAbstracts_1
+      parameters:
+      - name: tutorialId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AbstractResponse'
+      security:
+      - Authorization: []
+  /api/v1/Sp4eu/Tutorial/All:
+    get:
+      tags:
+      - TutorialSp4eu
+      summary: Listowanie danych o tutorialach
+      operationId: findAllSp4euTutorials
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/QueryTutorialItemSp4euResponse'
+      security:
+      - Authorization: []
+components:
+  schemas:
+    Sp4euTutorialResponse:
+      type: object
+      properties:
+        tutorialId:
+          type: string
+          description: id tutorialu (musi być unikalne w skali całego rejestru)
+        tutorialCode:
+          type: string
+          description: kod tutorialu (musi być unikalne w skali całego rejestru)
+        isPublished:
+          type: boolean
+          description: czy tutorial powinien być dostępny w ofercie 4eu plus alliance?
+        providedBy:
+          type: array
+          description: lista uczelni zaangażowanych w dostarczenie tutorialu
+          items:
+            type: string
+            description: lista uczelni zaangażowanych w dostarczenie tutorialu
+            enum:
+            - CUNI
+            - UAH
+            - SU
+            - KU
+            - UNIMI
+            - UW
+            - UNIGE
+            - PARIS_2
+        publishedBy:
+          type: string
+          description: nazwa uczelni, która opublikowała informację o tutorialu
+          enum:
+          - CUNI
+          - UAH
+          - SU
+          - KU
+          - UNIMI
+          - UW
+          - UNIGE
+          - PARIS_2
+        creationTime:
+          type: string
+          description: Czas utworzenia
+          format: date-time
+        title:
+          type: string
+          description: Tytuł tutorialu
+        category:
+          type: string
+          description: kategoria tematyki, której dotyczy tutorial
+          enum:
+          - SelfOrganization
+          - OnlineLearning
+          - CulturalAwareness
+          - GroupDynamics
+          - HandlingConflicts
+        languages:
+          type: array
+          description: lista języków, w których dostępny jest tutorial
+          items:
+            type: string
+            description: lista języków, w których dostępny jest tutorial
+        level:
+          type: string
+          description: poziom zaawansowania tutorialu
+          enum:
+          - BASIC
+          - MEDIUM
+          - ADVANCED
+        duration:
+          type: string
+          description: czas trwania tutorialu
+        url:
+          type: string
+          description: link do tutorialu
+        isFree:
+          type: boolean
+          description: czy tutorial jest darmowy
+        description:
+          type: string
+          description: Opis tutorialu
+        cfTitle:
+          type: string
+          deprecated: true
+        cfKeyw:
+          type: array
+          deprecated: true
+          items:
+            type: string
+      description: Informacje o tutorialu
+    OdataResponseQueryTutorialItemSp4euResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/QueryTutorialItemSp4euResponse'
+        totalCount:
+          type: integer
+          format: int32
+    AbstractResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Id abstraltu
+        langCode:
+          type: string
+          description: kod języka typu PL, EN, EN-GB, itp - klucz naturalny do Language, zgodny z ISO (patrz Language)
+        title:
+          type: string
+          description: 'tytuł wynalazku/patentu/wzoru użytkowego/nazwa gatunku/nazwa botaniczna/nazwa odmiany w danym języku '
+        abstr:
+          type: string
+          description: streszczenie opisu wynalazku/wzoru użytkowego w danym języku
+        keyw:
+          type: array
+          description: słowa kluczowe w danym języku
+          items:
+            type: string
+            description: słowa kluczowe w danym języku
+        orderIndex:
+          type: integer
+          description: 'kolejność wyświetlania abstraktów (domyślnie: 0)'
+          format: int32
+        objectId:
+          type: string
+          description: Id obiektu
+        objectType:
+          type: string
+          description: Typ obiektu
+        original:
+          type: boolean
+          description: czy streszczenie jest w języku oryginału
+    TutorialRequest:
+      required:
+      - category
+      - languages
+      - level
+      - providedBy
+      - publishedBy
+      type: object
+      properties:
+        tutorialCode:
+          type: string
+          description: kod tutorialu (musi być unikalne w skali całego rejestru)
+        isPublished:
+          type: boolean
+          description: czy tutorial powinien być dostępny w ofercie 4eu plus alliance?
+        providedBy:
+          type: array
+          description: lista uczelni zaangażowanych w dostarczenie tutorialu
+          items:
+            type: string
+            description: lista uczelni zaangażowanych w dostarczenie tutorialu
+            enum:
+            - CUNI
+            - UAH
+            - SU
+            - KU
+            - UNIMI
+            - UW
+            - UNIGE
+            - PARIS_2
+        publishedBy:
+          type: string
+          description: nazwa uczelni, która opublikowała informację o tutorialu
+          enum:
+          - CUNI
+          - UAH
+          - SU
+          - KU
+          - UNIMI
+          - UW
+          - UNIGE
+          - PARIS_2
+        title:
+          type: string
+          description: Tytuł tutorialu
+        category:
+          type: string
+          description: kategoria tematyki, której dotyczy tutorial
+          enum:
+          - SelfOrganization
+          - OnlineLearning
+          - CulturalAwareness
+          - GroupDynamics
+          - HandlingConflicts
+        languages:
+          uniqueItems: true
+          type: array
+          description: Język, w którym dostępny jest tutorial
+          items:
+            type: string
+            description: Język, w którym dostępny jest tutorial
+        level:
+          type: string
+          description: poziom zaawansowania tutorialu
+          enum:
+          - BASIC
+          - MEDIUM
+          - ADVANCED
+        duration:
+          maxLength: 32
+          minLength: 0
+          type: string
+          description: czas trwania tutorialu
+        url:
+          type: string
+          description: link do tutorialu
+        isFree:
+          type: boolean
+          description: czy tutorial jest darmowy
+        description:
+          type: string
+          description: Opis tutorialu
+    QueryTutorialItemSp4euResponse:
+      type: object
+      properties:
+        tutorialId:
+          type: string
+          description: id tutorialu (musi być unikalne w skali całego rejestru)
+        tutorialCode:
+          type: string
+          description: kod tutorialu (musi być unikalne w skali całego rejestru)
+        isPublished:
+          type: boolean
+          description: czy tutorial powinien być dostępny w ofercie 4eu plus alliance?
+        providedBy:
+          type: array
+          description: lista uczelni zaangażowanych w dostarczenie tutorialu
+          items:
+            type: string
+            description: lista uczelni zaangażowanych w dostarczenie tutorialu
+            enum:
+            - CUNI
+            - UAH
+            - SU
+            - KU
+            - UNIMI
+            - UW
+            - UNIGE
+            - PARIS_2
+        publishedBy:
+          type: string
+          description: nazwa uczelni, która opublikowała informację o tutorialu
+          enum:
+          - CUNI
+          - UAH
+          - SU
+          - KU
+          - UNIMI
+          - UW
+          - UNIGE
+          - PARIS_2
+        creationTime:
+          type: string
+          description: Czas utworzenia
+          format: date-time
+        title:
+          type: string
+          description: Tytuł tutorialu
+        category:
+          type: string
+          description: kategoria tematyki, której dotyczy tutorial
+          enum:
+          - SelfOrganization
+          - OnlineLearning
+          - CulturalAwareness
+          - GroupDynamics
+          - HandlingConflicts
+        languages:
+          type: array
+          description: lista języków, w których dostępny jest tutorial
+          items:
+            type: string
+            description: lista języków, w których dostępny jest tutorial
+        level:
+          type: string
+          description: poziom zaawansowania tutorialu
+          enum:
+          - BASIC
+          - MEDIUM
+          - ADVANCED
+        duration:
+          type: string
+          description: czas trwania tutorialu
+        url:
+          type: string
+          description: link do tutorialu
+        isFree:
+          type: boolean
+          description: czy tutorial jest darmowy
+        description:
+          type: string
+          description: Opis tutorialu
+        cfTitle:
+          type: string
+          deprecated: true
+        cfKeyw:
+          type: array
+          deprecated: true
+          items:
+            type: string
+      description: Podstawowe informacje o kursie
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

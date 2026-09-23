@@ -1,0 +1,532 @@
+openapi: 3.2.0
+info:
+  title: Jaskier FAQ API
+  version: 1.2.25
+servers:
+- url: https://api.jaskier.uw.edu.pl
+tags:
+- name: FAQ
+paths:
+  /api/v1/Faq/{id}:
+    put:
+      tags:
+      - FAQ
+      operationId: updateFaq
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: type
+        in: query
+        required: true
+        schema:
+          type: string
+          enum:
+          - ACHIEVEMENTS_SUMMARY
+          - ADMIN
+          - ARTICLE
+          - ASSET
+          - BUILDING
+          - BUILDING_ACCESSIBILITY
+          - BUILDING_ATTRIBUTE
+          - BUILDING_BON
+          - BUILDING_PATH_OBJECT_TYPE
+          - BUILDING_PUBLIC
+          - BUSINESS_ENTITY
+          - CAMPUS
+          - COURSE
+          - COURSE_REGISTRATION_INFO
+          - CURRENCY
+          - EVENT
+          - FAQ
+          - GIVEAWAY
+          - ITEM_USED
+          - IT_SERVICE
+          - LABORATORY
+          - LABORATORY_TYPE
+          - LEGAL_BASIS
+          - LICENSE
+          - MOBILITY_OPTION
+          - MAGAZINE
+          - MONOGRAPH_PUBLISHER
+          - FRAMEWORK_AGREEMENT
+          - HOUSING_OPTION
+          - PATENT
+          - PASS_CONTROL
+          - PASS_CONTROL_PUBLIC
+          - PASS_CONTROL_DICTIONARY
+          - PERMISSION
+          - PERM_DEPARTMENT_PERSON
+          - PERM_DEPARTMENT_CAS_ROLE
+          - PERSON
+          - PERSON_ID_CARD
+          - PHONE_NUMBER
+          - PROFILE
+          - PROFILE_PUBLIC
+          - PROFILE_MYUW
+          - PERSON_PROFILE_MYUW
+          - PROJECT
+          - PROJECT_PUBLIC
+          - PROJECT_MIGRATION
+          - PROJECT_DICTIONARY
+          - PROJECT_PROGRAM
+          - PROJECT_INTERNATIONAL
+          - PROJECT_PROGRAM_DETAILED
+          - PROJECT_PROGRAM_CONTRACT
+          - PROJECT_TYPE
+          - PROJECT_REPORT
+          - PSP_ELEMENT
+          - PUBLICATION
+          - PUBLICATION_VENUE
+          - RESEARCH_SET
+          - PERSON_SYSTEM_ROLE
+          - PERSON_SYSTEM_ROLE_API
+          - SAP_OBJECT_ACCESS
+          - SYSTEM_ROLE
+          - PUBLIC_PROCUREMENT_PLAN
+          - PUBLIC_PROCUREMENT_PLAN_CATEGORY
+          - SAP_ROLE
+          - STUDENT_ORGANIZATION
+          - TRANSLATION
+          - TRANSLATION_CATEGORY
+          - TUTORIAL
+          - UNIVERSITY_INFO
+          - UW_ECONOMIC_DEPARTMENT
+          - UW_PERSON
+          - UW_PERSON_EMPLOYEE_DATA
+          - UW_UNIT
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FaqRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/FaqResponse'
+      security:
+      - Authorization: []
+      summary: Update faq
+      x-summary-source: derived
+    delete:
+      tags:
+      - FAQ
+      operationId: deleteFaq
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: type
+        in: query
+        required: true
+        schema:
+          type: string
+          enum:
+          - ACHIEVEMENTS_SUMMARY
+          - ADMIN
+          - ARTICLE
+          - ASSET
+          - BUILDING
+          - BUILDING_ACCESSIBILITY
+          - BUILDING_ATTRIBUTE
+          - BUILDING_BON
+          - BUILDING_PATH_OBJECT_TYPE
+          - BUILDING_PUBLIC
+          - BUSINESS_ENTITY
+          - CAMPUS
+          - COURSE
+          - COURSE_REGISTRATION_INFO
+          - CURRENCY
+          - EVENT
+          - FAQ
+          - GIVEAWAY
+          - ITEM_USED
+          - IT_SERVICE
+          - LABORATORY
+          - LABORATORY_TYPE
+          - LEGAL_BASIS
+          - LICENSE
+          - MOBILITY_OPTION
+          - MAGAZINE
+          - MONOGRAPH_PUBLISHER
+          - FRAMEWORK_AGREEMENT
+          - HOUSING_OPTION
+          - PATENT
+          - PASS_CONTROL
+          - PASS_CONTROL_PUBLIC
+          - PASS_CONTROL_DICTIONARY
+          - PERMISSION
+          - PERM_DEPARTMENT_PERSON
+          - PERM_DEPARTMENT_CAS_ROLE
+          - PERSON
+          - PERSON_ID_CARD
+          - PHONE_NUMBER
+          - PROFILE
+          - PROFILE_PUBLIC
+          - PROFILE_MYUW
+          - PERSON_PROFILE_MYUW
+          - PROJECT
+          - PROJECT_PUBLIC
+          - PROJECT_MIGRATION
+          - PROJECT_DICTIONARY
+          - PROJECT_PROGRAM
+          - PROJECT_INTERNATIONAL
+          - PROJECT_PROGRAM_DETAILED
+          - PROJECT_PROGRAM_CONTRACT
+          - PROJECT_TYPE
+          - PROJECT_REPORT
+          - PSP_ELEMENT
+          - PUBLICATION
+          - PUBLICATION_VENUE
+          - RESEARCH_SET
+          - PERSON_SYSTEM_ROLE
+          - PERSON_SYSTEM_ROLE_API
+          - SAP_OBJECT_ACCESS
+          - SYSTEM_ROLE
+          - PUBLIC_PROCUREMENT_PLAN
+          - PUBLIC_PROCUREMENT_PLAN_CATEGORY
+          - SAP_ROLE
+          - STUDENT_ORGANIZATION
+          - TRANSLATION
+          - TRANSLATION_CATEGORY
+          - TUTORIAL
+          - UNIVERSITY_INFO
+          - UW_ECONOMIC_DEPARTMENT
+          - UW_PERSON
+          - UW_PERSON_EMPLOYEE_DATA
+          - UW_UNIT
+      responses:
+        '200':
+          description: OK
+      security:
+      - Authorization: []
+      summary: Delete faq
+      x-summary-source: derived
+  /api/v1/Faq:
+    get:
+      tags:
+      - FAQ
+      operationId: getFaqsForType
+      parameters:
+      - name: type
+        in: query
+        required: true
+        schema:
+          type: string
+          enum:
+          - ACHIEVEMENTS_SUMMARY
+          - ADMIN
+          - ARTICLE
+          - ASSET
+          - BUILDING
+          - BUILDING_ACCESSIBILITY
+          - BUILDING_ATTRIBUTE
+          - BUILDING_BON
+          - BUILDING_PATH_OBJECT_TYPE
+          - BUILDING_PUBLIC
+          - BUSINESS_ENTITY
+          - CAMPUS
+          - COURSE
+          - COURSE_REGISTRATION_INFO
+          - CURRENCY
+          - EVENT
+          - FAQ
+          - GIVEAWAY
+          - ITEM_USED
+          - IT_SERVICE
+          - LABORATORY
+          - LABORATORY_TYPE
+          - LEGAL_BASIS
+          - LICENSE
+          - MOBILITY_OPTION
+          - MAGAZINE
+          - MONOGRAPH_PUBLISHER
+          - FRAMEWORK_AGREEMENT
+          - HOUSING_OPTION
+          - PATENT
+          - PASS_CONTROL
+          - PASS_CONTROL_PUBLIC
+          - PASS_CONTROL_DICTIONARY
+          - PERMISSION
+          - PERM_DEPARTMENT_PERSON
+          - PERM_DEPARTMENT_CAS_ROLE
+          - PERSON
+          - PERSON_ID_CARD
+          - PHONE_NUMBER
+          - PROFILE
+          - PROFILE_PUBLIC
+          - PROFILE_MYUW
+          - PERSON_PROFILE_MYUW
+          - PROJECT
+          - PROJECT_PUBLIC
+          - PROJECT_MIGRATION
+          - PROJECT_DICTIONARY
+          - PROJECT_PROGRAM
+          - PROJECT_INTERNATIONAL
+          - PROJECT_PROGRAM_DETAILED
+          - PROJECT_PROGRAM_CONTRACT
+          - PROJECT_TYPE
+          - PROJECT_REPORT
+          - PSP_ELEMENT
+          - PUBLICATION
+          - PUBLICATION_VENUE
+          - RESEARCH_SET
+          - PERSON_SYSTEM_ROLE
+          - PERSON_SYSTEM_ROLE_API
+          - SAP_OBJECT_ACCESS
+          - SYSTEM_ROLE
+          - PUBLIC_PROCUREMENT_PLAN
+          - PUBLIC_PROCUREMENT_PLAN_CATEGORY
+          - SAP_ROLE
+          - STUDENT_ORGANIZATION
+          - TRANSLATION
+          - TRANSLATION_CATEGORY
+          - TUTORIAL
+          - UNIVERSITY_INFO
+          - UW_ECONOMIC_DEPARTMENT
+          - UW_PERSON
+          - UW_PERSON_EMPLOYEE_DATA
+          - UW_UNIT
+      - name: langCode
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - pl
+          - en
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FaqResponse'
+      security:
+      - Authorization: []
+      summary: Get faqs for type
+      x-summary-source: derived
+    post:
+      tags:
+      - FAQ
+      operationId: addFaqsForType
+      parameters:
+      - name: type
+        in: query
+        required: true
+        schema:
+          type: string
+          enum:
+          - ACHIEVEMENTS_SUMMARY
+          - ADMIN
+          - ARTICLE
+          - ASSET
+          - BUILDING
+          - BUILDING_ACCESSIBILITY
+          - BUILDING_ATTRIBUTE
+          - BUILDING_BON
+          - BUILDING_PATH_OBJECT_TYPE
+          - BUILDING_PUBLIC
+          - BUSINESS_ENTITY
+          - CAMPUS
+          - COURSE
+          - COURSE_REGISTRATION_INFO
+          - CURRENCY
+          - EVENT
+          - FAQ
+          - GIVEAWAY
+          - ITEM_USED
+          - IT_SERVICE
+          - LABORATORY
+          - LABORATORY_TYPE
+          - LEGAL_BASIS
+          - LICENSE
+          - MOBILITY_OPTION
+          - MAGAZINE
+          - MONOGRAPH_PUBLISHER
+          - FRAMEWORK_AGREEMENT
+          - HOUSING_OPTION
+          - PATENT
+          - PASS_CONTROL
+          - PASS_CONTROL_PUBLIC
+          - PASS_CONTROL_DICTIONARY
+          - PERMISSION
+          - PERM_DEPARTMENT_PERSON
+          - PERM_DEPARTMENT_CAS_ROLE
+          - PERSON
+          - PERSON_ID_CARD
+          - PHONE_NUMBER
+          - PROFILE
+          - PROFILE_PUBLIC
+          - PROFILE_MYUW
+          - PERSON_PROFILE_MYUW
+          - PROJECT
+          - PROJECT_PUBLIC
+          - PROJECT_MIGRATION
+          - PROJECT_DICTIONARY
+          - PROJECT_PROGRAM
+          - PROJECT_INTERNATIONAL
+          - PROJECT_PROGRAM_DETAILED
+          - PROJECT_PROGRAM_CONTRACT
+          - PROJECT_TYPE
+          - PROJECT_REPORT
+          - PSP_ELEMENT
+          - PUBLICATION
+          - PUBLICATION_VENUE
+          - RESEARCH_SET
+          - PERSON_SYSTEM_ROLE
+          - PERSON_SYSTEM_ROLE_API
+          - SAP_OBJECT_ACCESS
+          - SYSTEM_ROLE
+          - PUBLIC_PROCUREMENT_PLAN
+          - PUBLIC_PROCUREMENT_PLAN_CATEGORY
+          - SAP_ROLE
+          - STUDENT_ORGANIZATION
+          - TRANSLATION
+          - TRANSLATION_CATEGORY
+          - TUTORIAL
+          - UNIVERSITY_INFO
+          - UW_ECONOMIC_DEPARTMENT
+          - UW_PERSON
+          - UW_PERSON_EMPLOYEE_DATA
+          - UW_UNIT
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FaqRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/FaqResponse'
+      security:
+      - Authorization: []
+      summary: Add faqs for type
+      x-summary-source: derived
+components:
+  schemas:
+    FaqResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - ACHIEVEMENTS_SUMMARY
+          - ADMIN
+          - ARTICLE
+          - ASSET
+          - BUILDING
+          - BUILDING_ACCESSIBILITY
+          - BUILDING_ATTRIBUTE
+          - BUILDING_BON
+          - BUILDING_PATH_OBJECT_TYPE
+          - BUILDING_PUBLIC
+          - BUSINESS_ENTITY
+          - CAMPUS
+          - COURSE
+          - COURSE_REGISTRATION_INFO
+          - CURRENCY
+          - EVENT
+          - FAQ
+          - GIVEAWAY
+          - ITEM_USED
+          - IT_SERVICE
+          - LABORATORY
+          - LABORATORY_TYPE
+          - LEGAL_BASIS
+          - LICENSE
+          - MOBILITY_OPTION
+          - MAGAZINE
+          - MONOGRAPH_PUBLISHER
+          - FRAMEWORK_AGREEMENT
+          - HOUSING_OPTION
+          - PATENT
+          - PASS_CONTROL
+          - PASS_CONTROL_PUBLIC
+          - PASS_CONTROL_DICTIONARY
+          - PERMISSION
+          - PERM_DEPARTMENT_PERSON
+          - PERM_DEPARTMENT_CAS_ROLE
+          - PERSON
+          - PERSON_ID_CARD
+          - PHONE_NUMBER
+          - PROFILE
+          - PROFILE_PUBLIC
+          - PROFILE_MYUW
+          - PERSON_PROFILE_MYUW
+          - PROJECT
+          - PROJECT_PUBLIC
+          - PROJECT_MIGRATION
+          - PROJECT_DICTIONARY
+          - PROJECT_PROGRAM
+          - PROJECT_INTERNATIONAL
+          - PROJECT_PROGRAM_DETAILED
+          - PROJECT_PROGRAM_CONTRACT
+          - PROJECT_TYPE
+          - PROJECT_REPORT
+          - PSP_ELEMENT
+          - PUBLICATION
+          - PUBLICATION_VENUE
+          - RESEARCH_SET
+          - PERSON_SYSTEM_ROLE
+          - PERSON_SYSTEM_ROLE_API
+          - SAP_OBJECT_ACCESS
+          - SYSTEM_ROLE
+          - PUBLIC_PROCUREMENT_PLAN
+          - PUBLIC_PROCUREMENT_PLAN_CATEGORY
+          - SAP_ROLE
+          - STUDENT_ORGANIZATION
+          - TRANSLATION
+          - TRANSLATION_CATEGORY
+          - TUTORIAL
+          - UNIVERSITY_INFO
+          - UW_ECONOMIC_DEPARTMENT
+          - UW_PERSON
+          - UW_PERSON_EMPLOYEE_DATA
+          - UW_UNIT
+        question:
+          type: string
+        answer:
+          type: string
+        langCode:
+          type: string
+          enum:
+          - pl
+          - en
+    FaqRequest:
+      required:
+      - answer
+      - langCode
+      - question
+      type: object
+      properties:
+        question:
+          type: string
+        answer:
+          type: string
+        langCode:
+          type: string
+          enum:
+          - pl
+          - en
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

@@ -1,0 +1,190 @@
+openapi: 3.2.0
+info:
+  title: Jaskier License Migration API
+  version: 1.2.25
+servers:
+- url: https://api.jaskier.uw.edu.pl
+tags:
+- name: LicenseMigration
+paths:
+  /api/v1/License/ReadFromFile:
+    post:
+      tags:
+      - LicenseMigration
+      summary: czytanie licencji z pliku xls i xlsx
+      operationId: readLicensesFromXLSX
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              required:
+              - multipartFile
+              type: object
+              properties:
+                multipartFile:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LicenseImportRequest'
+      security:
+      - Authorization: []
+  /api/v1/License/Import:
+    post:
+      tags:
+      - LicenseMigration
+      summary: importowanie licencji
+      operationId: importLicense
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LicenseImportRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/LicenseImportResponse'
+      security:
+      - Authorization: []
+  /api/v1/License/Import/FileTemplate:
+    get:
+      tags:
+      - LicenseMigration
+      summary: Pobieranie szablonu pliku xlsx do eksportu licencji do pliku
+      operationId: getLicensesFileTemplate
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+                format: binary
+          x-is-file: 'true'
+      security:
+      - Authorization: []
+  /api/v1/License/Export:
+    get:
+      tags:
+      - LicenseMigration
+      summary: Eksport licencji do pliku xlsx.
+      operationId: exportLicenses
+      parameters:
+      - name: year
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+                format: binary
+          x-is-file: 'true'
+      security:
+      - Authorization: []
+  /api/v1/License/Export/Years:
+    get:
+      tags:
+      - LicenseMigration
+      summary: Zwraca listę lat
+      operationId: exportLicensesYearsLookup
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  type: integer
+                  format: int32
+      security:
+      - Authorization: []
+components:
+  schemas:
+    LicenseImportRequest:
+      required:
+      - importSourceId
+      - importSourceType
+      type: object
+      properties:
+        productGroup:
+          type: string
+        merchandise:
+          type: string
+        year:
+          type: integer
+          format: int32
+        cfUri:
+          type: string
+        quantity:
+          type: integer
+          format: int32
+        economicDepartment:
+          type: string
+        importSourceType:
+          type: string
+        importSourceId:
+          type: string
+    LicenseImportResponse:
+      type: object
+      properties:
+        license:
+          $ref: '#/components/schemas/LicenseResponse'
+    LicenseResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: id licencji
+        productGroup:
+          type: string
+          description: grupa produktowa
+        merchandise:
+          type: string
+          description: towar
+        year:
+          type: integer
+          description: rok
+          format: int32
+        cfUri:
+          type: string
+          description: uri
+        quantity:
+          type: integer
+          description: ilość
+          format: int32
+        economicDepartment:
+          type: string
+          description: kod działu gospodarczego
+        importSourceType:
+          type: string
+          description: typ źródła importu
+        importSourceId:
+          type: string
+          description: id źródła importu
+        creationTime:
+          type: string
+          description: czas utworzenia rekordu
+          format: date-time
+      description: Informacje o kursie
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

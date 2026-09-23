@@ -1,0 +1,132 @@
+openapi: 3.2.0
+info:
+  title: Jaskier Laboratory Type API
+  version: 1.2.25
+servers:
+- url: https://api.jaskier.uw.edu.pl
+tags:
+- name: LaboratoryType
+paths:
+  /api/v1/LaboratoryType/{id}:
+    get:
+      tags:
+      - LaboratoryType
+      summary: Czytanie typu laboratoriów
+      operationId: getLaboratoryType
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/LaboratoryTypeResponse'
+      security:
+      - Authorization: []
+    put:
+      tags:
+      - LaboratoryType
+      summary: Aktualizacja typu laboratoriów
+      operationId: updateLaboratoryType
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LaboratoryTypeRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/LaboratoryTypeResponse'
+      security:
+      - Authorization: []
+    delete:
+      tags:
+      - LaboratoryType
+      summary: Usunięcie typu laboratoriów
+      operationId: removeLaboratoryType
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      security:
+      - Authorization: []
+  /api/v1/LaboratoryType:
+    get:
+      tags:
+      - LaboratoryType
+      summary: Listowanie typów laboratoriów
+      operationId: queryForLaboratoryType
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LaboratoryTypeResponse'
+      security:
+      - Authorization: []
+    post:
+      tags:
+      - LaboratoryType
+      summary: Dodawanie typu laboratoriów
+      operationId: addLaboratoryType
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LaboratoryTypeRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/LaboratoryTypeResponse'
+      security:
+      - Authorization: []
+components:
+  schemas:
+    LaboratoryTypeRequest:
+      type: object
+      properties:
+        namePl:
+          type: string
+        nameEn:
+          type: string
+    LaboratoryTypeResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        namePl:
+          type: string
+        nameEn:
+          type: string
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

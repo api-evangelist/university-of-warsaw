@@ -1,7 +1,7 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: USOS API (University of Warsaw) apiref API
-  description: The University of Warsaw installation of the USOS API, a REST-like protocol providing access to the university's academic database. This OpenAPI 3.0 description was derived faithfully from the live machine-readable USOS API reference (services/apiref/method_index and services/apiref/method) of the Warsaw installation, covering anonymous-access methods only. Most methods accept a "fields" selector (a pipe-separated list of result fields) and a "format" parameter (json, jsonp, xml). Many methods returning user or administrative data require OAuth 1.0a authorization and a Consumer Key/Secret obtained from the USOS developers portal; those are not described here. Field semantics, arguments and the error envelope shown below were confirmed against live responses on 2026-06-03.
+  title: USOS API (University of Warsaw) Apiref API
+  description: The University of Warsaw installation of the USOS API, a REST-like protocol providing access to the university's academic database.
   version: 7.3.0.0-4
   contact:
     name: USOS API Team (University of Warsaw)
@@ -73,27 +73,62 @@ paths:
         '400':
           $ref: '#/components/responses/Error'
 components:
-  parameters:
-    callback:
-      name: callback
-      in: query
-      required: false
-      description: Required only if jsonp is chosen as the return format.
-      schema:
-        type: string
-    format:
-      name: format
-      in: query
-      required: false
-      description: Output format. See supported output formats in the USOS API datatypes documentation.
-      schema:
-        type: string
-        enum:
-        - json
-        - jsonp
-        - xml
-        default: json
   schemas:
+    MethodIndexEntry:
+      type: object
+      description: A single entry in the method index.
+      properties:
+        name:
+          type: string
+          description: Full method name, e.g. services/courses/course.
+        brief_description:
+          type: string
+          description: Short description of the method.
+    Error:
+      type: object
+      description: Error envelope returned by USOS API methods (confirmed against live responses, e.g. an unknown course_id returns object_not_found).
+      properties:
+        message:
+          type: string
+          description: Human-readable error message.
+        error:
+          type: string
+          description: Machine-readable error code, e.g. object_not_found.
+        reason:
+          type: string
+          description: Additional reason detail, e.g. the offending object type.
+      example:
+        message: Referenced course does not exist.
+        error: object_not_found
+        reason: course
+    MethodArgument:
+      type: object
+      properties:
+        name:
+          type: string
+        is_required:
+          type: boolean
+        is_deprecated:
+          type: boolean
+        type:
+          type: string
+        default_value:
+          type:
+          - string
+          - 'null'
+        description:
+          type: string
+    ResultField:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        is_primary:
+          type: boolean
+        is_secondary:
+          type: boolean
     MethodReference:
       type: object
       description: Machine-readable reference for a single method.
@@ -121,43 +156,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ResultField'
-    MethodIndexEntry:
-      type: object
-      description: A single entry in the method index.
-      properties:
-        name:
-          type: string
-          description: Full method name, e.g. services/courses/course.
-        brief_description:
-          type: string
-          description: Short description of the method.
-    ResultField:
-      type: object
-      properties:
-        name:
-          type: string
-        description:
-          type: string
-        is_primary:
-          type: boolean
-        is_secondary:
-          type: boolean
-    MethodArgument:
-      type: object
-      properties:
-        name:
-          type: string
-        is_required:
-          type: boolean
-        is_deprecated:
-          type: boolean
-        type:
-          type: string
-        default_value:
-          type: string
-          nullable: true
-        description:
-          type: string
     AuthOptions:
       type: object
       description: Authentication requirements for a method.
@@ -176,23 +174,26 @@ components:
           type: array
           items:
             type: string
-    Error:
-      type: object
-      description: Error envelope returned by USOS API methods (confirmed against live responses, e.g. an unknown course_id returns object_not_found).
-      properties:
-        message:
-          type: string
-          description: Human-readable error message.
-        error:
-          type: string
-          description: Machine-readable error code, e.g. object_not_found.
-        reason:
-          type: string
-          description: Additional reason detail, e.g. the offending object type.
-      example:
-        message: Referenced course does not exist.
-        error: object_not_found
-        reason: course
+  parameters:
+    format:
+      name: format
+      in: query
+      required: false
+      description: Output format. See supported output formats in the USOS API datatypes documentation.
+      schema:
+        type: string
+        enum:
+        - json
+        - jsonp
+        - xml
+        default: json
+    callback:
+      name: callback
+      in: query
+      required: false
+      description: Required only if jsonp is chosen as the return format.
+      schema:
+        type: string
   responses:
     Error:
       description: USOS API error envelope.

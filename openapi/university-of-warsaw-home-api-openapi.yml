@@ -1,0 +1,138 @@
+openapi: 3.2.0
+info:
+  title: Jaskier Home API
+  version: 1.2.25
+servers:
+- url: https://api.jaskier.uw.edu.pl
+tags:
+- name: Home
+paths:
+  /api/v1/Home/Articles:
+    get:
+      tags:
+      - Home
+      summary: Lista aktualnych artykułów z paginacją (odata)
+      operationId: queryForArticles
+      parameters:
+      - name: $skip
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int64
+          default: 0
+      - name: $top
+        in: query
+        required: false
+        schema:
+          maximum: 1000
+          type: integer
+          format: int64
+          default: 10
+      - name: $inlinecount
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: $orderby
+        in: query
+        required: false
+        schema:
+          type: string
+          default: created desc
+      - name: $filter
+        in: query
+        required: false
+        schema:
+          type: string
+          default: ()
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/OdataResponseArticlePreviewResponse'
+      security:
+      - Authorization: []
+  /api/v1/Home/Articles/All:
+    get:
+      tags:
+      - Home
+      summary: Lista aktualnych artykułów
+      operationId: queryForAllArticles
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ArticlePreviewResponse'
+      security:
+      - Authorization: []
+  /api/v1/Home/Announcements:
+    get:
+      tags:
+      - Home
+      summary: Lista aktualnych komunikatów
+      operationId: queryForAnnouncements
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  type: object
+      security:
+      - Authorization: []
+components:
+  schemas:
+    ArticlePreviewResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        titlePl:
+          type: string
+        titleEn:
+          type: string
+        contentPl:
+          type: string
+        contentEn:
+          type: string
+        visibleFrom:
+          type: string
+          format: date
+        visibleTo:
+          type: string
+          format: date
+        signification:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+        visible:
+          type: boolean
+        created:
+          type: string
+          format: date-time
+    OdataResponseArticlePreviewResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ArticlePreviewResponse'
+        totalCount:
+          type: integer
+          format: int32
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

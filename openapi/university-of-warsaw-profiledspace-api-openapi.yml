@@ -1,0 +1,183 @@
+openapi: 3.2.0
+info:
+  title: Jaskier Profile Dspace API
+  version: 1.2.25
+servers:
+- url: https://api.jaskier.uw.edu.pl
+tags:
+- name: ProfileDspace
+paths:
+  /api/v1/Dspace/Profile:
+    get:
+      tags:
+      - ProfileDspace
+      summary: Wyszukiwanie profili
+      operationId: searchProfileForPatent_1
+      parameters:
+      - name: $skip
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int64
+          default: 0
+      - name: $top
+        in: query
+        required: false
+        schema:
+          maximum: 100
+          type: integer
+          format: int64
+          default: 10
+      - name: $inlinecount
+        in: query
+        required: false
+        schema:
+          type: string
+          default: allpages
+      - name: $orderby
+        in: query
+        required: false
+        schema:
+          type: string
+          default: name,firstName,middleNames,lastName
+      - name: $filter
+        in: query
+        required: false
+        schema:
+          type: string
+          default: ()
+      - name: searchValue
+        in: query
+        required: false
+        schema:
+          type: string
+          default: searchValue
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/OdataResponseQueryProfileDspaceItemResponse'
+      security:
+      - Authorization: []
+  /api/v1/Dspace/Profile/{profilePublicId}:
+    get:
+      tags:
+      - ProfileDspace
+      summary: Czytanie informacji o profilu
+      operationId: getDspaceProfileByPublicId
+      parameters:
+      - name: profilePublicId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ProfileDspaceResponse'
+      security:
+      - Authorization: []
+  /api/v1/Dspace/Profile/Person/{personId}:
+    get:
+      tags:
+      - ProfileDspace
+      summary: Czytanie informacji o profilu po identyfikatorze osoby
+      operationId: getDspaceProfileByPersonId
+      parameters:
+      - name: personId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ProfileDspaceResponse'
+      security:
+      - Authorization: []
+components:
+  schemas:
+    OdataResponseQueryProfileDspaceItemResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/QueryProfileDspaceItemResponse'
+        totalCount:
+          type: integer
+          format: int32
+    ProfileDspaceResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        personId:
+          type: string
+        name:
+          type: string
+        firstName:
+          type: string
+        middleNames:
+          type: string
+        lastName:
+          type: string
+        emails:
+          type: array
+          items:
+            type: string
+        degree:
+          type: string
+        uidPolon:
+          type: string
+        uidPolonStud:
+          type: string
+        uidPolonDokt:
+          type: string
+        units:
+          type: array
+          items:
+            type: string
+    QueryProfileDspaceItemResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        firstName:
+          type: string
+        middleNames:
+          type: string
+        lastName:
+          type: string
+        emails:
+          type: array
+          items:
+            type: string
+        degree:
+          type: string
+        uidPolon:
+          type: string
+        uidPolonStud:
+          type: string
+        uidPolonDokt:
+          type: string
+        units:
+          type: array
+          items:
+            type: string
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

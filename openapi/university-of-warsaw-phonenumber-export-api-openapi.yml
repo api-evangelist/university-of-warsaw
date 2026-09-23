@@ -1,0 +1,57 @@
+openapi: 3.2.0
+info:
+  title: Jaskier Phone Number/Export API
+  version: 1.2.25
+servers:
+- url: https://api.jaskier.uw.edu.pl
+tags:
+- name: PhoneNumber/Export
+paths:
+  /api/v1/PhoneNumber/Export/Ids:
+    post:
+      tags:
+      - PhoneNumber/Export
+      summary: Eksportowanie numerów telefonów o wybranych id do pliku xslx
+      operationId: exportPhoneNumbersByIds
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: string
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+                format: binary
+          x-is-file: 'true'
+      security:
+      - Authorization: []
+  /api/v1/PhoneNumber/Export:
+    get:
+      tags:
+      - PhoneNumber/Export
+      summary: Eksportowanie numerów telefonów do pliku xslx
+      operationId: exportPhoneNumbers
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+                format: binary
+          x-is-file: 'true'
+      security:
+      - Authorization: []
+components:
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

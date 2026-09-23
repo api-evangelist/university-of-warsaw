@@ -1,0 +1,74 @@
+openapi: 3.2.0
+info:
+  title: Jaskier Course Areas Interests API
+  version: 1.2.25
+servers:
+- url: https://api.jaskier.uw.edu.pl
+tags:
+- name: CourseAreasInterests
+paths:
+  /api/v1/CourseAreasInterests/Import:
+    post:
+      tags:
+      - CourseAreasInterests
+      summary: Importowanie informacji obszarach zainteresować
+      operationId: importAreasInterests
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CourseAreasInterestsRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CourseAreasInterestsResponse'
+      security:
+      - Authorization: []
+  /api/v1/CourseAreasInterests:
+    get:
+      tags:
+      - CourseAreasInterests
+      summary: Listowanie informacji o obszarach zainteresowań
+      operationId: queryForCourseAreasInterests
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CourseAreasInterestsResponse'
+      security:
+      - Authorization: []
+components:
+  schemas:
+    CourseAreasInterestsRequest:
+      required:
+      - code
+      type: object
+      properties:
+        code:
+          type: string
+        namePl:
+          type: string
+        nameEn:
+          type: string
+    CourseAreasInterestsResponse:
+      type: object
+      properties:
+        code:
+          type: string
+        namePl:
+          type: string
+        nameEn:
+          type: string
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

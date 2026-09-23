@@ -1,0 +1,144 @@
+openapi: 3.2.0
+info:
+  title: Jaskier Framework Agreement Migration API
+  version: 1.2.25
+servers:
+- url: https://api.jaskier.uw.edu.pl
+tags:
+- name: FrameworkAgreementMigration
+paths:
+  /api/v1/FrameworkAgreement/ReadFromFile:
+    post:
+      tags:
+      - FrameworkAgreementMigration
+      summary: czytanie asortymentu z pliku xls i xlsx
+      operationId: readAssortmentFromXLSX
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              required:
+              - multipartFile
+              type: object
+              properties:
+                multipartFile:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AssortmentImportRequest'
+      security:
+      - Authorization: []
+  /api/v1/FrameworkAgreement/Import:
+    post:
+      tags:
+      - FrameworkAgreementMigration
+      summary: importowanie asortymentu
+      operationId: importAssortment
+      parameters:
+      - name: frameworkAgreementId
+        in: query
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AssortmentImportRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/AssortmentResponse'
+      security:
+      - Authorization: []
+  /api/v1/FrameworkAgreement/Import/FileTemplate:
+    get:
+      tags:
+      - FrameworkAgreementMigration
+      summary: pobieranie szablonu pliku xlsx eksportu asortymentów do pliku
+      operationId: getAssortmentFileTemplate
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+                format: binary
+          x-is-file: 'true'
+      security:
+      - Authorization: []
+  /api/v1/FrameworkAgreement/Export:
+    get:
+      tags:
+      - FrameworkAgreementMigration
+      summary: Eksport asortymentu do pliku xlsx
+      operationId: exportAssortment
+      parameters:
+      - name: frameworkAgreementId
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+                format: binary
+          x-is-file: 'true'
+      security:
+      - Authorization: []
+components:
+  schemas:
+    AssortmentResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        catalogNumber:
+          type: string
+        unit:
+          type: string
+        netPrice:
+          type: number
+        frameworkAgreementId:
+          type: string
+        position:
+          type: integer
+          format: int32
+      description: asortyment
+    AssortmentImportRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        catalogNumber:
+          type: string
+        unit:
+          type: string
+        netPrice:
+          type: number
+        position:
+          type: integer
+          format: int32
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

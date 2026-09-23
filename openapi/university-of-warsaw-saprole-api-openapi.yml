@@ -1,0 +1,136 @@
+openapi: 3.2.0
+info:
+  title: Jaskier Sap Role API
+  version: 1.2.25
+servers:
+- url: https://api.jaskier.uw.edu.pl
+tags:
+- name: SapRole
+paths:
+  /api/v1/SapRole/{id}:
+    get:
+      tags:
+      - SapRole
+      summary: Czytanie roli do wniosków o uprawnienia
+      operationId: getSapRole
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/SapRoleResponse'
+      security:
+      - Authorization: []
+    put:
+      tags:
+      - SapRole
+      summary: Aktualizacja roli do wniosków o uprawnienia
+      operationId: updateSapRole
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SapRoleRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/SapRoleResponse'
+      security:
+      - Authorization: []
+    delete:
+      tags:
+      - SapRole
+      summary: Usunięcie roli do wniosków o uprawnienia
+      operationId: removeSapRole
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      security:
+      - Authorization: []
+  /api/v1/SapRole:
+    get:
+      tags:
+      - SapRole
+      summary: Listowanie szczegółów ról do wniosków o uprawnienia
+      operationId: getAllSapRoles
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SapRoleResponse'
+      security:
+      - Authorization: []
+    post:
+      tags:
+      - SapRole
+      summary: Dodawanie roli do wniosków o uprawnienia
+      operationId: addSapRole
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SapRoleRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/SapRoleResponse'
+      security:
+      - Authorization: []
+components:
+  schemas:
+    SapRoleRequest:
+      type: object
+      properties:
+        type:
+          type: string
+        code:
+          type: string
+        name:
+          type: string
+    SapRoleResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+        code:
+          type: string
+        name:
+          type: string
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

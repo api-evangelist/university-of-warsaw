@@ -1,0 +1,429 @@
+openapi: 3.2.0
+info:
+  title: Jaskier Profile My Uw API
+  version: 1.2.25
+servers:
+- url: https://api.jaskier.uw.edu.pl
+tags:
+- name: ProfileMyUw
+paths:
+  /api/v1/MyUw/Profile:
+    get:
+      tags:
+      - ProfileMyUw
+      summary: Listowanie danych o profilach z flagą is_publicly_visible = true
+      operationId: queryForProfileForMyUw
+      parameters:
+      - name: $skip
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int64
+          default: 0
+      - name: $top
+        in: query
+        required: false
+        schema:
+          maximum: 1000
+          type: integer
+          format: int64
+          default: 10
+      - name: $inlinecount
+        in: query
+        required: false
+        schema:
+          type: string
+          default: allpages
+      - name: $orderby
+        in: query
+        required: false
+        schema:
+          type: string
+          default: firstName,middleNames,lastName
+      - name: $filter
+        in: query
+        required: false
+        schema:
+          type: string
+          default: ()
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/OdataResponseProfileMyUwResponse'
+      security:
+      - Authorization: []
+  /api/v1/MyUw/Profile/{id}:
+    get:
+      tags:
+      - ProfileMyUw
+      summary: Czytanie profilu z podanym publicznym id i flagą is_publicly_visible = true
+      operationId: getProfileByIdForMyUw
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ProfileMyUwResponse'
+      security:
+      - Authorization: []
+  /api/v1/MyUw/Profile/{id}/Theses:
+    get:
+      tags:
+      - ProfileMyUw
+      summary: Czytanie listy publikacji, których autorem jest profil z danym publicznym id
+      description: 'Czytanie listy publikacji, których autorem jest wybrany profil.
+
+
+        Filtry:
+
+        * role
+
+        - gdy brak -> zwraca wszystkie publikacje niezależnie od roli'
+      operationId: getProfileThesesById_1
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: role
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - AUTHOR
+          - SUPERVISOR
+          - EDITOR
+          - TRANSLATOR
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProfilePublicationResponse'
+      security:
+      - Authorization: []
+  /api/v1/MyUw/Profile/{id}/Project:
+    get:
+      tags:
+      - ProfileMyUw
+      summary: Czytanie listy projektów, których członkiem jest wybrany profil z danym…
+      operationId: getProfileProjectAuthorById_2
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProfileProjectResponse'
+      security:
+      - Authorization: []
+  /api/v1/MyUw/Profile/{id}/Picture:
+    get:
+      tags:
+      - ProfileMyUw
+      operationId: downloadPublicProfilePicture_1
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      security:
+      - Authorization: []
+      summary: Download public profile picture 1
+      x-summary-source: derived
+  /api/v1/MyUw/Profile/{id}/Patent:
+    get:
+      tags:
+      - ProfileMyUw
+      summary: Czytanie listy patentów, których członkiem jest wybrany profil z danym…
+      operationId: getProfilePatentProfileById_1
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProfilePatentResponse'
+      security:
+      - Authorization: []
+  /api/v1/MyUw/Profile/{id}/Courses:
+    get:
+      tags:
+      - ProfileMyUw
+      summary: Czytanie listy kursów powiązanych z profilem z danym publicznym id
+      operationId: getProfileCoursesById_2
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProfileCourseResponse'
+      security:
+      - Authorization: []
+components:
+  schemas:
+    ProfileMyUwResponse:
+      type: object
+      properties:
+        profileId:
+          type: string
+        profilePublicId:
+          type: string
+        name:
+          type: string
+        firstName:
+          type: string
+        middleNames:
+          type: string
+        lastName:
+          type: string
+        emailsOther:
+          type: array
+          items:
+            type: string
+        email:
+          type: string
+        phone:
+          type: string
+        profileRoles:
+          type: array
+          items:
+            type: string
+        isPubliclyVisible:
+          type: boolean
+        personId:
+          type: string
+        personRoles:
+          type: array
+          items:
+            type: string
+        degree:
+          type: string
+        articleId:
+          type: string
+        orcid:
+          type: string
+        pbnId:
+          type: string
+        uidPolon:
+          type: string
+        uidPolonDokt:
+          type: string
+        uidPolonStud:
+          type: string
+        keyw:
+          type: array
+          items:
+            type: string
+        units:
+          type: array
+          items:
+            $ref: '#/components/schemas/MyUwUnitResponse'
+        unitsAll:
+          type: array
+          items:
+            type: string
+        scienceDisciplines:
+          type: array
+          items:
+            type: string
+        publicationsCount:
+          type: integer
+          format: int64
+        promotedPublicationsCount:
+          type: integer
+          format: int64
+        patentsCount:
+          type: integer
+          format: int64
+        projectsCount:
+          type: integer
+          format: int64
+        buildings:
+          type: array
+          items:
+            $ref: '#/components/schemas/MyUwBuildingResponse'
+    ProfileCourseResponse:
+      type: object
+      properties:
+        profileId:
+          type: string
+        courseId:
+          type: string
+        title:
+          type: string
+        titlePl:
+          type: string
+        titleEn:
+          type: string
+        subjectCode:
+          type: string
+        year:
+          type: integer
+          format: int32
+        term:
+          type: string
+        startDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+    ProfilePublicationResponse:
+      type: object
+      properties:
+        profileId:
+          type: string
+        publicationId:
+          type: string
+        title:
+          type: string
+        titlePl:
+          type: string
+        titleEn:
+          type: string
+        publicationDate:
+          type: string
+        role:
+          type: string
+        year:
+          type: integer
+          format: int32
+        types:
+          type: array
+          items:
+            type: string
+    ProfilePatentResponse:
+      type: object
+      properties:
+        profileId:
+          type: string
+        patentId:
+          type: string
+        title:
+          type: string
+        titlePl:
+          type: string
+        titleEn:
+          type: string
+        applicationNumber:
+          type: string
+        consentForEvaluation:
+          type: boolean
+        fraction:
+          type: number
+          format: double
+        decisionDate:
+          type: string
+          format: date
+    ProfileProjectResponse:
+      type: object
+      properties:
+        projectId:
+          type: string
+        title:
+          type: string
+        titlePl:
+          type: string
+        titleEn:
+          type: string
+        startDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+        roles:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProjectPublicMemberRoleResponse'
+    OdataResponseProfileMyUwResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProfileMyUwResponse'
+        totalCount:
+          type: integer
+          format: int32
+    MyUwBuildingResponse:
+      type: object
+      properties:
+        publicBuildingId:
+          type: string
+        namePl:
+          type: string
+        nameEn:
+          type: string
+        roomNumber:
+          type: string
+    ProjectPublicMemberRoleResponse:
+      type: object
+      properties:
+        namePl:
+          type: string
+        nameEn:
+          type: string
+        orderIndex:
+          type: integer
+          format: int32
+    MyUwUnitResponse:
+      type: object
+      properties:
+        code:
+          type: string
+        namePl:
+          type: string
+        nameEn:
+          type: string
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

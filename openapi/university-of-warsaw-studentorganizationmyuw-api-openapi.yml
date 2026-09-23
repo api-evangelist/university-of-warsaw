@@ -1,0 +1,158 @@
+openapi: 3.2.0
+info:
+  title: Jaskier Student Organization My Uw API
+  version: 1.2.25
+servers:
+- url: https://api.jaskier.uw.edu.pl
+tags:
+- name: StudentOrganizationMyUw
+paths:
+  /api/v1/MyUw/StudentOrganization:
+    get:
+      tags:
+      - StudentOrganizationMyUw
+      summary: Listowanie danych o organizacjach studenckich
+      operationId: queryStudentOrganizationsMyUw
+      parameters:
+      - name: $skip
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int64
+          default: 0
+      - name: $top
+        in: query
+        required: false
+        schema:
+          maximum: 1000
+          type: integer
+          format: int64
+          default: 10
+      - name: $inlinecount
+        in: query
+        required: false
+        schema:
+          type: string
+          default: allpages
+      - name: $orderby
+        in: query
+        required: false
+        schema:
+          type: string
+          default: registeredDate desc
+      - name: searchValue
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/OdataResponseStudentOrganizationResponse'
+      security:
+      - Authorization: []
+  /api/v1/MyUw/StudentOrganization/{organizationId}:
+    get:
+      tags:
+      - StudentOrganizationMyUw
+      summary: Czytanie organizacji studenckiej z podanym id
+      operationId: getStudentOrganizationByIdMyUw
+      parameters:
+      - name: organizationId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/StudentOrganizationResponse'
+      security:
+      - Authorization: []
+components:
+  schemas:
+    OdataResponseStudentOrganizationResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/StudentOrganizationResponse'
+        totalCount:
+          type: integer
+          format: int32
+    StudentOrganizationResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        namePl:
+          type: string
+        nameEn:
+          type: string
+        shortNamePl:
+          type: string
+        shortNameEn:
+          type: string
+        email:
+          type: string
+        url:
+          type: string
+        type:
+          type: string
+        status:
+          type: string
+          enum:
+          - ACTIVE
+          - SUSPENDED
+          - CLOSED
+        reportSubmitted:
+          type: boolean
+        unitCode:
+          type: string
+        unitNamePl:
+          type: string
+        unitNameEn:
+          type: string
+        mainProfiles:
+          type: array
+          items:
+            type: string
+        registeredDate:
+          type: string
+          format: date
+        registerNumber:
+          type: integer
+          format: int32
+        contactPersonId:
+          type: string
+        contactPersonName:
+          type: string
+        contactPersonEmail:
+          type: string
+        mainSupervisorPersonId:
+          type: string
+        mainSupervisorName:
+          type: string
+        mainSupervisorEmail:
+          type: string
+        mainSupervisorDegree:
+          type: string
+        mainPresidentPersonId:
+          type: string
+        mainPresidentName:
+          type: string
+        mainPresidentEmail:
+          type: string
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

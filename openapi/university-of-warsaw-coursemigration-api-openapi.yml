@@ -1,0 +1,692 @@
+openapi: 3.2.0
+info:
+  title: Jaskier Course Migration API
+  version: 1.2.25
+servers:
+- url: https://api.jaskier.uw.edu.pl
+tags:
+- name: CourseMigration
+paths:
+  /api/v1/Course/Export/SubjectIds:
+    put:
+      tags:
+      - CourseMigration
+      summary: Eksport wybranych kursów do pliku xlsx na podstawie subjectIds
+      operationId: exportBySubjectIds
+      requestBody:
+        content:
+          application/json:
+            schema:
+              uniqueItems: true
+              type: array
+              items:
+                type: string
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+                format: binary
+          x-is-file: 'true'
+      security:
+      - Authorization: []
+  /api/v1/Course/Export/CoursesIds:
+    put:
+      tags:
+      - CourseMigration
+      summary: Eksport wybranych kursów do pliku xlsx
+      operationId: exportByCoursesIds
+      requestBody:
+        content:
+          application/json:
+            schema:
+              uniqueItems: true
+              type: array
+              items:
+                type: string
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+                format: binary
+          x-is-file: 'true'
+      security:
+      - Authorization: []
+  /api/v1/Course/ReadFromFile:
+    post:
+      tags:
+      - CourseMigration
+      summary: czytanie kursów z pliku xls i xlsx
+      operationId: readCoursesFromXLSX
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              required:
+              - multipartFile
+              type: object
+              properties:
+                multipartFile:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CourseImportRequest'
+      security:
+      - Authorization: []
+  /api/v1/Course/Import:
+    post:
+      tags:
+      - CourseMigration
+      summary: importowanie kursu
+      operationId: importCourse
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CourseImportRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CourseImportResponse'
+      security:
+      - Authorization: []
+  /api/v1/Course/Import/FileTemplate:
+    get:
+      tags:
+      - CourseMigration
+      summary: pobieranie szablonu pliku xlsx eksportu kursów do pliku
+      operationId: getCoursesFileTemplate
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+                format: binary
+          x-is-file: 'true'
+      security:
+      - Authorization: []
+  /api/v1/Course/Export:
+    get:
+      tags:
+      - CourseMigration
+      summary: Eksport kursów do pliku xlsx.
+      operationId: exportCourses
+      parameters:
+      - name: publishedBy
+        in: query
+        required: true
+        schema:
+          type: string
+          enum:
+          - CUNI
+          - UAH
+          - SU
+          - KU
+          - UNIMI
+          - UW
+          - UNIGE
+          - PARIS_2
+      - name: year
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - name: is4eu
+        in: query
+        required: false
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+                format: binary
+          x-is-file: 'true'
+      security:
+      - Authorization: []
+  /api/v1/Course/Export/Years:
+    get:
+      tags:
+      - CourseMigration
+      summary: Zwraca listę lat akademickich dla wybranego uniwersytetu, w których były…
+      operationId: exportCoursesYearsLookup
+      parameters:
+      - name: publishedBy
+        in: query
+        required: true
+        schema:
+          type: string
+          enum:
+          - CUNI
+          - UAH
+          - SU
+          - KU
+          - UNIMI
+          - UW
+          - UNIGE
+          - PARIS_2
+      - name: is4eu
+        in: query
+        required: false
+        schema:
+          type: boolean
+      - name: isPublished
+        in: query
+        required: false
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  type: integer
+                  format: int32
+      security:
+      - Authorization: []
+components:
+  schemas:
+    CourseImportRequest:
+      type: object
+      properties:
+        subjectCode:
+          type: string
+        subjectId:
+          type: string
+        title:
+          type: string
+        term:
+          type: string
+        ects:
+          type: number
+          format: double
+        levels:
+          type: array
+          items:
+            type: string
+        faculties:
+          type: array
+          items:
+            type: string
+        languages:
+          type: array
+          items:
+            type: string
+        url:
+          type: string
+        providedBy:
+          type: array
+          items:
+            type: string
+        publishedBy:
+          type: string
+        year:
+          type: integer
+          format: int32
+        startDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+        workload:
+          type: integer
+          format: int32
+        teachingMode:
+          type: string
+        is4eu:
+          type: boolean
+        sp4euPublicationDate:
+          type: string
+          format: date
+        flagships4eu:
+          type: array
+          items:
+            type: string
+        placesLimit4eu:
+          type: integer
+          format: int32
+        levels4eu:
+          type: array
+          items:
+            type: string
+        startDate4eu:
+          type: string
+          format: date
+        endDate4eu:
+          type: string
+          format: date
+        facultyOrUnit4eu:
+          type: string
+        title4eu:
+          type: string
+        ects4eu:
+          type: number
+          format: double
+        teachingMode4eu:
+          type: string
+        applicationDeadline:
+          type: string
+          format: date
+        sharedCompetencies4eu:
+          type: array
+          items:
+            type: string
+        learningPathways4eu:
+          type: array
+          items:
+            type: string
+        instructorsProfileEmails:
+          type: array
+          items:
+            type: string
+        instructorsProfileEmails4eu:
+          type: array
+          items:
+            type: string
+        creationTime:
+          type: string
+          format: date-time
+        academicYear:
+          type: string
+        registrationInfoId:
+          type: string
+        syllabusShortDescription0:
+          type: string
+        syllabusAssessmentsInfo0:
+          type: string
+        syllabusLearningOutcomes0:
+          type: string
+        syllabusPrerequirements0:
+          type: string
+        syllabusLanguageCode0:
+          type: string
+        syllabusShortDescription1:
+          type: string
+        syllabusAssessmentsInfo1:
+          type: string
+        syllabusLearningOutcomes1:
+          type: string
+        syllabusPrerequirements1:
+          type: string
+        syllabusLanguageCode1:
+          type: string
+        areasOfInterests:
+          type: array
+          items:
+            type: string
+    CourseProfileResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: id relacji course_profile
+        courseId:
+          type: string
+          description: id kursu
+        profileId:
+          type: string
+          description: id profilu
+        profilePublicId:
+          type: string
+          description: id publiczne profilu
+        profileFirstName:
+          type: string
+          description: imię osoby
+        profileLastName:
+          type: string
+          description: nazwisko osoby
+        profileEmails:
+          type: array
+          description: lista email osoby
+          deprecated: true
+          items:
+            type: string
+            description: lista email osoby
+        profileEmail:
+          type: string
+          description: email profilu
+        profileDegree:
+          type: string
+          description: stopień naukowy osoby
+        visible4eu:
+          type: boolean
+          description: czy profil instruktora jest widoczny dla portalu 4eu+
+        isPubliclyVisible:
+          type: boolean
+          description: czy profil jest publiczny
+    CourseRegistrationInfoResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        courseIds:
+          type: array
+          items:
+            type: string
+        courseNames:
+          type: array
+          items:
+            type: string
+    CourseSyllabusResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        courseId:
+          type: string
+          description: id kursu
+        shortDescription:
+          type: string
+          description: opis kursu
+        prerequirements:
+          type: string
+          description: opis wstępnych wymagań do kursu
+        learningOutcomes:
+          type: string
+          description: opis efektów nauczania
+        assessmentsInfo:
+          type: string
+          description: opis warunków zaliczenia
+        lang:
+          type: string
+          description: kod języka
+    AbstractResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Id abstraltu
+        langCode:
+          type: string
+          description: kod języka typu PL, EN, EN-GB, itp - klucz naturalny do Language, zgodny z ISO (patrz Language)
+        title:
+          type: string
+          description: 'tytuł wynalazku/patentu/wzoru użytkowego/nazwa gatunku/nazwa botaniczna/nazwa odmiany w danym języku '
+        abstr:
+          type: string
+          description: streszczenie opisu wynalazku/wzoru użytkowego w danym języku
+        keyw:
+          type: array
+          description: słowa kluczowe w danym języku
+          items:
+            type: string
+            description: słowa kluczowe w danym języku
+        orderIndex:
+          type: integer
+          description: 'kolejność wyświetlania abstraktów (domyślnie: 0)'
+          format: int32
+        objectId:
+          type: string
+          description: Id obiektu
+        objectType:
+          type: string
+          description: Typ obiektu
+        original:
+          type: boolean
+          description: czy streszczenie jest w języku oryginału
+    CourseResponse:
+      type: object
+      properties:
+        courseId:
+          type: string
+          description: id kursu
+        subjectId:
+          type: string
+          description: id przedmiotu (musi być unikalne w skali całego rejestru)
+        subjectCode:
+          type: string
+          description: kod przedmiotu
+        term:
+          type: string
+          description: okres realizacji przedmiotu/ kod semestru (np. 2021/22Z)
+        ects:
+          type: number
+          description: liczba punktów ECTS
+          format: double
+        is4eu:
+          type: boolean
+          description: flaga informująca o tym, że dany kurs jest dostępny w ramach oferty 4eu alliance
+        sp4euPublicationDate:
+          type: string
+          description: data rozpoczęcia publikacji w student portalu
+          format: date
+        flagships4eu:
+          type: array
+          description: lista dziedzin rozwoju
+          items:
+            type: string
+            description: lista dziedzin rozwoju
+            enum:
+            - FLAG_1
+            - FLAG_2
+            - FLAG_3
+            - FLAG_4
+        faculties:
+          type: array
+          description: lista fakultetów/przedmiotów (Analiza, Algebra, Mechanika...)
+          items:
+            type: string
+            description: lista fakultetów/przedmiotów (Analiza, Algebra, Mechanika...)
+        levels:
+          type: array
+          description: lista poziomów studiów, dla których dedykowane są zajęcia
+          items:
+            type: string
+            description: lista poziomów studiów, dla których dedykowane są zajęcia
+            enum:
+            - BA
+            - MA
+            - PhD
+            - PST
+        languages:
+          type: array
+          description: lista języków, w których prowadzone są przedmioty
+          items:
+            type: string
+            description: lista języków, w których prowadzone są przedmioty
+        url:
+          type: string
+          description: adres url do strony ze szczegółowym opisem kursu
+        providedBy:
+          type: array
+          description: uczelnie, które prowadzą kurs
+          items:
+            type: string
+            description: uczelnie, które prowadzą kurs
+            enum:
+            - CUNI
+            - UAH
+            - SU
+            - KU
+            - UNIMI
+            - UW
+            - UNIGE
+            - PARIS_2
+        publishedBy:
+          type: string
+          description: nazwa uczelni, która opublikowała informację o kursie
+          enum:
+          - CUNI
+          - UAH
+          - SU
+          - KU
+          - UNIMI
+          - UW
+          - UNIGE
+          - PARIS_2
+        year:
+          type: integer
+          description: rok akademicki
+          format: int32
+        placesLimit4eu:
+          type: integer
+          description: liczba miejsc w programie 4eu+
+          format: int32
+        startDate:
+          type: string
+          description: data rozpoczęcia realizacji kursu/początku semestru
+          format: date
+        endDate:
+          type: string
+          description: data zakończenia realizacji kursu/zakończenia semestru
+          format: date
+        workload:
+          type: integer
+          description: liczba godzin kursu
+          format: int32
+        title:
+          type: string
+          description: nazwa kursu
+        keywords:
+          type: array
+          description: słowa kluczowe
+          items:
+            type: string
+            description: słowa kluczowe
+        levels4eu:
+          type: array
+          description: lista poziomów studiów, dla których dedykowane są zajęcia w programie 4eu+
+          items:
+            type: string
+            description: lista poziomów studiów, dla których dedykowane są zajęcia w programie 4eu+
+            enum:
+            - BA
+            - MA
+            - PhD
+            - PST
+        startDate4eu:
+          type: string
+          description: data rozpoczęcia realizacji kursu/początku semestru w programie 4eu+
+          format: date
+        endDate4eu:
+          type: string
+          description: data zakończenia realizacji kursu/zakończenia semestru w programie 4eu+
+          format: date
+        facultyOrUnit4eu:
+          type: string
+          description: Nazwa wydziału lub jednostki w języku angielskim na potrzeby programu 4eu+
+        title4eu:
+          type: string
+          description: nazwa kursu na potrzeby programu 4eu+
+        ects4eu:
+          type: number
+          description: liczba punktów ECTS na potrzeby programu 4eu+
+          format: double
+        importSourceType:
+          type: string
+          description: typ źródła importu. Jeżeli źródłem jest USOS to jedyne pola jakie są modyfikowalne to flagships i is4eu
+          enum:
+          - USOS
+        applicationDeadline:
+          type: string
+          description: Data rejestracji
+          format: date
+        sharedCompetencies4eu:
+          type: array
+          description: Lista rozwijanych kompetencji w ramach kursu
+          items:
+            type: string
+            description: Lista rozwijanych kompetencji w ramach kursu
+            enum:
+            - Multilingualism
+            - DataLiteracy
+            - CriticalThinking
+            - Entrepreneurship
+            - SocialEngagement
+        learningPathways4eu:
+          type: array
+          description: Lista ścieżek rozwoju w ramach kursu
+          items:
+            type: string
+            description: Lista ścieżek rozwoju w ramach kursu
+        teachingMode:
+          type: string
+          description: Tryb nauczania
+          enum:
+          - Physical
+          - Online
+          - Blended
+          - Hybrid
+        teachingMode4eu:
+          type: string
+          description: Tryb nauczania 4eu
+          enum:
+          - Physical
+          - Online
+          - Blended
+          - Hybrid
+        areasOfInterests:
+          type: array
+          description: Obszary zainteresowań
+          items:
+            type: string
+            description: Obszary zainteresowań
+        registrationInfoId:
+          type: string
+          description: Id informacji o rejestracji na kurs
+        academicYear:
+          type: string
+          description: Rok akademicki
+        additionalInfo:
+          type: string
+          description: Dodatkowe informacje o kursie
+        creationTime:
+          type: string
+          format: date-time
+      description: Informacje o kursie
+    CourseImportResponse:
+      type: object
+      properties:
+        course:
+          $ref: '#/components/schemas/CourseResponse'
+        courseRegistrationInfo:
+          $ref: '#/components/schemas/CourseRegistrationInfoResponse'
+        courseSyllabuses:
+          type: array
+          items:
+            $ref: '#/components/schemas/CourseSyllabusResponse'
+        abstracts:
+          type: array
+          items:
+            $ref: '#/components/schemas/AbstractResponse'
+        courseProfiles:
+          type: array
+          items:
+            $ref: '#/components/schemas/CourseProfileResponse'
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

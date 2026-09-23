@@ -1,0 +1,1361 @@
+openapi: 3.2.0
+info:
+  title: Jaskier Permissions API
+  version: 1.2.25
+servers:
+- url: https://api.jaskier.uw.edu.pl
+tags:
+- name: Permissions
+paths:
+  /api/v1/Admin/UnitOccupation/{unitCode}/Permissions:
+    get:
+      tags:
+      - Permissions
+      summary: Zwraca listę kodów jednostek z uprawnieniami
+      operationId: getUnitOccupationPermissions
+      parameters:
+      - name: unitCode
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PermUnitResponse'
+      security:
+      - Authorization: []
+    post:
+      tags:
+      - Permissions
+      summary: Aktualizuje listę uprawnień powiązanych z jednostka
+      operationId: upsertUnitOccupationPermissions
+      parameters:
+      - name: unitCode
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PermRequestsSet'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PermUnitResponse'
+      security:
+      - Authorization: []
+  /api/v1/Admin/PermGroups/{name}/Permissions:
+    get:
+      tags:
+      - Permissions
+      summary: Zwraca listę grup wewnętrznych z uprawnieniami
+      operationId: getCustomGroupPermissions
+      parameters:
+      - name: name
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PermGroupResponse'
+      security:
+      - Authorization: []
+    post:
+      tags:
+      - Permissions
+      summary: Aktualizuje listę uprawnień powiązanych z grupami wewnętrznymi
+      operationId: upsertCustomGroupPermissions
+      parameters:
+      - name: name
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PermRequestsSet'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PermGroupResponse'
+      security:
+      - Authorization: []
+  /api/v1/Admin/CasRoles/{casRole}/Permissions:
+    get:
+      tags:
+      - Permissions
+      summary: Zwraca listę ról z CAS z uprawnieniami
+      operationId: getCasRolesPermissions
+      parameters:
+      - name: casRole
+        in: path
+        required: true
+        schema:
+          type: string
+          enum:
+          - STUDENT
+          - PRACOWNIK
+          - DOKTORANT
+          - ABSOLWENT
+          - KURS_JO
+          - DYDAKTYK
+          - EMERYT
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PermCasRoleResponse'
+      security:
+      - Authorization: []
+    post:
+      tags:
+      - Permissions
+      summary: Aktualizuje listę uprawnień powiązanych z rolą cas
+      operationId: upsertCasRolesPermissions
+      parameters:
+      - name: casRole
+        in: path
+        required: true
+        schema:
+          type: string
+          enum:
+          - STUDENT
+          - PRACOWNIK
+          - DOKTORANT
+          - ABSOLWENT
+          - KURS_JO
+          - DYDAKTYK
+          - EMERYT
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PermRequestsSet'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PermCasRoleResponse'
+      security:
+      - Authorization: []
+  /api/v1/Admin/CasRoles/{casRole}/Permissions/Default/Reset:
+    post:
+      tags:
+      - Permissions
+      summary: Resetuje uprawnienia ról z CAS do domyślnych
+      operationId: resetCasPermissions
+      parameters:
+      - name: casRole
+        in: path
+        required: true
+        schema:
+          type: string
+          enum:
+          - STUDENT
+          - PRACOWNIK
+          - DOKTORANT
+          - ABSOLWENT
+          - KURS_JO
+          - DYDAKTYK
+          - EMERYT
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PermCasRoleResponse'
+      security:
+      - Authorization: []
+  /api/v1/Admin/ApiKey/{apiKeyName}/Permissions:
+    get:
+      tags:
+      - Permissions
+      summary: Zwraca listę kluczy api z uprawnieniami
+      operationId: getApiKeyPermissions
+      parameters:
+      - name: apiKeyName
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PermApiKeyResponse'
+      security:
+      - Authorization: []
+    post:
+      tags:
+      - Permissions
+      summary: Aktualizuje listę uprawnień powiązanych z kluczem api
+      operationId: upsertApiKeyPermissions
+      parameters:
+      - name: apiKeyName
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PermRequestsSet'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PermApiKeyResponse'
+      security:
+      - Authorization: []
+  /api/v1/Admin/UnitOccupation/WithAnyPermissions:
+    get:
+      tags:
+      - Permissions
+      summary: Zwraca listę kodów jednostek, które mają przypisane uprawnienia
+      operationId: getAllUnitCodesWithPermissions
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  type: string
+      security:
+      - Authorization: []
+  /api/v1/Admin/PermissionSources:
+    get:
+      tags:
+      - Permissions
+      summary: Pobranie źródeł uprawnień
+      operationId: getPermissionSources
+      parameters:
+      - name: objectType
+        in: query
+        required: true
+        schema:
+          type: string
+          enum:
+          - ACHIEVEMENTS_SUMMARY
+          - ADMIN
+          - ARTICLE
+          - ASSET
+          - BUILDING
+          - BUILDING_ACCESSIBILITY
+          - BUILDING_ATTRIBUTE
+          - BUILDING_BON
+          - BUILDING_PATH_OBJECT_TYPE
+          - BUILDING_PUBLIC
+          - BUSINESS_ENTITY
+          - CAMPUS
+          - COURSE
+          - COURSE_REGISTRATION_INFO
+          - CURRENCY
+          - EVENT
+          - FAQ
+          - GIVEAWAY
+          - ITEM_USED
+          - IT_SERVICE
+          - LABORATORY
+          - LABORATORY_TYPE
+          - LEGAL_BASIS
+          - LICENSE
+          - MOBILITY_OPTION
+          - MAGAZINE
+          - MONOGRAPH_PUBLISHER
+          - FRAMEWORK_AGREEMENT
+          - HOUSING_OPTION
+          - PATENT
+          - PASS_CONTROL
+          - PASS_CONTROL_PUBLIC
+          - PASS_CONTROL_DICTIONARY
+          - PERMISSION
+          - PERM_DEPARTMENT_PERSON
+          - PERM_DEPARTMENT_CAS_ROLE
+          - PERSON
+          - PERSON_ID_CARD
+          - PHONE_NUMBER
+          - PROFILE
+          - PROFILE_PUBLIC
+          - PROFILE_MYUW
+          - PERSON_PROFILE_MYUW
+          - PROJECT
+          - PROJECT_PUBLIC
+          - PROJECT_MIGRATION
+          - PROJECT_DICTIONARY
+          - PROJECT_PROGRAM
+          - PROJECT_INTERNATIONAL
+          - PROJECT_PROGRAM_DETAILED
+          - PROJECT_PROGRAM_CONTRACT
+          - PROJECT_TYPE
+          - PROJECT_REPORT
+          - PSP_ELEMENT
+          - PUBLICATION
+          - PUBLICATION_VENUE
+          - RESEARCH_SET
+          - PERSON_SYSTEM_ROLE
+          - PERSON_SYSTEM_ROLE_API
+          - SAP_OBJECT_ACCESS
+          - SYSTEM_ROLE
+          - PUBLIC_PROCUREMENT_PLAN
+          - PUBLIC_PROCUREMENT_PLAN_CATEGORY
+          - SAP_ROLE
+          - STUDENT_ORGANIZATION
+          - TRANSLATION
+          - TRANSLATION_CATEGORY
+          - TUTORIAL
+          - UNIVERSITY_INFO
+          - UW_ECONOMIC_DEPARTMENT
+          - UW_PERSON
+          - UW_PERSON_EMPLOYEE_DATA
+          - UW_UNIT
+      - name: permission
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: personId
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PermissionSourcesResponse'
+      security:
+      - Authorization: []
+  /api/v1/Admin/PermGroups:
+    get:
+      tags:
+      - Permissions
+      summary: Zwraca listę grup uprawnień
+      operationId: getPermGroupsPreview
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PermGroupNameResponse'
+      security:
+      - Authorization: []
+  /api/v1/Admin/ObjectTypes/Permissions:
+    get:
+      tags:
+      - Permissions
+      summary: Zwraca listę dozwolonych uprawnień dla dostępnych typów obiektów
+      operationId: getObjectTypesPermissions
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectTypePermsResponse'
+      security:
+      - Authorization: []
+  /api/v1/Admin/ObjectTypes/DepartmentSecured:
+    get:
+      tags:
+      - Permissions
+      summary: Zwraca listę typów obiektów z uprawnieniami dla działów
+      operationId: getDepartmentSecuredObjectTypes
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                uniqueItems: true
+                type: array
+                items:
+                  type: string
+                  enum:
+                  - ACHIEVEMENTS_SUMMARY
+                  - ADMIN
+                  - ARTICLE
+                  - ASSET
+                  - BUILDING
+                  - BUILDING_ACCESSIBILITY
+                  - BUILDING_ATTRIBUTE
+                  - BUILDING_BON
+                  - BUILDING_PATH_OBJECT_TYPE
+                  - BUILDING_PUBLIC
+                  - BUSINESS_ENTITY
+                  - CAMPUS
+                  - COURSE
+                  - COURSE_REGISTRATION_INFO
+                  - CURRENCY
+                  - EVENT
+                  - FAQ
+                  - GIVEAWAY
+                  - ITEM_USED
+                  - IT_SERVICE
+                  - LABORATORY
+                  - LABORATORY_TYPE
+                  - LEGAL_BASIS
+                  - LICENSE
+                  - MOBILITY_OPTION
+                  - MAGAZINE
+                  - MONOGRAPH_PUBLISHER
+                  - FRAMEWORK_AGREEMENT
+                  - HOUSING_OPTION
+                  - PATENT
+                  - PASS_CONTROL
+                  - PASS_CONTROL_PUBLIC
+                  - PASS_CONTROL_DICTIONARY
+                  - PERMISSION
+                  - PERM_DEPARTMENT_PERSON
+                  - PERM_DEPARTMENT_CAS_ROLE
+                  - PERSON
+                  - PERSON_ID_CARD
+                  - PHONE_NUMBER
+                  - PROFILE
+                  - PROFILE_PUBLIC
+                  - PROFILE_MYUW
+                  - PERSON_PROFILE_MYUW
+                  - PROJECT
+                  - PROJECT_PUBLIC
+                  - PROJECT_MIGRATION
+                  - PROJECT_DICTIONARY
+                  - PROJECT_PROGRAM
+                  - PROJECT_INTERNATIONAL
+                  - PROJECT_PROGRAM_DETAILED
+                  - PROJECT_PROGRAM_CONTRACT
+                  - PROJECT_TYPE
+                  - PROJECT_REPORT
+                  - PSP_ELEMENT
+                  - PUBLICATION
+                  - PUBLICATION_VENUE
+                  - RESEARCH_SET
+                  - PERSON_SYSTEM_ROLE
+                  - PERSON_SYSTEM_ROLE_API
+                  - SAP_OBJECT_ACCESS
+                  - SYSTEM_ROLE
+                  - PUBLIC_PROCUREMENT_PLAN
+                  - PUBLIC_PROCUREMENT_PLAN_CATEGORY
+                  - SAP_ROLE
+                  - STUDENT_ORGANIZATION
+                  - TRANSLATION
+                  - TRANSLATION_CATEGORY
+                  - TUTORIAL
+                  - UNIVERSITY_INFO
+                  - UW_ECONOMIC_DEPARTMENT
+                  - UW_PERSON
+                  - UW_PERSON_EMPLOYEE_DATA
+                  - UW_UNIT
+      security:
+      - Authorization: []
+  /api/v1/Admin/CasRoles:
+    get:
+      tags:
+      - Permissions
+      summary: Zwraca listę ról cas
+      operationId: getCasRoles
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  type: string
+      security:
+      - Authorization: []
+  /api/v1/Admin/CasRoles/{casRole}/Permissions/Default:
+    get:
+      tags:
+      - Permissions
+      summary: Zwraca domyślne uprawnienia dla ról z CAS
+      operationId: defaultCasPermissions
+      parameters:
+      - name: casRole
+        in: path
+        required: true
+        schema:
+          type: string
+          enum:
+          - STUDENT
+          - PRACOWNIK
+          - DOKTORANT
+          - ABSOLWENT
+          - KURS_JO
+          - DYDAKTYK
+          - EMERYT
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PermRequestsSet'
+      security:
+      - Authorization: []
+  /api/v1/Admin/ApiKey:
+    get:
+      tags:
+      - Permissions
+      summary: Zwraca listę kluczy api
+      operationId: getApiKeysPreview
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ApiKeyResponse'
+      security:
+      - Authorization: []
+  /api/v1/Admin/ApiKey/WithAnyPermissions:
+    get:
+      tags:
+      - Permissions
+      summary: Zwraca listę nazw kluczy api, które mają przypisane uprawnienia
+      operationId: getAllApiKeyNamesWithPermissions
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  type: string
+      security:
+      - Authorization: []
+components:
+  schemas:
+    PermGroupResponse:
+      type: object
+      properties:
+        group:
+          type: string
+        objectType:
+          type: string
+          enum:
+          - ACHIEVEMENTS_SUMMARY
+          - ADMIN
+          - ARTICLE
+          - ASSET
+          - BUILDING
+          - BUILDING_ACCESSIBILITY
+          - BUILDING_ATTRIBUTE
+          - BUILDING_BON
+          - BUILDING_PATH_OBJECT_TYPE
+          - BUILDING_PUBLIC
+          - BUSINESS_ENTITY
+          - CAMPUS
+          - COURSE
+          - COURSE_REGISTRATION_INFO
+          - CURRENCY
+          - EVENT
+          - FAQ
+          - GIVEAWAY
+          - ITEM_USED
+          - IT_SERVICE
+          - LABORATORY
+          - LABORATORY_TYPE
+          - LEGAL_BASIS
+          - LICENSE
+          - MOBILITY_OPTION
+          - MAGAZINE
+          - MONOGRAPH_PUBLISHER
+          - FRAMEWORK_AGREEMENT
+          - HOUSING_OPTION
+          - PATENT
+          - PASS_CONTROL
+          - PASS_CONTROL_PUBLIC
+          - PASS_CONTROL_DICTIONARY
+          - PERMISSION
+          - PERM_DEPARTMENT_PERSON
+          - PERM_DEPARTMENT_CAS_ROLE
+          - PERSON
+          - PERSON_ID_CARD
+          - PHONE_NUMBER
+          - PROFILE
+          - PROFILE_PUBLIC
+          - PROFILE_MYUW
+          - PERSON_PROFILE_MYUW
+          - PROJECT
+          - PROJECT_PUBLIC
+          - PROJECT_MIGRATION
+          - PROJECT_DICTIONARY
+          - PROJECT_PROGRAM
+          - PROJECT_INTERNATIONAL
+          - PROJECT_PROGRAM_DETAILED
+          - PROJECT_PROGRAM_CONTRACT
+          - PROJECT_TYPE
+          - PROJECT_REPORT
+          - PSP_ELEMENT
+          - PUBLICATION
+          - PUBLICATION_VENUE
+          - RESEARCH_SET
+          - PERSON_SYSTEM_ROLE
+          - PERSON_SYSTEM_ROLE_API
+          - SAP_OBJECT_ACCESS
+          - SYSTEM_ROLE
+          - PUBLIC_PROCUREMENT_PLAN
+          - PUBLIC_PROCUREMENT_PLAN_CATEGORY
+          - SAP_ROLE
+          - STUDENT_ORGANIZATION
+          - TRANSLATION
+          - TRANSLATION_CATEGORY
+          - TUTORIAL
+          - UNIVERSITY_INFO
+          - UW_ECONOMIC_DEPARTMENT
+          - UW_PERSON
+          - UW_PERSON_EMPLOYEE_DATA
+          - UW_UNIT
+        permissions:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+            enum:
+            - QUERY
+            - READ
+            - SEARCH
+            - CREATE
+            - UPDATE
+            - DELETE
+            - IMPORT
+            - EXPORT
+            - REPORT
+            - ADMIN_SERVICES
+            - UPDATE_UNITS
+            - READ_OBJECT_HISTORY
+            - QUERY_DSPACE
+            - QUERY_MYUW
+            - QUERY_EMPLOYEE_MYUW
+            - QUERY_OWN
+            - READ_OWN
+            - UPDATE_OWN
+            - DELETE_OWN
+            - IMPORT_OWN
+            - MANAGE_GROUPS
+            - MANAGE_API_KEYS
+            - MANAGE_IDP_PERSON
+            - UPDATE_EDUGAIN_PERSON
+            - QUERY_EMPLOYEE
+            - IMPORT_EMPLOYEE
+            - MERGE
+            - READ_HISTORY
+            - UPDATE_BASIC
+            - UPDATE_ADVANCED
+            - QUERY_4EU
+            - READ_4EU
+            - CREATE_4EU
+    PermRequest:
+      required:
+      - objectType
+      - permissions
+      type: object
+      properties:
+        objectType:
+          type: string
+          enum:
+          - ACHIEVEMENTS_SUMMARY
+          - ADMIN
+          - ARTICLE
+          - ASSET
+          - BUILDING
+          - BUILDING_ACCESSIBILITY
+          - BUILDING_ATTRIBUTE
+          - BUILDING_BON
+          - BUILDING_PATH_OBJECT_TYPE
+          - BUILDING_PUBLIC
+          - BUSINESS_ENTITY
+          - CAMPUS
+          - COURSE
+          - COURSE_REGISTRATION_INFO
+          - CURRENCY
+          - EVENT
+          - FAQ
+          - GIVEAWAY
+          - ITEM_USED
+          - IT_SERVICE
+          - LABORATORY
+          - LABORATORY_TYPE
+          - LEGAL_BASIS
+          - LICENSE
+          - MOBILITY_OPTION
+          - MAGAZINE
+          - MONOGRAPH_PUBLISHER
+          - FRAMEWORK_AGREEMENT
+          - HOUSING_OPTION
+          - PATENT
+          - PASS_CONTROL
+          - PASS_CONTROL_PUBLIC
+          - PASS_CONTROL_DICTIONARY
+          - PERMISSION
+          - PERM_DEPARTMENT_PERSON
+          - PERM_DEPARTMENT_CAS_ROLE
+          - PERSON
+          - PERSON_ID_CARD
+          - PHONE_NUMBER
+          - PROFILE
+          - PROFILE_PUBLIC
+          - PROFILE_MYUW
+          - PERSON_PROFILE_MYUW
+          - PROJECT
+          - PROJECT_PUBLIC
+          - PROJECT_MIGRATION
+          - PROJECT_DICTIONARY
+          - PROJECT_PROGRAM
+          - PROJECT_INTERNATIONAL
+          - PROJECT_PROGRAM_DETAILED
+          - PROJECT_PROGRAM_CONTRACT
+          - PROJECT_TYPE
+          - PROJECT_REPORT
+          - PSP_ELEMENT
+          - PUBLICATION
+          - PUBLICATION_VENUE
+          - RESEARCH_SET
+          - PERSON_SYSTEM_ROLE
+          - PERSON_SYSTEM_ROLE_API
+          - SAP_OBJECT_ACCESS
+          - SYSTEM_ROLE
+          - PUBLIC_PROCUREMENT_PLAN
+          - PUBLIC_PROCUREMENT_PLAN_CATEGORY
+          - SAP_ROLE
+          - STUDENT_ORGANIZATION
+          - TRANSLATION
+          - TRANSLATION_CATEGORY
+          - TUTORIAL
+          - UNIVERSITY_INFO
+          - UW_ECONOMIC_DEPARTMENT
+          - UW_PERSON
+          - UW_PERSON_EMPLOYEE_DATA
+          - UW_UNIT
+        permissions:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+            enum:
+            - QUERY
+            - READ
+            - SEARCH
+            - CREATE
+            - UPDATE
+            - DELETE
+            - IMPORT
+            - EXPORT
+            - REPORT
+            - ADMIN_SERVICES
+            - UPDATE_UNITS
+            - READ_OBJECT_HISTORY
+            - QUERY_DSPACE
+            - QUERY_MYUW
+            - QUERY_EMPLOYEE_MYUW
+            - QUERY_OWN
+            - READ_OWN
+            - UPDATE_OWN
+            - DELETE_OWN
+            - IMPORT_OWN
+            - MANAGE_GROUPS
+            - MANAGE_API_KEYS
+            - MANAGE_IDP_PERSON
+            - UPDATE_EDUGAIN_PERSON
+            - QUERY_EMPLOYEE
+            - IMPORT_EMPLOYEE
+            - MERGE
+            - READ_HISTORY
+            - UPDATE_BASIC
+            - UPDATE_ADVANCED
+            - QUERY_4EU
+            - READ_4EU
+            - CREATE_4EU
+    PermCasRoleResponse:
+      type: object
+      properties:
+        role:
+          type: string
+        objectType:
+          type: string
+          enum:
+          - ACHIEVEMENTS_SUMMARY
+          - ADMIN
+          - ARTICLE
+          - ASSET
+          - BUILDING
+          - BUILDING_ACCESSIBILITY
+          - BUILDING_ATTRIBUTE
+          - BUILDING_BON
+          - BUILDING_PATH_OBJECT_TYPE
+          - BUILDING_PUBLIC
+          - BUSINESS_ENTITY
+          - CAMPUS
+          - COURSE
+          - COURSE_REGISTRATION_INFO
+          - CURRENCY
+          - EVENT
+          - FAQ
+          - GIVEAWAY
+          - ITEM_USED
+          - IT_SERVICE
+          - LABORATORY
+          - LABORATORY_TYPE
+          - LEGAL_BASIS
+          - LICENSE
+          - MOBILITY_OPTION
+          - MAGAZINE
+          - MONOGRAPH_PUBLISHER
+          - FRAMEWORK_AGREEMENT
+          - HOUSING_OPTION
+          - PATENT
+          - PASS_CONTROL
+          - PASS_CONTROL_PUBLIC
+          - PASS_CONTROL_DICTIONARY
+          - PERMISSION
+          - PERM_DEPARTMENT_PERSON
+          - PERM_DEPARTMENT_CAS_ROLE
+          - PERSON
+          - PERSON_ID_CARD
+          - PHONE_NUMBER
+          - PROFILE
+          - PROFILE_PUBLIC
+          - PROFILE_MYUW
+          - PERSON_PROFILE_MYUW
+          - PROJECT
+          - PROJECT_PUBLIC
+          - PROJECT_MIGRATION
+          - PROJECT_DICTIONARY
+          - PROJECT_PROGRAM
+          - PROJECT_INTERNATIONAL
+          - PROJECT_PROGRAM_DETAILED
+          - PROJECT_PROGRAM_CONTRACT
+          - PROJECT_TYPE
+          - PROJECT_REPORT
+          - PSP_ELEMENT
+          - PUBLICATION
+          - PUBLICATION_VENUE
+          - RESEARCH_SET
+          - PERSON_SYSTEM_ROLE
+          - PERSON_SYSTEM_ROLE_API
+          - SAP_OBJECT_ACCESS
+          - SYSTEM_ROLE
+          - PUBLIC_PROCUREMENT_PLAN
+          - PUBLIC_PROCUREMENT_PLAN_CATEGORY
+          - SAP_ROLE
+          - STUDENT_ORGANIZATION
+          - TRANSLATION
+          - TRANSLATION_CATEGORY
+          - TUTORIAL
+          - UNIVERSITY_INFO
+          - UW_ECONOMIC_DEPARTMENT
+          - UW_PERSON
+          - UW_PERSON_EMPLOYEE_DATA
+          - UW_UNIT
+        permissions:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+            enum:
+            - QUERY
+            - READ
+            - SEARCH
+            - CREATE
+            - UPDATE
+            - DELETE
+            - IMPORT
+            - EXPORT
+            - REPORT
+            - ADMIN_SERVICES
+            - UPDATE_UNITS
+            - READ_OBJECT_HISTORY
+            - QUERY_DSPACE
+            - QUERY_MYUW
+            - QUERY_EMPLOYEE_MYUW
+            - QUERY_OWN
+            - READ_OWN
+            - UPDATE_OWN
+            - DELETE_OWN
+            - IMPORT_OWN
+            - MANAGE_GROUPS
+            - MANAGE_API_KEYS
+            - MANAGE_IDP_PERSON
+            - UPDATE_EDUGAIN_PERSON
+            - QUERY_EMPLOYEE
+            - IMPORT_EMPLOYEE
+            - MERGE
+            - READ_HISTORY
+            - UPDATE_BASIC
+            - UPDATE_ADVANCED
+            - QUERY_4EU
+            - READ_4EU
+            - CREATE_4EU
+    PermGroupNameResponse:
+      type: object
+      properties:
+        name:
+          type: string
+    ApiKeyResponse:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Nazwa klucza api
+        note:
+          type: string
+          description: Notatka
+        validUntil:
+          type: string
+          description: Ważność klucza
+          format: date-time
+    ObjectTypePermsResponse:
+      type: object
+      properties:
+        objectType:
+          type: string
+          enum:
+          - ACHIEVEMENTS_SUMMARY
+          - ADMIN
+          - ARTICLE
+          - ASSET
+          - BUILDING
+          - BUILDING_ACCESSIBILITY
+          - BUILDING_ATTRIBUTE
+          - BUILDING_BON
+          - BUILDING_PATH_OBJECT_TYPE
+          - BUILDING_PUBLIC
+          - BUSINESS_ENTITY
+          - CAMPUS
+          - COURSE
+          - COURSE_REGISTRATION_INFO
+          - CURRENCY
+          - EVENT
+          - FAQ
+          - GIVEAWAY
+          - ITEM_USED
+          - IT_SERVICE
+          - LABORATORY
+          - LABORATORY_TYPE
+          - LEGAL_BASIS
+          - LICENSE
+          - MOBILITY_OPTION
+          - MAGAZINE
+          - MONOGRAPH_PUBLISHER
+          - FRAMEWORK_AGREEMENT
+          - HOUSING_OPTION
+          - PATENT
+          - PASS_CONTROL
+          - PASS_CONTROL_PUBLIC
+          - PASS_CONTROL_DICTIONARY
+          - PERMISSION
+          - PERM_DEPARTMENT_PERSON
+          - PERM_DEPARTMENT_CAS_ROLE
+          - PERSON
+          - PERSON_ID_CARD
+          - PHONE_NUMBER
+          - PROFILE
+          - PROFILE_PUBLIC
+          - PROFILE_MYUW
+          - PERSON_PROFILE_MYUW
+          - PROJECT
+          - PROJECT_PUBLIC
+          - PROJECT_MIGRATION
+          - PROJECT_DICTIONARY
+          - PROJECT_PROGRAM
+          - PROJECT_INTERNATIONAL
+          - PROJECT_PROGRAM_DETAILED
+          - PROJECT_PROGRAM_CONTRACT
+          - PROJECT_TYPE
+          - PROJECT_REPORT
+          - PSP_ELEMENT
+          - PUBLICATION
+          - PUBLICATION_VENUE
+          - RESEARCH_SET
+          - PERSON_SYSTEM_ROLE
+          - PERSON_SYSTEM_ROLE_API
+          - SAP_OBJECT_ACCESS
+          - SYSTEM_ROLE
+          - PUBLIC_PROCUREMENT_PLAN
+          - PUBLIC_PROCUREMENT_PLAN_CATEGORY
+          - SAP_ROLE
+          - STUDENT_ORGANIZATION
+          - TRANSLATION
+          - TRANSLATION_CATEGORY
+          - TUTORIAL
+          - UNIVERSITY_INFO
+          - UW_ECONOMIC_DEPARTMENT
+          - UW_PERSON
+          - UW_PERSON_EMPLOYEE_DATA
+          - UW_UNIT
+        permissions:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+            enum:
+            - QUERY
+            - READ
+            - SEARCH
+            - CREATE
+            - UPDATE
+            - DELETE
+            - IMPORT
+            - EXPORT
+            - REPORT
+            - ADMIN_SERVICES
+            - UPDATE_UNITS
+            - READ_OBJECT_HISTORY
+            - QUERY_DSPACE
+            - QUERY_MYUW
+            - QUERY_EMPLOYEE_MYUW
+            - QUERY_OWN
+            - READ_OWN
+            - UPDATE_OWN
+            - DELETE_OWN
+            - IMPORT_OWN
+            - MANAGE_GROUPS
+            - MANAGE_API_KEYS
+            - MANAGE_IDP_PERSON
+            - UPDATE_EDUGAIN_PERSON
+            - QUERY_EMPLOYEE
+            - IMPORT_EMPLOYEE
+            - MERGE
+            - READ_HISTORY
+            - UPDATE_BASIC
+            - UPDATE_ADVANCED
+            - QUERY_4EU
+            - READ_4EU
+            - CREATE_4EU
+    PermRequestsSet:
+      required:
+      - requests
+      type: object
+      properties:
+        requests:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/PermRequest'
+    PermissionSourcesResponse:
+      type: object
+      properties:
+        groups:
+          type: array
+          items:
+            type: string
+        units:
+          type: array
+          items:
+            type: string
+        roles:
+          type: array
+          items:
+            type: string
+        apiKeys:
+          type: array
+          items:
+            type: string
+    PermUnitResponse:
+      type: object
+      properties:
+        unit:
+          type: string
+        objectType:
+          type: string
+          enum:
+          - ACHIEVEMENTS_SUMMARY
+          - ADMIN
+          - ARTICLE
+          - ASSET
+          - BUILDING
+          - BUILDING_ACCESSIBILITY
+          - BUILDING_ATTRIBUTE
+          - BUILDING_BON
+          - BUILDING_PATH_OBJECT_TYPE
+          - BUILDING_PUBLIC
+          - BUSINESS_ENTITY
+          - CAMPUS
+          - COURSE
+          - COURSE_REGISTRATION_INFO
+          - CURRENCY
+          - EVENT
+          - FAQ
+          - GIVEAWAY
+          - ITEM_USED
+          - IT_SERVICE
+          - LABORATORY
+          - LABORATORY_TYPE
+          - LEGAL_BASIS
+          - LICENSE
+          - MOBILITY_OPTION
+          - MAGAZINE
+          - MONOGRAPH_PUBLISHER
+          - FRAMEWORK_AGREEMENT
+          - HOUSING_OPTION
+          - PATENT
+          - PASS_CONTROL
+          - PASS_CONTROL_PUBLIC
+          - PASS_CONTROL_DICTIONARY
+          - PERMISSION
+          - PERM_DEPARTMENT_PERSON
+          - PERM_DEPARTMENT_CAS_ROLE
+          - PERSON
+          - PERSON_ID_CARD
+          - PHONE_NUMBER
+          - PROFILE
+          - PROFILE_PUBLIC
+          - PROFILE_MYUW
+          - PERSON_PROFILE_MYUW
+          - PROJECT
+          - PROJECT_PUBLIC
+          - PROJECT_MIGRATION
+          - PROJECT_DICTIONARY
+          - PROJECT_PROGRAM
+          - PROJECT_INTERNATIONAL
+          - PROJECT_PROGRAM_DETAILED
+          - PROJECT_PROGRAM_CONTRACT
+          - PROJECT_TYPE
+          - PROJECT_REPORT
+          - PSP_ELEMENT
+          - PUBLICATION
+          - PUBLICATION_VENUE
+          - RESEARCH_SET
+          - PERSON_SYSTEM_ROLE
+          - PERSON_SYSTEM_ROLE_API
+          - SAP_OBJECT_ACCESS
+          - SYSTEM_ROLE
+          - PUBLIC_PROCUREMENT_PLAN
+          - PUBLIC_PROCUREMENT_PLAN_CATEGORY
+          - SAP_ROLE
+          - STUDENT_ORGANIZATION
+          - TRANSLATION
+          - TRANSLATION_CATEGORY
+          - TUTORIAL
+          - UNIVERSITY_INFO
+          - UW_ECONOMIC_DEPARTMENT
+          - UW_PERSON
+          - UW_PERSON_EMPLOYEE_DATA
+          - UW_UNIT
+        permissions:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+            enum:
+            - QUERY
+            - READ
+            - SEARCH
+            - CREATE
+            - UPDATE
+            - DELETE
+            - IMPORT
+            - EXPORT
+            - REPORT
+            - ADMIN_SERVICES
+            - UPDATE_UNITS
+            - READ_OBJECT_HISTORY
+            - QUERY_DSPACE
+            - QUERY_MYUW
+            - QUERY_EMPLOYEE_MYUW
+            - QUERY_OWN
+            - READ_OWN
+            - UPDATE_OWN
+            - DELETE_OWN
+            - IMPORT_OWN
+            - MANAGE_GROUPS
+            - MANAGE_API_KEYS
+            - MANAGE_IDP_PERSON
+            - UPDATE_EDUGAIN_PERSON
+            - QUERY_EMPLOYEE
+            - IMPORT_EMPLOYEE
+            - MERGE
+            - READ_HISTORY
+            - UPDATE_BASIC
+            - UPDATE_ADVANCED
+            - QUERY_4EU
+            - READ_4EU
+            - CREATE_4EU
+    PermApiKeyResponse:
+      type: object
+      properties:
+        apiKeyName:
+          type: string
+        objectType:
+          type: string
+          enum:
+          - ACHIEVEMENTS_SUMMARY
+          - ADMIN
+          - ARTICLE
+          - ASSET
+          - BUILDING
+          - BUILDING_ACCESSIBILITY
+          - BUILDING_ATTRIBUTE
+          - BUILDING_BON
+          - BUILDING_PATH_OBJECT_TYPE
+          - BUILDING_PUBLIC
+          - BUSINESS_ENTITY
+          - CAMPUS
+          - COURSE
+          - COURSE_REGISTRATION_INFO
+          - CURRENCY
+          - EVENT
+          - FAQ
+          - GIVEAWAY
+          - ITEM_USED
+          - IT_SERVICE
+          - LABORATORY
+          - LABORATORY_TYPE
+          - LEGAL_BASIS
+          - LICENSE
+          - MOBILITY_OPTION
+          - MAGAZINE
+          - MONOGRAPH_PUBLISHER
+          - FRAMEWORK_AGREEMENT
+          - HOUSING_OPTION
+          - PATENT
+          - PASS_CONTROL
+          - PASS_CONTROL_PUBLIC
+          - PASS_CONTROL_DICTIONARY
+          - PERMISSION
+          - PERM_DEPARTMENT_PERSON
+          - PERM_DEPARTMENT_CAS_ROLE
+          - PERSON
+          - PERSON_ID_CARD
+          - PHONE_NUMBER
+          - PROFILE
+          - PROFILE_PUBLIC
+          - PROFILE_MYUW
+          - PERSON_PROFILE_MYUW
+          - PROJECT
+          - PROJECT_PUBLIC
+          - PROJECT_MIGRATION
+          - PROJECT_DICTIONARY
+          - PROJECT_PROGRAM
+          - PROJECT_INTERNATIONAL
+          - PROJECT_PROGRAM_DETAILED
+          - PROJECT_PROGRAM_CONTRACT
+          - PROJECT_TYPE
+          - PROJECT_REPORT
+          - PSP_ELEMENT
+          - PUBLICATION
+          - PUBLICATION_VENUE
+          - RESEARCH_SET
+          - PERSON_SYSTEM_ROLE
+          - PERSON_SYSTEM_ROLE_API
+          - SAP_OBJECT_ACCESS
+          - SYSTEM_ROLE
+          - PUBLIC_PROCUREMENT_PLAN
+          - PUBLIC_PROCUREMENT_PLAN_CATEGORY
+          - SAP_ROLE
+          - STUDENT_ORGANIZATION
+          - TRANSLATION
+          - TRANSLATION_CATEGORY
+          - TUTORIAL
+          - UNIVERSITY_INFO
+          - UW_ECONOMIC_DEPARTMENT
+          - UW_PERSON
+          - UW_PERSON_EMPLOYEE_DATA
+          - UW_UNIT
+        permissions:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+            enum:
+            - QUERY
+            - READ
+            - SEARCH
+            - CREATE
+            - UPDATE
+            - DELETE
+            - IMPORT
+            - EXPORT
+            - REPORT
+            - ADMIN_SERVICES
+            - UPDATE_UNITS
+            - READ_OBJECT_HISTORY
+            - QUERY_DSPACE
+            - QUERY_MYUW
+            - QUERY_EMPLOYEE_MYUW
+            - QUERY_OWN
+            - READ_OWN
+            - UPDATE_OWN
+            - DELETE_OWN
+            - IMPORT_OWN
+            - MANAGE_GROUPS
+            - MANAGE_API_KEYS
+            - MANAGE_IDP_PERSON
+            - UPDATE_EDUGAIN_PERSON
+            - QUERY_EMPLOYEE
+            - IMPORT_EMPLOYEE
+            - MERGE
+            - READ_HISTORY
+            - UPDATE_BASIC
+            - UPDATE_ADVANCED
+            - QUERY_4EU
+            - READ_4EU
+            - CREATE_4EU
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

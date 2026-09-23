@@ -1,0 +1,70 @@
+openapi: 3.2.0
+info:
+  title: Jaskier System API
+  version: 1.2.25
+servers:
+- url: https://api.jaskier.uw.edu.pl
+tags:
+- name: System
+paths:
+  /api/v1/system/git:
+    get:
+      tags:
+      - System
+      summary: git
+      description: Zwraca informacje o commicie aplikacji.
+      operationId: gitProperties
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GitProperties'
+  /api/v1/system/build:
+    get:
+      tags:
+      - System
+      summary: build
+      description: Zwraca informacje o buildzie aplikacji.
+      operationId: buildProperties
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/BuildProperties'
+components:
+  schemas:
+    BuildProperties:
+      type: object
+      properties:
+        name:
+          type: string
+        time:
+          type: string
+          format: date-time
+        version:
+          type: string
+        group:
+          type: string
+        artifact:
+          type: string
+    GitProperties:
+      type: object
+      properties:
+        commitId:
+          type: string
+        branch:
+          type: string
+        shortCommitId:
+          type: string
+        commitTime:
+          type: string
+          format: date-time
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

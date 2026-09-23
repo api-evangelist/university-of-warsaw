@@ -1,0 +1,1960 @@
+openapi: 3.2.0
+info:
+  title: University Of Warsaw Profile API
+  version: '1.0'
+  description: 'Operations tagged Profile across 2 of this provider''s published API definitions: university-of-warsaw-jaskier-api.json, university-of-warsaw-sp4eu-api.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api.jaskier.uw.edu.pl
+- url: https://api.sp4eu.uw.edu.pl
+tags:
+- name: Profile
+paths:
+  /api/v1/Profile/{id}:
+    get:
+      tags:
+      - Profile
+      summary: Czytanie profilu z podanym id
+      operationId: getProfileById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ProfileResponse'
+      security:
+      - Authorization: []
+    put:
+      tags:
+      - Profile
+      summary: Aktualizacja profilu
+      operationId: updateProfile
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProfileRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ProfileResponse'
+      security:
+      - Authorization: []
+    delete:
+      tags:
+      - Profile
+      summary: Usuwanie profilu bez powiązanych relacji.
+      operationId: removeProfile
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      security:
+      - Authorization: []
+    servers:
+    - url: https://api.jaskier.uw.edu.pl
+  /api/v1/Profile/{id}/ScienceDiscipline:
+    get:
+      tags:
+      - Profile
+      summary: Czytanie listy powiązanych dyscyplin naukowych
+      operationId: getProfileScienceDisciplines
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProfileScienceDisciplineResponse'
+      security:
+      - Authorization: []
+    put:
+      tags:
+      - Profile
+      summary: Dodawanie dyscyplin naukowych do profilu
+      operationId: addProfileScienceDiscipline
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProfileScienceDisciplineRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ProfileScienceDisciplineResponse'
+      security:
+      - Authorization: []
+    servers:
+    - url: https://api.jaskier.uw.edu.pl
+  /api/v1/Profile/{id}/ScienceDisciplineDetails:
+    get:
+      tags:
+      - Profile
+      summary: Czytanie informacji powiązanych z dyscyplinami naukowymi
+      operationId: getProfileScienceDisciplinesDetails
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ProfileScienceDisciplineDetailsResponse'
+      security:
+      - Authorization: []
+    put:
+      tags:
+      - Profile
+      summary: Aktualizacja informacji powiązanych z dyscyplinami naukowymi
+      operationId: updateProfileScienceDisciplinesDetails
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProfileScienceDisciplineDetailsRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ProfileScienceDisciplineDetailsResponse'
+      security:
+      - Authorization: []
+    servers:
+    - url: https://api.jaskier.uw.edu.pl
+  /api/v1/Profile/{id}/ScienceDiscipline/{profileScienceDisciplineId}:
+    put:
+      tags:
+      - Profile
+      summary: Aktualizacja dyscyplin naukowych w profilu
+      operationId: updateProfileScienceDiscipline
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: profileScienceDisciplineId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProfileScienceDisciplineRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ProfileScienceDisciplineResponse'
+      security:
+      - Authorization: []
+    delete:
+      tags:
+      - Profile
+      summary: Usunięcie dyscypliny naukowej profilu
+      operationId: removeProfileScienceDiscipline
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: profileScienceDisciplineId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      security:
+      - Authorization: []
+    servers:
+    - url: https://api.jaskier.uw.edu.pl
+  /api/v1/Profile/{id}/ProfileUnit/{profileUnitId}:
+    put:
+      tags:
+      - Profile
+      summary: Aktualizacja jednostki profilu
+      operationId: updateProfileUnit
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: profileUnitId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProfileUnitRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ProfileUnitResponse'
+      security:
+      - Authorization: []
+    delete:
+      tags:
+      - Profile
+      summary: Usunięcie jednostki profilu
+      operationId: removeProfileUnit
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: profileUnitId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      security:
+      - Authorization: []
+    servers:
+    - url: https://api.jaskier.uw.edu.pl
+  /api/v1/Profile/{id}/ProfileDegree/{profileDegreeId}:
+    put:
+      tags:
+      - Profile
+      summary: Aktualizacja profilu stopnie i tytuły
+      operationId: updateProfileDegree
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: profileDegreeId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProfileDegreeRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ProfileDegreeResponse'
+      security:
+      - Authorization: []
+    delete:
+      tags:
+      - Profile
+      summary: Usunięcie profilu - stopnie i tytuły naukowe
+      operationId: removeProfileDegree
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: profileDegreeId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      security:
+      - Authorization: []
+    servers:
+    - url: https://api.jaskier.uw.edu.pl
+  /api/v1/Profile/{id}/ExternalLink/{externalLinkId}:
+    put:
+      tags:
+      - Profile
+      summary: Aktualizacja linków do aplikacji zewnętrznej
+      operationId: updateExternalLink
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: externalLinkId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExternalLinkRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ExternalLinkResponse'
+      security:
+      - Authorization: []
+    delete:
+      tags:
+      - Profile
+      summary: Usunięcie linków do aplikacji zewnętrznych
+      operationId: removeExternalLink
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: externalLinkId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      security:
+      - Authorization: []
+    servers:
+    - url: https://api.jaskier.uw.edu.pl
+  /api/v1/Profile/{id}/Article:
+    get:
+      tags:
+      - Profile
+      summary: Czytanie artykułu do profilu
+      operationId: getProfileArticle
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ArticlePreviewResponse'
+      security:
+      - Authorization: []
+    put:
+      tags:
+      - Profile
+      summary: Dodawanie/aktualizacja artykułu do profilu
+      operationId: upsertProfileArticle
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ArticlePreviewResponse'
+      security:
+      - Authorization: []
+    servers:
+    - url: https://api.jaskier.uw.edu.pl
+  /api/v1/Profile/ByPerson/{personId}/orcid:
+    put:
+      tags:
+      - Profile
+      summary: Aktualizacja orcid w profilu na podstawie personId
+      operationId: updateOrcidByPersonId
+      parameters:
+      - name: personId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProfileOrcidRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ProfileResponse'
+      security:
+      - Authorization: []
+    servers:
+    - url: https://api.jaskier.uw.edu.pl
+  /api/v1/Profile:
+    get:
+      tags:
+      - Profile
+      summary: Listowanie danych o profilach niezależnie od pola is_publicly_visible
+      operationId: queryForProfile
+      parameters:
+      - name: $skip
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int64
+          default: 0
+      - name: $top
+        in: query
+        required: false
+        schema:
+          maximum: 1000
+          type: integer
+          format: int64
+          default: 10
+      - name: $inlinecount
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: $orderby
+        in: query
+        required: false
+        schema:
+          type: string
+          default: firstName,middleNames,lastName
+      - name: $filter
+        in: query
+        required: false
+        schema:
+          type: string
+          default: ()
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/OdataResponseQueryProfileItemResponse'
+      security:
+      - Authorization: []
+    post:
+      tags:
+      - Profile
+      summary: Dodawanie profilu
+      operationId: addProfile
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProfileRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ProfileResponse'
+      security:
+      - Authorization: []
+    servers:
+    - url: https://api.jaskier.uw.edu.pl
+  /api/v1/Profile/{id}/assignPerson:
+    post:
+      tags:
+      - Profile
+      summary: Przypisywanie osoby (tożsamości) do profilu
+      operationId: assignPerson
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProfilePersonRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ProfileResponse'
+      security:
+      - Authorization: []
+    servers:
+    - url: https://api.jaskier.uw.edu.pl
+  /api/v1/Profile/{id}/ProfileUnit:
+    get:
+      tags:
+      - Profile
+      summary: Listowanie danych jednostkach profilu
+      operationId: getProfileUnits
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProfileUnitResponse'
+      security:
+      - Authorization: []
+    post:
+      tags:
+      - Profile
+      summary: Dodawanie jednostki profilu
+      operationId: addProfileUnit
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProfileUnitRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ProfileUnitResponse'
+      security:
+      - Authorization: []
+    servers:
+    - url: https://api.jaskier.uw.edu.pl
+  /api/v1/Profile/{id}/ProfileDegree:
+    get:
+      tags:
+      - Profile
+      summary: Listowanie danych o stopniach i tytułach dla podanego profileId
+      operationId: queryForProfileDegrees
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProfileDegreeResponse'
+      security:
+      - Authorization: []
+    post:
+      tags:
+      - Profile
+      summary: Dodawanie profilu stopnie i tytuły
+      operationId: addProfileDegree
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProfileDegreeRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ProfileDegreeResponse'
+      security:
+      - Authorization: []
+    servers:
+    - url: https://api.jaskier.uw.edu.pl
+  /api/v1/Profile/{id}/ExternalLink:
+    get:
+      tags:
+      - Profile
+      summary: Czytanie listy linków linków do aplikacji zewnętrznych
+      operationId: getExternalLink
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ExternalLinkResponse'
+      security:
+      - Authorization: []
+    post:
+      tags:
+      - Profile
+      summary: Dodawanie linków do aplikacji zewnętrznych
+      operationId: addExternalLink
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExternalLinkRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ExternalLinkResponse'
+      security:
+      - Authorization: []
+    servers:
+    - url: https://api.jaskier.uw.edu.pl
+  /api/v1/Profile/Merge:
+    post:
+      tags:
+      - Profile
+      summary: Łączenie profili
+      operationId: mergeProfiles
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProfileMergeRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ProfileResponse'
+      security:
+      - Authorization: []
+    servers:
+    - url: https://api.jaskier.uw.edu.pl
+  /api/v1/Profile/{id}/Publication:
+    get:
+      tags:
+      - Profile
+      summary: Czytanie listy publikacji, których autorem jest wybrany profil
+      description: 'Czytanie listy publikacji, których autorem jest wybrany profil.
+
+
+        Filtry:
+
+        * role
+
+        - gdy brak -> zwraca wszystkie publikacje niezależnie od roli'
+      operationId: getProfilePublicationById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: role
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - AUTHOR
+          - SUPERVISOR
+          - EDITOR
+          - TRANSLATOR
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProfilePublicationResponse'
+      security:
+      - Authorization: []
+    servers:
+    - url: https://api.jaskier.uw.edu.pl
+  /api/v1/Profile/{id}/ProposedKeywords:
+    get:
+      tags:
+      - Profile
+      summary: Zwraca słowa kluczowe z rejestrów powiązanych z profilem
+      operationId: findAllKeywordsForProfile
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  type: string
+      security:
+      - Authorization: []
+    servers:
+    - url: https://api.jaskier.uw.edu.pl
+  /api/v1/Profile/{id}/Project:
+    get:
+      tags:
+      - Profile
+      summary: Czytanie listy projektów, w których członkiem jest wybrany profil
+      operationId: getProfileProjectAuthorById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProfileProjectResponse'
+      security:
+      - Authorization: []
+    servers:
+    - url: https://api.jaskier.uw.edu.pl
+  /api/v1/Profile/{id}/ProfileRelation:
+    get:
+      tags:
+      - Profile
+      summary: Listowanie danych o profilach powiązanych z danym profilem
+      operationId: getProfileRelations
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProfileRelationResponse'
+      security:
+      - Authorization: []
+    servers:
+    - url: https://api.jaskier.uw.edu.pl
+  /api/v1/Profile/{id}/Patent:
+    get:
+      tags:
+      - Profile
+      summary: Czytanie listy patentów, których autorem jest wybrany profil
+      operationId: getProfilePatentAuthorById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProfilePatentResponse'
+      security:
+      - Authorization: []
+    servers:
+    - url: https://api.jaskier.uw.edu.pl
+  /api/v1/Profile/{id}/History:
+    get:
+      tags:
+      - Profile
+      summary: Czytanie historii zmian profilu
+      operationId: getProjectHistory_1
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/HistoryResponse'
+      security:
+      - Authorization: []
+    servers:
+    - url: https://api.jaskier.uw.edu.pl
+  /api/v1/Profile/{id}/Courses:
+    get:
+      tags:
+      - Profile
+      summary: Czytanie listy kursów, powiązanych z wybranym
+      operationId: getProfileCoursesById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProfileCourseResponse'
+      security:
+      - Authorization: []
+    servers:
+    - url: https://api.jaskier.uw.edu.pl
+  /api/v1/Profile/SearchProfile:
+    get:
+      tags:
+      - Profile
+      operationId: searchProfile
+      parameters:
+      - name: $skip
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int64
+          default: 0
+      - name: $top
+        in: query
+        required: false
+        schema:
+          maximum: 100
+          type: integer
+          format: int64
+          default: 10
+      - name: $inlinecount
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: $orderby
+        in: query
+        required: false
+        schema:
+          type: string
+          default: lastName,firstName,email
+      - name: searchValue
+        in: query
+        required: false
+        schema:
+          type: string
+          default: searchValue
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/OdataResponseQueryProfileItemResponse'
+      security:
+      - Authorization: []
+      summary: Search profile
+      x-summary-source: derived
+    servers:
+    - url: https://api.jaskier.uw.edu.pl
+  /api/v1/Profile/SearchProfile('{profileId}'):
+    get:
+      tags:
+      - Profile
+      operationId: getSearchProfile
+      parameters:
+      - name: profileId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ProfileResponse'
+      security:
+      - Authorization: []
+      summary: Get search profile
+      x-summary-source: derived
+    servers:
+    - url: https://api.jaskier.uw.edu.pl
+  /api/v1/Profile/SearchPerson:
+    get:
+      tags:
+      - Profile
+      summary: Listowanie danych o osobach
+      operationId: searchPersonForProfile
+      parameters:
+      - name: $skip
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int64
+          default: 0
+      - name: $top
+        in: query
+        required: false
+        schema:
+          maximum: 100
+          type: integer
+          format: int64
+          default: 10
+      - name: $inlinecount
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: $orderby
+        in: query
+        required: false
+        schema:
+          type: string
+          default: lastName,firstName,email
+      - name: searchValue
+        in: query
+        required: false
+        schema:
+          type: string
+          default: searchValue
+      - name: hasProfile
+        in: query
+        required: false
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/OdataResponsePersonViewResponse'
+      security:
+      - Authorization: []
+    servers:
+    - url: https://api.jaskier.uw.edu.pl
+  /api/v1/Profile/SearchPerson('{personId}'):
+    get:
+      tags:
+      - Profile
+      summary: Czytanie informacji o osobie
+      operationId: getSearchPersonForProfile
+      parameters:
+      - name: personId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PersonViewResponse'
+      security:
+      - Authorization: []
+    servers:
+    - url: https://api.jaskier.uw.edu.pl
+  /api/v1/Profile/FindOrcidByPersonId/{personId}:
+    get:
+      tags:
+      - Profile
+      operationId: getProfileOrcid
+      parameters:
+      - name: personId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ProfileOrcidResponse'
+      security:
+      - Authorization: []
+      summary: Get profile orcid
+      x-summary-source: derived
+    servers:
+    - url: https://api.jaskier.uw.edu.pl
+  /api/v1/Profile/BusinessEntities:
+    get:
+      tags:
+      - Profile
+      summary: Listowanie podmiotów
+      operationId: getBusinessEntitiesForProfile
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BusinessEntityResponse'
+      security:
+      - Authorization: []
+    servers:
+    - url: https://api.jaskier.uw.edu.pl
+  /api/v1/Profile/All:
+    get:
+      tags:
+      - Profile
+      summary: Listowanie danych o profilach
+      operationId: findAllProfiles
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/QueryProfileItemResponse'
+      security:
+      - Authorization: []
+    servers:
+    - url: https://api.jaskier.uw.edu.pl
+  /api/v1/Profile/{id}/removePerson:
+    delete:
+      tags:
+      - Profile
+      summary: Usuwanie powiązania profilu z osobą
+      operationId: removePerson
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ProfileResponse'
+      security:
+      - Authorization: []
+    servers:
+    - url: https://api.jaskier.uw.edu.pl
+  /api/v1/Profile/{id}/Picture:
+    delete:
+      tags:
+      - Profile
+      operationId: removeProfilePicture
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      security:
+      - Authorization: []
+      summary: Remove profile picture
+      x-summary-source: derived
+    servers:
+    - url: https://api.jaskier.uw.edu.pl
+  /api/v1/Profile/{id}/Article/Remove:
+    delete:
+      tags:
+      - Profile
+      summary: Usunięcie artykułu dla profilu
+      operationId: removeProfileArticle
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      security:
+      - Authorization: []
+    servers:
+    - url: https://api.jaskier.uw.edu.pl
+components:
+  schemas:
+    ProfileRelationResponse:
+      type: object
+      properties:
+        profileId:
+          type: string
+        profileName:
+          type: string
+        profileFirstName:
+          type: string
+        profileMiddleNames:
+          type: string
+        profileLastName:
+          type: string
+        profileEmail:
+          type: string
+        courses:
+          type: integer
+          format: int32
+        projects:
+          type: integer
+          format: int32
+        publications:
+          type: integer
+          format: int32
+        scienceDisciplines:
+          type: integer
+          format: int32
+        units:
+          type: integer
+          format: int32
+    ExternalLinkResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        profileId:
+          type: string
+        url:
+          type: string
+        name:
+          type: string
+        orderIndex:
+          type: integer
+          format: int32
+    ProfileRequest:
+      required:
+      - cfKeyw
+      - emailsOther
+      - name
+      - roles
+      type: object
+      properties:
+        name:
+          type: string
+        firstName:
+          type: string
+        middleNames:
+          type: string
+        lastName:
+          type: string
+        emailsOther:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        email:
+          type: string
+        phone:
+          type: string
+        orcid:
+          type: string
+        uidPolon:
+          type: string
+        uidPolonStud:
+          type: string
+        uidPolonDokt:
+          type: string
+        pbnId:
+          type: string
+        scopusId:
+          type: string
+        degree:
+          type: string
+        cfKeyw:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        roles:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+            enum:
+            - STUDENT
+            - STAFF
+            - FACULTY
+            - IT
+            - GUEST
+        isPubliclyVisible:
+          type: boolean
+    ProfileDegreeResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        profileId:
+          type: string
+        degreeName:
+          type: string
+        grantedDate:
+          type: string
+          format: date
+        grantedById:
+          type: string
+        grantedByName:
+          type: string
+        grantedByAcro:
+          type: string
+        grantedByIsHigherEducation:
+          type: boolean
+        scienceDisciplineCode:
+          type: string
+        scienceFieldCode:
+          type: string
+        scienceDisciplineName:
+          type: string
+        scienceDisciplineNameEn:
+          type: string
+        scienceFieldName:
+          type: string
+        scienceFieldNameEn:
+          type: string
+    ProfileOrcidRequest:
+      required:
+      - orcid
+      type: object
+      properties:
+        orcid:
+          type: string
+    ProfileScienceDisciplineDetailsResponse:
+      type: object
+      properties:
+        scienceDisciplinesStatementDate:
+          type: string
+          format: date
+    ProfileResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        firstName:
+          type: string
+        middleNames:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        emailsOther:
+          type: array
+          items:
+            type: string
+        phone:
+          type: string
+        personId:
+          type: string
+        orcid:
+          type: string
+        uidPolon:
+          type: string
+        uidPolonStud:
+          type: string
+        uidPolonDokt:
+          type: string
+        pbnId:
+          type: string
+        scopusId:
+          type: string
+        degree:
+          type: string
+        cfKeyw:
+          type: array
+          items:
+            type: string
+        articleId:
+          type: string
+        scienceDisciplinesStatementDate:
+          type: string
+          format: date
+        roles:
+          type: array
+          items:
+            type: string
+        isPubliclyVisible:
+          type: boolean
+        profilePublicId:
+          type: string
+    ExternalLinkRequest:
+      required:
+      - name
+      - url
+      type: object
+      properties:
+        url:
+          type: string
+        name:
+          type: string
+        orderIndex:
+          minimum: 0
+          type: integer
+          description: 'kolejność wyświetlania abstraktów (domyślnie: 0)'
+          format: int32
+    ProfileCourseResponse:
+      type: object
+      properties:
+        profileId:
+          type: string
+        courseId:
+          type: string
+        title:
+          type: string
+        titlePl:
+          type: string
+        titleEn:
+          type: string
+        subjectCode:
+          type: string
+        year:
+          type: integer
+          format: int32
+        term:
+          type: string
+        startDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+    OdataResponseQueryProfileItemResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/QueryProfileItemResponse'
+        totalCount:
+          type: integer
+          format: int32
+    ProfileMergeRequest:
+      required:
+      - mergeFrom
+      - mergeTo
+      type: object
+      properties:
+        mergeTo:
+          type: string
+        mergeFrom:
+          type: string
+    ProfileDegreeRequest:
+      required:
+      - degreeName
+      - scienceDisciplineCode
+      type: object
+      properties:
+        degreeName:
+          type: string
+          description: stopień naukowy
+        scienceDisciplineCode:
+          type: string
+          description: kod dyscypliny naukowej
+        grantedBy:
+          type: string
+          description: 'business entity id '
+        grantedDate:
+          type: string
+          description: data nadania stopnia naukowego
+          format: date
+    ProfileOrcidResponse:
+      type: object
+      properties:
+        orcid:
+          type: string
+    OdataResponsePersonViewResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/PersonViewResponse'
+        totalCount:
+          type: integer
+          format: int32
+    ProjectPublicMemberRoleResponse:
+      type: object
+      properties:
+        namePl:
+          type: string
+        nameEn:
+          type: string
+        orderIndex:
+          type: integer
+          format: int32
+    ProfilePersonRequest:
+      required:
+      - personId
+      type: object
+      properties:
+        personId:
+          type: string
+    ProfilePatentResponse:
+      type: object
+      properties:
+        profileId:
+          type: string
+        patentId:
+          type: string
+        title:
+          type: string
+        titlePl:
+          type: string
+        titleEn:
+          type: string
+        applicationNumber:
+          type: string
+        consentForEvaluation:
+          type: boolean
+        fraction:
+          type: number
+          format: double
+        decisionDate:
+          type: string
+          format: date
+    ProfileUnitRequest:
+      required:
+      - functionsEn
+      - functionsPl
+      - unitCode
+      type: object
+      properties:
+        unitCode:
+          type: string
+        functionsPl:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        functionsEn:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        orderIndex:
+          minimum: 0
+          type: integer
+          format: int32
+    QueryProfileItemResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        firstName:
+          type: string
+        middleNames:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        emailsOther:
+          type: array
+          items:
+            type: string
+        phone:
+          type: string
+        personId:
+          type: string
+        orcid:
+          type: string
+        uidPolon:
+          type: string
+        uidPolonStud:
+          type: string
+        uidPolonDokt:
+          type: string
+        pbnId:
+          type: string
+        scopusId:
+          type: string
+        degree:
+          type: string
+        cfKeyw:
+          type: array
+          items:
+            type: string
+        articleId:
+          type: string
+        scienceDisciplinesStatementDate:
+          type: string
+          format: date
+        roles:
+          type: array
+          items:
+            type: string
+        isPubliclyVisible:
+          type: boolean
+        profilePublicId:
+          type: string
+        emails:
+          type: array
+          items:
+            type: string
+        profileRoles:
+          type: array
+          items:
+            type: string
+        keyw:
+          type: array
+          items:
+            type: string
+        units:
+          type: array
+          items:
+            type: string
+        unitsAll:
+          type: array
+          items:
+            type: string
+        scienceDisciplines:
+          type: array
+          items:
+            type: string
+        patentsCount:
+          type: integer
+          format: int64
+        projectsCount:
+          type: integer
+          format: int64
+        coursesCount:
+          type: integer
+          format: int64
+        publicationsCount:
+          type: integer
+          format: int64
+        promotedPublicationsCount:
+          type: integer
+          format: int64
+    ProfileScienceDisciplineRequest:
+      required:
+      - fraction
+      - scienceDisciplineCode
+      type: object
+      properties:
+        scienceDisciplineCode:
+          type: string
+        fraction:
+          maximum: 100
+          minimum: 0
+          type: number
+          description: udział procentowy
+          format: double
+    ProfileUnitResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        profileId:
+          type: string
+        unitCode:
+          type: string
+        unitHierarchy:
+          type: array
+          items:
+            type: string
+        unitNamePl:
+          type: string
+        unitNameEn:
+          type: string
+        functionsPl:
+          type: array
+          items:
+            type: string
+        functionsEn:
+          type: array
+          items:
+            type: string
+        orderIndex:
+          type: integer
+          format: int32
+    ProfileScienceDisciplineResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        profileId:
+          type: string
+        scienceDisciplineCode:
+          type: string
+        scienceDisciplineName:
+          type: string
+        scienceDisciplineNameEn:
+          type: string
+        scienceDisciplineEffectiveFrom:
+          type: string
+          format: date
+        scienceDisciplineEffectiveTo:
+          type: string
+          format: date
+        scienceFieldCode:
+          type: string
+        scienceFieldName:
+          type: string
+        scienceFieldNameEn:
+          type: string
+        fraction:
+          type: number
+          format: double
+    ProfilePublicationResponse:
+      type: object
+      properties:
+        profileId:
+          type: string
+        publicationId:
+          type: string
+        title:
+          type: string
+        titlePl:
+          type: string
+        titleEn:
+          type: string
+        publicationDate:
+          type: string
+        role:
+          type: string
+        year:
+          type: integer
+          format: int32
+        types:
+          type: array
+          items:
+            type: string
+    HistoryResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        whoType:
+          type: string
+        whoId:
+          type: string
+        whoName:
+          type: string
+        eventTime:
+          type: string
+          format: date-time
+        operation:
+          type: string
+        changes:
+          type: string
+        objType:
+          type: string
+        objId:
+          type: string
+        relationId:
+          type: string
+        relationName:
+          type: string
+    ProfileProjectResponse:
+      type: object
+      properties:
+        projectId:
+          type: string
+        title:
+          type: string
+        titlePl:
+          type: string
+        titleEn:
+          type: string
+        startDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+        roles:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProjectPublicMemberRoleResponse'
+    ProfileScienceDisciplineDetailsRequest:
+      type: object
+      properties:
+        scienceDisciplinesStatementDate:
+          type: string
+          format: date
+    PersonViewResponse:
+      type: object
+      properties:
+        personId:
+          type: string
+        university:
+          type: string
+          enum:
+          - CUNI
+          - UAH
+          - SU
+          - KU
+          - UNIMI
+          - UW
+          - UNIGE
+          - PARIS_2
+        orcid:
+          type: string
+        firstName:
+          type: string
+        middleNames:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        profileId:
+          type: string
+        degree:
+          type: string
+        universityIndexNumber:
+          type: string
+    ArticlePreviewResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        titlePl:
+          type: string
+        titleEn:
+          type: string
+        contentPl:
+          type: string
+        contentEn:
+          type: string
+        visibleFrom:
+          type: string
+          format: date
+        visibleTo:
+          type: string
+          format: date
+        signification:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+        visible:
+          type: boolean
+        created:
+          type: string
+          format: date-time
+    BusinessEntityResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Id podmiotu, id techniczne
+        acro:
+          type: string
+          description: Akronim podmiotu - wartość unikalna
+        name:
+          type: string
+          description: Nazwa podmiotu
+        type:
+          type: string
+          description: Typ podmiotu
+        countryCode:
+          type: string
+          description: Kod kraju
+      description: Podmiot
+    ProfileRequest_2:
+      type: object
+      properties:
+        name:
+          type: string
+        firstName:
+          type: string
+        middleNames:
+          type: string
+        lastName:
+          type: string
+        emailsOther:
+          type: array
+          items:
+            type: string
+          uniqueItems: true
+        email:
+          type: string
+        phone:
+          type: string
+        orcid:
+          type: string
+        uidPolon:
+          type: string
+        uidPolonStud:
+          type: string
+        uidPolonDokt:
+          type: string
+        pbnId:
+          type: string
+        scopusId:
+          type: string
+        degree:
+          type: string
+        cfKeyw:
+          type: array
+          items:
+            type: string
+          uniqueItems: true
+        roles:
+          type: array
+          items:
+            type: string
+            enum:
+            - STUDENT
+            - STAFF
+            - FACULTY
+            - IT
+            - GUEST
+          uniqueItems: true
+        isPubliclyVisible:
+          type: boolean
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header
+x-refined-from:
+- university-of-warsaw-jaskier-api.json
+- university-of-warsaw-sp4eu-api.json

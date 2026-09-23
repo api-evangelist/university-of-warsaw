@@ -1,0 +1,139 @@
+generated: '2026-09-01'
+method: derived
+x-evidence-method: probed  # every conforms:true below cites a live probe or registry API response
+source: >-
+  Live probes of University of Warsaw hosts on 2026-09-01, plus the DataCite, Crossref and eduGAIN
+  registry APIs. Every `conforms: true` below points at a URL that returned the cited body on that
+  date; nothing here is inferred from prose.
+docs: https://usosapps.uw.edu.pl/developers/api/
+regime: education
+note: >-
+  Conformance targets are the `standards[]` of the Kin Score `education` regulatory regime. The
+  University of Warsaw's strongest machine-readable conformances are identity (a Shibboleth SAML
+  IdP registered in eduGAIN through PIONIER.Id) and scholarly identifiers (DataCite, Crossref,
+  ORCID) — not classroom interoperability, where no public evidence was found. Reward-only: an
+  absence below is a measured absence, not a penalty.
+standards:
+- id: saml
+  conforms: true
+  evidence: >-
+    https://login.uw.edu.pl/idp returns 200 with a SAML 2.0 <EntityDescriptor
+    entityID="https://login.uw.edu.pl/idp"> carrying an IDPSSODescriptor, OrganizationName
+    "Uniwersytet Warszawski", and SingleSignOnService bindings HTTP-POST, HTTP-POST-SimpleSign,
+    HTTP-Redirect and SOAP. A second, service-provider-side EntityDescriptor is served at
+    https://api.sp4eu.uw.edu.pl/saml2/service-provider-metadata (200).
+- id: shibboleth
+  conforms: true
+  evidence: >-
+    The same IdP metadata declares xmlns:shibmd="urn:mace:shibboleth:metadata:1.0" and
+    <shibmd:Scope regexp="false">login.uw.edu.pl</shibmd:Scope> — a Shibboleth IdP, not a bare
+    SAML endpoint. It is registered in eduGAIN (entity 676121, roles IDPSSODescriptor,
+    eccs_status 1) by registration authority https://aai.pionier.net.pl (PIONIER.Id, the Polish
+    identity federation), confirmed via
+    https://technical.edugain.org/api.php?action=list_entities&format=json.
+- id: oai-pmh
+  conforms: true
+  evidence: >-
+    Two institution-hosted OAI-PMH 2.0 endpoints answer verb=Identify. (1)
+    https://danebadawcze.uw.edu.pl/oai?verb=Identify -> 200, repositoryName "Dane Badawcze UW
+    Dataverse OAI Archive", repositoryIdentifier danebadawcze.uw.edu.pl, earliestDatestamp
+    2023-10-23. (2) https://repozytorium.uw.edu.pl/server/oai/request?verb=Identify -> 200,
+    repositoryName "The Institutional Repository of the University of Warsaw (ReIn UW)",
+    adminEmail repozytorium.buw@uw.edu.pl. Note the front-end path /oai/request on
+    repozytorium.uw.edu.pl returns the Angular SPA shell with HTTP 200 — a soft 200; only the
+    /server/oai/request path is the real endpoint.
+- id: datacite
+  conforms: true
+  evidence: >-
+    DataCite repository client REPOD.DBUW, "University of Warsaw Research Data Repository",
+    domains *.uw.edu.pl, url https://danebadawcze.uw.edu.pl/, re3data
+    https://doi.org/10.17616/R31NJNHR, DOI prefix 10.58132 (https://api.datacite.org/prefixes/10.58132).
+    Its DataCite provider is `repod` — "University of Warsaw – Interdisciplinary Centre for
+    Mathematical and Computational Modelling", memberType consortium_organization, country PL,
+    rorId https://ror.org/039bjqg32. Live DOIs observed in the repository search API carry that
+    prefix (e.g. doi:10.58132/9SZEZK).
+- id: crossref
+  conforms: true
+  evidence: >-
+    Crossref member 4211 "University of Warsaw" (https://api.crossref.org/members/4211) holds 31
+    DOI prefixes, including 10.7311, 10.14394, 10.7172, 10.55226 and 10.67180, used by the
+    university's journals and press imprints.
+- id: orcid
+  conforms: true
+  evidence: >-
+    The institutional repository runs a registered ORCID member integration: DSpace-CRIS 8.1 at
+    repozytorium.uw.edu.pl serves
+    https://repozytorium.uw.edu.pl/server/api/config/properties/orcid.application-client-id ->
+    200 {"values":["APP-7V929HH5FLVNWB6J"]}, i.e. an ORCID API client provisioned to the
+    university for researcher-profile linking.
+- id: lti
+  conforms: false
+  evidence: >-
+    The university runs a Moodle LMS at https://kampus.come.uw.edu.pl/ (200, moodle-stats markup),
+    which supports LTI as a product feature, but no LTI tool/platform registration, no
+    /.well-known/lti-platform-configuration and no public LTI advertisement was found on any UW
+    host. Product capability is not institutional conformance.
+- id: scim
+  conforms: false
+  evidence: >-
+    No /scim/v2 surface, ServiceProviderConfig or SCIM schema endpoint responded on
+    usosapps.uw.edu.pl, api.sp4eu.uw.edu.pl, login.uw.edu.pl or any probed UW host. Identity is
+    federated by SAML, not provisioned over SCIM, as far as anything public shows.
+- id: oneroster
+  conforms: false
+  evidence: >-
+    No IMS/1EdTech OneRoster endpoint found. Roster data lives in USOS and is reached through the
+    USOS API's own OAuth 1.0a methods (services/courses, services/fac), not a OneRoster contract.
+- id: caliper
+  conforms: false
+  evidence: No Caliper Analytics sensor, event store or endpoint found on any University of Warsaw host.
+- id: qti
+  conforms: false
+  evidence: No QTI assessment item bank or QTI service endpoint found on any University of Warsaw host.
+- id: ed-fi
+  conforms: false
+  evidence: >-
+    Ed-Fi is a US K-12/state-longitudinal data standard with no adoption in the Polish higher
+    education sector; no Ed-Fi ODS/API surface exists here.
+other_standards:
+- id: openapi-3.1
+  conforms: true
+  evidence: >-
+    https://api.sp4eu.uw.edu.pl/v3/api-docs -> 200, openapi 3.1.0, 74 paths, 44 component schemas,
+    springdoc-generated and served with Swagger UI at https://api.sp4eu.uw.edu.pl/.
+- id: openapi-3.0
+  conforms: true
+  evidence: >-
+    https://api.jaskier.uw.edu.pl/v3/api-docs -> 200, openapi 3.0.1, "Jaskier API" v1.2.25, 729
+    paths, 458 component schemas, 125 tags, served with Swagger UI at
+    https://api.jaskier.uw.edu.pl/. Institution-operated: /api/v1/system/build reports group
+    pl.edu.uw.dsk.
+- id: rfc6750-bearer-token
+  conforms: partial
+  evidence: >-
+    Both springdoc services take "Authorization: Bearer <token>" but declare it as a generic apiKey
+    header securityScheme rather than an http/bearer scheme, and neither returns a
+    WWW-Authenticate challenge on 401.
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: >-
+    Errors use the Spring Boot default envelope {timestamp, status, error, message, path} with
+    application/json — see errors/university-of-warsaw-spring-error-envelope.yml.
+- id: oauth1
+  conforms: true
+  evidence: >-
+    The USOS API authorises third-party applications over OAuth 1.0a with a Consumer Key/Secret
+    issued from https://usosapps.uw.edu.pl/developers/ ; the flow is documented at
+    https://usosapps.uw.edu.pl/developers/api/authorization/ (200).
+- id: dataverse-native-api
+  conforms: true
+  evidence: >-
+    https://danebadawcze.uw.edu.pl/api/info/version -> 200 {"status":"OK","data":{"version":"1.3.2-..."}};
+    https://danebadawcze.uw.edu.pl/api/search?q=*&type=dataset -> 200 with 1,231 datasets. The
+    contract is Dataverse's; the deployment and the data are the university's.
+- id: dspace-rest-7
+  conforms: true
+  evidence: >-
+    https://repozytorium.uw.edu.pl/server/api -> 200 HAL root, dspaceName "The Institutional
+    Repository of the University of Warsaw (ReIn UW)", dspaceVersion "DSpace 8.1", crisVersion
+    "cris-2024.02.01".

@@ -1,0 +1,1185 @@
+openapi: 3.2.0
+info:
+  title: Jaskier Building Accessibility API
+  version: 1.2.25
+servers:
+- url: https://api.jaskier.uw.edu.pl
+tags:
+- name: BuildingAccessibility
+paths:
+  /api/v1/BuildingAccessibility/{buildingId}:
+    get:
+      tags:
+      - BuildingAccessibility
+      summary: Czytanie informacji o dostępności budynku
+      operationId: getBuildingAccessibility
+      parameters:
+      - name: buildingId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: lang
+        in: query
+        required: true
+        schema:
+          type: string
+          enum:
+          - pl
+          - en
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/BuildingAccessibilityResponse'
+      security:
+      - Authorization: []
+    put:
+      tags:
+      - BuildingAccessibility
+      summary: Aktualizacja informacji o dostępności budynku
+      operationId: upsertBuildingAccessibility
+      parameters:
+      - name: buildingId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: lang
+        in: query
+        required: true
+        schema:
+          type: string
+          enum:
+          - pl
+          - en
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BuildingAccessibilityRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/BuildingAccessibilityResponse'
+      security:
+      - Authorization: []
+    delete:
+      tags:
+      - BuildingAccessibility
+      summary: Usunięcie informacji o dostępności budynku
+      operationId: removeBuildingAccessibility
+      parameters:
+      - name: buildingId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: lang
+        in: query
+        required: true
+        schema:
+          type: string
+          enum:
+          - pl
+          - en
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+                enum:
+                - 100 CONTINUE
+                - 101 SWITCHING_PROTOCOLS
+                - 102 PROCESSING
+                - 103 EARLY_HINTS
+                - 103 CHECKPOINT
+                - 200 OK
+                - 201 CREATED
+                - 202 ACCEPTED
+                - 203 NON_AUTHORITATIVE_INFORMATION
+                - 204 NO_CONTENT
+                - 205 RESET_CONTENT
+                - 206 PARTIAL_CONTENT
+                - 207 MULTI_STATUS
+                - 208 ALREADY_REPORTED
+                - 226 IM_USED
+                - 300 MULTIPLE_CHOICES
+                - 301 MOVED_PERMANENTLY
+                - 302 FOUND
+                - 302 MOVED_TEMPORARILY
+                - 303 SEE_OTHER
+                - 304 NOT_MODIFIED
+                - 305 USE_PROXY
+                - 307 TEMPORARY_REDIRECT
+                - 308 PERMANENT_REDIRECT
+                - 400 BAD_REQUEST
+                - 401 UNAUTHORIZED
+                - 402 PAYMENT_REQUIRED
+                - 403 FORBIDDEN
+                - 404 NOT_FOUND
+                - 405 METHOD_NOT_ALLOWED
+                - 406 NOT_ACCEPTABLE
+                - 407 PROXY_AUTHENTICATION_REQUIRED
+                - 408 REQUEST_TIMEOUT
+                - 409 CONFLICT
+                - 410 GONE
+                - 411 LENGTH_REQUIRED
+                - 412 PRECONDITION_FAILED
+                - 413 PAYLOAD_TOO_LARGE
+                - 413 REQUEST_ENTITY_TOO_LARGE
+                - 414 URI_TOO_LONG
+                - 414 REQUEST_URI_TOO_LONG
+                - 415 UNSUPPORTED_MEDIA_TYPE
+                - 416 REQUESTED_RANGE_NOT_SATISFIABLE
+                - 417 EXPECTATION_FAILED
+                - 418 I_AM_A_TEAPOT
+                - 419 INSUFFICIENT_SPACE_ON_RESOURCE
+                - 420 METHOD_FAILURE
+                - 421 DESTINATION_LOCKED
+                - 422 UNPROCESSABLE_ENTITY
+                - 423 LOCKED
+                - 424 FAILED_DEPENDENCY
+                - 425 TOO_EARLY
+                - 426 UPGRADE_REQUIRED
+                - 428 PRECONDITION_REQUIRED
+                - 429 TOO_MANY_REQUESTS
+                - 431 REQUEST_HEADER_FIELDS_TOO_LARGE
+                - 451 UNAVAILABLE_FOR_LEGAL_REASONS
+                - 500 INTERNAL_SERVER_ERROR
+                - 501 NOT_IMPLEMENTED
+                - 502 BAD_GATEWAY
+                - 503 SERVICE_UNAVAILABLE
+                - 504 GATEWAY_TIMEOUT
+                - 505 HTTP_VERSION_NOT_SUPPORTED
+                - 506 VARIANT_ALSO_NEGOTIATES
+                - 507 INSUFFICIENT_STORAGE
+                - 508 LOOP_DETECTED
+                - 509 BANDWIDTH_LIMIT_EXCEEDED
+                - 510 NOT_EXTENDED
+                - 511 NETWORK_AUTHENTICATION_REQUIRED
+      security:
+      - Authorization: []
+  /api/v1/BuildingAccessibility/{buildingId}/Path/Object/{objectId}:
+    put:
+      tags:
+      - BuildingAccessibility
+      summary: Aktualizacja obiektu na ścieżkach budynku
+      operationId: updateBuildingPathObject
+      parameters:
+      - name: buildingId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: objectId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BuildingPathObjectRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/BuildingPathObjectResponse'
+      security:
+      - Authorization: []
+    delete:
+      tags:
+      - BuildingAccessibility
+      summary: Usunięcie obiektu ze ścieżek budynku
+      operationId: deleteBuildingPathObject
+      parameters:
+      - name: buildingId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: objectId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+                enum:
+                - 100 CONTINUE
+                - 101 SWITCHING_PROTOCOLS
+                - 102 PROCESSING
+                - 103 EARLY_HINTS
+                - 103 CHECKPOINT
+                - 200 OK
+                - 201 CREATED
+                - 202 ACCEPTED
+                - 203 NON_AUTHORITATIVE_INFORMATION
+                - 204 NO_CONTENT
+                - 205 RESET_CONTENT
+                - 206 PARTIAL_CONTENT
+                - 207 MULTI_STATUS
+                - 208 ALREADY_REPORTED
+                - 226 IM_USED
+                - 300 MULTIPLE_CHOICES
+                - 301 MOVED_PERMANENTLY
+                - 302 FOUND
+                - 302 MOVED_TEMPORARILY
+                - 303 SEE_OTHER
+                - 304 NOT_MODIFIED
+                - 305 USE_PROXY
+                - 307 TEMPORARY_REDIRECT
+                - 308 PERMANENT_REDIRECT
+                - 400 BAD_REQUEST
+                - 401 UNAUTHORIZED
+                - 402 PAYMENT_REQUIRED
+                - 403 FORBIDDEN
+                - 404 NOT_FOUND
+                - 405 METHOD_NOT_ALLOWED
+                - 406 NOT_ACCEPTABLE
+                - 407 PROXY_AUTHENTICATION_REQUIRED
+                - 408 REQUEST_TIMEOUT
+                - 409 CONFLICT
+                - 410 GONE
+                - 411 LENGTH_REQUIRED
+                - 412 PRECONDITION_FAILED
+                - 413 PAYLOAD_TOO_LARGE
+                - 413 REQUEST_ENTITY_TOO_LARGE
+                - 414 URI_TOO_LONG
+                - 414 REQUEST_URI_TOO_LONG
+                - 415 UNSUPPORTED_MEDIA_TYPE
+                - 416 REQUESTED_RANGE_NOT_SATISFIABLE
+                - 417 EXPECTATION_FAILED
+                - 418 I_AM_A_TEAPOT
+                - 419 INSUFFICIENT_SPACE_ON_RESOURCE
+                - 420 METHOD_FAILURE
+                - 421 DESTINATION_LOCKED
+                - 422 UNPROCESSABLE_ENTITY
+                - 423 LOCKED
+                - 424 FAILED_DEPENDENCY
+                - 425 TOO_EARLY
+                - 426 UPGRADE_REQUIRED
+                - 428 PRECONDITION_REQUIRED
+                - 429 TOO_MANY_REQUESTS
+                - 431 REQUEST_HEADER_FIELDS_TOO_LARGE
+                - 451 UNAVAILABLE_FOR_LEGAL_REASONS
+                - 500 INTERNAL_SERVER_ERROR
+                - 501 NOT_IMPLEMENTED
+                - 502 BAD_GATEWAY
+                - 503 SERVICE_UNAVAILABLE
+                - 504 GATEWAY_TIMEOUT
+                - 505 HTTP_VERSION_NOT_SUPPORTED
+                - 506 VARIANT_ALSO_NEGOTIATES
+                - 507 INSUFFICIENT_STORAGE
+                - 508 LOOP_DETECTED
+                - 509 BANDWIDTH_LIMIT_EXCEEDED
+                - 510 NOT_EXTENDED
+                - 511 NETWORK_AUTHENTICATION_REQUIRED
+      security:
+      - Authorization: []
+  /api/v1/BuildingAccessibility/{buildingId}/Path/Import:
+    put:
+      tags:
+      - BuildingAccessibility
+      summary: Import obiektów i ścieżek budynku
+      operationId: importBuildingPaths
+      parameters:
+      - name: buildingId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BuildingPathImportRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+      security:
+      - Authorization: []
+  /api/v1/BuildingAccessibility/{buildingId}/Path/Edge:
+    get:
+      tags:
+      - BuildingAccessibility
+      summary: Pobranie połączeń na ścieżkach budynku
+      operationId: getBuildingPathEdges
+      parameters:
+      - name: buildingId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BuildingPathEdgeResponse'
+      security:
+      - Authorization: []
+    put:
+      tags:
+      - BuildingAccessibility
+      summary: Dodanie połączeń dla obiektu na ścieżkach budynku
+      operationId: upsertBuildingPathEdges
+      parameters:
+      - name: buildingId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BuildingPathEdgeRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BuildingPathEdgeResponse'
+      security:
+      - Authorization: []
+  /api/v1/BuildingAccessibility/Path/Type/{typeId}:
+    get:
+      tags:
+      - BuildingAccessibility
+      summary: Pobranie typu obiektu na ścieżkach
+      operationId: getPathObjectTypeById
+      parameters:
+      - name: typeId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/BuildingPathObjectTypeResponse'
+      security:
+      - Authorization: []
+    put:
+      tags:
+      - BuildingAccessibility
+      summary: Aktualizacja typu obiektu na ścieżkach
+      operationId: updatePathObjectType
+      parameters:
+      - name: typeId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BuildingPathObjectTypeRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/BuildingPathObjectTypeResponse'
+      security:
+      - Authorization: []
+    delete:
+      tags:
+      - BuildingAccessibility
+      summary: Usunięcie typu obiektu na ścieżkach
+      operationId: deletePathObjectType
+      parameters:
+      - name: typeId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+                enum:
+                - 100 CONTINUE
+                - 101 SWITCHING_PROTOCOLS
+                - 102 PROCESSING
+                - 103 EARLY_HINTS
+                - 103 CHECKPOINT
+                - 200 OK
+                - 201 CREATED
+                - 202 ACCEPTED
+                - 203 NON_AUTHORITATIVE_INFORMATION
+                - 204 NO_CONTENT
+                - 205 RESET_CONTENT
+                - 206 PARTIAL_CONTENT
+                - 207 MULTI_STATUS
+                - 208 ALREADY_REPORTED
+                - 226 IM_USED
+                - 300 MULTIPLE_CHOICES
+                - 301 MOVED_PERMANENTLY
+                - 302 FOUND
+                - 302 MOVED_TEMPORARILY
+                - 303 SEE_OTHER
+                - 304 NOT_MODIFIED
+                - 305 USE_PROXY
+                - 307 TEMPORARY_REDIRECT
+                - 308 PERMANENT_REDIRECT
+                - 400 BAD_REQUEST
+                - 401 UNAUTHORIZED
+                - 402 PAYMENT_REQUIRED
+                - 403 FORBIDDEN
+                - 404 NOT_FOUND
+                - 405 METHOD_NOT_ALLOWED
+                - 406 NOT_ACCEPTABLE
+                - 407 PROXY_AUTHENTICATION_REQUIRED
+                - 408 REQUEST_TIMEOUT
+                - 409 CONFLICT
+                - 410 GONE
+                - 411 LENGTH_REQUIRED
+                - 412 PRECONDITION_FAILED
+                - 413 PAYLOAD_TOO_LARGE
+                - 413 REQUEST_ENTITY_TOO_LARGE
+                - 414 URI_TOO_LONG
+                - 414 REQUEST_URI_TOO_LONG
+                - 415 UNSUPPORTED_MEDIA_TYPE
+                - 416 REQUESTED_RANGE_NOT_SATISFIABLE
+                - 417 EXPECTATION_FAILED
+                - 418 I_AM_A_TEAPOT
+                - 419 INSUFFICIENT_SPACE_ON_RESOURCE
+                - 420 METHOD_FAILURE
+                - 421 DESTINATION_LOCKED
+                - 422 UNPROCESSABLE_ENTITY
+                - 423 LOCKED
+                - 424 FAILED_DEPENDENCY
+                - 425 TOO_EARLY
+                - 426 UPGRADE_REQUIRED
+                - 428 PRECONDITION_REQUIRED
+                - 429 TOO_MANY_REQUESTS
+                - 431 REQUEST_HEADER_FIELDS_TOO_LARGE
+                - 451 UNAVAILABLE_FOR_LEGAL_REASONS
+                - 500 INTERNAL_SERVER_ERROR
+                - 501 NOT_IMPLEMENTED
+                - 502 BAD_GATEWAY
+                - 503 SERVICE_UNAVAILABLE
+                - 504 GATEWAY_TIMEOUT
+                - 505 HTTP_VERSION_NOT_SUPPORTED
+                - 506 VARIANT_ALSO_NEGOTIATES
+                - 507 INSUFFICIENT_STORAGE
+                - 508 LOOP_DETECTED
+                - 509 BANDWIDTH_LIMIT_EXCEEDED
+                - 510 NOT_EXTENDED
+                - 511 NETWORK_AUTHENTICATION_REQUIRED
+      security:
+      - Authorization: []
+  /api/v1/BuildingAccessibility/{buildingId}/Path/Object:
+    get:
+      tags:
+      - BuildingAccessibility
+      summary: Pobranie obiektów na ścieżkach budynku
+      operationId: getBuildingPathObjects
+      parameters:
+      - name: buildingId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BuildingPathObjectResponse'
+      security:
+      - Authorization: []
+    post:
+      tags:
+      - BuildingAccessibility
+      summary: Dodanie obiektu do ścieżek budynku
+      operationId: addBuildingPathObject
+      parameters:
+      - name: buildingId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BuildingPathObjectRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/BuildingPathObjectResponse'
+      security:
+      - Authorization: []
+  /api/v1/BuildingAccessibility/Path/Type:
+    get:
+      tags:
+      - BuildingAccessibility
+      summary: Pobranie typów obiektów na ścieżkach
+      operationId: getPathObjectTypes
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BuildingPathObjectTypeResponse'
+      security:
+      - Authorization: []
+    post:
+      tags:
+      - BuildingAccessibility
+      summary: Dodanie typu obiektu na ścieżkach
+      operationId: addPathObjectType
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BuildingPathObjectTypeRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/BuildingPathObjectTypeResponse'
+      security:
+      - Authorization: []
+  /api/v1/BuildingAccessibility/{buildingId}/Path/Object/{objectId}/Connected:
+    get:
+      tags:
+      - BuildingAccessibility
+      summary: Pobranie obiektów połączonych z obiektem
+      operationId: getBuildingPathObjectsConnectedTo
+      parameters:
+      - name: buildingId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: objectId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BuildingPathObjectResponse'
+      security:
+      - Authorization: []
+  /api/v1/BuildingAccessibility/{buildingId}/FindPath/Best:
+    get:
+      tags:
+      - BuildingAccessibility
+      summary: Wyznaczenie najłatwiejszej trasy pomiędzy podanymi obiektami budynku
+      operationId: findBestPath
+      parameters:
+      - name: buildingId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: sourceObjectId
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: targetObjectId
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/BuildingPathResponse'
+      security:
+      - Authorization: []
+  /api/v1/BuildingAccessibility/{buildingId}/FindPath/All:
+    get:
+      tags:
+      - BuildingAccessibility
+      summary: Wyznaczenie tras pomiędzy podanymi obiektami budynku, posortowanych od…
+      operationId: findAllPaths
+      parameters:
+      - name: buildingId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: sourceObjectId
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: targetObjectId
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BuildingPathResponse'
+      security:
+      - Authorization: []
+  /api/v1/BuildingAccessibility/Building/{buildingId}:
+    get:
+      tags:
+      - BuildingAccessibility
+      summary: Czytanie informacji o budynku z podanym id
+      operationId: getBuilding
+      parameters:
+      - name: buildingId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/BuildingResponse'
+      security:
+      - Authorization: []
+  /api/v1/BuildingAccessibility/AllBuildings:
+    get:
+      tags:
+      - BuildingAccessibility
+      summary: Listowanie danych o budynkach
+      operationId: queryForBuildingAll
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BuildingResponse'
+      security:
+      - Authorization: []
+  /api/v1/BuildingAccessibility/{buildingId}/Path/Edge/{edgeId}:
+    delete:
+      tags:
+      - BuildingAccessibility
+      summary: Usunięcie połączenia dla obiektu na ścieżkach budynku
+      operationId: deleteBuildingPathEdge
+      parameters:
+      - name: buildingId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: edgeId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+                enum:
+                - 100 CONTINUE
+                - 101 SWITCHING_PROTOCOLS
+                - 102 PROCESSING
+                - 103 EARLY_HINTS
+                - 103 CHECKPOINT
+                - 200 OK
+                - 201 CREATED
+                - 202 ACCEPTED
+                - 203 NON_AUTHORITATIVE_INFORMATION
+                - 204 NO_CONTENT
+                - 205 RESET_CONTENT
+                - 206 PARTIAL_CONTENT
+                - 207 MULTI_STATUS
+                - 208 ALREADY_REPORTED
+                - 226 IM_USED
+                - 300 MULTIPLE_CHOICES
+                - 301 MOVED_PERMANENTLY
+                - 302 FOUND
+                - 302 MOVED_TEMPORARILY
+                - 303 SEE_OTHER
+                - 304 NOT_MODIFIED
+                - 305 USE_PROXY
+                - 307 TEMPORARY_REDIRECT
+                - 308 PERMANENT_REDIRECT
+                - 400 BAD_REQUEST
+                - 401 UNAUTHORIZED
+                - 402 PAYMENT_REQUIRED
+                - 403 FORBIDDEN
+                - 404 NOT_FOUND
+                - 405 METHOD_NOT_ALLOWED
+                - 406 NOT_ACCEPTABLE
+                - 407 PROXY_AUTHENTICATION_REQUIRED
+                - 408 REQUEST_TIMEOUT
+                - 409 CONFLICT
+                - 410 GONE
+                - 411 LENGTH_REQUIRED
+                - 412 PRECONDITION_FAILED
+                - 413 PAYLOAD_TOO_LARGE
+                - 413 REQUEST_ENTITY_TOO_LARGE
+                - 414 URI_TOO_LONG
+                - 414 REQUEST_URI_TOO_LONG
+                - 415 UNSUPPORTED_MEDIA_TYPE
+                - 416 REQUESTED_RANGE_NOT_SATISFIABLE
+                - 417 EXPECTATION_FAILED
+                - 418 I_AM_A_TEAPOT
+                - 419 INSUFFICIENT_SPACE_ON_RESOURCE
+                - 420 METHOD_FAILURE
+                - 421 DESTINATION_LOCKED
+                - 422 UNPROCESSABLE_ENTITY
+                - 423 LOCKED
+                - 424 FAILED_DEPENDENCY
+                - 425 TOO_EARLY
+                - 426 UPGRADE_REQUIRED
+                - 428 PRECONDITION_REQUIRED
+                - 429 TOO_MANY_REQUESTS
+                - 431 REQUEST_HEADER_FIELDS_TOO_LARGE
+                - 451 UNAVAILABLE_FOR_LEGAL_REASONS
+                - 500 INTERNAL_SERVER_ERROR
+                - 501 NOT_IMPLEMENTED
+                - 502 BAD_GATEWAY
+                - 503 SERVICE_UNAVAILABLE
+                - 504 GATEWAY_TIMEOUT
+                - 505 HTTP_VERSION_NOT_SUPPORTED
+                - 506 VARIANT_ALSO_NEGOTIATES
+                - 507 INSUFFICIENT_STORAGE
+                - 508 LOOP_DETECTED
+                - 509 BANDWIDTH_LIMIT_EXCEEDED
+                - 510 NOT_EXTENDED
+                - 511 NETWORK_AUTHENTICATION_REQUIRED
+      security:
+      - Authorization: []
+components:
+  schemas:
+    BuildingPathEdgeResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        fromId:
+          type: string
+        fromName:
+          type: string
+        fromFloor:
+          type: string
+        fromAccessibility:
+          type: string
+          enum:
+          - GENERAL
+          - PARTIAL
+          - MINIMAL
+        toId:
+          type: string
+        toName:
+          type: string
+        toFloor:
+          type: string
+        toAccessibility:
+          type: string
+          enum:
+          - GENERAL
+          - PARTIAL
+          - MINIMAL
+    BuildingPathObjectResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        buildingId:
+          type: string
+        name:
+          type: string
+        typeId:
+          type: string
+        floor:
+          type: string
+        accessibility:
+          type: string
+          enum:
+          - GENERAL
+          - PARTIAL
+          - MINIMAL
+        x:
+          type: number
+        y:
+          type: number
+        attributeValues:
+          type: object
+          additionalProperties:
+            type: object
+    BuildingAccessibilityRequest:
+      type: object
+      properties:
+        entrance:
+          type: string
+        corridors:
+          type: string
+        elevators:
+          type: string
+        isPorterhouseAvailable:
+          type: boolean
+        porterhouseName:
+          type: string
+        porterhousePlacement:
+          type: string
+        porterhousePhone:
+          type: string
+        isToiletAvailable:
+          type: boolean
+        toiletPlacement:
+          type: string
+        accessAndParkingSpaces:
+          type: string
+        signLanguageInterpreter:
+          type: string
+        procedures:
+          type: string
+        extraHelp:
+          type: string
+        assistanceDog:
+          type: string
+        additionalCustomization:
+          type: string
+        additionalInformation:
+          type: string
+    BuildingPathResponse:
+      type: object
+      properties:
+        objects:
+          type: array
+          items:
+            $ref: '#/components/schemas/BuildingPathObjectResponse'
+        accessibilityLevel:
+          type: string
+          enum:
+          - GENERAL
+          - PARTIAL
+          - MINIMAL
+        hardship:
+          type: integer
+          format: int32
+    BuildingPathObjectImportAttributeRequest:
+      required:
+      - name
+      - typeId
+      type: object
+      properties:
+        name:
+          type: string
+        typeId:
+          type: string
+        floor:
+          type: string
+        accessibility:
+          type: string
+          enum:
+          - GENERAL
+          - PARTIAL
+          - MINIMAL
+    BuildingPathObjectRequest:
+      required:
+      - attributeValues
+      - name
+      - typeId
+      type: object
+      properties:
+        name:
+          type: string
+        typeId:
+          type: string
+        floor:
+          type: string
+        accessibility:
+          type: string
+          enum:
+          - GENERAL
+          - PARTIAL
+          - MINIMAL
+        x:
+          type: number
+        y:
+          type: number
+        attributeValues:
+          type: object
+          additionalProperties:
+            type: object
+    BuildingPathAttributeResponse:
+      type: object
+      properties:
+        description:
+          type: string
+        type:
+          type: string
+          enum:
+          - STRING
+          - INTEGER
+          - BOOLEAN
+    BuildingAccessibilityResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        entrance:
+          type: string
+        corridors:
+          type: string
+        elevators:
+          type: string
+        isPorterhouseAvailable:
+          type: boolean
+        porterhouseName:
+          type: string
+        porterhousePlacement:
+          type: string
+        porterhousePhone:
+          type: string
+        isToiletAvailable:
+          type: boolean
+        toiletPlacement:
+          type: string
+        accessAndParkingSpaces:
+          type: string
+        signLanguageInterpreter:
+          type: string
+        procedures:
+          type: string
+        extraHelp:
+          type: string
+        assistanceDog:
+          type: string
+        additionalCustomization:
+          type: string
+        additionalInformation:
+          type: string
+    BuildingPathEdgeRequest:
+      type: object
+      properties:
+        fromId:
+          type: string
+        toIds:
+          type: array
+          items:
+            type: string
+    BuildingResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        namePl:
+          type: string
+        nameEn:
+          type: string
+        namePlAlt:
+          type: string
+        nameEnAlt:
+          type: string
+        phone:
+          type: string
+        campusCode:
+          type: string
+        campusNamePl:
+          type: string
+        campusNameEn:
+          type: string
+        usosCode:
+          type: string
+        latitude:
+          type: number
+        longitude:
+          type: number
+        street:
+          type: string
+        number:
+          type: string
+        postalCode:
+          type: string
+        city:
+          type: string
+        administratorPersonId:
+          type: string
+        administratorFirstName:
+          type: string
+        administratorLastName:
+          type: string
+        administratorEmail:
+          type: string
+        descriptionPl:
+          type: string
+        descriptionEn:
+          type: string
+        descriptionPlAlt:
+          type: string
+        descriptionEnAlt:
+          type: string
+        publicId:
+          type: string
+        visibleUsos:
+          type: boolean
+        visibleOkUw:
+          type: boolean
+        visibleMyUw:
+          type: boolean
+        hasFloorPlan:
+          type: boolean
+        importSourceId:
+          type: string
+        importSourceType:
+          type: string
+        benNumber:
+          type: string
+          description: Numer biura ewidencji nieruchomości
+        buildingAttributeCodes:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      description: Informacje o budynku
+    BuildingPathObjectTypeResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        nameEn:
+          type: string
+        accessibilityLogic:
+          type: string
+        attributes:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/BuildingPathAttributeResponse'
+    BuildingPathAttributeRequest:
+      type: object
+      properties:
+        description:
+          type: string
+        type:
+          type: string
+          enum:
+          - STRING
+          - INTEGER
+          - BOOLEAN
+    BuildingPathObjectImportRequest:
+      required:
+      - externalAttributes
+      - id
+      type: object
+      properties:
+        id:
+          type: string
+        externalAttributes:
+          $ref: '#/components/schemas/BuildingPathObjectImportAttributeRequest'
+    BuildingPathObjectTypeRequest:
+      required:
+      - attributes
+      - name
+      type: object
+      properties:
+        name:
+          type: string
+        nameEn:
+          type: string
+        attributes:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/BuildingPathAttributeRequest'
+        accessibilityLogic:
+          type: string
+    BuildingPathImportRequest:
+      required:
+      - data
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/BuildingPathDataImportRequest'
+    BuildingPathDataImportRequest:
+      required:
+      - connections
+      - objects
+      type: object
+      properties:
+        objects:
+          type: array
+          items:
+            $ref: '#/components/schemas/BuildingPathObjectImportRequest'
+        connections:
+          type: array
+          items:
+            type: array
+            items:
+              type: string
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

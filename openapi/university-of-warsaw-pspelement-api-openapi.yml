@@ -1,0 +1,103 @@
+openapi: 3.2.0
+info:
+  title: Jaskier Psp Element API
+  version: 1.2.25
+servers:
+- url: https://api.jaskier.uw.edu.pl
+tags:
+- name: PspElement
+paths:
+  /api/v1/Psp:
+    get:
+      tags:
+      - PspElement
+      summary: Listowanie elementów PSP
+      operationId: getPspElementsWithPagination
+      parameters:
+      - name: $skip
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int64
+          default: 0
+      - name: $top
+        in: query
+        required: false
+        schema:
+          maximum: 1000
+          type: integer
+          format: int64
+          default: 10
+      - name: $inlinecount
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: $orderby
+        in: query
+        required: false
+        schema:
+          type: string
+          default: id desc
+      - name: $filter
+        in: query
+        required: false
+        schema:
+          type: string
+          default: ()
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/OdataResponsePspElementResponse'
+      security:
+      - Authorization: []
+  /api/v1/Psp/All:
+    get:
+      tags:
+      - PspElement
+      operationId: findAll_1
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PspElementResponse'
+      security:
+      - Authorization: []
+      summary: Find all 1
+      x-summary-source: derived
+components:
+  schemas:
+    PspElementResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        projectDef:
+          type: string
+        shortId:
+          type: string
+        designation:
+          type: string
+    OdataResponsePspElementResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/PspElementResponse'
+        totalCount:
+          type: integer
+          format: int32
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

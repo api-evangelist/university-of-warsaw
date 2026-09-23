@@ -1,0 +1,192 @@
+openapi: 3.2.0
+info:
+  title: Jaskier System Role API
+  version: 1.2.25
+servers:
+- url: https://api.jaskier.uw.edu.pl
+tags:
+- name: SystemRole
+paths:
+  /api/v1/SystemRole/{roleCode}:
+    put:
+      tags:
+      - SystemRole
+      summary: Aktualizacja roli systemowej
+      operationId: updateSystemRole
+      parameters:
+      - name: roleCode
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateSystemRoleRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/SystemRoleResponse'
+      security:
+      - Authorization: []
+    delete:
+      tags:
+      - SystemRole
+      summary: Usunięcie roli systemowej
+      operationId: removeSystemRole
+      parameters:
+      - name: roleCode
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      security:
+      - Authorization: []
+  /api/v1/SystemRole:
+    get:
+      tags:
+      - SystemRole
+      summary: Listowanie ról systemowych
+      operationId: queryForSystemRole
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SystemRoleResponse'
+      security:
+      - Authorization: []
+    post:
+      tags:
+      - SystemRole
+      summary: Dodanie roli systemowej
+      operationId: addSystemRole
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SystemRoleRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/SystemRoleResponse'
+      security:
+      - Authorization: []
+components:
+  schemas:
+    SystemRoleResponse:
+      type: object
+      properties:
+        roleCode:
+          type: string
+          description: Unikalny kod roli
+        roleName:
+          type: string
+          description: Nazwa roli
+        comment:
+          type: string
+          description: Komentarz
+        orderIndex:
+          type: integer
+          description: 'kolejność wyświetlania ról systemowych (domyślnie: 0)'
+          format: int32
+        sapMapping:
+          type: object
+          additionalProperties:
+            type: array
+            description: mapowanie roli na role w SAPie
+            items:
+              type: string
+              description: mapowanie roli na role w SAPie
+          description: mapowanie roli na role w SAPie
+        jaskierMapping:
+          type: object
+          additionalProperties:
+            type: array
+            description: mapowanie roli na uprawnienia w Jaskrze
+            items:
+              type: string
+              description: mapowanie roli na uprawnienia w Jaskrze
+          description: mapowanie roli na uprawnienia w Jaskrze
+      description: System role
+    UpdateSystemRoleRequest:
+      required:
+      - jaskierMapping
+      - roleName
+      - sapMapping
+      type: object
+      properties:
+        roleName:
+          type: string
+        comment:
+          type: string
+        orderIndex:
+          minimum: 0
+          type: integer
+          format: int32
+        sapMapping:
+          type: object
+          additionalProperties:
+            uniqueItems: true
+            type: array
+            items:
+              type: string
+        jaskierMapping:
+          type: object
+          additionalProperties:
+            uniqueItems: true
+            type: array
+            items:
+              type: string
+    SystemRoleRequest:
+      required:
+      - jaskierMapping
+      - roleCode
+      - roleName
+      - sapMapping
+      type: object
+      properties:
+        roleCode:
+          type: string
+        roleName:
+          type: string
+        comment:
+          type: string
+        orderIndex:
+          minimum: 0
+          type: integer
+          format: int32
+        sapMapping:
+          type: object
+          additionalProperties:
+            uniqueItems: true
+            type: array
+            items:
+              type: string
+        jaskierMapping:
+          type: object
+          additionalProperties:
+            uniqueItems: true
+            type: array
+            items:
+              type: string
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

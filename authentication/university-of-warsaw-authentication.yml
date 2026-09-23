@@ -1,19 +1,79 @@
-generated: '2026-07-11'
+generated: '2026-09-01'
 method: derived
-source: openapi/university-of-warsaw-usos-api.yaml
+x-evidence-method: probed  # schemes confirmed against live 401/403 responses and IdP metadata
+source: >-
+  openapi/_original/university-of-warsaw-usos-api.yaml,
+  openapi/_original/university-of-warsaw-sp4eu-api.json,
+  openapi/_original/university-of-warsaw-jaskier-api.json, plus live probes of
+  https://api.sp4eu.uw.edu.pl, https://api.jaskier.uw.edu.pl and https://login.uw.edu.pl on
+  2026-09-01.
+x-operator: institution
 summary:
   types:
   - apiKey
+  - oauth1a
+  - bearer
+  - saml
   api_key_in:
   - query
+  - header
+note: >-
+  Three separate authentication regimes run under one institution. USOS uses OAuth 1.0a with a
+  Consumer Key/Secret issued by hand from the developers portal. The two springdoc services use a
+  bearer token in an Authorization header, obtained from /access/login, behind which sits the
+  university's own SAML identity provider. There is no OAuth 2.0 or OpenID Connect surface, and no
+  self-service key issuance beyond the USOS form.
 schemes:
 - name: oauth1a
   type: apiKey
   in: query
   parameter: oauth_token
-  description: USOS API uses OAuth 1.0a for authorized methods. A Consumer Key/Secret is obtained
-    from the USOS developers portal (https://usosapps.uw.edu.pl/developers/), and an access
-    token is obtained via the OAuth flow documented at https://usosapps.uw.edu.pl/developers/api/authorization/.
-    The methods described in this file are anonymous and do not require it.
+  api: university-of-warsaw:university-of-warsaw-apiref-api
+  description: >-
+    The USOS API uses OAuth 1.0a for authorized methods. A Consumer Key/Secret is obtained from the
+    USOS developers portal (https://usosapps.uw.edu.pl/developers/ — the page renders the real
+    registration form but answers HTTP 403 to non-browser clients), and an access token is obtained
+    via the flow documented at https://usosapps.uw.edu.pl/developers/api/authorization/ (200).
+    Anonymous methods such as services/apisrv/now and services/apiref/method_index need none of it.
   sources:
-  - openapi/university-of-warsaw-usos-api.yaml
+  - openapi/_original/university-of-warsaw-usos-api.yaml
+  - https://usosapps.uw.edu.pl/developers/api/authorization/
+- name: bearer
+  type: apiKey
+  in: header
+  parameter: Authorization
+  api: university-of-warsaw:sp4eu-api
+  description: >-
+    The Student Portal 4EU+ API declares a single securityScheme, "Authorization" (apiKey, in
+    header). Its 401 body is the only public documentation of the flow: "Please use /access/login
+    endpoint to receive bearer token. Api key should be provided as header: Authorization: Bearer
+    $BEARER_VALUE". Read endpoints such as GET /api/v1/Tutorial answer without it; the Admin
+    subtree additionally role-gates and returns 403 "Access Denied".
+  sources:
+  - openapi/_original/university-of-warsaw-sp4eu-api.json
+  - https://api.sp4eu.uw.edu.pl/principal
+- name: bearer
+  type: apiKey
+  in: header
+  parameter: Authorization
+  api: university-of-warsaw:jaskier-api
+  description: >-
+    Jaskier declares the same single "Authorization" apiKey header scheme. Every data endpoint
+    probed anonymously returned 401; only /v3/api-docs and /api/v1/system/build are open. No
+    public token-issuance path was found — the audience is the university's own applications.
+  sources:
+  - openapi/_original/university-of-warsaw-jaskier-api.json
+- name: saml
+  type: federated
+  in: browser
+  parameter: SAMLResponse
+  api: university-of-warsaw:saml-idp
+  description: >-
+    End-user authentication for the portals is federated SAML 2.0 against the university's own
+    Shibboleth IdP, entityID https://login.uw.edu.pl/idp (metadata served at that URL, shibmd:Scope
+    login.uw.edu.pl), fronted by an Apereo CAS login at logowanie.uw.edu.pl and registered in
+    eduGAIN by PIONIER.Id. The Student Portal 4EU+ ships its own SP metadata at
+    https://api.sp4eu.uw.edu.pl/saml2/service-provider-metadata and exposes /principal/edugain.
+  sources:
+  - https://login.uw.edu.pl/idp
+  - https://api.sp4eu.uw.edu.pl/saml2/service-provider-metadata

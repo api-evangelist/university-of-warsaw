@@ -1,0 +1,402 @@
+openapi: 3.2.0
+info:
+  title: Jaskier Giveaway API
+  version: 1.2.25
+servers:
+- url: https://api.jaskier.uw.edu.pl
+tags:
+- name: Giveaway
+paths:
+  /api/v1/Giveaway/{id}:
+    get:
+      tags:
+      - Giveaway
+      operationId: getGiveawayById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GiveawayResponse'
+      security:
+      - Authorization: []
+      summary: Get giveaway by id
+      x-summary-source: derived
+    put:
+      tags:
+      - Giveaway
+      operationId: updateGiveaway
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GiveawayRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GiveawayResponse'
+      security:
+      - Authorization: []
+      summary: Update giveaway
+      x-summary-source: derived
+    delete:
+      tags:
+      - Giveaway
+      operationId: deleteGiveaway
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      security:
+      - Authorization: []
+      summary: Delete giveaway
+      x-summary-source: derived
+  /api/v1/Giveaway/{id}/Permission:
+    get:
+      tags:
+      - Giveaway
+      operationId: getPermissions
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PermissionResponse'
+      security:
+      - Authorization: []
+      summary: Get permissions
+      x-summary-source: derived
+    put:
+      tags:
+      - Giveaway
+      operationId: updatePermissions
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PermissionRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PermissionResponse'
+      security:
+      - Authorization: []
+      summary: Update permissions
+      x-summary-source: derived
+  /api/v1/Giveaway/{giveawayId}/Code/{codeId}:
+    put:
+      tags:
+      - Giveaway
+      operationId: setGiveawayCodeAsUsed
+      parameters:
+      - name: giveawayId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: personId
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: codeId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      security:
+      - Authorization: []
+      summary: Set giveaway code as used
+      x-summary-source: derived
+    delete:
+      tags:
+      - Giveaway
+      operationId: removeGiveawayCode
+      parameters:
+      - name: giveawayId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: codeId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      security:
+      - Authorization: []
+      summary: Remove giveaway code
+      x-summary-source: derived
+  /api/v1/Giveaway:
+    get:
+      tags:
+      - Giveaway
+      operationId: findAllGiveaways
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GiveawayResponse'
+      security:
+      - Authorization: []
+      summary: Find all giveaways
+      x-summary-source: derived
+    post:
+      tags:
+      - Giveaway
+      operationId: createGiveaway
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GiveawayRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GiveawayResponse'
+      security:
+      - Authorization: []
+      summary: Create giveaway
+      x-summary-source: derived
+  /api/v1/Giveaway/{id}/Code:
+    get:
+      tags:
+      - Giveaway
+      operationId: getCodesForGiveaway
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GiveawayCodeResponse'
+      security:
+      - Authorization: []
+      summary: Get codes for giveaway
+      x-summary-source: derived
+    post:
+      tags:
+      - Giveaway
+      operationId: createCodesForGiveaway
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: string
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GiveawayCodeResponse'
+      security:
+      - Authorization: []
+      summary: Create codes for giveaway
+      x-summary-source: derived
+  /api/v1/Giveaway/{giveawayId}/Code/{personId}:
+    post:
+      tags:
+      - Giveaway
+      operationId: giveCodeToPerson_1
+      parameters:
+      - name: giveawayId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: personId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      security:
+      - Authorization: []
+      summary: Give code to person 1
+      x-summary-source: derived
+  /api/v1/Giveaway/{giveawayId}/Code/Import:
+    post:
+      tags:
+      - Giveaway
+      operationId: importCodesToGiveaway
+      parameters:
+      - name: giveawayId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              required:
+              - multipartFile
+              type: object
+              properties:
+                multipartFile:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GiveawayCodeResponse'
+      security:
+      - Authorization: []
+      summary: Import codes to giveaway
+      x-summary-source: derived
+components:
+  schemas:
+    GiveawayRequest:
+      required:
+      - endDate
+      - startDate
+      type: object
+      properties:
+        name:
+          type: string
+        nameEn:
+          type: string
+        url:
+          type: string
+        urlEn:
+          type: string
+        startDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+    PermissionResponse:
+      type: object
+      properties:
+        permissions:
+          type: object
+          additionalProperties:
+            type: integer
+            format: int32
+    GiveawayResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        nameEn:
+          type: string
+        url:
+          type: string
+        urlEn:
+          type: string
+        startDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+    GiveawayCodeResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        code:
+          type: string
+        personId:
+          type: string
+        receivedAt:
+          type: string
+          format: date
+        used:
+          type: boolean
+    PermissionRequest:
+      type: object
+      properties:
+        permissions:
+          type: object
+          additionalProperties:
+            type: integer
+            format: int32
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

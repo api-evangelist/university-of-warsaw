@@ -1,0 +1,86 @@
+{
+  "x-provenance": {
+    "generated": "2026-09-01",
+    "method": "probed",
+    "source": "https://api.sp4eu.uw.edu.pl/api/v1/Tutorial",
+    "x-operator": "institution",
+    "evidence": "Live anonymous GET returning HTTP 200; first three items of the response, verbatim. Truncated for size; nothing was altered."
+  },
+  "request": {
+    "method": "GET",
+    "url": "https://api.sp4eu.uw.edu.pl/api/v1/Tutorial",
+    "auth": "none"
+  },
+  "response": {
+    "status": 200,
+    "media_type": "application/json",
+    "body": {
+      "data": [
+        {
+          "tutorialId": "fc1f23f3-e2ab-41b9-9ab7-a5854304b684",
+          "tutorialCode": "Skills2Study - Social Competences: Communication",
+          "isPublished": true,
+          "providedBy": [
+            "UAH"
+          ],
+          "publishedBy": "SU",
+          "creationTime": "2025-10-16T12:00:53.049252",
+          "title": "Heidelberg University, Skills2Study - Social Competences: Communication",
+          "category": "HandlingConflicts",
+          "languages": [
+            "EN"
+          ],
+          "level": "BASIC",
+          "duration": "2-3 hours",
+          "url": "http://hdl.handle.net/10900.3/OER_OMLTTTOT",
+          "isFree": false,
+          "description": null,
+          "cfTitle": "Heidelberg University, Skills2Study - Social Competences: Communication",
+          "cfKeyw": []
+        },
+        {
+          "tutorialId": "03bea535-0d6a-46b5-bfe7-912da281bee2",
+          "tutorialCode": "Coursera - Relationship Management",
+          "isPublished": true,
+          "providedBy": [],
+          "publishedBy": "UW",
+          "creationTime": "2025-10-16T12:00:53.02538",
+          "title": "Coursera - Relationship Management",
+          "category": "HandlingConflicts",
+          "languages": [
+            "EN"
+          ],
+          "level": "ADVANCED",
+          "duration": "23 hours",
+          "url": "https://www.coursera.org/learn/relationship-management",
+          "isFree": false,
+          "description": null,
+          "cfTitle": "Coursera - Relationship Management",
+          "cfKeyw": []
+        },
+        {
+          "tutorialId": "c1e5e65e-d057-42a3-9b67-5e8c4e60db4b",
+          "tutorialCode": "Heidelberg University, Skills2Study - Conflicts and Conflict Res",
+          "isPublished": true,
+          "providedBy": [
+            "UAH"
+          ],
+          "publishedBy": "UW",
+          "creationTime": "2025-10-16T12:00:53.000982",
+          "title": "Heidelberg University, Skills2Study - Conflicts and Conflict Resolution",
+          "category": "HandlingConflicts",
+          "languages": [
+            "EN"
+          ],
+          "level": "BASIC",
+          "duration": "2-4 hours",
+          "url": "http://hdl.handle.net/10900.3/OER_FKCVFPJS",
+          "isFree": false,
+          "description": null,
+          "cfTitle": "Heidelberg University, Skills2Study - Conflicts and Conflict Resolution",
+          "cfKeyw": []
+        }
+      ]
+    }
+  }
+}

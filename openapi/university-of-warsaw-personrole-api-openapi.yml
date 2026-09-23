@@ -1,0 +1,260 @@
+openapi: 3.2.0
+info:
+  title: OpenAPI definition Person Role API
+  version: v0
+servers:
+- url: https://api.sp4eu.uw.edu.pl
+tags:
+- name: PersonRole
+paths:
+  /api/v1/PersonRole:
+    get:
+      tags:
+      - PersonRole
+      operationId: findAll
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PersonRoleResponse'
+      security:
+      - Authorization: []
+      summary: Find all
+      x-summary-source: derived
+    post:
+      tags:
+      - PersonRole
+      operationId: upsertRole
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PersonRoleRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+      security:
+      - Authorization: []
+      summary: Upsert role
+      x-summary-source: derived
+    delete:
+      tags:
+      - PersonRole
+      operationId: deleteRole
+      parameters:
+      - name: id
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: OK
+      security:
+      - Authorization: []
+      summary: Delete role
+      x-summary-source: derived
+  /api/v1/PersonRole/{id}:
+    get:
+      tags:
+      - PersonRole
+      operationId: findAll_1
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PersonRoleResponse'
+      security:
+      - Authorization: []
+      summary: Find all 1
+      x-summary-source: derived
+  /api/v1/PersonRole/SearchPerson:
+    get:
+      tags:
+      - PersonRole
+      operationId: searchPersonForCourse
+      parameters:
+      - name: $skip
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int64
+          default: 0
+      - name: $top
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int64
+          default: 10
+          maximum: 100
+      - name: $inlinecount
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: $orderby
+        in: query
+        required: false
+        schema:
+          type: string
+          default: lastName,firstName,email
+      - name: searchValue
+        in: query
+        required: false
+        schema:
+          type: string
+          default: searchValue
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/OdataResponsePersonResponse'
+      security:
+      - Authorization: []
+      summary: Search person for course
+      x-summary-source: derived
+  /api/v1/PersonRole/SearchPerson/{personId}:
+    get:
+      tags:
+      - PersonRole
+      summary: Czytanie informacji o osobie
+      operationId: getSearchPersonForCourse
+      parameters:
+      - name: personId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PersonResponse'
+      security:
+      - Authorization: []
+components:
+  schemas:
+    PersonResponse:
+      type: object
+      properties:
+        personId:
+          type: string
+        university:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        lastLoginTime:
+          type: string
+          format: date-time
+        createdAt:
+          type: string
+          format: date-time
+    OdataResponsePersonResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/PersonResponse'
+        totalCount:
+          type: integer
+          format: int32
+    PersonRoleRequest:
+      type: object
+      properties:
+        personId:
+          type: string
+        role:
+          type: string
+          enum:
+          - ADMIN
+          - COURSE_MANAGER
+          - COURSE_CERTIFICATE_MANAGER
+          - HOUSING_OPTIONS_MANAGER
+          - MOBILITY_OPTIONS_MANAGER
+          - TUTORIAL_MANAGER
+          - PERSON_MANAGER
+          - PERSON_ROLE_MANAGER
+          - REGISTRATION_MANAGER
+        university:
+          type: string
+          enum:
+          - CUNI
+          - UAH
+          - SU
+          - KU
+          - UNIMI
+          - UW
+          - UNIGE
+          - PARIS_2
+      required:
+      - personId
+      - role
+    PersonRoleResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        personId:
+          type: string
+        role:
+          type: string
+          enum:
+          - ADMIN
+          - COURSE_MANAGER
+          - COURSE_CERTIFICATE_MANAGER
+          - HOUSING_OPTIONS_MANAGER
+          - MOBILITY_OPTIONS_MANAGER
+          - TUTORIAL_MANAGER
+          - PERSON_MANAGER
+          - PERSON_ROLE_MANAGER
+          - REGISTRATION_MANAGER
+        university:
+          type: string
+          enum:
+          - CUNI
+          - UAH
+          - SU
+          - KU
+          - UNIMI
+          - UW
+          - UNIGE
+          - PARIS_2
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

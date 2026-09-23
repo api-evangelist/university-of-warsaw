@@ -1,0 +1,539 @@
+openapi: 3.2.0
+info:
+  title: Jaskier Profile Migration API
+  version: 1.2.25
+servers:
+- url: https://api.jaskier.uw.edu.pl
+tags:
+- name: ProfileMigration
+paths:
+  /api/v1/ProfilePublic/{id}/ScienceDiscipline:
+    get:
+      tags:
+      - ProfileMigration
+      summary: Czytanie listy powiązanych dyscyplin naukowych
+      operationId: migrationGetProfileScienceDisciplines
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProfileScienceDisciplineResponse'
+      security:
+      - Authorization: []
+    put:
+      tags:
+      - ProfileMigration
+      summary: Dodawanie dyscyplin naukowych do profilu
+      operationId: migrationAddProfileScienceDiscipline
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MigrationProfileScienceDisciplineRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ProfileScienceDisciplineResponse'
+      security:
+      - Authorization: []
+  /api/v1/ProfilePublic/{id}/ScienceDiscipline/{profileScienceDisciplineId}:
+    put:
+      tags:
+      - ProfileMigration
+      summary: Aktualizacja dyscyplin naukowych w profilu
+      operationId: migrationUpdateProfileScienceDiscipline
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: profileScienceDisciplineId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MigrationProfileScienceDisciplineRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ProfileScienceDisciplineResponse'
+      security:
+      - Authorization: []
+  /api/v1/ProfilePublic/UpdateOrcidFromPbn:
+    post:
+      tags:
+      - ProfileMigration
+      summary: Aktualizacja orcid w profilu z pbn
+      operationId: updateOrcidFromPbn
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/ProfileUpdateOrcidRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+      security:
+      - Authorization: []
+  /api/v1/ProfilePublic/ReadFromFile:
+    post:
+      tags:
+      - ProfileMigration
+      summary: czytanie profili z pliku xls i xlsx
+      operationId: readProfileFromXLSX
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              required:
+              - multipartFile
+              type: object
+              properties:
+                multipartFile:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProfileImportRequest'
+      security:
+      - Authorization: []
+  /api/v1/ProfilePublic/Import:
+    post:
+      tags:
+      - ProfileMigration
+      summary: importowanie profilu
+      operationId: importProfile
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProfileImportRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ProfileResponse'
+      security:
+      - Authorization: []
+  /api/v1/ProfilePublic/Export/ProfilesIds:
+    post:
+      tags:
+      - ProfileMigration
+      summary: Eksport wybranych profili do pliku xlsx
+      operationId: exportByProfileIds
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProfileExportRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+                format: binary
+          x-is-file: 'true'
+      security:
+      - Authorization: []
+  /api/v1/ProfilePublic/Import/FileTemplate:
+    get:
+      tags:
+      - ProfileMigration
+      summary: pobieranie szablonu pliku xlsx eksportu profili do pliku
+      operationId: getProfileFileTemplate
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+                format: binary
+          x-is-file: 'true'
+      security:
+      - Authorization: []
+  /api/v1/ProfilePublic/GetProfileBy/{idName}/{id}:
+    get:
+      tags:
+      - ProfileMigration
+      summary: Pobranie profilu osoby na podstawie identyfikatora niezależnie od pola…
+      operationId: getProfileBy
+      parameters:
+      - name: idName
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ProfileResponse'
+      security:
+      - Authorization: []
+  /api/v1/ProfilePublic/FindProfilesToUpdateOrcid:
+    get:
+      tags:
+      - ProfileMigration
+      summary: Pobranie listy profilów które mają polonId ale nie posiadają orcid
+      operationId: findProfilesToUpdateOrcid
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProfileUpdateOrcidResponse'
+      security:
+      - Authorization: []
+  /api/v1/ProfilePublic/Export:
+    get:
+      tags:
+      - ProfileMigration
+      summary: Eksport profili do pliku xlsx
+      operationId: exportProfile
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+                format: binary
+          x-is-file: 'true'
+      security:
+      - Authorization: []
+  /api/v1/ProfilePublic/All:
+    get:
+      tags:
+      - ProfileMigration
+      summary: Listowanie danych o profilach
+      operationId: migrationFindAllProfiles
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/QueryProfileItemResponse'
+      security:
+      - Authorization: []
+components:
+  schemas:
+    ProfileExportRequest:
+      type: object
+      properties:
+        profileExportRequests:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+    ProfileUpdateOrcidResponse:
+      type: object
+      properties:
+        profileId:
+          type: string
+        uidPolon:
+          type: string
+    ProfileScienceDisciplineResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        profileId:
+          type: string
+        scienceDisciplineCode:
+          type: string
+        scienceDisciplineName:
+          type: string
+        scienceDisciplineNameEn:
+          type: string
+        scienceDisciplineEffectiveFrom:
+          type: string
+          format: date
+        scienceDisciplineEffectiveTo:
+          type: string
+          format: date
+        scienceFieldCode:
+          type: string
+        scienceFieldName:
+          type: string
+        scienceFieldNameEn:
+          type: string
+        fraction:
+          type: number
+          format: double
+    ProfileImportRequest:
+      type: object
+      properties:
+        profilePublicId:
+          type: string
+        name:
+          type: string
+        firstName:
+          type: string
+        middleNames:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        emailsOther:
+          type: array
+          items:
+            type: string
+        phone:
+          type: string
+        degree:
+          type: string
+        orcid:
+          type: string
+        uidPolon:
+          type: string
+        uidPolonStud:
+          type: string
+        uidPolonDokt:
+          type: string
+        pbnId:
+          type: string
+        cfKeyw:
+          type: array
+          items:
+            type: string
+        roles:
+          type: array
+          items:
+            type: string
+    ProfileResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        firstName:
+          type: string
+        middleNames:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        emailsOther:
+          type: array
+          items:
+            type: string
+        phone:
+          type: string
+        personId:
+          type: string
+        orcid:
+          type: string
+        uidPolon:
+          type: string
+        uidPolonStud:
+          type: string
+        uidPolonDokt:
+          type: string
+        pbnId:
+          type: string
+        scopusId:
+          type: string
+        degree:
+          type: string
+        cfKeyw:
+          type: array
+          items:
+            type: string
+        articleId:
+          type: string
+        scienceDisciplinesStatementDate:
+          type: string
+          format: date
+        roles:
+          type: array
+          items:
+            type: string
+        isPubliclyVisible:
+          type: boolean
+        profilePublicId:
+          type: string
+    QueryProfileItemResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        firstName:
+          type: string
+        middleNames:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        emailsOther:
+          type: array
+          items:
+            type: string
+        phone:
+          type: string
+        personId:
+          type: string
+        orcid:
+          type: string
+        uidPolon:
+          type: string
+        uidPolonStud:
+          type: string
+        uidPolonDokt:
+          type: string
+        pbnId:
+          type: string
+        scopusId:
+          type: string
+        degree:
+          type: string
+        cfKeyw:
+          type: array
+          items:
+            type: string
+        articleId:
+          type: string
+        scienceDisciplinesStatementDate:
+          type: string
+          format: date
+        roles:
+          type: array
+          items:
+            type: string
+        isPubliclyVisible:
+          type: boolean
+        profilePublicId:
+          type: string
+        emails:
+          type: array
+          items:
+            type: string
+        profileRoles:
+          type: array
+          items:
+            type: string
+        keyw:
+          type: array
+          items:
+            type: string
+        units:
+          type: array
+          items:
+            type: string
+        unitsAll:
+          type: array
+          items:
+            type: string
+        scienceDisciplines:
+          type: array
+          items:
+            type: string
+        patentsCount:
+          type: integer
+          format: int64
+        projectsCount:
+          type: integer
+          format: int64
+        coursesCount:
+          type: integer
+          format: int64
+        publicationsCount:
+          type: integer
+          format: int64
+        promotedPublicationsCount:
+          type: integer
+          format: int64
+    MigrationProfileScienceDisciplineRequest:
+      required:
+      - fraction
+      - importSourceType
+      - scienceDisciplineCode
+      type: object
+      properties:
+        scienceDisciplineCode:
+          type: string
+        fraction:
+          maximum: 100
+          minimum: 0
+          type: number
+          description: udział procentowy
+          format: double
+        importSourceType:
+          type: string
+    ProfileUpdateOrcidRequest:
+      type: object
+      properties:
+        profileId:
+          type: string
+        orcid:
+          type: string
+        uidPolon:
+          type: string
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

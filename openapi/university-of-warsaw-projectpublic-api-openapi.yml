@@ -1,0 +1,195 @@
+openapi: 3.2.0
+info:
+  title: Jaskier Project Public API
+  version: 1.2.25
+servers:
+- url: https://api.jaskier.uw.edu.pl
+tags:
+- name: ProjectPublic
+paths:
+  /api/v1/ProjectPublic:
+    get:
+      tags:
+      - ProjectPublic
+      summary: Listowanie danych o projektach
+      operationId: queryForProjectPublic
+      parameters:
+      - name: $skip
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int64
+          default: 0
+      - name: $top
+        in: query
+        required: false
+        schema:
+          maximum: 1000
+          type: integer
+          format: int64
+          default: 10
+      - name: $inlinecount
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: $orderby
+        in: query
+        required: false
+        schema:
+          type: string
+          default: projectName
+      - name: $filter
+        in: query
+        required: false
+        schema:
+          type: string
+          default: ()
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/OdataResponseQueryProjectPublicItemResponse'
+      security:
+      - Authorization: []
+components:
+  schemas:
+    OdataResponseQueryProjectPublicItemResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/QueryProjectPublicItemResponse'
+        totalCount:
+          type: integer
+          format: int32
+    QueryProjectPublicItemResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: id projektu
+        startDate:
+          type: string
+          description: data rozpoczęcia projektu
+          format: date
+        endDate:
+          type: string
+          description: data zakończenia projektu
+          format: date
+        acro:
+          type: string
+          description: akronim projektu
+        polonId:
+          type: string
+          description: polon id projektu
+        keywords:
+          type: array
+          description: słowa kluczowe projektu pobierane z abstraktu o najniższym indeksie
+          items:
+            type: string
+            description: słowa kluczowe projektu pobierane z abstraktu o najniższym indeksie
+        projectAbstract:
+          type: string
+        financingInstitutionId:
+          type: string
+        financingInstitutionName:
+          type: string
+        intermediaryInstitutionId:
+          type: string
+        intermediaryInstitutionName:
+          type: string
+        internationalProject:
+          type: boolean
+        internationalDetailProjectId:
+          type: integer
+          format: int32
+        budget:
+          type: number
+        budgetUw:
+          type: number
+        partnershipProject:
+          type: boolean
+        roleUw:
+          type: string
+        pspElement:
+          type: string
+        startDateUw:
+          type: string
+          format: date
+        endDateUw:
+          type: string
+          format: date
+        settlementDate:
+          type: string
+          format: date
+        projectName:
+          type: string
+        projectTypeId:
+          type: integer
+          format: int32
+        projectProgramId:
+          type: integer
+          format: int32
+        projectProgramDetailedId:
+          type: integer
+          format: int32
+        competitionNumber:
+          type: string
+        competitionName:
+          type: string
+        projectNumber:
+          type: string
+        registrationNumber:
+          type: string
+        grantAgreementNumber:
+          type: string
+        grantAgreementDate:
+          type: string
+          format: date
+        currencyCode:
+          type: string
+        subjectsCount:
+          type: integer
+          format: int32
+        decisionDate:
+          type: string
+          format: date
+        decisionNumber:
+          type: string
+        projectContractTypeId:
+          type: integer
+          format: int32
+        status:
+          type: string
+          enum:
+          - UNDER_EVALUATION
+          - AWAITING
+          - IN_PROGRESS
+          - COMPLETED_NOT_SETTLED
+          - COMPLETED_SETTLED
+        auditRequired:
+          type: boolean
+        shelfLifeDate:
+          type: string
+          format: date
+        responsibleProfileId:
+          type: string
+        responsibleProfileName:
+          type: string
+        responsibleUnitCode:
+          type: string
+        langCode:
+          type: string
+        created:
+          type: string
+          format: date-time
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

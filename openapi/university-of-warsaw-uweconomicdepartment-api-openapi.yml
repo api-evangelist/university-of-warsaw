@@ -1,0 +1,154 @@
+openapi: 3.2.0
+info:
+  title: Jaskier Uw Economic Department API
+  version: 1.2.25
+servers:
+- url: https://api.jaskier.uw.edu.pl
+tags:
+- name: UwEconomicDepartment
+paths:
+  /api/v1/UwEconomicDepartment/{uwCode}:
+    get:
+      tags:
+      - UwEconomicDepartment
+      summary: Czytanie działu gospodarczego UW na podstawie kodu
+      operationId: getUwEconomicDepartmentByCode
+      parameters:
+      - name: uwCode
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UwEconomicDepartmentResponse'
+      security:
+      - Authorization: []
+    patch:
+      tags:
+      - UwEconomicDepartment
+      summary: Edycja działu gospodarczego z polami displayNamePl, displayNameEn, ksefId…
+      operationId: updateManualEconomicDepartment
+      parameters:
+      - name: uwCode
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UwEconomicDepartmentUpdateRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UwEconomicDepartmentResponse'
+      security:
+      - Authorization: []
+  /api/v1/UwEconomicDepartment:
+    get:
+      tags:
+      - UwEconomicDepartment
+      summary: Listowanie działów gospodarczych UW
+      operationId: queryForUwEconomicDepartments
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UwEconomicDepartmentResponse'
+      security:
+      - Authorization: []
+  /api/v1/UwEconomicDepartment/DirectFromSap:
+    get:
+      tags:
+      - UwEconomicDepartment
+      summary: Listowanie działów gospodarczych z sapa
+      operationId: getEconomicDepartmentsDirectFromSap
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EconomicDepartmentDto'
+      security:
+      - Authorization: []
+components:
+  schemas:
+    UwEconomicDepartmentResponse:
+      type: object
+      properties:
+        uwCode:
+          type: string
+          description: Unikalny kod działu gospodarczego
+        uwUnitCode:
+          type: string
+          description: Unikalny kod jednostki
+        namePl:
+          type: string
+          description: Polska nazwa działu gospodarczego
+        nameEn:
+          type: string
+          description: Angielska nazwa działu gospodarczego
+        unitNamePl:
+          type: string
+          description: Polska nazwa jednostki
+        unitNameEn:
+          type: string
+          description: Angielska nazwa jednostki
+        internalKSeFIdentifier:
+          type: string
+          description: Identyfikator wewnętrzny KSeF
+        invoiceEmail:
+          type: string
+          description: Faktura email
+        displayNamePl:
+          type: string
+          description: Nazwa wyświetlana po polsku
+        displayNameEn:
+          type: string
+          description: Nazwa wyświetlana po angielsku
+      description: Dział gospodarczy UW
+    EconomicDepartmentDto:
+      type: object
+      properties:
+        Dzial:
+          type: string
+        OpisDzialuPl:
+          type: string
+        OpisDzialuEn:
+          type: string
+    UwEconomicDepartmentUpdateRequest:
+      type: object
+      properties:
+        uwUnitCode:
+          pattern: ^UW:.*$
+          type: string
+        internalKSeFIdentifier:
+          type: string
+        invoiceEmail:
+          type: string
+        displayNamePl:
+          type: string
+        displayNameEn:
+          type: string
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

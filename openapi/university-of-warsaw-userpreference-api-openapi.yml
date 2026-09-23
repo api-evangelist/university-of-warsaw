@@ -1,0 +1,70 @@
+openapi: 3.2.0
+info:
+  title: Jaskier User Preference API
+  version: 1.2.25
+servers:
+- url: https://api.jaskier.uw.edu.pl
+tags:
+- name: UserPreference
+paths:
+  /api/v1/UserPreference:
+    get:
+      tags:
+      - UserPreference
+      operationId: getUserPreference
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UserPreferenceResponse'
+      security:
+      - Authorization: []
+      summary: Get user preference
+      x-summary-source: derived
+    post:
+      tags:
+      - UserPreference
+      operationId: addUserPreference
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserPreferenceRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UserPreferenceResponse'
+      security:
+      - Authorization: []
+      summary: Add user preference
+      x-summary-source: derived
+components:
+  schemas:
+    UserPreferenceRequest:
+      type: object
+      properties:
+        favouriteRegisters:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+    UserPreferenceResponse:
+      type: object
+      properties:
+        personId:
+          type: string
+        favouriteRegisters:
+          type: array
+          items:
+            type: string
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

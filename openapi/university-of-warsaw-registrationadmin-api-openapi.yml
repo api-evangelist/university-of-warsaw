@@ -1,0 +1,125 @@
+openapi: 3.2.0
+info:
+  title: OpenAPI definition Registration Admin API
+  version: v0
+servers:
+- url: https://api.sp4eu.uw.edu.pl
+tags:
+- name: RegistrationAdmin
+paths:
+  /api/v1/Admin/RegistrationInfo/{courseRegistrationInfoId}:
+    put:
+      tags:
+      - RegistrationAdmin
+      summary: Aktualizacja informacji o rejestracji
+      operationId: updateCourseRegistrationInfo
+      parameters:
+      - name: courseRegistrationInfoId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CourseRegistrationInfoRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CourseRegistrationInfoResponse'
+      security:
+      - Authorization: []
+  /api/v1/Admin/RegistrationInfo:
+    get:
+      tags:
+      - RegistrationAdmin
+      summary: Pobranie informacji o rejestracjach
+      operationId: getAll
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CourseRegistrationInfoResponse'
+      security:
+      - Authorization: []
+    post:
+      tags:
+      - RegistrationAdmin
+      summary: Dodawanie informacji o rejestracji
+      operationId: addCourseRegistrationInfo
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CourseRegistrationInfoRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CourseRegistrationInfoResponse'
+      security:
+      - Authorization: []
+  /api/v1/Admin/RegistrationInfo/{id}:
+    get:
+      tags:
+      - RegistrationAdmin
+      summary: Pobranie informacji o rejestracji kursu o podanym id
+      operationId: getCourseRegistrationInfo_1
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CourseRegistrationInfoResponse'
+      security:
+      - Authorization: []
+components:
+  schemas:
+    CourseRegistrationInfoResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        courseIds:
+          type: array
+          items:
+            type: string
+        courseNames:
+          type: array
+          items:
+            type: string
+    CourseRegistrationInfoRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

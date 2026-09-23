@@ -1,0 +1,50 @@
+openapi: 3.2.0
+info:
+  title: Jaskier Language API
+  version: 1.2.25
+servers:
+- url: https://api.jaskier.uw.edu.pl
+tags:
+- name: Language
+paths:
+  /api/v1/Language:
+    get:
+      tags:
+      - Language
+      summary: Lista języków
+      operationId: queryForLanguage
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LanguageResponse'
+      security:
+      - Authorization: []
+components:
+  schemas:
+    LanguageResponse:
+      type: object
+      properties:
+        cfLangCode:
+          type: string
+          description: kod języka
+        namePl:
+          type: string
+          description: polska nazwa języka
+        nameEn:
+          type: string
+          description: angielska nazwa języka
+        orderIndex:
+          type: integer
+          description: kolejność niestandardowa
+          format: int32
+      description: Język
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

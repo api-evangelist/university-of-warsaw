@@ -1,0 +1,145 @@
+openapi: 3.2.0
+info:
+  title: Jaskier Cpv Code API
+  version: 1.2.25
+servers:
+- url: https://api.jaskier.uw.edu.pl
+tags:
+- name: CpvCode
+paths:
+  /api/v1/Dict/CpvCode/Import:
+    post:
+      tags:
+      - CpvCode
+      operationId: importCpvCodes
+      responses:
+        '200':
+          description: OK
+      security:
+      - Authorization: []
+      summary: Import cpv codes
+      x-summary-source: derived
+  /api/v1/CpvCode/Import:
+    post:
+      tags:
+      - CpvCode
+      operationId: importCpvCodes_1
+      responses:
+        '200':
+          description: OK
+      security:
+      - Authorization: []
+      summary: Import cpv codes 1
+      x-summary-source: derived
+  /api/v1/Dict/CpvCode/{code}:
+    get:
+      tags:
+      - CpvCode
+      operationId: findCpvCode
+      parameters:
+      - name: code
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CpvCodeResponse'
+      security:
+      - Authorization: []
+      summary: Find cpv code
+      x-summary-source: derived
+  /api/v1/CpvCode/{code}:
+    get:
+      tags:
+      - CpvCode
+      operationId: findCpvCode_1
+      parameters:
+      - name: code
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CpvCodeResponse'
+      security:
+      - Authorization: []
+      summary: Find cpv code 1
+      x-summary-source: derived
+  /api/v1/Dict/CpvCode:
+    get:
+      tags:
+      - CpvCode
+      operationId: findAllCpvCodes
+      parameters:
+      - name: prefix
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CpvCodeResponse'
+      security:
+      - Authorization: []
+      summary: Find all cpv codes
+      x-summary-source: derived
+  /api/v1/CpvCode:
+    get:
+      tags:
+      - CpvCode
+      operationId: findAllCpvCodes_1
+      parameters:
+      - name: prefix
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CpvCodeResponse'
+      security:
+      - Authorization: []
+      summary: Find all cpv codes 1
+      x-summary-source: derived
+components:
+  schemas:
+    CpvCodeResponse:
+      type: object
+      properties:
+        code:
+          type: string
+        sourceId:
+          type: integer
+          format: int32
+        description:
+          type: string
+        level:
+          type: integer
+          format: int32
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

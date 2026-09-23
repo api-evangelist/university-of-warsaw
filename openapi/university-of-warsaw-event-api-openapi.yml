@@ -1,0 +1,1328 @@
+openapi: 3.2.0
+info:
+  title: Jaskier Event API
+  version: 1.2.25
+servers:
+- url: https://api.jaskier.uw.edu.pl
+tags:
+- name: Event
+paths:
+  /api/v1/Event/{id}:
+    get:
+      tags:
+      - Event
+      summary: Czytanie wydarzenia z podanym id
+      operationId: getEventById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EventResponse'
+      security:
+      - Authorization: []
+    put:
+      tags:
+      - Event
+      summary: Aktualizacja wydarzenia
+      operationId: updateEvent
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EventRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EventResponse'
+      security:
+      - Authorization: []
+    delete:
+      tags:
+      - Event
+      summary: Usunięcie wydarzenia
+      operationId: removeEvent
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: isRemoveCascade
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: false
+      responses:
+        '200':
+          description: OK
+      security:
+      - Authorization: []
+  /api/v1/Event/{id}/ScienceDisciplines:
+    get:
+      tags:
+      - Event
+      summary: Czytanie dyscyplin naukowych dla wydarzenia
+      operationId: getEventScienceDisciplines
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EventScienceDisciplineResponse'
+      security:
+      - Authorization: []
+    put:
+      tags:
+      - Event
+      summary: Aktualizacja dyscyplin naukowych dla wydarzenia
+      operationId: updateEventScienceDisciplines
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              uniqueItems: true
+              type: array
+              items:
+                $ref: '#/components/schemas/EventScienceDisciplineRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EventScienceDisciplineResponse'
+      security:
+      - Authorization: []
+  /api/v1/Event/{id}/Profiles:
+    get:
+      tags:
+      - Event
+      summary: Czytanie danych osób kontaktowych dla wydarzenia
+      operationId: getEventProfiles
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EventProfileResponse'
+      security:
+      - Authorization: []
+    put:
+      tags:
+      - Event
+      summary: Aktualizacja danych osób kontaktowych dla wydarzenia
+      operationId: updateEventProfiles
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EventProfileRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EventProfileResponse'
+      security:
+      - Authorization: []
+  /api/v1/Event/{id}/Owners:
+    get:
+      tags:
+      - Event
+      summary: Czytanie informacji o właścicielach rekordu
+      operationId: getEventOwners
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/RecordOwnersResponse'
+      security:
+      - Authorization: []
+    put:
+      tags:
+      - Event
+      summary: Aktualizacja informacji o właścicielach rekordu w kontekście uprawnień
+      operationId: updateEventOwners
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RecordOwnersRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/RecordOwnersResponse'
+      security:
+      - Authorization: []
+  /api/v1/Event/{id}/Organizers:
+    get:
+      tags:
+      - Event
+      summary: Czytanie danych organizatorów dla wydarzenia
+      operationId: getEventOrganizers
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EventOrganizerResponse'
+      security:
+      - Authorization: []
+    put:
+      tags:
+      - Event
+      summary: Aktualizacja danych organizatorów dla wydarzenia
+      operationId: updateEventOrganizers
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EventOrganizerRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EventOrganizerResponse'
+      security:
+      - Authorization: []
+  /api/v1/Event/{id}/Abstract:
+    get:
+      tags:
+      - Event
+      summary: Czytanie abstraktów dla wydarzenia
+      operationId: getEventAbstracts
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: langCode
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AbstractResponse'
+      security:
+      - Authorization: []
+    put:
+      tags:
+      - Event
+      summary: Aktualizacja abstraktów do wydarzenia
+      operationId: updateEventAbstracts
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/AbstractRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AbstractResponse'
+      security:
+      - Authorization: []
+  /api/v1/Event:
+    get:
+      tags:
+      - Event
+      summary: Listowanie danych o wydarzeniach
+      operationId: findAllEvents
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EventResponse'
+      security:
+      - Authorization: []
+    post:
+      tags:
+      - Event
+      summary: Dodawanie nowego wydarzenia
+      operationId: addEvent
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EventRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EventResponse'
+      security:
+      - Authorization: []
+  /api/v1/Event/{id}/File/Upload:
+    post:
+      tags:
+      - Event
+      summary: Dodanie pliku do wydarzenia
+      operationId: uploadEventFile
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              required:
+              - file
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: OK
+      security:
+      - Authorization: []
+  /api/v1/Event/{id}/File:
+    get:
+      tags:
+      - Event
+      summary: Listowanie plików wydarzenia
+      operationId: getEventFiles
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EventFileResponse'
+      security:
+      - Authorization: []
+  /api/v1/Event/{id}/File/{eventFileId}/Download:
+    get:
+      tags:
+      - Event
+      summary: Pobieranie pliku dla wydarzenia
+      operationId: downloadEventFile
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: eventFileId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: typeEnum
+        in: query
+        required: false
+        schema:
+          type: string
+          default: LARGE
+          enum:
+          - LARGE
+          - MEDIUM
+          - SMALL
+      responses:
+        '200':
+          description: OK
+      security:
+      - Authorization: []
+  /api/v1/Event/SearchProfile:
+    get:
+      tags:
+      - Event
+      summary: Wyszukiwanie profilu
+      operationId: searchProfileForProject_1
+      parameters:
+      - name: $skip
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int64
+          default: 0
+      - name: $top
+        in: query
+        required: false
+        schema:
+          maximum: 100
+          type: integer
+          format: int64
+          default: 10
+      - name: $inlinecount
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: $orderby
+        in: query
+        required: false
+        schema:
+          type: string
+          default: lastName,firstName,name
+      - name: searchValue
+        in: query
+        required: false
+        schema:
+          type: string
+          default: searchValue
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/OdataResponseQueryProfileItemResponse'
+      security:
+      - Authorization: []
+  /api/v1/Event/SearchProfile('{profileId}'):
+    get:
+      tags:
+      - Event
+      summary: Czytanie informacji o profilu
+      operationId: getSearchProfileForProject_1
+      parameters:
+      - name: profileId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ProfileResponse'
+      security:
+      - Authorization: []
+  /api/v1/Event/SearchPerson:
+    get:
+      tags:
+      - Event
+      summary: Wyszukiwanie osoby
+      operationId: searchPersonForProject_2
+      parameters:
+      - name: $skip
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int64
+          default: 0
+      - name: $top
+        in: query
+        required: false
+        schema:
+          maximum: 100
+          type: integer
+          format: int64
+          default: 10
+      - name: $inlinecount
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: $orderby
+        in: query
+        required: false
+        schema:
+          type: string
+          default: lastName,firstName,email
+      - name: searchValue
+        in: query
+        required: false
+        schema:
+          type: string
+          default: searchValue
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/OdataResponsePersonViewResponse'
+      security:
+      - Authorization: []
+  /api/v1/Event/SearchPerson('{personId}'):
+    get:
+      tags:
+      - Event
+      summary: Czytanie informacji o osobie
+      operationId: getSearchPersonForProject_3
+      parameters:
+      - name: personId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PersonViewResponse'
+      security:
+      - Authorization: []
+  /api/v1/Event/BusinessEntities:
+    get:
+      tags:
+      - Event
+      summary: Listowanie podmiotów
+      operationId: getBusinessEntitiesForEvents
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BusinessEntityResponse'
+      security:
+      - Authorization: []
+  /api/v1/Event/{id}/File/{eventFileId}:
+    delete:
+      tags:
+      - Event
+      summary: Usunięcie zdjęcia przypisanego do wydarzenia
+      operationId: removeEventFile
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: eventFileId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      security:
+      - Authorization: []
+components:
+  schemas:
+    AbstractRequest:
+      required:
+      - keyw
+      type: object
+      properties:
+        id:
+          type: string
+        langCode:
+          type: string
+          description: kod języka typu PL, EN, EN-GB, itp - klucz naturalny do Language, zgodny z ISO (patrz Language)
+        title:
+          type: string
+          description: 'tytuł wynalazku/patentu/wzoru użytkowego/nazwa gatunku/nazwa botaniczna/nazwa odmiany w danym języku '
+        abstr:
+          type: string
+          description: streszczenie opisu wynalazku/wzoru użytkowego w danym języku
+        keyw:
+          maxItems: 100
+          minItems: 0
+          uniqueItems: true
+          type: array
+          description: słowa kluczowe w danym języku
+          items:
+            type: string
+            description: słowa kluczowe w danym języku
+        orderIndex:
+          minimum: 0
+          type: integer
+          description: 'kolejność wyświetlania abstraktów (domyślnie: 0)'
+          format: int32
+        original:
+          type: boolean
+          description: czy streszczenie jest w języku oryginału
+    EventScienceDisciplineRequest:
+      required:
+      - isMain
+      - scienceDisciplineCode
+      type: object
+      properties:
+        scienceDisciplineCode:
+          type: string
+        isMain:
+          type: boolean
+    EventOrganizerExternalRequest:
+      type: object
+      properties:
+        businessEntityId:
+          type: string
+        contactProfileId:
+          type: string
+        role:
+          type: string
+          enum:
+          - ORGANIZER
+          - SPONSOR
+          - MEDIA_SPONSOR
+          - OTHER
+        isMain:
+          type: boolean
+    UwEconomicDepartmentResponse:
+      type: object
+      properties:
+        uwCode:
+          type: string
+          description: Unikalny kod działu gospodarczego
+        uwUnitCode:
+          type: string
+          description: Unikalny kod jednostki
+        namePl:
+          type: string
+          description: Polska nazwa działu gospodarczego
+        nameEn:
+          type: string
+          description: Angielska nazwa działu gospodarczego
+        unitNamePl:
+          type: string
+          description: Polska nazwa jednostki
+        unitNameEn:
+          type: string
+          description: Angielska nazwa jednostki
+        internalKSeFIdentifier:
+          type: string
+          description: Identyfikator wewnętrzny KSeF
+        invoiceEmail:
+          type: string
+          description: Faktura email
+        displayNamePl:
+          type: string
+          description: Nazwa wyświetlana po polsku
+        displayNameEn:
+          type: string
+          description: Nazwa wyświetlana po angielsku
+      description: Dział gospodarczy UW
+    EventOrganizerResponse:
+      type: object
+      properties:
+        uwRole:
+          type: string
+          enum:
+          - ORGANIZER
+          - SPONSOR
+          - MEDIA_SPONSOR
+          - OTHER
+        organizersUw:
+          type: array
+          items:
+            $ref: '#/components/schemas/EventOrganizerUwResponse'
+        organizersExternal:
+          type: array
+          items:
+            $ref: '#/components/schemas/EventOrganizerExternalResponse'
+    EventResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        type:
+          type: array
+          items:
+            type: string
+            enum:
+            - CONFERENCE
+            - CONGRESS
+            - SYMPOSIUM
+            - WORKSHOP
+            - SEMINAR
+            - SESSION
+            - OTHER
+        langCode:
+          type: string
+        startDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+        rank:
+          type: string
+          enum:
+          - NATIONAL
+          - INTERNATIONAL
+        countryCode:
+          type: string
+        city:
+          type: string
+        comment:
+          type: string
+        url:
+          type: string
+        notes:
+          type: string
+        departmentOwners:
+          type: array
+          items:
+            type: string
+        personOwners:
+          type: array
+          items:
+            type: string
+    RecordOwnersRequest:
+      required:
+      - departmentOwners
+      - personOwners
+      type: object
+      properties:
+        departmentOwners:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        personOwners:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+    ProfileResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        firstName:
+          type: string
+        middleNames:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        emailsOther:
+          type: array
+          items:
+            type: string
+        phone:
+          type: string
+        personId:
+          type: string
+        orcid:
+          type: string
+        uidPolon:
+          type: string
+        uidPolonStud:
+          type: string
+        uidPolonDokt:
+          type: string
+        pbnId:
+          type: string
+        scopusId:
+          type: string
+        degree:
+          type: string
+        cfKeyw:
+          type: array
+          items:
+            type: string
+        articleId:
+          type: string
+        scienceDisciplinesStatementDate:
+          type: string
+          format: date
+        roles:
+          type: array
+          items:
+            type: string
+        isPubliclyVisible:
+          type: boolean
+        profilePublicId:
+          type: string
+    AbstractResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Id abstraltu
+        langCode:
+          type: string
+          description: kod języka typu PL, EN, EN-GB, itp - klucz naturalny do Language, zgodny z ISO (patrz Language)
+        title:
+          type: string
+          description: 'tytuł wynalazku/patentu/wzoru użytkowego/nazwa gatunku/nazwa botaniczna/nazwa odmiany w danym języku '
+        abstr:
+          type: string
+          description: streszczenie opisu wynalazku/wzoru użytkowego w danym języku
+        keyw:
+          type: array
+          description: słowa kluczowe w danym języku
+          items:
+            type: string
+            description: słowa kluczowe w danym języku
+        orderIndex:
+          type: integer
+          description: 'kolejność wyświetlania abstraktów (domyślnie: 0)'
+          format: int32
+        objectId:
+          type: string
+          description: Id obiektu
+        objectType:
+          type: string
+          description: Typ obiektu
+        original:
+          type: boolean
+          description: czy streszczenie jest w języku oryginału
+    EventProfileResponse:
+      type: object
+      properties:
+        profilesUw:
+          type: array
+          items:
+            $ref: '#/components/schemas/EventProfileUwResponse'
+        profilesExternal:
+          type: array
+          items:
+            $ref: '#/components/schemas/EventProfileExternalResponse'
+    EventOrganizerRequest:
+      type: object
+      properties:
+        organizersExternal:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/EventOrganizerExternalRequest'
+        organizersUw:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/EventOrganizerUwRequest'
+        uwRole:
+          type: string
+          enum:
+          - ORGANIZER
+          - SPONSOR
+          - MEDIA_SPONSOR
+          - OTHER
+    OdataResponseQueryProfileItemResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/QueryProfileItemResponse'
+        totalCount:
+          type: integer
+          format: int32
+    EventRequest:
+      required:
+      - city
+      - countryCode
+      - endDate
+      - langCode
+      - name
+      - rank
+      - startDate
+      - type
+      type: object
+      properties:
+        name:
+          maxLength: 255
+          minLength: 0
+          type: string
+        type:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+            enum:
+            - CONFERENCE
+            - CONGRESS
+            - SYMPOSIUM
+            - WORKSHOP
+            - SEMINAR
+            - SESSION
+            - OTHER
+        langCode:
+          type: string
+        startDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+        rank:
+          type: string
+          enum:
+          - NATIONAL
+          - INTERNATIONAL
+        countryCode:
+          type: string
+        city:
+          maxLength: 50
+          minLength: 0
+          type: string
+        comment:
+          maxLength: 1024
+          minLength: 0
+          type: string
+        url:
+          maxLength: 255
+          minLength: 0
+          type: string
+        notes:
+          maxLength: 1024
+          minLength: 0
+          type: string
+    EventProfileUwResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        eventId:
+          type: string
+        unitCode:
+          type: string
+        unitNamePl:
+          type: string
+        unitNameEn:
+          type: string
+        profileId:
+          type: string
+        profileName:
+          type: string
+        profileEmail:
+          type: string
+        profilePhone:
+          type: string
+    EventProfileExternalRequest:
+      type: object
+      properties:
+        businessEntityId:
+          type: string
+        profileId:
+          type: string
+    EventProfileRequest:
+      type: object
+      properties:
+        profilesUw:
+          type: array
+          items:
+            $ref: '#/components/schemas/EventProfileUwRequest'
+        profilesExternal:
+          type: array
+          items:
+            $ref: '#/components/schemas/EventProfileExternalRequest'
+    OdataResponsePersonViewResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/PersonViewResponse'
+        totalCount:
+          type: integer
+          format: int32
+    EventOrganizerExternalResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        eventId:
+          type: string
+        businessEntityId:
+          type: string
+        businessEntityName:
+          type: string
+        contactProfileId:
+          type: string
+        contactName:
+          type: string
+        contactEmail:
+          type: string
+        contactPhone:
+          type: string
+        role:
+          type: string
+          enum:
+          - ORGANIZER
+          - SPONSOR
+          - MEDIA_SPONSOR
+          - OTHER
+        isMain:
+          type: boolean
+    EventScienceDisciplineResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        eventId:
+          type: string
+        scienceDisciplineCode:
+          type: string
+        scienceDisciplineNamePl:
+          type: string
+        scienceDisciplineNameEn:
+          type: string
+        scienceFieldCode:
+          type: string
+        scienceFieldNamePl:
+          type: string
+        scienceFieldNameEn:
+          type: string
+        isMain:
+          type: boolean
+    EventProfileUwRequest:
+      type: object
+      properties:
+        unitCode:
+          type: string
+        profileId:
+          type: string
+    EventOrganizerUwResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        eventId:
+          type: string
+        unitCode:
+          type: string
+        unitNamePl:
+          type: string
+        unitNameEn:
+          type: string
+        contactProfileId:
+          type: string
+        contactName:
+          type: string
+        contactEmail:
+          type: string
+        contactPhone:
+          type: string
+        isMain:
+          type: boolean
+    RecordOwnersResponse:
+      type: object
+      properties:
+        departmentOwners:
+          type: array
+          items:
+            $ref: '#/components/schemas/UwEconomicDepartmentResponse'
+        personOwners:
+          type: array
+          items:
+            $ref: '#/components/schemas/PersonViewResponse'
+    QueryProfileItemResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        firstName:
+          type: string
+        middleNames:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        emailsOther:
+          type: array
+          items:
+            type: string
+        phone:
+          type: string
+        personId:
+          type: string
+        orcid:
+          type: string
+        uidPolon:
+          type: string
+        uidPolonStud:
+          type: string
+        uidPolonDokt:
+          type: string
+        pbnId:
+          type: string
+        scopusId:
+          type: string
+        degree:
+          type: string
+        cfKeyw:
+          type: array
+          items:
+            type: string
+        articleId:
+          type: string
+        scienceDisciplinesStatementDate:
+          type: string
+          format: date
+        roles:
+          type: array
+          items:
+            type: string
+        isPubliclyVisible:
+          type: boolean
+        profilePublicId:
+          type: string
+        emails:
+          type: array
+          items:
+            type: string
+        profileRoles:
+          type: array
+          items:
+            type: string
+        keyw:
+          type: array
+          items:
+            type: string
+        units:
+          type: array
+          items:
+            type: string
+        unitsAll:
+          type: array
+          items:
+            type: string
+        scienceDisciplines:
+          type: array
+          items:
+            type: string
+        patentsCount:
+          type: integer
+          format: int64
+        projectsCount:
+          type: integer
+          format: int64
+        coursesCount:
+          type: integer
+          format: int64
+        publicationsCount:
+          type: integer
+          format: int64
+        promotedPublicationsCount:
+          type: integer
+          format: int64
+    EventFileResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        eventId:
+          type: string
+        fileId:
+          type: string
+        extension:
+          type: string
+        name:
+          type: string
+        uploadedDate:
+          type: string
+          format: date-time
+    EventOrganizerUwRequest:
+      type: object
+      properties:
+        unitCode:
+          type: string
+        contactProfileId:
+          type: string
+        isMain:
+          type: boolean
+    EventProfileExternalResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        eventId:
+          type: string
+        businessEntityId:
+          type: string
+        businessEntityName:
+          type: string
+        profileId:
+          type: string
+        profileName:
+          type: string
+        profileEmail:
+          type: string
+        profilePhone:
+          type: string
+    PersonViewResponse:
+      type: object
+      properties:
+        personId:
+          type: string
+        university:
+          type: string
+          enum:
+          - CUNI
+          - UAH
+          - SU
+          - KU
+          - UNIMI
+          - UW
+          - UNIGE
+          - PARIS_2
+        orcid:
+          type: string
+        firstName:
+          type: string
+        middleNames:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        profileId:
+          type: string
+        degree:
+          type: string
+        universityIndexNumber:
+          type: string
+    BusinessEntityResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Id podmiotu, id techniczne
+        acro:
+          type: string
+          description: Akronim podmiotu - wartość unikalna
+        name:
+          type: string
+          description: Nazwa podmiotu
+        type:
+          type: string
+          description: Typ podmiotu
+        countryCode:
+          type: string
+          description: Kod kraju
+      description: Podmiot
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

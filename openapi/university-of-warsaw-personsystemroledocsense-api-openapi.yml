@@ -1,0 +1,72 @@
+openapi: 3.2.0
+info:
+  title: Jaskier Person System Role Docsense API
+  version: 1.2.25
+servers:
+- url: https://api.jaskier.uw.edu.pl
+tags:
+- name: PersonSystemRoleDocsense
+paths:
+  /api/v1/Docsense/PersonSystemRole/Unassign:
+    patch:
+      tags:
+      - PersonSystemRoleDocsense
+      summary: Odebranie ról systemowych osobie przez DocSense
+      operationId: unassign
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DsRoleRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+      security:
+      - Authorization: []
+  /api/v1/Docsense/PersonSystemRole/Assign:
+    patch:
+      tags:
+      - PersonSystemRoleDocsense
+      summary: Przypisanie ról systemowych do osoby przez DocSense
+      operationId: assign
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DsRoleRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+      security:
+      - Authorization: []
+components:
+  schemas:
+    RoleAssignment:
+      required:
+      - departmentCode
+      - roleCode
+      type: object
+      properties:
+        roleCode:
+          type: string
+        departmentCode:
+          type: string
+    DsRoleRequest:
+      required:
+      - roles
+      - usosId
+      type: object
+      properties:
+        usosId:
+          type: string
+        roles:
+          type: array
+          items:
+            $ref: '#/components/schemas/RoleAssignment'
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

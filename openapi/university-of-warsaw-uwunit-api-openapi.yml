@@ -1,0 +1,376 @@
+openapi: 3.2.0
+info:
+  title: Jaskier Uw Unit API
+  version: 1.2.25
+servers:
+- url: https://api.jaskier.uw.edu.pl
+tags:
+- name: UwUnit
+paths:
+  /api/v1/UwUnit/Import:
+    post:
+      tags:
+      - UwUnit
+      summary: Import jednostek UW
+      operationId: importUwUnit
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UwUnitRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UwUnitResponse'
+      security:
+      - Authorization: []
+    delete:
+      tags:
+      - UwUnit
+      summary: Usuwanie jednostki UW
+      operationId: deleteUwUnit
+      parameters:
+      - name: code
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+                enum:
+                - 100 CONTINUE
+                - 101 SWITCHING_PROTOCOLS
+                - 102 PROCESSING
+                - 103 EARLY_HINTS
+                - 103 CHECKPOINT
+                - 200 OK
+                - 201 CREATED
+                - 202 ACCEPTED
+                - 203 NON_AUTHORITATIVE_INFORMATION
+                - 204 NO_CONTENT
+                - 205 RESET_CONTENT
+                - 206 PARTIAL_CONTENT
+                - 207 MULTI_STATUS
+                - 208 ALREADY_REPORTED
+                - 226 IM_USED
+                - 300 MULTIPLE_CHOICES
+                - 301 MOVED_PERMANENTLY
+                - 302 FOUND
+                - 302 MOVED_TEMPORARILY
+                - 303 SEE_OTHER
+                - 304 NOT_MODIFIED
+                - 305 USE_PROXY
+                - 307 TEMPORARY_REDIRECT
+                - 308 PERMANENT_REDIRECT
+                - 400 BAD_REQUEST
+                - 401 UNAUTHORIZED
+                - 402 PAYMENT_REQUIRED
+                - 403 FORBIDDEN
+                - 404 NOT_FOUND
+                - 405 METHOD_NOT_ALLOWED
+                - 406 NOT_ACCEPTABLE
+                - 407 PROXY_AUTHENTICATION_REQUIRED
+                - 408 REQUEST_TIMEOUT
+                - 409 CONFLICT
+                - 410 GONE
+                - 411 LENGTH_REQUIRED
+                - 412 PRECONDITION_FAILED
+                - 413 PAYLOAD_TOO_LARGE
+                - 413 REQUEST_ENTITY_TOO_LARGE
+                - 414 URI_TOO_LONG
+                - 414 REQUEST_URI_TOO_LONG
+                - 415 UNSUPPORTED_MEDIA_TYPE
+                - 416 REQUESTED_RANGE_NOT_SATISFIABLE
+                - 417 EXPECTATION_FAILED
+                - 418 I_AM_A_TEAPOT
+                - 419 INSUFFICIENT_SPACE_ON_RESOURCE
+                - 420 METHOD_FAILURE
+                - 421 DESTINATION_LOCKED
+                - 422 UNPROCESSABLE_ENTITY
+                - 423 LOCKED
+                - 424 FAILED_DEPENDENCY
+                - 425 TOO_EARLY
+                - 426 UPGRADE_REQUIRED
+                - 428 PRECONDITION_REQUIRED
+                - 429 TOO_MANY_REQUESTS
+                - 431 REQUEST_HEADER_FIELDS_TOO_LARGE
+                - 451 UNAVAILABLE_FOR_LEGAL_REASONS
+                - 500 INTERNAL_SERVER_ERROR
+                - 501 NOT_IMPLEMENTED
+                - 502 BAD_GATEWAY
+                - 503 SERVICE_UNAVAILABLE
+                - 504 GATEWAY_TIMEOUT
+                - 505 HTTP_VERSION_NOT_SUPPORTED
+                - 506 VARIANT_ALSO_NEGOTIATES
+                - 507 INSUFFICIENT_STORAGE
+                - 508 LOOP_DETECTED
+                - 509 BANDWIDTH_LIMIT_EXCEEDED
+                - 510 NOT_EXTENDED
+                - 511 NETWORK_AUTHENTICATION_REQUIRED
+      security:
+      - Authorization: []
+  /api/v1/UwUnit/Import/Start:
+    post:
+      tags:
+      - UwUnit
+      summary: Zasygnalizowanie roczpoczęcia importu jednostek
+      operationId: startUnitImport
+      parameters:
+      - name: source
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/SynchronizationResponse'
+      security:
+      - Authorization: []
+  /api/v1/UwUnit/Import/End:
+    post:
+      tags:
+      - UwUnit
+      summary: Zasygnalizowanie zakończenia importu jednostek
+      operationId: endUnitImport
+      parameters:
+      - name: synchronizationId
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      security:
+      - Authorization: []
+  /api/v1/UwUnit:
+    get:
+      tags:
+      - UwUnit
+      summary: Listowanie jednostek UW
+      operationId: queryForUwUnits
+      parameters:
+      - name: date
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UwUnitResponse'
+      security:
+      - Authorization: []
+  /api/v1/UwUnit/{code}:
+    get:
+      tags:
+      - UwUnit
+      summary: Czytanie jednostki UW na podstawie kodu
+      operationId: getUwUnitByCode
+      parameters:
+      - name: code
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UwUnitResponse'
+      security:
+      - Authorization: []
+  /api/v1/UwUnit/Import/ActualRecords:
+    get:
+      tags:
+      - UwUnit
+      summary: Zwraca listę aktualnych rekordów.
+      operationId: queryForActualUwUnitRecords
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UwUnitResponse'
+      security:
+      - Authorization: []
+components:
+  schemas:
+    UwUnitResponse:
+      type: object
+      properties:
+        uwCode:
+          type: string
+          description: Unikalny kod jednostki
+        namePl:
+          type: string
+          description: Polska nazwa jednostki
+        nameEn:
+          type: string
+          description: Angielska nazwa jednostki
+        parentUnitCode:
+          type: string
+          description: Unikalny kod jednostki nadrzędnej
+        url:
+          type: string
+          description: Adres strony jednostki
+        isVisible:
+          type: boolean
+        sapUnitCode:
+          type: string
+        existsFrom:
+          type: string
+          format: date
+        existsTo:
+          type: string
+          format: date
+      description: Jednostki organizacyjne UW
+    UwUnitRequest:
+      required:
+      - nameEn
+      - namePl
+      - uwCode
+      type: object
+      properties:
+        uwCode:
+          type: string
+        namePl:
+          type: string
+        nameEn:
+          type: string
+        hierarchy:
+          type: array
+          items:
+            type: string
+        existsFrom:
+          type: string
+          format: date
+        existsTo:
+          type: string
+          format: date
+        isVisible:
+          type: boolean
+        sapCode:
+          type: string
+        url:
+          type: string
+    SynchronizationResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - ACHIEVEMENTS_SUMMARY
+          - ADMIN
+          - ARTICLE
+          - ASSET
+          - BUILDING
+          - BUILDING_ACCESSIBILITY
+          - BUILDING_ATTRIBUTE
+          - BUILDING_BON
+          - BUILDING_PATH_OBJECT_TYPE
+          - BUILDING_PUBLIC
+          - BUSINESS_ENTITY
+          - CAMPUS
+          - COURSE
+          - COURSE_REGISTRATION_INFO
+          - CURRENCY
+          - EVENT
+          - FAQ
+          - GIVEAWAY
+          - ITEM_USED
+          - IT_SERVICE
+          - LABORATORY
+          - LABORATORY_TYPE
+          - LEGAL_BASIS
+          - LICENSE
+          - MOBILITY_OPTION
+          - MAGAZINE
+          - MONOGRAPH_PUBLISHER
+          - FRAMEWORK_AGREEMENT
+          - HOUSING_OPTION
+          - PATENT
+          - PASS_CONTROL
+          - PASS_CONTROL_PUBLIC
+          - PASS_CONTROL_DICTIONARY
+          - PERMISSION
+          - PERM_DEPARTMENT_PERSON
+          - PERM_DEPARTMENT_CAS_ROLE
+          - PERSON
+          - PERSON_ID_CARD
+          - PHONE_NUMBER
+          - PROFILE
+          - PROFILE_PUBLIC
+          - PROFILE_MYUW
+          - PERSON_PROFILE_MYUW
+          - PROJECT
+          - PROJECT_PUBLIC
+          - PROJECT_MIGRATION
+          - PROJECT_DICTIONARY
+          - PROJECT_PROGRAM
+          - PROJECT_INTERNATIONAL
+          - PROJECT_PROGRAM_DETAILED
+          - PROJECT_PROGRAM_CONTRACT
+          - PROJECT_TYPE
+          - PROJECT_REPORT
+          - PSP_ELEMENT
+          - PUBLICATION
+          - PUBLICATION_VENUE
+          - RESEARCH_SET
+          - PERSON_SYSTEM_ROLE
+          - PERSON_SYSTEM_ROLE_API
+          - SAP_OBJECT_ACCESS
+          - SYSTEM_ROLE
+          - PUBLIC_PROCUREMENT_PLAN
+          - PUBLIC_PROCUREMENT_PLAN_CATEGORY
+          - SAP_ROLE
+          - STUDENT_ORGANIZATION
+          - TRANSLATION
+          - TRANSLATION_CATEGORY
+          - TUTORIAL
+          - UNIVERSITY_INFO
+          - UW_ECONOMIC_DEPARTMENT
+          - UW_PERSON
+          - UW_PERSON_EMPLOYEE_DATA
+          - UW_UNIT
+        started:
+          type: string
+          format: date-time
+        ended:
+          type: string
+          format: date-time
+        source:
+          type: string
+        invokedBy:
+          type: string
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

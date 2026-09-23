@@ -1,0 +1,283 @@
+openapi: 3.2.0
+info:
+  title: University Of Warsaw Mobility Option Home API
+  version: '1.0'
+  description: 'Operations tagged MobilityOptionHome across 2 of this provider''s published API definitions: university-of-warsaw-jaskier-api.json, university-of-warsaw-sp4eu-api.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api.jaskier.uw.edu.pl
+- url: https://api.sp4eu.uw.edu.pl
+tags:
+- name: MobilityOptionHome
+paths:
+  /api/v1/Sp4eu/MobilityOptionHome/ApplicationProcedure:
+    get:
+      tags:
+      - MobilityOptionHome
+      operationId: getMobilityOptionApplicationProcedure
+      parameters:
+      - name: university
+        in: query
+        required: true
+        schema:
+          type: string
+          enum:
+          - CUNI
+          - UAH
+          - SU
+          - KU
+          - UNIMI
+          - UW
+          - UNIGE
+          - PARIS_2
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ArticlePreviewResponse'
+      security:
+      - Authorization: []
+      summary: Get mobility option application procedure
+      x-summary-source: derived
+    put:
+      tags:
+      - MobilityOptionHome
+      summary: Ustawianie procedury aplikacji dla uniwersytetu
+      operationId: updateMobilityOptionApplicationProcedure
+      parameters:
+      - name: university
+        in: query
+        required: true
+        schema:
+          type: string
+          enum:
+          - CUNI
+          - UAH
+          - SU
+          - KU
+          - UNIMI
+          - UW
+          - UNIGE
+          - PARIS_2
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ArticleRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ArticlePreviewResponse'
+      security:
+      - Authorization: []
+    servers:
+    - url: https://api.jaskier.uw.edu.pl
+  /api/v1/MobilityOptionHome/ApplicationProcedure/Content:
+    put:
+      tags:
+      - MobilityOptionHome
+      summary: Ustawianie procedury aplikacji dla uniwersytetu
+      operationId: setContentEnHost
+      parameters:
+      - name: university
+        in: query
+        required: true
+        schema:
+          type: string
+          enum:
+          - CUNI
+          - UAH
+          - SU
+          - KU
+          - UNIMI
+          - UW
+          - UNIGE
+          - PARIS_2
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ArticleRequest_2'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ArticlePreviewResponse_2'
+      security:
+      - Authorization: []
+    servers:
+    - url: https://api.sp4eu.uw.edu.pl
+  /api/v1/MobilityOptionHome/ApplicationProcedure:
+    get:
+      tags:
+      - MobilityOptionHome
+      summary: Pobranie procedur aplikacji dla uniwersytetu
+      operationId: getHomeApplicationProceduresForOption
+      parameters:
+      - name: university
+        in: query
+        required: true
+        schema:
+          type: string
+          enum:
+          - CUNI
+          - UAH
+          - SU
+          - KU
+          - UNIMI
+          - UW
+          - UNIGE
+          - PARIS_2
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ArticlePreviewResponse_2'
+      security:
+      - Authorization: []
+    servers:
+    - url: https://api.sp4eu.uw.edu.pl
+components:
+  schemas:
+    ArticleRequest:
+      required:
+      - contentEn
+      - contentPl
+      - signification
+      - tags
+      - titleEn
+      - titlePl
+      - visibleFrom
+      type: object
+      properties:
+        titlePl:
+          type: string
+        titleEn:
+          type: string
+        contentPl:
+          type: string
+        contentEn:
+          type: string
+        signification:
+          type: string
+        tags:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        created:
+          type: string
+          format: date-time
+        visible:
+          type: boolean
+        visibleFrom:
+          type: string
+          format: date
+        visibleTo:
+          type: string
+          format: date
+    ArticlePreviewResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        titlePl:
+          type: string
+        titleEn:
+          type: string
+        contentPl:
+          type: string
+        contentEn:
+          type: string
+        visibleFrom:
+          type: string
+          format: date
+        visibleTo:
+          type: string
+          format: date
+        signification:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+        visible:
+          type: boolean
+        created:
+          type: string
+          format: date-time
+    ArticleRequest_2:
+      type: object
+      properties:
+        titlePl:
+          type: string
+        titleEn:
+          type: string
+        contentPl:
+          type: string
+        contentEn:
+          type: string
+        signification:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+          uniqueItems: true
+        created:
+          type: string
+        visible:
+          type: boolean
+        visibleFrom:
+          type: string
+          format: date
+        visibleTo:
+          type: string
+          format: date
+    ArticlePreviewResponse_2:
+      type: object
+      properties:
+        id:
+          type: string
+        titlePl:
+          type: string
+        titleEn:
+          type: string
+        contentPl:
+          type: string
+        contentEn:
+          type: string
+        visibleFrom:
+          type: string
+          format: date
+        visibleTo:
+          type: string
+          format: date
+        signification:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+        visible:
+          type: boolean
+        created:
+          type: string
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header
+x-refined-from:
+- university-of-warsaw-jaskier-api.json
+- university-of-warsaw-sp4eu-api.json

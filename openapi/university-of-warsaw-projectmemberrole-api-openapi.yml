@@ -1,0 +1,258 @@
+openapi: 3.2.0
+info:
+  title: Jaskier Project Member Role API
+  version: 1.2.25
+servers:
+- url: https://api.jaskier.uw.edu.pl
+tags:
+- name: ProjectMemberRole
+paths:
+  /api/v1/ProjectMemberRole/{id}:
+    put:
+      tags:
+      - ProjectMemberRole
+      summary: Aktualizacja ról członków projektu
+      operationId: updateProjectMemberRole
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProjectMemberRoleRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ProjectMemberRoleResponse'
+      security:
+      - Authorization: []
+    delete:
+      tags:
+      - ProjectMemberRole
+      summary: Usuwanie ról członków projektu
+      operationId: deleteProjectMemberRole
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+                enum:
+                - 100 CONTINUE
+                - 101 SWITCHING_PROTOCOLS
+                - 102 PROCESSING
+                - 103 EARLY_HINTS
+                - 103 CHECKPOINT
+                - 200 OK
+                - 201 CREATED
+                - 202 ACCEPTED
+                - 203 NON_AUTHORITATIVE_INFORMATION
+                - 204 NO_CONTENT
+                - 205 RESET_CONTENT
+                - 206 PARTIAL_CONTENT
+                - 207 MULTI_STATUS
+                - 208 ALREADY_REPORTED
+                - 226 IM_USED
+                - 300 MULTIPLE_CHOICES
+                - 301 MOVED_PERMANENTLY
+                - 302 FOUND
+                - 302 MOVED_TEMPORARILY
+                - 303 SEE_OTHER
+                - 304 NOT_MODIFIED
+                - 305 USE_PROXY
+                - 307 TEMPORARY_REDIRECT
+                - 308 PERMANENT_REDIRECT
+                - 400 BAD_REQUEST
+                - 401 UNAUTHORIZED
+                - 402 PAYMENT_REQUIRED
+                - 403 FORBIDDEN
+                - 404 NOT_FOUND
+                - 405 METHOD_NOT_ALLOWED
+                - 406 NOT_ACCEPTABLE
+                - 407 PROXY_AUTHENTICATION_REQUIRED
+                - 408 REQUEST_TIMEOUT
+                - 409 CONFLICT
+                - 410 GONE
+                - 411 LENGTH_REQUIRED
+                - 412 PRECONDITION_FAILED
+                - 413 PAYLOAD_TOO_LARGE
+                - 413 REQUEST_ENTITY_TOO_LARGE
+                - 414 URI_TOO_LONG
+                - 414 REQUEST_URI_TOO_LONG
+                - 415 UNSUPPORTED_MEDIA_TYPE
+                - 416 REQUESTED_RANGE_NOT_SATISFIABLE
+                - 417 EXPECTATION_FAILED
+                - 418 I_AM_A_TEAPOT
+                - 419 INSUFFICIENT_SPACE_ON_RESOURCE
+                - 420 METHOD_FAILURE
+                - 421 DESTINATION_LOCKED
+                - 422 UNPROCESSABLE_ENTITY
+                - 423 LOCKED
+                - 424 FAILED_DEPENDENCY
+                - 425 TOO_EARLY
+                - 426 UPGRADE_REQUIRED
+                - 428 PRECONDITION_REQUIRED
+                - 429 TOO_MANY_REQUESTS
+                - 431 REQUEST_HEADER_FIELDS_TOO_LARGE
+                - 451 UNAVAILABLE_FOR_LEGAL_REASONS
+                - 500 INTERNAL_SERVER_ERROR
+                - 501 NOT_IMPLEMENTED
+                - 502 BAD_GATEWAY
+                - 503 SERVICE_UNAVAILABLE
+                - 504 GATEWAY_TIMEOUT
+                - 505 HTTP_VERSION_NOT_SUPPORTED
+                - 506 VARIANT_ALSO_NEGOTIATES
+                - 507 INSUFFICIENT_STORAGE
+                - 508 LOOP_DETECTED
+                - 509 BANDWIDTH_LIMIT_EXCEEDED
+                - 510 NOT_EXTENDED
+                - 511 NETWORK_AUTHENTICATION_REQUIRED
+      security:
+      - Authorization: []
+  /api/v1/ProjectMemberRole:
+    get:
+      tags:
+      - ProjectMemberRole
+      summary: Czytanie listy ról członków projektu
+      operationId: queryForProjectMemberRole
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProjectMemberRoleResponse'
+      security:
+      - Authorization: []
+    post:
+      tags:
+      - ProjectMemberRole
+      summary: Dodawanie ról członków projektu
+      operationId: addProjectMemberRole
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProjectMemberRoleRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ProjectMemberRoleResponse'
+      security:
+      - Authorization: []
+  /api/v1/ProjectMemberRole/Rearrange:
+    post:
+      tags:
+      - ProjectMemberRole
+      summary: Zmiana kolejności wpisów
+      operationId: rearrangeProjectMemeberRoles
+      requestBody:
+        description: Lista wszystkich id w nowej kolejności
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: integer
+                format: int32
+        required: true
+      responses:
+        '200':
+          description: OK
+      security:
+      - Authorization: []
+  /api/v1/ProjectMemberRole/Regulation75Roles:
+    get:
+      tags:
+      - ProjectMemberRole
+      summary: Czytanie listy ról członków projektu zgodnych z zarządzeniem 75
+      operationId: queryForProjectRegulation75Role
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProjectMemberRoleResponse'
+      security:
+      - Authorization: []
+  /api/v1/ProjectMemberRole/GeneralRoles:
+    get:
+      tags:
+      - ProjectMemberRole
+      summary: Czytanie listy ról członków projektu z wyłączeniem ról z zarządzenia 75
+      operationId: queryForProjectGeneralRole
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProjectMemberRoleResponse'
+      security:
+      - Authorization: []
+components:
+  schemas:
+    ProjectMemberRoleResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        namePl:
+          type: string
+        nameEn:
+          type: string
+        manager:
+          type: boolean
+        regulation75:
+          type: boolean
+    ProjectMemberRoleRequest:
+      required:
+      - namePl
+      type: object
+      properties:
+        namePl:
+          maxLength: 255
+          minLength: 0
+          type: string
+        nameEn:
+          maxLength: 255
+          minLength: 0
+          type: string
+        manager:
+          type: boolean
+        regulation75:
+          type: boolean
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

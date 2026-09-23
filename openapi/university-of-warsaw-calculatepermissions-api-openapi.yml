@@ -1,0 +1,220 @@
+openapi: 3.2.0
+info:
+  title: Jaskier Calculate Permissions API
+  version: 1.2.25
+servers:
+- url: https://api.jaskier.uw.edu.pl
+tags:
+- name: CalculatePermissions
+paths:
+  /api/v1/CalculatePermissions/calculate:
+    post:
+      tags:
+      - CalculatePermissions
+      summary: Wyliczanie uprawnień użytkownika
+      operationId: calculate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PrincipalPermissionDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+                additionalProperties:
+                  uniqueItems: true
+                  type: array
+                  items:
+                    type: string
+      security:
+      - Authorization: []
+  /api/v1/CalculatePermissions/calculate/{personId}:
+    get:
+      tags:
+      - CalculatePermissions
+      summary: Pobieranie danych użytkownika do wyliczania uprawnień
+      operationId: getPrincipalForCalculation
+      parameters:
+      - name: personId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PrincipalPermissionDTO'
+      security:
+      - Authorization: []
+    post:
+      tags:
+      - CalculatePermissions
+      summary: Wyliczanie uprawnień użytkownika dla konkretnej osoby
+      operationId: calculateForPerson
+      parameters:
+      - name: personId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+                additionalProperties:
+                  uniqueItems: true
+                  type: array
+                  items:
+                    type: string
+      security:
+      - Authorization: []
+  /api/v1/CalculatePermissions/SearchPerson:
+    get:
+      tags:
+      - CalculatePermissions
+      summary: Wyszukiwanie osoby
+      operationId: searchPersonForCalculation
+      parameters:
+      - name: $skip
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int64
+          default: 0
+      - name: $top
+        in: query
+        required: false
+        schema:
+          maximum: 100
+          type: integer
+          format: int64
+          default: 10
+      - name: $inlinecount
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: $orderby
+        in: query
+        required: false
+        schema:
+          type: string
+          default: lastName,firstName,email
+      - name: searchValue
+        in: query
+        required: false
+        schema:
+          type: string
+          default: searchValue
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/OdataResponsePersonViewResponse'
+      security:
+      - Authorization: []
+  /api/v1/CalculatePermissions/SearchPerson('{personId}'):
+    get:
+      tags:
+      - CalculatePermissions
+      summary: Czytanie informacji o osobie
+      operationId: getSearchPersonForCalculation
+      parameters:
+      - name: personId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PersonViewResponse'
+      security:
+      - Authorization: []
+components:
+  schemas:
+    PersonViewResponse:
+      type: object
+      properties:
+        personId:
+          type: string
+        university:
+          type: string
+          enum:
+          - CUNI
+          - UAH
+          - SU
+          - KU
+          - UNIMI
+          - UW
+          - UNIGE
+          - PARIS_2
+        orcid:
+          type: string
+        firstName:
+          type: string
+        middleNames:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        profileId:
+          type: string
+        degree:
+          type: string
+        universityIndexNumber:
+          type: string
+    OdataResponsePersonViewResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/PersonViewResponse'
+        totalCount:
+          type: integer
+          format: int32
+    PrincipalPermissionDTO:
+      type: object
+      properties:
+        personId:
+          type: string
+        casUsosRole:
+          type: array
+          items:
+            type: string
+        functions:
+          type: array
+          items:
+            type: string
+        units:
+          type: array
+          items:
+            type: string
+        permGroups:
+          type: array
+          items:
+            type: string
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

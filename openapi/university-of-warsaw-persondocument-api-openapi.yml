@@ -1,0 +1,102 @@
+openapi: 3.2.0
+info:
+  title: OpenAPI definition Person Document API
+  version: v0
+servers:
+- url: https://api.sp4eu.uw.edu.pl
+tags:
+- name: PersonDocument
+paths:
+  /api/v1/User/Document:
+    get:
+      tags:
+      - PersonDocument
+      operationId: findAllDocuments
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DocumentResponse'
+      security:
+      - Authorization: []
+      summary: Find all documents
+      x-summary-source: derived
+  /api/v1/User/Document/{documentId}:
+    get:
+      tags:
+      - PersonDocument
+      operationId: findDocument
+      parameters:
+      - name: documentId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/DocumentResponse'
+      security:
+      - Authorization: []
+      summary: Find document
+      x-summary-source: derived
+  /api/v1/User/Document/{documentId}/Download:
+    get:
+      tags:
+      - PersonDocument
+      summary: Pobranie powiązanych plików jako zip
+      operationId: downloadAttachedFiles
+      parameters:
+      - name: documentId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      security:
+      - Authorization: []
+components:
+  schemas:
+    AttachedFileResponse:
+      type: object
+      properties:
+        fileId:
+          type: string
+        description:
+          type: string
+        name:
+          type: string
+    DocumentResponse:
+      type: object
+      properties:
+        documentId:
+          type: string
+        files:
+          type: array
+          items:
+            $ref: '#/components/schemas/AttachedFileResponse'
+        name:
+          type: string
+        created:
+          type: string
+          format: date-time
+        type:
+          type: string
+        details:
+          type: object
+          additionalProperties:
+            type: object
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

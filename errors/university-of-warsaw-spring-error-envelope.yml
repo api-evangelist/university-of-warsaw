@@ -1,0 +1,49 @@
+generated: '2026-09-01'
+method: derived
+x-evidence-method: probed  # every envelope below was captured from a live response
+source: >-
+  Live error responses captured from https://api.sp4eu.uw.edu.pl and https://api.jaskier.uw.edu.pl
+  on 2026-09-01. Neither service declares an error schema in its OpenAPI, so this catalog is
+  observed behaviour, not a documented contract.
+x-operator: institution
+note: >-
+  Both University of Warsaw springdoc services return the Spring Boot default error envelope —
+  {timestamp, status, error, message, path} with application/json — rather than RFC 9457
+  application/problem+json. The Jaskier upstream additionally carries a typed `uwError` object
+  ({code, message, details}) inside the message string when a downstream call fails, which means
+  the machine-readable error code exists but is stringified one layer up rather than surfaced.
+media_type: application/json
+envelope:
+  timestamp: RFC 3339 timestamp with milliseconds and offset
+  status: integer HTTP status, repeated in the body
+  error: HTTP reason phrase
+  message: human-readable detail; may embed a stringified upstream JSON body
+  path: request path
+errors:
+- status: 401
+  error: Unauthorized
+  observed_on: https://api.sp4eu.uw.edu.pl/principal
+  message: >-
+    "Not authorized. Please use /access/login endpoint to receive bearer token. Api key should be
+    provided as header: \"Authorization: Bearer $BEARER_VALUE\". Example usage:
+    /access/login?redirectUrl=http://localhost:4200/landingpage." — the 401 body is where the
+    bearer-token flow is documented; it appears in no published developer page.
+- status: 401
+  error: Unauthorized
+  observed_on: https://api.jaskier.uw.edu.pl/api/v1/UniversityInfo
+  message: Returned for every Jaskier data endpoint probed anonymously.
+- status: 403
+  error: Forbidden
+  observed_on: https://api.sp4eu.uw.edu.pl/api/v1/Admin/Course
+  message: '"Access Denied" — the Admin subtree is role-gated separately from authentication.'
+- status: 500
+  error: Internal Server Error
+  observed_on: https://api.sp4eu.uw.edu.pl/api/v1/Tutorial/00000000-0000-0000-0000-000000000000
+  message: >-
+    An unknown resource id produces a 500 at the edge wrapping an upstream 422 from
+    api.jaskier.uw.edu.pl, whose body carries uwError {code: TUTORIAL_NOT_EXISTS, details:
+    {tutorialId}}. A not-found should not surface as a 500; recorded as observed.
+conformance:
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: application/json Spring default envelope, not application/problem+json.

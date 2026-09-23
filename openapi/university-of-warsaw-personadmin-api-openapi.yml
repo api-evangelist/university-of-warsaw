@@ -1,0 +1,132 @@
+openapi: 3.2.0
+info:
+  title: OpenAPI definition Person Admin API
+  version: v0
+servers:
+- url: https://api.sp4eu.uw.edu.pl
+tags:
+- name: PersonAdmin
+paths:
+  /api/v1/Admin/Person/SearchPerson:
+    get:
+      tags:
+      - PersonAdmin
+      operationId: searchPersonForCourse_1
+      parameters:
+      - name: $skip
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int64
+          default: 0
+      - name: $top
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int64
+          default: 10
+          maximum: 100
+      - name: $inlinecount
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: $orderby
+        in: query
+        required: false
+        schema:
+          type: string
+          default: lastName,firstName,email
+      - name: searchValue
+        in: query
+        required: false
+        schema:
+          type: string
+          default: searchValue
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/OdataResponsePersonResponse'
+      security:
+      - Authorization: []
+      summary: Search person for course 1
+      x-summary-source: derived
+  /api/v1/Admin/Person/SearchPerson/{personId}:
+    get:
+      tags:
+      - PersonAdmin
+      summary: Czytanie informacji o osobie
+      operationId: getSearchPersonForCourse_1
+      parameters:
+      - name: personId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PersonResponse'
+      security:
+      - Authorization: []
+  /api/v1/Admin/Person/All:
+    get:
+      tags:
+      - PersonAdmin
+      summary: Czytanie informacji o wszystkich osobach
+      operationId: getAllPersons
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PersonResponse'
+      security:
+      - Authorization: []
+components:
+  schemas:
+    PersonResponse:
+      type: object
+      properties:
+        personId:
+          type: string
+        university:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        lastLoginTime:
+          type: string
+          format: date-time
+        createdAt:
+          type: string
+          format: date-time
+    OdataResponsePersonResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/PersonResponse'
+        totalCount:
+          type: integer
+          format: int32
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

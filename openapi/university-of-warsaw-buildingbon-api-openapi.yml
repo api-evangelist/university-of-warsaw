@@ -1,0 +1,286 @@
+openapi: 3.2.0
+info:
+  title: Jaskier Building Bon API
+  version: 1.2.25
+servers:
+- url: https://api.jaskier.uw.edu.pl
+tags:
+- name: BuildingBon
+paths:
+  /api/v1/Bon/Building:
+    get:
+      tags:
+      - BuildingBon
+      summary: Listowanie danych o publicznych budynkach
+      operationId: queryForBuildingPublic_1
+      parameters:
+      - name: lang
+        in: query
+        required: false
+        schema:
+          type: string
+          default: pl
+          enum:
+          - pl
+          - en
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BuildingBonResponse'
+      security:
+      - Authorization: []
+  /api/v1/Bon/Building/{publicId}:
+    get:
+      tags:
+      - BuildingBon
+      summary: Czytanie informacji o budynku z podanym publicId
+      operationId: getBuildingPublicById_1
+      parameters:
+      - name: publicId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/BuildingBonResponse'
+      security:
+      - Authorization: []
+  /api/v1/Bon/Building/{publicId}/Thumbnail/Download:
+    get:
+      tags:
+      - BuildingBon
+      summary: Pobranie miniaturki
+      operationId: downloadBuildingPublicThumbnail_1
+      parameters:
+      - name: publicId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: typeEnum
+        in: query
+        required: false
+        schema:
+          type: string
+          default: LARGE
+          enum:
+          - LARGE
+          - MEDIUM
+          - SMALL
+      responses:
+        '200':
+          description: OK
+      security:
+      - Authorization: []
+  /api/v1/Bon/Building/{publicId}/File:
+    get:
+      tags:
+      - BuildingBon
+      summary: Lista plików przypisanych do budynku
+      operationId: getBuildingPublicFiles_1
+      parameters:
+      - name: publicId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BuildingFileResponse'
+      security:
+      - Authorization: []
+  /api/v1/Bon/Building/{publicId}/File/{buildingFileId}/Download:
+    get:
+      tags:
+      - BuildingBon
+      summary: Pobranie pliku
+      operationId: downloadBuildingPublicFile_1
+      parameters:
+      - name: publicId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: buildingFileId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: typeEnum
+        in: query
+        required: false
+        schema:
+          type: string
+          default: LARGE
+          enum:
+          - LARGE
+          - MEDIUM
+          - SMALL
+      responses:
+        '200':
+          description: OK
+      security:
+      - Authorization: []
+  /api/v1/Bon/Building/{publicId}/BuildingAccessibility:
+    get:
+      tags:
+      - BuildingBon
+      summary: Czytanie informacji o dostępności budynku
+      operationId: getBuildingPublicAccessibility_1
+      parameters:
+      - name: publicId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: lang
+        in: query
+        required: false
+        schema:
+          type: string
+          default: pl
+          enum:
+          - pl
+          - en
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/BuildingAccessibilityResponse'
+      security:
+      - Authorization: []
+  /api/v1/Bon/Building/Campus:
+    get:
+      tags:
+      - BuildingBon
+      summary: Pobranie listy kampusów
+      operationId: getBuildingPublicCampuses_1
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CampusResponse'
+      security:
+      - Authorization: []
+components:
+  schemas:
+    BuildingBonResponse:
+      type: object
+      properties:
+        publicId:
+          type: string
+        namePl:
+          type: string
+        nameEn:
+          type: string
+        campusCode:
+          type: string
+        campusNamePl:
+          type: string
+        campusNameEn:
+          type: string
+        latitude:
+          type: number
+        longitude:
+          type: number
+        street:
+          type: string
+        number:
+          type: string
+        postalCode:
+          type: string
+        city:
+          type: string
+        descriptionPl:
+          type: string
+        descriptionEn:
+          type: string
+    BuildingAccessibilityResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        entrance:
+          type: string
+        corridors:
+          type: string
+        elevators:
+          type: string
+        isPorterhouseAvailable:
+          type: boolean
+        porterhouseName:
+          type: string
+        porterhousePlacement:
+          type: string
+        porterhousePhone:
+          type: string
+        isToiletAvailable:
+          type: boolean
+        toiletPlacement:
+          type: string
+        accessAndParkingSpaces:
+          type: string
+        signLanguageInterpreter:
+          type: string
+        procedures:
+          type: string
+        extraHelp:
+          type: string
+        assistanceDog:
+          type: string
+        additionalCustomization:
+          type: string
+        additionalInformation:
+          type: string
+    CampusResponse:
+      type: object
+      properties:
+        code:
+          type: string
+        namePl:
+          type: string
+        nameEn:
+          type: string
+    BuildingFileResponse:
+      type: object
+      properties:
+        buildingFileId:
+          type: string
+        buildingId:
+          type: string
+        fileId:
+          type: string
+        extension:
+          type: string
+        name:
+          type: string
+        uploadedDate:
+          type: string
+          format: date-time
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

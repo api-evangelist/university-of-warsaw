@@ -1,0 +1,163 @@
+openapi: 3.2.0
+info:
+  title: Jaskier Project Type API
+  version: 1.2.25
+servers:
+- url: https://api.jaskier.uw.edu.pl
+tags:
+- name: Project Type
+paths:
+  /api/v1/ProjectType/{id}:
+    get:
+      tags:
+      - Project Type
+      summary: Czytanie typu projektu
+      operationId: getProjectType
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ProjectTypeResponse'
+      security:
+      - Authorization: []
+    put:
+      tags:
+      - Project Type
+      summary: Aktualizacja typu projektu
+      operationId: updateProjectType
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProjectTypeRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ProjectTypeResponse'
+      security:
+      - Authorization: []
+    delete:
+      tags:
+      - Project Type
+      summary: Usunięcie typu projektu, jeśli żadne projekt nie jest przypisany
+      operationId: removeProjectType
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+      security:
+      - Authorization: []
+  /api/v1/ProjectType:
+    get:
+      tags:
+      - Project Type
+      summary: Listowanie typów projektu
+      operationId: queryForProjectType
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProjectTypeResponse'
+      security:
+      - Authorization: []
+    post:
+      tags:
+      - Project Type
+      summary: Dodawanie typu projektu
+      operationId: addProjectType
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProjectTypeRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ProjectTypeResponse'
+      security:
+      - Authorization: []
+  /api/v1/ProjectType/Rearrange:
+    post:
+      tags:
+      - Project Type
+      summary: Zmiana kolejności wpisów
+      operationId: rearrangeProjectTypes
+      requestBody:
+        description: Lista wszystkich id w nowej kolejności
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: integer
+                format: int32
+        required: true
+      responses:
+        '200':
+          description: OK
+      security:
+      - Authorization: []
+components:
+  schemas:
+    ProjectTypeResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        type:
+          type: string
+        specificType:
+          type: string
+      description: Informacje o typie projektu
+    ProjectTypeRequest:
+      type: object
+      properties:
+        type:
+          maxLength: 255
+          minLength: 0
+          type: string
+        specificType:
+          maxLength: 255
+          minLength: 0
+          type: string
+      description: Informacje o typie projektu
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

@@ -1,0 +1,236 @@
+openapi: 3.2.0
+info:
+  title: Jaskier Public Procurement Plan Migration API
+  version: 1.2.25
+servers:
+- url: https://api.jaskier.uw.edu.pl
+tags:
+- name: PublicProcurementPlanMigration
+paths:
+  /api/v1/PublicProcurementPlan/Export/PublicProcurementPlansIds:
+    put:
+      tags:
+      - PublicProcurementPlanMigration
+      summary: Eksport wybranych planów zamówień publicznych do pliku xlsx
+      operationId: exportByPublicProcurementPlanIds
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PublicProcurementPlanExportRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+                format: binary
+          x-is-file: 'true'
+      security:
+      - Authorization: []
+  /api/v1/PublicProcurementPlan/ReadFromFile:
+    post:
+      tags:
+      - PublicProcurementPlanMigration
+      summary: czytanie planów zamówień publicznych z pliku xls i xlsx
+      operationId: readPublicProcurementPlanFromXLSX
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              required:
+              - multipartFile
+              type: object
+              properties:
+                multipartFile:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PublicProcurementPlanImportRequest'
+      security:
+      - Authorization: []
+  /api/v1/PublicProcurementPlan/Import:
+    post:
+      tags:
+      - PublicProcurementPlanMigration
+      summary: importowanie planu zamówień publicznych
+      operationId: importPublicProcurementPlan
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PublicProcurementPlanImportRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PublicProcurementPlanResponse'
+      security:
+      - Authorization: []
+  /api/v1/PublicProcurementPlan/Import/FileTemplate:
+    get:
+      tags:
+      - PublicProcurementPlanMigration
+      summary: pobieranie szablonu pliku xlsx eksportu planów zamówień publicznych do pliku
+      operationId: getPublicProcurementPlanFileTemplate
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+                format: binary
+          x-is-file: 'true'
+      security:
+      - Authorization: []
+  /api/v1/PublicProcurementPlan/Export:
+    get:
+      tags:
+      - PublicProcurementPlanMigration
+      summary: Eksport planów zamówień publicznych do pliku xlsx
+      operationId: exportPublicProcurementPlan
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+                format: binary
+          x-is-file: 'true'
+      security:
+      - Authorization: []
+components:
+  schemas:
+    PublicProcurementPlanImportRequest:
+      type: object
+      properties:
+        publicProcurementPlanId:
+          type: string
+        departmentCodes:
+          type: array
+          items:
+            type: string
+        realizedByDepartmentCode:
+          type: string
+        item:
+          type: string
+        type:
+          type: string
+        procedure:
+          type: string
+        number:
+          type: string
+        netAmountEstimate:
+          type: number
+        plannedStartYear:
+          type: integer
+          format: int32
+        plannedStartQuarter:
+          type: integer
+          format: int32
+        plannedStartMonth:
+          type: integer
+          format: int32
+        responsiblePersonId:
+          type: string
+        reportingPersonId:
+          type: string
+        category:
+          type: string
+        cpvCodes:
+          type: array
+          items:
+            type: string
+    PublicProcurementPlanResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        item:
+          type: string
+        type:
+          type: string
+        legalBasisId:
+          type: integer
+          description: ID trybu zamówienia
+          format: int32
+        legalBasisName:
+          type: string
+          description: Tekstowa reprezentacja trybu zamówienia
+        number:
+          type: string
+        netAmountEstimate:
+          type: number
+        plannedStartYear:
+          type: integer
+          format: int32
+        plannedStartQuarter:
+          type: integer
+          format: int32
+        plannedStartMonth:
+          type: integer
+          format: int32
+        cpvCodes:
+          type: array
+          items:
+            type: string
+        departmentCodes:
+          type: array
+          items:
+            type: string
+        realizedByDepartmentCode:
+          type: string
+        responsiblePersonId:
+          type: string
+        responsiblePersonFirstName:
+          type: string
+        responsiblePersonLastName:
+          type: string
+        responsiblePersonEmail:
+          type: string
+        reportingPersonId:
+          type: string
+        reportingPersonFirstName:
+          type: string
+        reportingPersonLastName:
+          type: string
+        reportingPersonEmail:
+          type: string
+        categoryId:
+          type: integer
+          format: int32
+        categoryGroup:
+          type: string
+        categorySubgroup:
+          type: string
+        categoryName:
+          type: string
+        categoryCpvCode:
+          type: string
+    PublicProcurementPlanExportRequest:
+      type: object
+      properties:
+        publicProcurementPlanIds:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

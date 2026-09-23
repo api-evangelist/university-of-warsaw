@@ -1,0 +1,233 @@
+openapi: 3.2.0
+info:
+  title: Jaskier Idp Person API
+  version: 1.2.25
+servers:
+- url: https://api.jaskier.uw.edu.pl
+tags:
+- name: IdpPerson
+paths:
+  /api/v1/IdpPerson:
+    get:
+      tags:
+      - IdpPerson
+      summary: Listowanie rekordów idp_person
+      operationId: queryForIdpPerson
+      parameters:
+      - name: $skip
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int64
+          default: 0
+      - name: $top
+        in: query
+        required: false
+        schema:
+          maximum: 1000
+          type: integer
+          format: int64
+          default: 10
+      - name: $inlinecount
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: $orderby
+        in: query
+        required: false
+        schema:
+          type: string
+          default: givenName,familyName
+      - name: $filter
+        in: query
+        required: false
+        schema:
+          type: string
+          default: ()
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/OdataResponseIdpPersonResponse'
+      security:
+      - Authorization: []
+    post:
+      tags:
+      - IdpPerson
+      summary: Aktualizacja bądź dodawanie osoby (idp_person)
+      description: Jeśli request w polu personId ma wartość null lub w bazie nie istnieje rekord z podaną wartością, zostanie utworzony nowy rekord. W przeciwnym razie rekord z podanym personId zostanie zaktualizowany
+      operationId: upsertPerson
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IdpPersonUpsertRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/IdpPersonResponse'
+      security:
+      - Authorization: []
+  /api/v1/IdpPerson/Edugain/Sp4eu:
+    post:
+      tags:
+      - IdpPerson
+      summary: Aktualizacja osoby sp4eu (idp_person)
+      operationId: upsertEdugainPerson
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EdugainPersonRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/IdpPersonResponse'
+      security:
+      - Authorization: []
+  /api/v1/IdpPerson/{personId}:
+    get:
+      tags:
+      - IdpPerson
+      summary: Czytanie osoby o podanym id
+      operationId: getPersonById_1
+      parameters:
+      - name: personId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/IdpPersonResponse'
+      security:
+      - Authorization: []
+components:
+  schemas:
+    IdpPersonResponse:
+      type: object
+      properties:
+        idpPersonId:
+          type: string
+          description: Unikalny identyfikator rekordu
+        givenName:
+          type: string
+        familyName:
+          type: string
+        email:
+          type: string
+        source:
+          type: string
+        updated:
+          type: string
+          format: date-time
+        created:
+          type: string
+          format: date-time
+        university:
+          type: string
+          enum:
+          - CUNI
+          - UAH
+          - SU
+          - KU
+          - UNIMI
+          - UW
+          - UNIGE
+          - PARIS_2
+        personId:
+          type: string
+          description: Identyfikator osoby istniejącej w jednej z tabel osób zasilanych importami (np. uw_person)
+    EdugainPersonRequest:
+      required:
+      - eduPersonPrincipalName
+      type: object
+      properties:
+        eduPersonPrincipalName:
+          type: string
+        mail:
+          type: string
+        displayName:
+          type: string
+        givenName:
+          type: string
+        sn:
+          type: string
+        eduPersonAffiliation:
+          type: array
+          items:
+            type: string
+        university:
+          type: string
+          enum:
+          - CUNI
+          - UAH
+          - SU
+          - KU
+          - UNIMI
+          - UW
+          - UNIGE
+          - PARIS_2
+    IdpPersonUpsertRequest:
+      required:
+      - attributes
+      - email
+      - familyName
+      - givenName
+      type: object
+      properties:
+        personSourceId:
+          type: string
+          description: Id osoby. Jeśli personId == null, zostanie wygenerowane UUID
+        givenName:
+          type: string
+        familyName:
+          type: string
+        email:
+          type: string
+        university:
+          type: string
+          enum:
+          - CUNI
+          - UAH
+          - SU
+          - KU
+          - UNIMI
+          - UW
+          - UNIGE
+          - PARIS_2
+        attributes:
+          type: object
+          additionalProperties:
+            type: object
+    OdataResponseIdpPersonResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/IdpPersonResponse'
+        totalCount:
+          type: integer
+          format: int32
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

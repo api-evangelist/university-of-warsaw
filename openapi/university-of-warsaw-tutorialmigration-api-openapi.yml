@@ -1,0 +1,318 @@
+openapi: 3.2.0
+info:
+  title: Jaskier Tutorial Migration API
+  version: 1.2.25
+servers:
+- url: https://api.jaskier.uw.edu.pl
+tags:
+- name: TutorialMigration
+paths:
+  /api/v1/Tutorial/ReadFromFile:
+    post:
+      tags:
+      - TutorialMigration
+      summary: czytanie tutoriali z pliku xls i xlsx
+      operationId: readTutorialsFromXLSX
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              required:
+              - multipartFile
+              type: object
+              properties:
+                multipartFile:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TutorialImportRequest'
+      security:
+      - Authorization: []
+  /api/v1/Tutorial/Import:
+    post:
+      tags:
+      - TutorialMigration
+      summary: importowanie tutorialu
+      operationId: importTutorial
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TutorialImportRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/TutorialImportResponse'
+      security:
+      - Authorization: []
+  /api/v1/Tutorial/Import/FileTemplate:
+    get:
+      tags:
+      - TutorialMigration
+      summary: pobieranie szablonu pliku xlsx eksportu tutoriali do pliku
+      operationId: getTutorialsFileTemplate
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+                format: binary
+          x-is-file: 'true'
+      security:
+      - Authorization: []
+  /api/v1/Tutorial/Export:
+    get:
+      tags:
+      - TutorialMigration
+      summary: eksport tutoriali do pliku xlsx
+      operationId: exportTutorials
+      parameters:
+      - name: publishedBy
+        in: query
+        required: true
+        schema:
+          type: string
+          enum:
+          - CUNI
+          - UAH
+          - SU
+          - KU
+          - UNIMI
+          - UW
+          - UNIGE
+          - PARIS_2
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+                format: binary
+          x-is-file: 'true'
+      security:
+      - Authorization: []
+components:
+  schemas:
+    TutorialImportRequest:
+      type: object
+      properties:
+        tutorialCode:
+          type: string
+        modality:
+          type: string
+        level:
+          type: string
+        category:
+          type: string
+        languages:
+          type: array
+          items:
+            type: string
+        providedBy:
+          type: array
+          items:
+            type: string
+        publishedBy:
+          type: string
+        isPublished:
+          type: boolean
+        duration:
+          type: string
+        price:
+          type: string
+        isFree:
+          type: boolean
+        startingDate:
+          type: string
+          format: date
+        url:
+          type: string
+        weeklyStudy:
+          type: string
+        subtitle:
+          type: string
+        topics:
+          type: string
+        background:
+          type: string
+        objectives:
+          type: string
+        registration:
+          type: string
+        lang1CfLangCode:
+          type: string
+        lang1CfTitle:
+          type: string
+        lang1CfAbstr:
+          type: string
+        lang1CfKeyw:
+          type: array
+          items:
+            type: string
+        lang1OrderIndex:
+          type: integer
+          format: int32
+        lang1Original:
+          type: string
+        lang2CfLangCode:
+          type: string
+        lang2CfTitle:
+          type: string
+        lang2CfAbstr:
+          type: string
+        lang2CfKeyw:
+          type: array
+          items:
+            type: string
+        lang2OrderIndex:
+          type: integer
+          format: int32
+        lang2Original:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+    TutorialImportResponse:
+      type: object
+      properties:
+        tutorial:
+          $ref: '#/components/schemas/TutorialResponse'
+        abstracts:
+          type: array
+          items:
+            $ref: '#/components/schemas/AbstractResponse'
+    AbstractResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Id abstraltu
+        langCode:
+          type: string
+          description: kod języka typu PL, EN, EN-GB, itp - klucz naturalny do Language, zgodny z ISO (patrz Language)
+        title:
+          type: string
+          description: 'tytuł wynalazku/patentu/wzoru użytkowego/nazwa gatunku/nazwa botaniczna/nazwa odmiany w danym języku '
+        abstr:
+          type: string
+          description: streszczenie opisu wynalazku/wzoru użytkowego w danym języku
+        keyw:
+          type: array
+          description: słowa kluczowe w danym języku
+          items:
+            type: string
+            description: słowa kluczowe w danym języku
+        orderIndex:
+          type: integer
+          description: 'kolejność wyświetlania abstraktów (domyślnie: 0)'
+          format: int32
+        objectId:
+          type: string
+          description: Id obiektu
+        objectType:
+          type: string
+          description: Typ obiektu
+        original:
+          type: boolean
+          description: czy streszczenie jest w języku oryginału
+    TutorialResponse:
+      type: object
+      properties:
+        tutorialId:
+          type: string
+          description: id tutorialu (musi być unikalne w skali całego rejestru)
+        tutorialCode:
+          type: string
+          description: kod tutorialu (musi być unikalne w skali całego rejestru)
+        isPublished:
+          type: boolean
+          description: czy tutorial powinien być dostępny w ofercie 4eu plus alliance?
+        providedBy:
+          type: array
+          description: lista uczelni zaangażowanych w dostarczenie tutorialu
+          items:
+            type: string
+            description: lista uczelni zaangażowanych w dostarczenie tutorialu
+            enum:
+            - CUNI
+            - UAH
+            - SU
+            - KU
+            - UNIMI
+            - UW
+            - UNIGE
+            - PARIS_2
+        publishedBy:
+          type: string
+          description: nazwa uczelni, która opublikowała informację o tutorialu
+          enum:
+          - CUNI
+          - UAH
+          - SU
+          - KU
+          - UNIMI
+          - UW
+          - UNIGE
+          - PARIS_2
+        creationTime:
+          type: string
+          description: Czas utworzenia
+          format: date-time
+        title:
+          type: string
+          description: Tytuł tutorialu
+        category:
+          type: string
+          description: kategoria tematyki, której dotyczy tutorial
+          enum:
+          - SelfOrganization
+          - OnlineLearning
+          - CulturalAwareness
+          - GroupDynamics
+          - HandlingConflicts
+        languages:
+          type: array
+          description: lista języków, w których dostępny jest tutorial
+          items:
+            type: string
+            description: lista języków, w których dostępny jest tutorial
+        level:
+          type: string
+          description: poziom zaawansowania tutorialu
+          enum:
+          - BASIC
+          - MEDIUM
+          - ADVANCED
+        duration:
+          type: string
+          description: czas trwania tutorialu
+        url:
+          type: string
+          description: link do tutorialu
+        isFree:
+          type: boolean
+          description: czy tutorial jest darmowy
+        description:
+          type: string
+          description: Opis tutorialu
+      description: Informacje o tutorialu
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

@@ -1,0 +1,196 @@
+openapi: 3.2.0
+info:
+  title: Jaskier Item Used My Uw API
+  version: 1.2.25
+servers:
+- url: https://api.jaskier.uw.edu.pl
+tags:
+- name: ItemUsedMyUw
+paths:
+  /api/v1/MyUw/ItemUsed:
+    get:
+      tags:
+      - ItemUsedMyUw
+      summary: Listowanie danych o przedmiotach (z paginacją)
+      operationId: queryForItemUsedForMyUw
+      parameters:
+      - name: $skip
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int64
+          default: 0
+      - name: $top
+        in: query
+        required: false
+        schema:
+          maximum: 1000
+          type: integer
+          format: int64
+          default: 10
+      - name: $inlinecount
+        in: query
+        required: false
+        schema:
+          type: string
+          default: allpages
+      - name: $orderby
+        in: query
+        required: false
+        schema:
+          type: string
+          default: id
+      - name: searchValue
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/OdataResponseItemUsedResponse'
+      security:
+      - Authorization: []
+  /api/v1/MyUw/ItemUsed/{id}:
+    get:
+      tags:
+      - ItemUsedMyUw
+      summary: Czytanie informacji o przedmiocie z podanym id
+      operationId: getItemUsedByIdForMyUw
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ItemUsedResponse'
+      security:
+      - Authorization: []
+  /api/v1/MyUw/ItemUsed/{id}/File:
+    get:
+      tags:
+      - ItemUsedMyUw
+      summary: Listowanie plików do przedmiotu
+      operationId: getItemUsedFileByIdForMyUw
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ItemUsedFileResponse'
+      security:
+      - Authorization: []
+  /api/v1/MyUw/ItemUsed/{id}/File/{fileId}/Download:
+    get:
+      tags:
+      - ItemUsedMyUw
+      summary: Pobieranie pliku z przedmiotu
+      operationId: downloadItemUsedFileForMyUw
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: fileId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: typeEnum
+        in: query
+        required: false
+        schema:
+          type: string
+          default: LARGE
+          enum:
+          - LARGE
+          - MEDIUM
+          - SMALL
+      responses:
+        '200':
+          description: OK
+      security:
+      - Authorization: []
+components:
+  schemas:
+    ItemUsedResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        storagePlace:
+          type: string
+        personId:
+          type: string
+        firstname:
+          type: string
+        lastname:
+          type: string
+        email:
+          type: string
+        phoneNumber:
+          type: string
+        departmentCode:
+          type: string
+        departmentNamePl:
+          type: string
+        departmentNameEn:
+          type: string
+        quantity:
+          type: integer
+          format: int32
+    ItemUsedFileResponse:
+      type: object
+      properties:
+        itemUsedFileId:
+          type: string
+        itemUsedId:
+          type: string
+        fileId:
+          type: string
+        extension:
+          type: string
+        name:
+          type: string
+        uploadedDate:
+          type: string
+          format: date-time
+    OdataResponseItemUsedResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ItemUsedResponse'
+        totalCount:
+          type: integer
+          format: int32
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

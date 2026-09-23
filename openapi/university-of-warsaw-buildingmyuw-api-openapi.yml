@@ -1,0 +1,515 @@
+openapi: 3.2.0
+info:
+  title: Jaskier Building My Uw API
+  version: 1.2.25
+servers:
+- url: https://api.jaskier.uw.edu.pl
+tags:
+- name: BuildingMyUw
+paths:
+  /api/v1/MyUw/Building:
+    get:
+      tags:
+      - BuildingMyUw
+      summary: Listowanie danych o budynkach (z paginacją)
+      operationId: queryForBuildingForMyUw
+      parameters:
+      - name: $skip
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int64
+          default: 0
+      - name: $top
+        in: query
+        required: false
+        schema:
+          maximum: 1000
+          type: integer
+          format: int64
+          default: 10
+      - name: $inlinecount
+        in: query
+        required: false
+        schema:
+          type: string
+          default: allpages
+      - name: $orderby
+        in: query
+        required: false
+        schema:
+          type: string
+          default: id
+      - name: searchValue
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/OdataResponseBuildingResponse'
+      security:
+      - Authorization: []
+  /api/v1/MyUw/Building/{publicId}:
+    get:
+      tags:
+      - BuildingMyUw
+      summary: Czytanie informacji o budynku z podanym public id
+      operationId: getBuildingByIdForMyUw
+      parameters:
+      - name: publicId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/BuildingResponse'
+      security:
+      - Authorization: []
+  /api/v1/MyUw/Building/{publicId}/Thumbnail/Download:
+    get:
+      tags:
+      - BuildingMyUw
+      summary: Pobranie miniaturki
+      operationId: downloadThumbnailForMyUw
+      parameters:
+      - name: publicId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: typeEnum
+        in: query
+        required: false
+        schema:
+          type: string
+          default: LARGE
+          enum:
+          - LARGE
+          - MEDIUM
+          - SMALL
+      responses:
+        '200':
+          description: OK
+      security:
+      - Authorization: []
+  /api/v1/MyUw/Building/{publicId}/Room:
+    get:
+      tags:
+      - BuildingMyUw
+      summary: Pobranie pokoi budynku
+      operationId: getBuildingRooms
+      parameters:
+      - name: publicId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BuildingRoomResponse'
+      security:
+      - Authorization: []
+  /api/v1/MyUw/Building/{publicId}/Plan:
+    get:
+      tags:
+      - BuildingMyUw
+      summary: Pobranie pięter budynku
+      operationId: getBuildingPlans
+      parameters:
+      - name: publicId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BuildingPlanResponse'
+      security:
+      - Authorization: []
+  /api/v1/MyUw/Building/{publicId}/Plan/{planId}/Plan:
+    get:
+      tags:
+      - BuildingMyUw
+      summary: Pobranie obrazu piętra budynku
+      operationId: getBuildingPlanImage
+      parameters:
+      - name: publicId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: planId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: typeEnum
+        in: query
+        required: false
+        schema:
+          type: string
+          default: LARGE
+          enum:
+          - LARGE
+          - MEDIUM
+          - SMALL
+      responses:
+        '200':
+          description: OK
+      security:
+      - Authorization: []
+  /api/v1/MyUw/Building/{publicId}/File:
+    get:
+      tags:
+      - BuildingMyUw
+      summary: Lista plików przypisanych do budynku
+      operationId: getBuildingFilesForMyUw
+      parameters:
+      - name: publicId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BuildingFileResponse'
+      security:
+      - Authorization: []
+  /api/v1/MyUw/Building/{publicId}/File/{buildingFileId}/Download:
+    get:
+      tags:
+      - BuildingMyUw
+      summary: Pobranie pliku
+      operationId: downloadBuildingFileForMyUw
+      parameters:
+      - name: publicId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: buildingFileId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: typeEnum
+        in: query
+        required: false
+        schema:
+          type: string
+          default: LARGE
+          enum:
+          - LARGE
+          - MEDIUM
+          - SMALL
+      responses:
+        '200':
+          description: OK
+      security:
+      - Authorization: []
+  /api/v1/MyUw/Building/{publicId}/BuildingAttribute:
+    get:
+      tags:
+      - BuildingMyUw
+      summary: Pobranie atrybutów lokalizacji budynku
+      operationId: getBuildingAttributesForBuildingPublic_1
+      parameters:
+      - name: publicId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BuildingPublicAttributeLocationResponse'
+      security:
+      - Authorization: []
+  /api/v1/MyUw/Building/{publicId}/BuildingAccessibility:
+    get:
+      tags:
+      - BuildingMyUw
+      summary: Czytanie informacji o dostępności budynku
+      operationId: getBuildingAccessibilityForMyUw
+      parameters:
+      - name: publicId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: lang
+        in: query
+        required: true
+        schema:
+          type: string
+          enum:
+          - pl
+          - en
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/BuildingAccessibilityResponse'
+      security:
+      - Authorization: []
+components:
+  schemas:
+    BuildingRoomResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        buildingId:
+          type: string
+        number:
+          type: string
+        description:
+          type: string
+        floorNumber:
+          type: integer
+          format: int32
+        persons:
+          type: array
+          items:
+            $ref: '#/components/schemas/BuildingRoomPersonResponse'
+        x:
+          type: number
+        y:
+          type: number
+        importSourceType:
+          type: string
+        importSourceId:
+          type: string
+    BuildingRoomPersonResponse:
+      type: object
+      properties:
+        personId:
+          type: string
+        firstName:
+          type: string
+        middleNames:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        degree:
+          type: string
+    BuildingPublicAttributeLocationResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        publicBuildingId:
+          type: string
+        namePl:
+          type: string
+        nameEn:
+          type: string
+        categoryCode:
+          type: string
+        commentPl:
+          type: string
+        commentEn:
+          type: string
+        latitude:
+          type: number
+        longitude:
+          type: number
+        campusCode:
+          type: string
+        url:
+          type: string
+    BuildingFileResponse:
+      type: object
+      properties:
+        buildingFileId:
+          type: string
+        buildingId:
+          type: string
+        fileId:
+          type: string
+        extension:
+          type: string
+        name:
+          type: string
+        uploadedDate:
+          type: string
+          format: date-time
+    OdataResponseBuildingResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/BuildingResponse'
+        totalCount:
+          type: integer
+          format: int32
+    BuildingPlanResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        buildingId:
+          type: string
+        floorNumber:
+          type: integer
+          format: int32
+        fileId:
+          type: string
+    BuildingAccessibilityResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        entrance:
+          type: string
+        corridors:
+          type: string
+        elevators:
+          type: string
+        isPorterhouseAvailable:
+          type: boolean
+        porterhouseName:
+          type: string
+        porterhousePlacement:
+          type: string
+        porterhousePhone:
+          type: string
+        isToiletAvailable:
+          type: boolean
+        toiletPlacement:
+          type: string
+        accessAndParkingSpaces:
+          type: string
+        signLanguageInterpreter:
+          type: string
+        procedures:
+          type: string
+        extraHelp:
+          type: string
+        assistanceDog:
+          type: string
+        additionalCustomization:
+          type: string
+        additionalInformation:
+          type: string
+    BuildingResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        namePl:
+          type: string
+        nameEn:
+          type: string
+        namePlAlt:
+          type: string
+        nameEnAlt:
+          type: string
+        phone:
+          type: string
+        campusCode:
+          type: string
+        campusNamePl:
+          type: string
+        campusNameEn:
+          type: string
+        usosCode:
+          type: string
+        latitude:
+          type: number
+        longitude:
+          type: number
+        street:
+          type: string
+        number:
+          type: string
+        postalCode:
+          type: string
+        city:
+          type: string
+        administratorPersonId:
+          type: string
+        administratorFirstName:
+          type: string
+        administratorLastName:
+          type: string
+        administratorEmail:
+          type: string
+        descriptionPl:
+          type: string
+        descriptionEn:
+          type: string
+        descriptionPlAlt:
+          type: string
+        descriptionEnAlt:
+          type: string
+        publicId:
+          type: string
+        visibleUsos:
+          type: boolean
+        visibleOkUw:
+          type: boolean
+        visibleMyUw:
+          type: boolean
+        hasFloorPlan:
+          type: boolean
+        importSourceId:
+          type: string
+        importSourceType:
+          type: string
+        benNumber:
+          type: string
+          description: Numer biura ewidencji nieruchomości
+        buildingAttributeCodes:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      description: Informacje o budynku
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

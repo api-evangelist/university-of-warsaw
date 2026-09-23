@@ -1,0 +1,770 @@
+openapi: 3.2.0
+info:
+  title: Jaskier Project Migration API
+  version: 1.2.25
+servers:
+- url: https://api.jaskier.uw.edu.pl
+tags:
+- name: ProjectMigration
+paths:
+  /api/v1/Project/{projectId}/OtherInfo:
+    post:
+      tags:
+      - ProjectMigration
+      summary: Import słownika typów projektów projektu w zależności od parametrów…
+      operationId: importProjectOtherInfo
+      parameters:
+      - name: projectId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProjectOtherInfoRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+      security:
+      - Authorization: []
+  /api/v1/Project/{projectId}/ImportUwUnit:
+    post:
+      tags:
+      - ProjectMigration
+      summary: Import jednostek uw w zależności od parametrów importSourceName i…
+      operationId: importProjectUwUnit
+      parameters:
+      - name: projectId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: importSourceName
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: importSourceId
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: updateExisting
+        in: query
+        required: true
+        schema:
+          type: boolean
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProjectUwUnitRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+      security:
+      - Authorization: []
+  /api/v1/Project/{projectId}/ImportScienceDiscipline:
+    post:
+      tags:
+      - ProjectMigration
+      summary: Import dziedzin naukowych projektu w zależności od parametrów importSourceName…
+      operationId: importProjectScienceDiscipline
+      parameters:
+      - name: projectId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: importSourceName
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: importSourceId
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: updateExisting
+        in: query
+        required: true
+        schema:
+          type: boolean
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProjectScienceDisciplineRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+      security:
+      - Authorization: []
+  /api/v1/Project/{projectId}/ImportOwners:
+    post:
+      tags:
+      - ProjectMigration
+      summary: Import owners
+      operationId: importProjectOwners
+      parameters:
+      - name: projectId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: updateExisting
+        in: query
+        required: true
+        schema:
+          type: boolean
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RecordOwnersRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+      security:
+      - Authorization: []
+  /api/v1/Project/{projectId}/ImportMember:
+    post:
+      tags:
+      - ProjectMigration
+      summary: Import członków projektu w zależności od parametrów importSourceName i…
+      operationId: importProjectMember
+      parameters:
+      - name: projectId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: isMainManager
+        in: query
+        required: true
+        schema:
+          type: boolean
+      - name: importSourceName
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: importSourceId
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: updateExisting
+        in: query
+        required: true
+        schema:
+          type: boolean
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProjectProfileMemberRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+      security:
+      - Authorization: []
+  /api/v1/Project/{projectId}/ImportFinancingUw:
+    post:
+      tags:
+      - ProjectMigration
+      summary: Import słownika typów projektów projektu w zależności od parametrów…
+      operationId: importImportFinancingUw
+      parameters:
+      - name: projectId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: importSourceName
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: importSourceId
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: updateExisting
+        in: query
+        required: true
+        schema:
+          type: boolean
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProjectFinancingUwRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+      security:
+      - Authorization: []
+  /api/v1/Project/{projectId}/ImportFinancingInstitution:
+    post:
+      tags:
+      - ProjectMigration
+      summary: Import instytucji finansowych w zależności od parametrów importSourceName i…
+      operationId: importImportFinancingInstitution
+      parameters:
+      - name: projectId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: importSourceName
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: importSourceId
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: updateExisting
+        in: query
+        required: true
+        schema:
+          type: boolean
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProjectFinancingInstitutionImportRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+      security:
+      - Authorization: []
+  /api/v1/Project/Profile:
+    post:
+      tags:
+      - ProjectMigration
+      summary: Zwraca profileId na podstawie importSourceType i importSourceId.
+      operationId: getOrCreateProfile
+      parameters:
+      - name: importSourceType
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: importSourceId
+        in: query
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetOrCreateProfileRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+      security:
+      - Authorization: []
+  /api/v1/Project/ProfileByPerson:
+    post:
+      tags:
+      - ProjectMigration
+      summary: Zwraca profileId na podstawie personId.
+      operationId: getOrCreateProfileByPerson
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProfilePersonRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+      security:
+      - Authorization: []
+  /api/v1/Project/Import:
+    post:
+      tags:
+      - ProjectMigration
+      summary: Import projektu w zależności od parametrów importSourceName i importSourceId.
+      operationId: importProject
+      parameters:
+      - name: importSourceName
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: importSourceId
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: updateExisting
+        in: query
+        required: true
+        schema:
+          type: boolean
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProjectRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+      security:
+      - Authorization: []
+  /api/v1/Project/ImportContractType:
+    post:
+      tags:
+      - ProjectMigration
+      summary: Import słownika typów projektów projektu w zależności od parametrów…
+      operationId: importContractType
+      parameters:
+      - name: importSourceName
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: importSourceId
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: updateExisting
+        in: query
+        required: true
+        schema:
+          type: boolean
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProjectContractTypeRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: integer
+                format: int32
+      security:
+      - Authorization: []
+  /api/v1/Project/ImportedIds:
+    get:
+      tags:
+      - ProjectMigration
+      summary: Zwraca listę zaimportowanych rekordów projektów na podstawie importSourceName
+      operationId: getImportedIds
+      parameters:
+      - name: importSourceName
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: sortAsNumbers
+        in: query
+        required: true
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+      security:
+      - Authorization: []
+components:
+  schemas:
+    GetOrCreateProfileRequest:
+      type: object
+      properties:
+        id:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        degree:
+          type: string
+    ProjectLinkRequest:
+      required:
+      - name
+      - url
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          maxLength: 255
+          minLength: 0
+          type: string
+        url:
+          maxLength: 255
+          minLength: 0
+          type: string
+    ProjectContractTypeRequest:
+      type: object
+      properties:
+        mainType:
+          maxLength: 255
+          minLength: 0
+          type: string
+        mainTypeOld:
+          maxLength: 255
+          minLength: 0
+          type: string
+        contractType:
+          maxLength: 255
+          minLength: 0
+          type: string
+        institution:
+          maxLength: 255
+          minLength: 0
+          type: string
+        groupName:
+          maxLength: 255
+          minLength: 0
+          type: string
+        typeName:
+          maxLength: 255
+          minLength: 0
+          type: string
+      description: Informacje o typie projektu
+    ProjectScienceDisciplineRequest:
+      required:
+      - scienceDisciplineCode
+      type: object
+      properties:
+        scienceDisciplineCode:
+          type: string
+        percentage:
+          type: number
+    ProjectFinancingInstitutionImportRequest:
+      type: object
+      properties:
+        acro:
+          type: string
+        primary:
+          type: boolean
+    ProjectFinancingUwRequest:
+      required:
+      - unitCode
+      type: object
+      properties:
+        id:
+          type: string
+        unitCode:
+          type: string
+        year:
+          type: integer
+          format: int32
+        grossPlanned:
+          type: number
+        grossRealized:
+          type: number
+        netPlanned:
+          type: number
+        netRealized:
+          type: number
+        openAccessPlanned:
+          type: number
+        openAccessRealized:
+          type: number
+        indirectPlanned:
+          type: number
+        indirectRealized:
+          type: number
+        apparatusPlanned:
+          type: number
+        apparatusRealized:
+          type: number
+    ProjectRequest:
+      required:
+      - currencyCode
+      - grantAgreementDate
+      - grantAgreementNumber
+      - keywords
+      - projectName
+      - responsibleUnitCode
+      - roleUw
+      type: object
+      properties:
+        projectName:
+          maxLength: 255
+          minLength: 0
+          type: string
+        acro:
+          maxLength: 255
+          minLength: 0
+          type: string
+        keywords:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        polonId:
+          maxLength: 255
+          minLength: 0
+          type: string
+        grantAgreementNumber:
+          maxLength: 255
+          minLength: 0
+          type: string
+        grantAgreementDate:
+          type: string
+          format: date
+        pspElement:
+          type: string
+        projectNumber:
+          maxLength: 255
+          minLength: 0
+          type: string
+        registrationNumber:
+          maxLength: 255
+          minLength: 0
+          type: string
+        decisionNumber:
+          maxLength: 255
+          minLength: 0
+          type: string
+        decisionDate:
+          type: string
+          format: date
+        projectTypeId:
+          type: integer
+          format: int32
+        projectProgramId:
+          type: integer
+          format: int32
+        projectProgramDetailedId:
+          type: integer
+          format: int32
+        competitionNumber:
+          maxLength: 255
+          minLength: 0
+          type: string
+        competitionName:
+          maxLength: 255
+          minLength: 0
+          type: string
+        intermediaryInstitutionId:
+          type: string
+        startDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+        budget:
+          type: number
+        budgetUw:
+          type: number
+        currencyCode:
+          type: string
+        partnershipProject:
+          type: boolean
+        internationalProject:
+          type: boolean
+        internationalDetailProjectId:
+          type: integer
+          format: int32
+        roleUw:
+          type: string
+          enum:
+          - LEADER
+          - CONSORTIUM_MEMBER
+          - SELF_EXECUTION
+          - SUBCONTRACTOR
+        startDateUw:
+          type: string
+          format: date
+        endDateUw:
+          type: string
+          format: date
+        settlementDate:
+          type: string
+          format: date
+        status:
+          type: string
+          enum:
+          - UNDER_EVALUATION
+          - AWAITING
+          - IN_PROGRESS
+          - COMPLETED_NOT_SETTLED
+          - COMPLETED_SETTLED
+        auditRequired:
+          type: boolean
+        shelfLifeDate:
+          type: string
+          format: date
+        responsibleUnitCode:
+          type: string
+        responsibleProfileId:
+          type: string
+        uwContractNumber:
+          type: string
+        isPrivate:
+          type: boolean
+    ProjectProfileMemberRequest:
+      required:
+      - profileId
+      type: object
+      properties:
+        id:
+          type: string
+        profileId:
+          type: string
+        roleId:
+          type: integer
+          format: int32
+        regulation75RoleId:
+          type: integer
+          format: int32
+        unitCode:
+          type: string
+        fromDate:
+          type: string
+          format: date
+        toDate:
+          type: string
+          format: date
+    ProjectOtherInfoRequest:
+      type: object
+      properties:
+        links:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ProjectLinkRequest'
+        appendices:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ProjectAppendixRequest'
+        notes:
+          maxLength: 2000
+          minLength: 0
+          type: string
+        projectContractTypeId:
+          type: integer
+          format: int32
+    RecordOwnersRequest:
+      required:
+      - departmentOwners
+      - personOwners
+      type: object
+      properties:
+        departmentOwners:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        personOwners:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+    ProjectAppendixRequest:
+      required:
+      - documentDate
+      - number
+      type: object
+      properties:
+        id:
+          type: string
+        number:
+          type: string
+        documentDate:
+          type: string
+          format: date
+        notes:
+          type: string
+    ProfilePersonRequest:
+      required:
+      - personId
+      type: object
+      properties:
+        personId:
+          type: string
+    ProjectUwUnitRequest:
+      type: object
+      properties:
+        id:
+          type: string
+        unitCode:
+          type: string
+        fromDate:
+          type: string
+          format: date
+        toDate:
+          type: string
+          format: date
+        pspElement:
+          type: string
+        main:
+          type: boolean
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

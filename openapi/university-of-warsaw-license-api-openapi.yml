@@ -1,0 +1,274 @@
+openapi: 3.2.0
+info:
+  title: Jaskier License API
+  version: 1.2.25
+servers:
+- url: https://api.jaskier.uw.edu.pl
+tags:
+- name: License
+paths:
+  /api/v1/License/{licenseId}:
+    get:
+      tags:
+      - License
+      summary: Czytanie licencji z podanym id
+      operationId: getLicenseById
+      parameters:
+      - name: licenseId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/LicenseResponse'
+      security:
+      - Authorization: []
+    put:
+      tags:
+      - License
+      summary: Aktualizacja licencji
+      operationId: updateLicense
+      parameters:
+      - name: licenseId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LicenseRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/LicenseResponse'
+      security:
+      - Authorization: []
+  /api/v1/License:
+    post:
+      tags:
+      - License
+      summary: Dodawanie licencji
+      operationId: addLicense
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LicenseRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/LicenseResponse'
+      security:
+      - Authorization: []
+  /api/v1/License/Years:
+    get:
+      tags:
+      - License
+      summary: Zwraca listę lat dla licencji (lookup)
+      operationId: queryLicenseYearsLookup
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  type: integer
+                  format: int32
+      security:
+      - Authorization: []
+  /api/v1/License/ProductGroups:
+    get:
+      tags:
+      - License
+      summary: Zbiór istniejących wartości grup produktowych (lookup)
+      operationId: getExistingProductGroups
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  type: string
+      security:
+      - Authorization: []
+  /api/v1/License/Merchandises:
+    get:
+      tags:
+      - License
+      summary: Zbiór istniejących wartości towarów (lookup)
+      operationId: getExistingMerchandises
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  type: string
+      security:
+      - Authorization: []
+  /api/v1/License/All:
+    get:
+      tags:
+      - License
+      summary: Listowanie danych o licencjach (bez paginacji)
+      description: 'Listowanie danych o licencjach (bez paginacji)
+
+
+        Filtry:
+
+        * years
+
+        - gdy brak -> zwraca licencje niezależnie od roku
+
+        - gdy years=2022,2021,null -> zwraca licencje z lat 2022,2021 + licencje bez zdefiniowanego roku
+
+        - gdy years=2022,2021 -> zwraca licencje z lat 2022,2021'
+      operationId: queryForLicenseWithoutPagination
+      parameters:
+      - name: years
+        in: query
+        required: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/QueryLicenseItemResponse'
+      security:
+      - Authorization: []
+components:
+  schemas:
+    LicenseRequest:
+      type: object
+      properties:
+        productGroup:
+          type: string
+          description: grupa produktowa
+        merchandise:
+          type: string
+          description: towar
+        year:
+          maximum: 3000
+          minimum: 1800
+          type: integer
+          description: rok
+          format: int32
+        cfUri:
+          type: string
+          description: uri
+        quantity:
+          minimum: 1
+          type: integer
+          description: ilość
+          format: int32
+        economicDepartment:
+          type: string
+          description: kod działu gospodarczego
+    QueryLicenseItemResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: id licencji
+        productGroup:
+          type: string
+          description: grupa produktowa
+        merchandise:
+          type: string
+          description: towar
+        year:
+          type: integer
+          description: rok
+          format: int32
+        cfUri:
+          type: string
+          description: uri
+        quantity:
+          type: integer
+          description: ilość
+          format: int32
+        economicDepartment:
+          type: string
+          description: kod działu gospodarczego
+        importSourceType:
+          type: string
+          description: typ źródła importu
+        importSourceId:
+          type: string
+          description: id źródła importu
+        creationTime:
+          type: string
+          description: czas utworzenia rekordu
+          format: date-time
+      description: Podstawowe informacje o kursie
+    LicenseResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: id licencji
+        productGroup:
+          type: string
+          description: grupa produktowa
+        merchandise:
+          type: string
+          description: towar
+        year:
+          type: integer
+          description: rok
+          format: int32
+        cfUri:
+          type: string
+          description: uri
+        quantity:
+          type: integer
+          description: ilość
+          format: int32
+        economicDepartment:
+          type: string
+          description: kod działu gospodarczego
+        importSourceType:
+          type: string
+          description: typ źródła importu
+        importSourceId:
+          type: string
+          description: id źródła importu
+        creationTime:
+          type: string
+          description: czas utworzenia rekordu
+          format: date-time
+      description: Informacje o kursie
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

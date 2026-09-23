@@ -1,0 +1,99 @@
+openapi: 3.2.0
+info:
+  title: Jaskier It Service My Uw API
+  version: 1.2.25
+servers:
+- url: https://api.jaskier.uw.edu.pl
+tags:
+- name: ItServiceMyUw
+paths:
+  /api/v1/MyUw/ItService/{id}/Logo/Download:
+    get:
+      tags:
+      - ItServiceMyUw
+      summary: Pobranie logo
+      operationId: downloadLogo
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: typeEnum
+        in: query
+        required: false
+        schema:
+          type: string
+          default: LARGE
+          enum:
+          - LARGE
+          - MEDIUM
+          - SMALL
+      responses:
+        '200':
+          description: OK
+      security:
+      - Authorization: []
+  /api/v1/MyUw/ItService/PublicOrProtected:
+    get:
+      tags:
+      - ItServiceMyUw
+      summary: Listowanie danych o publicznych bądź chronionych serwisach it
+      operationId: queryForItServicePublicOrProtected
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/QueryItServiceItemResponse'
+      security:
+      - Authorization: []
+components:
+  schemas:
+    QueryItServiceItemResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        family:
+          type: string
+        system:
+          type: string
+        displayNamePl:
+          type: string
+        displayNameEn:
+          type: string
+        url:
+          type: string
+        keywords:
+          type: array
+          items:
+            type: string
+        logo:
+          type: string
+        articleId:
+          type: string
+        public:
+          type: boolean
+        protected:
+          type: boolean
+        private:
+          type: boolean
+        it:
+          type: boolean
+        student:
+          type: boolean
+        faculty:
+          type: boolean
+        staff:
+          type: boolean
+        guest:
+          type: boolean
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

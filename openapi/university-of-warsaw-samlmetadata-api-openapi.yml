@@ -1,0 +1,45 @@
+openapi: 3.2.0
+info:
+  title: OpenAPI definition Saml Metadata API
+  version: v0
+servers:
+- url: https://api.sp4eu.uw.edu.pl
+tags:
+- name: SamlMetadata
+paths:
+  /saml2/service-provider-metadata:
+    get:
+      tags:
+      - SamlMetadata
+      operationId: serviceProviderMetadata
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+                format: binary
+      summary: Service provider metadata
+      x-summary-source: derived
+  /saml2/idp:
+    get:
+      tags:
+      - SamlMetadata
+      summary: available idps
+      operationId: availableIdentityProviders
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  type: string
+components:
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

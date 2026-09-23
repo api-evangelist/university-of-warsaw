@@ -1,7 +1,7 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: USOS API (University of Warsaw) apiref courses API
-  description: The University of Warsaw installation of the USOS API, a REST-like protocol providing access to the university's academic database. This OpenAPI 3.0 description was derived faithfully from the live machine-readable USOS API reference (services/apiref/method_index and services/apiref/method) of the Warsaw installation, covering anonymous-access methods only. Most methods accept a "fields" selector (a pipe-separated list of result fields) and a "format" parameter (json, jsonp, xml). Many methods returning user or administrative data require OAuth 1.0a authorization and a Consumer Key/Secret obtained from the USOS developers portal; those are not described here. Field semantics, arguments and the error envelope shown below were confirmed against live responses on 2026-06-03.
+  title: USOS API (University of Warsaw) Courses API
+  description: The University of Warsaw installation of the USOS API, a REST-like protocol providing access to the university's academic database.
   version: 7.3.0.0-4
   contact:
     name: USOS API Team (University of Warsaw)
@@ -14,13 +14,13 @@ servers:
 - url: https://usosapps.uw.edu.pl/services
   description: University of Warsaw USOS API installation
 tags:
-- name: courses
+- name: Courses
   description: Courses and course editions
 paths:
   /courses/course:
     get:
       tags:
-      - courses
+      - Courses
       operationId: getCourse
       summary: Get information on a given course
       description: Get information on one or more courses by ID. Anonymous access; consumer and token are ignored.
@@ -54,7 +54,7 @@ paths:
   /courses/course_edition:
     get:
       tags:
-      - courses
+      - Courses
       operationId: getCourseEdition
       summary: Get information on a course edition
       description: Get information on a single edition of a course (a course conducted in a specific academic term).
@@ -92,6 +92,19 @@ paths:
           $ref: '#/components/responses/Error'
 components:
   schemas:
+    LangDict:
+      type: object
+      description: A language dictionary mapping ISO language codes to localized strings, as used throughout the USOS API.
+      properties:
+        pl:
+          type: string
+          description: Polish-language value.
+        en:
+          type: string
+          description: English-language value.
+      example:
+        pl: Uniwersytet Warszawski
+        en: The University of Warsaw
     Course:
       type: object
       description: A University of Warsaw course.
@@ -104,9 +117,10 @@ components:
           - $ref: '#/components/schemas/LangDict'
           description: A LangDict object with the course's name.
         homepage_url:
-          type: string
+          type:
+          - string
+          - 'null'
           format: uri
-          nullable: true
           description: Course's homepage URL, or null if none.
         profile_url:
           type: string
@@ -127,13 +141,15 @@ components:
           type: string
           description: ID of the faculty which runs this course.
         lang_id:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           description: ID of the language the course is conducted in, or null if unknown.
         ects_credits_simplified:
-          type: number
+          type:
+          - number
+          - 'null'
           format: float
-          nullable: true
           description: Number of ECTS credits usually rewarded for completing this course, or null if unknown. This value is approximate and should not be fully trusted.
         description:
           allOf:
@@ -155,58 +171,6 @@ components:
           allOf:
           - $ref: '#/components/schemas/LangDict'
           description: A LangDict object (secondary field).
-    CourseEdition:
-      type: object
-      description: An edition of a course conducted in a specific academic term.
-      properties:
-        course_id:
-          type: string
-        course_name:
-          $ref: '#/components/schemas/LangDict'
-        term_id:
-          type: string
-        homepage_url:
-          type: string
-          format: uri
-          nullable: true
-        profile_url:
-          type: string
-          format: uri
-        coordinators:
-          type: array
-          items:
-            type: object
-        lecturers:
-          type: array
-          items:
-            type: object
-        passing_status:
-          type: string
-          nullable: true
-        user_groups:
-          type: array
-          items:
-            type: object
-        description:
-          $ref: '#/components/schemas/LangDict'
-        bibliography:
-          $ref: '#/components/schemas/LangDict'
-        notes:
-          type: string
-          nullable: true
-    LangDict:
-      type: object
-      description: A language dictionary mapping ISO language codes to localized strings, as used throughout the USOS API.
-      properties:
-        pl:
-          type: string
-          description: Polish-language value.
-        en:
-          type: string
-          description: English-language value.
-      example:
-        pl: Uniwersytet Warszawski
-        en: The University of Warsaw
     Error:
       type: object
       description: Error envelope returned by USOS API methods (confirmed against live responses, e.g. an unknown course_id returns object_not_found).
@@ -224,14 +188,49 @@ components:
         message: Referenced course does not exist.
         error: object_not_found
         reason: course
+    CourseEdition:
+      type: object
+      description: An edition of a course conducted in a specific academic term.
+      properties:
+        course_id:
+          type: string
+        course_name:
+          $ref: '#/components/schemas/LangDict'
+        term_id:
+          type: string
+        homepage_url:
+          type:
+          - string
+          - 'null'
+          format: uri
+        profile_url:
+          type: string
+          format: uri
+        coordinators:
+          type: array
+          items:
+            type: object
+        lecturers:
+          type: array
+          items:
+            type: object
+        passing_status:
+          type:
+          - string
+          - 'null'
+        user_groups:
+          type: array
+          items:
+            type: object
+        description:
+          $ref: '#/components/schemas/LangDict'
+        bibliography:
+          $ref: '#/components/schemas/LangDict'
+        notes:
+          type:
+          - string
+          - 'null'
   parameters:
-    callback:
-      name: callback
-      in: query
-      required: false
-      description: Required only if jsonp is chosen as the return format.
-      schema:
-        type: string
     format:
       name: format
       in: query
@@ -244,6 +243,13 @@ components:
         - jsonp
         - xml
         default: json
+    callback:
+      name: callback
+      in: query
+      required: false
+      description: Required only if jsonp is chosen as the return format.
+      schema:
+        type: string
   responses:
     Error:
       description: USOS API error envelope.

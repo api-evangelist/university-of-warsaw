@@ -1,0 +1,125 @@
+openapi: 3.2.0
+info:
+  title: Jaskier Achievements Summary API
+  version: 1.2.25
+servers:
+- url: https://api.jaskier.uw.edu.pl
+tags:
+- name: AchievementsSummary
+paths:
+  /api/v1/AchievementsSummary:
+    get:
+      tags:
+      - AchievementsSummary
+      summary: Listowanie danych o zestawieniu osiągnięć (z paginacją - odata)
+      operationId: queryForAchievementsSummary
+      parameters:
+      - name: $skip
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int64
+          default: 0
+      - name: $top
+        in: query
+        required: false
+        schema:
+          maximum: 1000
+          type: integer
+          format: int64
+          default: 10
+      - name: $inlinecount
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: $orderby
+        in: query
+        required: false
+        schema:
+          type: string
+          default: personLastName
+      - name: $filter
+        in: query
+        required: false
+        schema:
+          type: string
+          default: ()
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/OdataResponseAchievementsSummaryResponse'
+      security:
+      - Authorization: []
+  /api/v1/AchievementsSummary/All:
+    get:
+      tags:
+      - AchievementsSummary
+      summary: Listowanie danych o zestawieniu osiągnięć (bez paginacji)
+      operationId: queryForAchievementsSummaryWithoutPagination
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AchievementsSummaryResponse'
+      security:
+      - Authorization: []
+components:
+  schemas:
+    OdataResponseAchievementsSummaryResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/AchievementsSummaryResponse'
+        totalCount:
+          type: integer
+          format: int32
+    AchievementsSummaryResponse:
+      type: object
+      properties:
+        personId:
+          type: string
+        personFirstName:
+          type: string
+        personLastName:
+          type: string
+        personDegree:
+          type: string
+        profileId:
+          type: string
+        profileFirstName:
+          type: string
+        profileLastName:
+          type: string
+        profileDegree:
+          type: string
+        publicationsCount:
+          type: integer
+          format: int64
+        promotedPublicationsCount:
+          type: integer
+          format: int64
+        patentsCount:
+          type: integer
+          format: int64
+        projectsCount:
+          type: integer
+          format: int64
+        coursesCount:
+          type: integer
+          format: int64
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

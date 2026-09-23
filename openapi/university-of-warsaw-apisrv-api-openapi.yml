@@ -1,7 +1,7 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: USOS API (University of Warsaw) apiref apisrv API
-  description: The University of Warsaw installation of the USOS API, a REST-like protocol providing access to the university's academic database. This OpenAPI 3.0 description was derived faithfully from the live machine-readable USOS API reference (services/apiref/method_index and services/apiref/method) of the Warsaw installation, covering anonymous-access methods only. Most methods accept a "fields" selector (a pipe-separated list of result fields) and a "format" parameter (json, jsonp, xml). Many methods returning user or administrative data require OAuth 1.0a authorization and a Consumer Key/Secret obtained from the USOS developers portal; those are not described here. Field semantics, arguments and the error envelope shown below were confirmed against live responses on 2026-06-03.
+  title: USOS API (University of Warsaw) Apisrv API
+  description: The University of Warsaw installation of the USOS API, a REST-like protocol providing access to the university's academic database.
   version: 7.3.0.0-4
   contact:
     name: USOS API Team (University of Warsaw)
@@ -66,33 +66,6 @@ paths:
         '400':
           $ref: '#/components/responses/Error'
 components:
-  parameters:
-    callback:
-      name: callback
-      in: query
-      required: false
-      description: Required only if jsonp is chosen as the return format.
-      schema:
-        type: string
-    format:
-      name: format
-      in: query
-      required: false
-      description: Output format. See supported output formats in the USOS API datatypes documentation.
-      schema:
-        type: string
-        enum:
-        - json
-        - jsonp
-        - xml
-        default: json
-  responses:
-    Error:
-      description: USOS API error envelope.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
     LangDict:
       type: object
@@ -123,9 +96,10 @@ components:
           format: uri
           description: Faculty's USOSweb URL.
         homepage_url:
-          type: string
+          type:
+          - string
+          - 'null'
           format: uri
-          nullable: true
           description: Faculty's home page URL.
         phone_numbers:
           type: array
@@ -139,20 +113,23 @@ components:
             type: object
             properties:
               comment:
-                type: string
-                nullable: true
+                type:
+                - string
+                - 'null'
               number:
                 type: string
               type:
                 type: string
         postal_address:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           description: Short plain-text postal address, or null if unknown.
         email:
-          type: string
+          type:
+          - string
+          - 'null'
           format: email
-          nullable: true
           description: Faculty's email address.
         is_public:
           type: boolean
@@ -177,7 +154,6 @@ components:
         institution_name:
           allOf:
           - $ref: '#/components/schemas/LangDict'
-          nullable: true
           description: Name of the owning institution, or null if unknown.
         institution:
           allOf:
@@ -215,6 +191,33 @@ components:
         message: Referenced course does not exist.
         error: object_not_found
         reason: course
+  parameters:
+    format:
+      name: format
+      in: query
+      required: false
+      description: Output format. See supported output formats in the USOS API datatypes documentation.
+      schema:
+        type: string
+        enum:
+        - json
+        - jsonp
+        - xml
+        default: json
+    callback:
+      name: callback
+      in: query
+      required: false
+      description: Required only if jsonp is chosen as the return format.
+      schema:
+        type: string
+  responses:
+    Error:
+      description: USOS API error envelope.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     oauth1a:
       type: apiKey

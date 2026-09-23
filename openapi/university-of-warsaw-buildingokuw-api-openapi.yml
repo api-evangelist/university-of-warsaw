@@ -1,0 +1,443 @@
+openapi: 3.2.0
+info:
+  title: Jaskier Building Ok Uw API
+  version: 1.2.25
+servers:
+- url: https://api.jaskier.uw.edu.pl
+tags:
+- name: BuildingOkUw
+paths:
+  /api/v1/OkUw/Building:
+    get:
+      tags:
+      - BuildingOkUw
+      summary: Listowanie danych o publicznych budynkach
+      operationId: queryForBuildingPublic
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BuildingPublicResponse'
+      security:
+      - Authorization: []
+  /api/v1/OkUw/Building/{publicId}:
+    get:
+      tags:
+      - BuildingOkUw
+      summary: Czytanie informacji o budynku z podanym publicId
+      operationId: getBuildingPublicById
+      parameters:
+      - name: publicId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/BuildingPublicResponse'
+      security:
+      - Authorization: []
+  /api/v1/OkUw/Building/{publicId}/Unit:
+    get:
+      tags:
+      - BuildingOkUw
+      summary: Pobranie jednostek budynku
+      operationId: getBuildingPublicUnits
+      parameters:
+      - name: publicId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BuildingUnitResponse'
+      security:
+      - Authorization: []
+  /api/v1/OkUw/Building/{publicId}/Thumbnail/Download:
+    get:
+      tags:
+      - BuildingOkUw
+      summary: Pobranie miniaturki
+      operationId: downloadBuildingPublicThumbnail
+      parameters:
+      - name: publicId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: typeEnum
+        in: query
+        required: false
+        schema:
+          type: string
+          default: LARGE
+          enum:
+          - LARGE
+          - MEDIUM
+          - SMALL
+      responses:
+        '200':
+          description: OK
+      security:
+      - Authorization: []
+  /api/v1/OkUw/Building/{publicId}/File:
+    get:
+      tags:
+      - BuildingOkUw
+      summary: Lista plików przypisanych do budynku
+      operationId: getBuildingPublicFiles
+      parameters:
+      - name: publicId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BuildingFileResponse'
+      security:
+      - Authorization: []
+  /api/v1/OkUw/Building/{publicId}/File/{buildingFileId}/Download:
+    get:
+      tags:
+      - BuildingOkUw
+      summary: Pobranie pliku
+      operationId: downloadBuildingPublicFile
+      parameters:
+      - name: publicId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: buildingFileId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: typeEnum
+        in: query
+        required: false
+        schema:
+          type: string
+          default: LARGE
+          enum:
+          - LARGE
+          - MEDIUM
+          - SMALL
+      responses:
+        '200':
+          description: OK
+      security:
+      - Authorization: []
+  /api/v1/OkUw/Building/{publicId}/BuildingAttribute:
+    get:
+      tags:
+      - BuildingOkUw
+      summary: Pobranie atrybutów lokalizacji budynku
+      operationId: getBuildingAttributesForBuildingPublic
+      parameters:
+      - name: publicId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BuildingPublicAttributeLocationResponse'
+      security:
+      - Authorization: []
+  /api/v1/OkUw/Building/{publicId}/BuildingAccessibility:
+    get:
+      tags:
+      - BuildingOkUw
+      summary: Czytanie informacji o dostępności budynku
+      operationId: getBuildingPublicAccessibility
+      parameters:
+      - name: publicId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: lang
+        in: query
+        required: true
+        schema:
+          type: string
+          enum:
+          - pl
+          - en
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/BuildingAccessibilityResponse'
+      security:
+      - Authorization: []
+  /api/v1/OkUw/Building/Campus:
+    get:
+      tags:
+      - BuildingOkUw
+      summary: Czytanie listy kampusów
+      operationId: getBuildingPublicCampuses
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CampusResponse'
+      security:
+      - Authorization: []
+  /api/v1/OkUw/Building/BuildingAttribute:
+    get:
+      tags:
+      - BuildingOkUw
+      summary: Pobranie atrybutów lokalizacji budynków
+      operationId: getAllBuildingAttributesForBuildingPublic
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BuildingPublicAttributeLocationResponse'
+      security:
+      - Authorization: []
+  /api/v1/OkUw/Building/BuildingAttributeCategory:
+    get:
+      tags:
+      - BuildingOkUw
+      summary: Czytanie listy kategorii atrybutów budynków
+      operationId: findAllBuildingAttributesCategories
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BuildingAttributeCategoryResponse'
+      security:
+      - Authorization: []
+components:
+  schemas:
+    BuildingUnitResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        buildingId:
+          type: string
+        unitCode:
+          type: string
+        unitNamePl:
+          type: string
+        unitNameEn:
+          type: string
+        url:
+          type: string
+        fallbackUrl:
+          type: string
+        isUnitVisible:
+          type: boolean
+        isMain:
+          type: boolean
+    BuildingPublicAttributeLocationResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        publicBuildingId:
+          type: string
+        namePl:
+          type: string
+        nameEn:
+          type: string
+        categoryCode:
+          type: string
+        commentPl:
+          type: string
+        commentEn:
+          type: string
+        latitude:
+          type: number
+        longitude:
+          type: number
+        campusCode:
+          type: string
+        url:
+          type: string
+    BuildingFileResponse:
+      type: object
+      properties:
+        buildingFileId:
+          type: string
+        buildingId:
+          type: string
+        fileId:
+          type: string
+        extension:
+          type: string
+        name:
+          type: string
+        uploadedDate:
+          type: string
+          format: date-time
+    BuildingAccessibilityResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        entrance:
+          type: string
+        corridors:
+          type: string
+        elevators:
+          type: string
+        isPorterhouseAvailable:
+          type: boolean
+        porterhouseName:
+          type: string
+        porterhousePlacement:
+          type: string
+        porterhousePhone:
+          type: string
+        isToiletAvailable:
+          type: boolean
+        toiletPlacement:
+          type: string
+        accessAndParkingSpaces:
+          type: string
+        signLanguageInterpreter:
+          type: string
+        procedures:
+          type: string
+        extraHelp:
+          type: string
+        assistanceDog:
+          type: string
+        additionalCustomization:
+          type: string
+        additionalInformation:
+          type: string
+    BuildingAttributeCategoryResponse:
+      type: object
+      properties:
+        code:
+          type: string
+        namePl:
+          type: string
+        nameEn:
+          type: string
+    BuildingPublicUnitResponse:
+      type: object
+      properties:
+        unitCode:
+          type: string
+        unitNamePl:
+          type: string
+        unitNameEn:
+          type: string
+        isMain:
+          type: boolean
+    CampusResponse:
+      type: object
+      properties:
+        code:
+          type: string
+        namePl:
+          type: string
+        nameEn:
+          type: string
+    BuildingPublicResponse:
+      type: object
+      properties:
+        publicId:
+          type: string
+        namePl:
+          type: string
+        nameEn:
+          type: string
+        namePlAlt:
+          type: string
+        nameEnAlt:
+          type: string
+        campusCode:
+          type: string
+        campusNamePl:
+          type: string
+        campusNameEn:
+          type: string
+        latitude:
+          type: number
+        longitude:
+          type: number
+        street:
+          type: string
+        number:
+          type: string
+        postalCode:
+          type: string
+        city:
+          type: string
+        descriptionPl:
+          type: string
+        descriptionEn:
+          type: string
+        descriptionPlAlt:
+          type: string
+        descriptionEnAlt:
+          type: string
+        units:
+          type: array
+          items:
+            $ref: '#/components/schemas/BuildingPublicUnitResponse'
+        benNumber:
+          type: string
+          description: Numer biura ewidencji nieruchomości
+        buildingAttributeCodes:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      description: Publiczne informacje o budynku
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

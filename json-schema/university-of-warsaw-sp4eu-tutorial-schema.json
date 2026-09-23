@@ -1,0 +1,108 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/university-of-warsaw/main/json-schema/university-of-warsaw-sp4eu-tutorial-schema.json",
+  "title": "Student Portal 4EU+ Tutorial",
+  "description": "JSON Schema for a Student Portal 4EU+ tutorial object as returned by GET /api/v1/Tutorial on api.sp4eu.uw.edu.pl.",
+  "x-provenance": {
+    "generated": "2026-09-01",
+    "method": "derived",
+    "source": "openapi/university-of-warsaw-sp4eu-api-openapi.yml",
+    "x-operator": "institution",
+    "evidence": "components.schemas.Sp4euTutorialResponse of the service's own OpenAPI at https://api.sp4eu.uw.edu.pl/v3/api-docs"
+  },
+  "type": "object",
+  "properties": {
+    "tutorialId": {
+      "type": "string"
+    },
+    "tutorialCode": {
+      "type": "string"
+    },
+    "isPublished": {
+      "type": "boolean"
+    },
+    "providedBy": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "CUNI",
+          "UAH",
+          "SU",
+          "KU",
+          "UNIMI",
+          "UW",
+          "UNIGE",
+          "PARIS_2"
+        ]
+      }
+    },
+    "publishedBy": {
+      "type": "string",
+      "enum": [
+        "CUNI",
+        "UAH",
+        "SU",
+        "KU",
+        "UNIMI",
+        "UW",
+        "UNIGE",
+        "PARIS_2"
+      ]
+    },
+    "creationTime": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "SelfOrganization",
+        "OnlineLearning",
+        "CulturalAwareness",
+        "GroupDynamics",
+        "HandlingConflicts"
+      ]
+    },
+    "languages": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "level": {
+      "type": "string",
+      "enum": [
+        "BASIC",
+        "MEDIUM",
+        "ADVANCED"
+      ]
+    },
+    "duration": {
+      "type": "string"
+    },
+    "url": {
+      "type": "string"
+    },
+    "isFree": {
+      "type": "boolean"
+    },
+    "description": {
+      "type": "string"
+    },
+    "cfTitle": {
+      "type": "string",
+      "deprecated": true
+    },
+    "cfKeyw": {
+      "type": "array",
+      "deprecated": true,
+      "items": {
+        "type": "string",
+        "deprecated": true
+      }
+    }
+  }
+}

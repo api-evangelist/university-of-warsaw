@@ -1,0 +1,157 @@
+openapi: 3.2.0
+info:
+  title: Jaskier Public Procurement Plan Category API
+  version: 1.2.25
+servers:
+- url: https://api.jaskier.uw.edu.pl
+tags:
+- name: PublicProcurementPlanCategory
+paths:
+  /api/v1/PublicProcurementPlanCategory/{id}:
+    get:
+      tags:
+      - PublicProcurementPlanCategory
+      operationId: getProcurementPlanCategoryById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PublicProcurementPlanCategoryResponse'
+      security:
+      - Authorization: []
+      summary: Get procurement plan category by id
+      x-summary-source: derived
+    put:
+      tags:
+      - PublicProcurementPlanCategory
+      operationId: updateProcurementPlan
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PublicProcurementPlanCategoryRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PublicProcurementPlanCategoryResponse'
+      security:
+      - Authorization: []
+      summary: Update procurement plan
+      x-summary-source: derived
+    delete:
+      tags:
+      - PublicProcurementPlanCategory
+      operationId: deleteProcurementPlan
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+      security:
+      - Authorization: []
+      summary: Delete procurement plan
+      x-summary-source: derived
+  /api/v1/PublicProcurementPlanCategory:
+    get:
+      tags:
+      - PublicProcurementPlanCategory
+      operationId: findAllProcurementPlanCategories
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PublicProcurementPlanCategoryResponse'
+      security:
+      - Authorization: []
+      summary: Find all procurement plan categories
+      x-summary-source: derived
+    post:
+      tags:
+      - PublicProcurementPlanCategory
+      operationId: addProcurementPlanCategory
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PublicProcurementPlanCategoryRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PublicProcurementPlanCategoryResponse'
+      security:
+      - Authorization: []
+      summary: Add procurement plan category
+      x-summary-source: derived
+components:
+  schemas:
+    PublicProcurementPlanCategoryRequest:
+      type: object
+      properties:
+        group:
+          maxLength: 64
+          minLength: 0
+          type: string
+        subgroup:
+          maxLength: 64
+          minLength: 0
+          type: string
+        name:
+          maxLength: 256
+          minLength: 0
+          type: string
+        cpvCode:
+          maxLength: 16
+          minLength: 0
+          type: string
+    PublicProcurementPlanCategoryResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        group:
+          type: string
+        subgroup:
+          type: string
+        name:
+          type: string
+        cpvCode:
+          type: string
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

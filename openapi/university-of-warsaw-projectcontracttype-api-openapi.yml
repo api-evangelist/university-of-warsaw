@@ -1,0 +1,166 @@
+openapi: 3.2.0
+info:
+  title: Jaskier Project Contract Type API
+  version: 1.2.25
+servers:
+- url: https://api.jaskier.uw.edu.pl
+tags:
+- name: ProjectContractType
+paths:
+  /api/v1/ProjectContractType/{id}:
+    get:
+      tags:
+      - ProjectContractType
+      summary: Czytanie typu umowy dla projektu
+      operationId: getProjectContractType
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ProjectContractTypeResponse'
+      security:
+      - Authorization: []
+    put:
+      tags:
+      - ProjectContractType
+      summary: Aktualizacja typu umowy dla projektu
+      operationId: updateProjectContractType
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProjectContractTypeRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ProjectContractTypeResponse'
+      security:
+      - Authorization: []
+    delete:
+      tags:
+      - ProjectContractType
+      summary: Usunięcie typu umowy dla projektu, jeśli żadne projekt nie jest przypisany
+      operationId: removeProjectContractType
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+      security:
+      - Authorization: []
+  /api/v1/ProjectContractType:
+    get:
+      tags:
+      - ProjectContractType
+      summary: Listowanie typów umów dla projektu
+      operationId: queryForProjectContractType
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProjectContractTypeResponse'
+      security:
+      - Authorization: []
+    post:
+      tags:
+      - ProjectContractType
+      summary: Dodawanie typu umowy dla projektu
+      operationId: addProjectContractType
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProjectContractTypeRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ProjectContractTypeResponse'
+      security:
+      - Authorization: []
+components:
+  schemas:
+    ProjectContractTypeRequest:
+      type: object
+      properties:
+        mainType:
+          maxLength: 255
+          minLength: 0
+          type: string
+        mainTypeOld:
+          maxLength: 255
+          minLength: 0
+          type: string
+        contractType:
+          maxLength: 255
+          minLength: 0
+          type: string
+        institution:
+          maxLength: 255
+          minLength: 0
+          type: string
+        groupName:
+          maxLength: 255
+          minLength: 0
+          type: string
+        typeName:
+          maxLength: 255
+          minLength: 0
+          type: string
+      description: Informacje o typie projektu
+    ProjectContractTypeResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        mainType:
+          type: string
+        mainTypeOld:
+          type: string
+        contractType:
+          type: string
+        institution:
+          type: string
+        groupName:
+          type: string
+        typeName:
+          type: string
+      description: Informacje o typie projektu
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

@@ -1,0 +1,513 @@
+openapi: 3.2.0
+info:
+  title: OpenAPI definition Housing Option API
+  version: v0
+servers:
+- url: https://api.sp4eu.uw.edu.pl
+tags:
+- name: HousingOption
+paths:
+  /api/v1/HousingOption:
+    get:
+      tags:
+      - HousingOption
+      summary: Listowanie danych o opcjach zakwaterowania (z paginacją - odata)
+      operationId: queryHousingOptions
+      parameters:
+      - name: $skip
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int64
+          default: 0
+      - name: $top
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int64
+          default: 10
+          maximum: 1000
+      - name: $inlinecount
+        in: query
+        required: false
+        schema:
+          type: string
+          default: allpages
+      - name: $orderby
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: $filter
+        in: query
+        required: false
+        schema:
+          type: string
+          default: ()
+      - name: showOnlyPublished
+        in: query
+        required: false
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/OdataResponseHousingOptionsResponse'
+      security:
+      - Authorization: []
+    post:
+      tags:
+      - HousingOption
+      summary: Dodanie nowej opcji zakwaterowania
+      operationId: addHousingOption
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HousingOptionsRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/HousingOptionsResponse'
+      security:
+      - Authorization: []
+  /api/v1/HousingOption/{id}/File/Upload:
+    post:
+      tags:
+      - HousingOption
+      summary: Dodanie pliku dla opcji zakwaterowania o podanym id
+      operationId: uploadHousingOptionFile
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+              required:
+              - file
+      responses:
+        '200':
+          description: OK
+      security:
+      - Authorization: []
+  /api/v1/HousingOption/{id}:
+    get:
+      tags:
+      - HousingOption
+      summary: Pobranie danych o opcji zakwaterowania o podanym id
+      operationId: getHousingOptionById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/HousingOptionsResponse'
+      security:
+      - Authorization: []
+  /api/v1/HousingOption/{id}/File:
+    get:
+      tags:
+      - HousingOption
+      summary: Listowanie plików dla opcji zakwaterowania o podanym id
+      operationId: getHousingOptionFiles
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/HousingOptionFileResponse'
+      security:
+      - Authorization: []
+  /api/v1/HousingOption/{id}/File/{fileId}/Download:
+    get:
+      tags:
+      - HousingOption
+      summary: Pobranie pliku dla opcji zakwaterowania o podanym id
+      operationId: downloadHousingOptionFile
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: fileId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: format
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - LARGE
+          - MEDIUM
+          - SMALL
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+      security:
+      - Authorization: []
+  /api/v1/HousingOption/Principal:
+    get:
+      tags:
+      - HousingOption
+      summary: Listowanie danych o opcjach zakwaterowania osoby (z paginacją - odata)
+      operationId: queryPrincipalHousingOptions
+      parameters:
+      - name: $skip
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int64
+          default: 0
+      - name: $top
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int64
+          default: 10
+          maximum: 1000
+      - name: $inlinecount
+        in: query
+        required: false
+        schema:
+          type: string
+          default: allpages
+      - name: $orderby
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: $filter
+        in: query
+        required: false
+        schema:
+          type: string
+          default: ()
+      - name: showOnlyPublished
+        in: query
+        required: false
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/OdataResponseHousingOptionsResponse'
+      security:
+      - Authorization: []
+components:
+  schemas:
+    HousingOptionFileResponse:
+      type: object
+      properties:
+        housingOptionFileId:
+          type: string
+        housingOptionId:
+          type: string
+        fileId:
+          type: string
+        extension:
+          type: string
+        name:
+          type: string
+        uploadedDate:
+          type: string
+    HousingOptionsRequest:
+      type: object
+      properties:
+        firstname:
+          type: string
+        lastname:
+          type: string
+        phone:
+          type: string
+        email:
+          type: string
+        co:
+          type: string
+        street:
+          type: string
+        postcode:
+          type: string
+        city:
+          type: string
+        district:
+          type: string
+        countryCode:
+          type: string
+        size:
+          type: number
+          format: double
+        accommodationType:
+          type: string
+          enum:
+          - FAMILY
+          - PRIVATE_APARTMENT
+          - SHARED_APARTMENT
+        bathroomType:
+          type: string
+          enum:
+          - SHARED
+          - PRIVATE_BATHROOM
+          - PRIVATE_SHOWER
+          - WASHBASIN
+        kitchenType:
+          type: string
+          enum:
+          - SHARED
+          - PRIVATE
+          - COOKING_FACILITIES
+        furnitureType:
+          type: string
+          enum:
+          - FURNISHED
+          - PARTLY_FURNISHED
+          - NOT_FURNISHED
+        washingMachineType:
+          type: string
+          enum:
+          - SHARED
+          - PRIVATE
+          - NO_WASHING
+        connections:
+          type: array
+          items:
+            type: string
+            enum:
+            - COST_INCLUDED
+            - CONNECTION_PROVIDED
+          uniqueItems: true
+        distance:
+          type: string
+          enum:
+          - LESS_5_MIN
+          - APPROX_10
+          - APPROX_15
+          - APPROX_20
+          - APPROX_30
+          - APPROX_45
+          - EQUAL_OR_MORE_60_MIN
+        rent:
+          type: number
+        utilities:
+          type: number
+        totalRent:
+          type: number
+        deposit:
+          type: number
+        from:
+          type: string
+          format: date
+        to:
+          type: string
+          format: date
+        description:
+          type: string
+        remarks:
+          type: string
+        currencyCode:
+          type: string
+        publishedBy:
+          type: string
+          enum:
+          - CUNI
+          - UAH
+          - SU
+          - KU
+          - UNIMI
+          - UW
+          - UNIGE
+          - PARIS_2
+        numberOfRoommates:
+          type: integer
+          format: int32
+        attributes:
+          type: array
+          items:
+            type: string
+        publish:
+          type: boolean
+    OdataResponseHousingOptionsResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/HousingOptionsResponse'
+        totalCount:
+          type: integer
+          format: int32
+    HousingOptionsResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        publicId:
+          type: string
+        firstname:
+          type: string
+        lastname:
+          type: string
+        phone:
+          type: string
+        email:
+          type: string
+        co:
+          type: string
+        street:
+          type: string
+        postcode:
+          type: string
+        city:
+          type: string
+        district:
+          type: string
+        countryCode:
+          type: string
+        size:
+          type: number
+          format: double
+        accommodationType:
+          type: string
+          enum:
+          - FAMILY
+          - PRIVATE_APARTMENT
+          - SHARED_APARTMENT
+        bathroomType:
+          type: string
+          enum:
+          - SHARED
+          - PRIVATE_BATHROOM
+          - PRIVATE_SHOWER
+          - WASHBASIN
+        kitchenType:
+          type: string
+          enum:
+          - SHARED
+          - PRIVATE
+          - COOKING_FACILITIES
+        furnitureType:
+          type: string
+          enum:
+          - FURNISHED
+          - PARTLY_FURNISHED
+          - NOT_FURNISHED
+        washingMachineType:
+          type: string
+          enum:
+          - SHARED
+          - PRIVATE
+          - NO_WASHING
+        connections:
+          type: array
+          items:
+            type: string
+            enum:
+            - COST_INCLUDED
+            - CONNECTION_PROVIDED
+          uniqueItems: true
+        numberOfRoommates:
+          type: integer
+          format: int32
+        distance:
+          type: string
+          enum:
+          - LESS_5_MIN
+          - APPROX_10
+          - APPROX_15
+          - APPROX_20
+          - APPROX_30
+          - APPROX_45
+          - EQUAL_OR_MORE_60_MIN
+        rent:
+          type: number
+        utilities:
+          type: number
+        totalRent:
+          type: number
+        deposit:
+          type: number
+        from:
+          type: string
+          format: date
+        to:
+          type: string
+          format: date
+        description:
+          type: string
+        remarks:
+          type: string
+        currencyCode:
+          type: string
+        publishedBy:
+          type: string
+          enum:
+          - CUNI
+          - UAH
+          - SU
+          - KU
+          - UNIMI
+          - UW
+          - UNIGE
+          - PARIS_2
+        publicationDate:
+          type: string
+          format: date
+        personId:
+          type: string
+        attributes:
+          type: array
+          items:
+            type: string
+        publish:
+          type: boolean
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

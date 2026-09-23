@@ -1,0 +1,2670 @@
+openapi: 3.2.0
+info:
+  title: Jaskier Project API
+  version: 1.2.25
+servers:
+- url: https://api.jaskier.uw.edu.pl
+tags:
+- name: Project
+paths:
+  /api/v1/Project/{projectId}:
+    get:
+      tags:
+      - Project
+      summary: Czytanie projektu z podanym id
+      operationId: getProjectById
+      parameters:
+      - name: projectId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ProjectResponse'
+      security:
+      - Authorization: []
+    put:
+      tags:
+      - Project
+      summary: Aktualizacja projektu
+      operationId: updateProject
+      parameters:
+      - name: projectId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProjectRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ProjectResponse'
+      security:
+      - Authorization: []
+  /api/v1/Project/{projectId}/Team:
+    get:
+      tags:
+      - Project
+      summary: Czytanie informacji o zespole projektów
+      operationId: getProjectTeam
+      parameters:
+      - name: projectId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ProjectTeamResponse'
+      security:
+      - Authorization: []
+    put:
+      tags:
+      - Project
+      summary: Aktualizacja informacji o zespole projektów
+      operationId: updateProjectTeam
+      parameters:
+      - name: projectId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProjectTeamRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ProjectTeamResponse'
+      security:
+      - Authorization: []
+  /api/v1/Project/{projectId}/ProjectRelations:
+    get:
+      tags:
+      - Project
+      summary: Czytanie informacji o relacjach z innymi projektami
+      operationId: getProjectRelations
+      parameters:
+      - name: projectId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ProjectRelationsResponse'
+      security:
+      - Authorization: []
+    put:
+      tags:
+      - Project
+      summary: Aktualizacja informacji o relacjach z innymi projektami
+      operationId: updateProjectRelations
+      parameters:
+      - name: projectId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProjectRelationsRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ProjectRelationsResponse'
+      security:
+      - Authorization: []
+  /api/v1/Project/{projectId}/Owners:
+    get:
+      tags:
+      - Project
+      summary: Czytanie informacji o właścicielach rekordu
+      operationId: getProjectOwners
+      parameters:
+      - name: projectId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/RecordOwnersResponse'
+      security:
+      - Authorization: []
+    put:
+      tags:
+      - Project
+      summary: Aktualizacja informacji o właścicielach rekordu w kontekście uprawnień
+      operationId: updateProjectOwners
+      parameters:
+      - name: projectId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RecordOwnersRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/RecordOwnersResponse'
+      security:
+      - Authorization: []
+  /api/v1/Project/{projectId}/OtherInfo:
+    get:
+      tags:
+      - Project
+      summary: Dodatkowe informacje o projekcie
+      operationId: getProjectOtherInfo
+      parameters:
+      - name: projectId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ProjectOtherInfoResponse'
+      security:
+      - Authorization: []
+    put:
+      tags:
+      - Project
+      summary: Aktualizacja dodatkowych informacji o projekcie
+      operationId: upsertProjectOtherInfo
+      parameters:
+      - name: projectId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProjectOtherInfoRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ProjectOtherInfoResponse'
+      security:
+      - Authorization: []
+  /api/v1/Project/{projectId}/Financing:
+    get:
+      tags:
+      - Project
+      summary: Czytanie informacji o finansowaniu projektów
+      operationId: getProjectFinancing
+      parameters:
+      - name: projectId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ProjectFinancingResponse'
+      security:
+      - Authorization: []
+    put:
+      tags:
+      - Project
+      summary: Aktualizacja informacji o finansowaniu projektów
+      operationId: updateProjectFinancing
+      parameters:
+      - name: projectId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProjectFinancingRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ProjectFinancingResponse'
+      security:
+      - Authorization: []
+  /api/v1/Project/{projectId}/Discipline:
+    get:
+      tags:
+      - Project
+      summary: Lista dyscyplin naukowych oraz specjalizacji dla danego projektu
+      operationId: getProjectDisciplines
+      parameters:
+      - name: projectId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ProjectDisciplineResponse'
+      security:
+      - Authorization: []
+    put:
+      tags:
+      - Project
+      summary: Aktualizacja dyscyplin naukowych oraz specjalizacji dla danego projektu
+      operationId: upsertProjectDisciplines
+      parameters:
+      - name: projectId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProjectDisciplineRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ProjectDisciplineResponse'
+      security:
+      - Authorization: []
+  /api/v1/Project/{projectId}/Abstract:
+    get:
+      tags:
+      - Project
+      summary: Lista abstraktów dla danego projektu
+      operationId: getProjectAbstracts
+      parameters:
+      - name: projectId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ProjectAbstractResponse'
+      security:
+      - Authorization: []
+    put:
+      tags:
+      - Project
+      summary: Aktualizacja informacji o abstraktach projektów
+      operationId: upsertProjectAbstract
+      parameters:
+      - name: projectId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProjectAbstractRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ProjectAbstractResponse'
+      security:
+      - Authorization: []
+  /api/v1/Project:
+    get:
+      tags:
+      - Project
+      summary: Listowanie danych o projektach (z paginacją - odata)
+      operationId: queryForProject
+      parameters:
+      - name: $skip
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int64
+          default: 0
+      - name: $top
+        in: query
+        required: false
+        schema:
+          maximum: 1000
+          type: integer
+          format: int64
+          default: 10
+      - name: $inlinecount
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: $orderby
+        in: query
+        required: false
+        schema:
+          type: string
+          default: startDate desc
+      - name: $filter
+        in: query
+        required: false
+        schema:
+          type: string
+          default: ()
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/OdataResponseQueryProjectsItemResponse'
+      security:
+      - Authorization: []
+    post:
+      tags:
+      - Project
+      summary: Dodawanie projektu
+      operationId: addProject
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProjectRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ProjectResponse'
+      security:
+      - Authorization: []
+  /api/v1/Project/{projectId}/Assets:
+    get:
+      tags:
+      - Project
+      summary: Listowanie środków trwałych dla projektu
+      operationId: getAssetsFromProject
+      parameters:
+      - name: projectId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProjectAssetResponse'
+      security:
+      - Authorization: []
+    post:
+      tags:
+      - Project
+      summary: Aktualizacja/Dodanie środka trwałego do projektu
+      operationId: updateProjectAssets
+      parameters:
+      - name: projectId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              uniqueItems: true
+              type: array
+              items:
+                $ref: '#/components/schemas/ProjectAssetsRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProjectAssetResponse'
+      security:
+      - Authorization: []
+  /api/v1/Project/All:
+    post:
+      tags:
+      - Project
+      summary: Listowanie danych o projektach aktualnych w danym przedziale czasu
+      operationId: queryForActiveProjects
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProjectFilterRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/QueryProjectsItemResponse'
+      security:
+      - Authorization: []
+  /api/v1/Project/{projectId}/History:
+    get:
+      tags:
+      - Project
+      summary: Czytanie historii zmian projektu
+      operationId: getProjectHistory
+      parameters:
+      - name: projectId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/HistoryResponse'
+      security:
+      - Authorization: []
+  /api/v1/Project/Specialities:
+    get:
+      tags:
+      - Project
+      summary: Zwraca wszystkie specjalizacje dla projektow
+      operationId: findAllSpecialities
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  type: string
+      security:
+      - Authorization: []
+  /api/v1/Project/SearchProject:
+    get:
+      tags:
+      - Project
+      summary: Listowanie danych o projektach bez relacji nadrzędnej (z paginacją - odata)
+      operationId: searchProjectForParent
+      parameters:
+      - name: $skip
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int64
+          default: 0
+      - name: $top
+        in: query
+        required: false
+        schema:
+          maximum: 1000
+          type: integer
+          format: int64
+          default: 10
+      - name: $inlinecount
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: $orderby
+        in: query
+        required: false
+        schema:
+          type: string
+          default: startDate desc
+      - name: searchValue
+        in: query
+        required: false
+        schema:
+          type: string
+          default: searchValue
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/OdataResponseQueryProjectsItemResponse'
+      security:
+      - Authorization: []
+  /api/v1/Project/SearchProject('{projectId}'):
+    get:
+      tags:
+      - Project
+      summary: Czytanie szczegółów wyszukanego projektu
+      operationId: getSearchProjectForParent
+      parameters:
+      - name: projectId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ProjectResponse'
+      security:
+      - Authorization: []
+  /api/v1/Project/SearchProfile:
+    get:
+      tags:
+      - Project
+      summary: Wyszukiwanie profilu (np. w celu wpisania jako członka projektu)
+      operationId: searchProfileForProject
+      parameters:
+      - name: $skip
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int64
+          default: 0
+      - name: $top
+        in: query
+        required: false
+        schema:
+          maximum: 100
+          type: integer
+          format: int64
+          default: 10
+      - name: $inlinecount
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: $orderby
+        in: query
+        required: false
+        schema:
+          type: string
+          default: lastName,firstName,name
+      - name: searchValue
+        in: query
+        required: false
+        schema:
+          type: string
+          default: searchValue
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/OdataResponseQueryProfileItemResponse'
+      security:
+      - Authorization: []
+  /api/v1/Project/SearchProfile('{profileId}'):
+    get:
+      tags:
+      - Project
+      summary: Czytanie informacji o profilu
+      operationId: getSearchProfileForProject
+      parameters:
+      - name: profileId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ProfileResponse'
+      security:
+      - Authorization: []
+  /api/v1/Project/SearchPerson:
+    get:
+      tags:
+      - Project
+      summary: Wyszukiwanie osoby
+      operationId: searchPersonForProject
+      parameters:
+      - name: $skip
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int64
+          default: 0
+      - name: $top
+        in: query
+        required: false
+        schema:
+          maximum: 100
+          type: integer
+          format: int64
+          default: 10
+      - name: $inlinecount
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: $orderby
+        in: query
+        required: false
+        schema:
+          type: string
+          default: lastName,firstName,email
+      - name: searchValue
+        in: query
+        required: false
+        schema:
+          type: string
+          default: searchValue
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/OdataResponsePersonViewResponse'
+      security:
+      - Authorization: []
+  /api/v1/Project/SearchPerson('{personId}'):
+    get:
+      tags:
+      - Project
+      summary: Czytanie informacji o osobie
+      operationId: getSearchPersonForProject
+      parameters:
+      - name: personId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PersonViewResponse'
+      security:
+      - Authorization: []
+  /api/v1/Project/SearchAsset:
+    get:
+      tags:
+      - Project
+      summary: Wyszukiwanie danych o środkach trwałych projektów (z paginacją - odata)
+      operationId: searchAssetForProject
+      parameters:
+      - name: $skip
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int64
+          default: 0
+      - name: $top
+        in: query
+        required: false
+        schema:
+          maximum: 1000
+          type: integer
+          format: int64
+          default: 10
+      - name: $inlinecount
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: $orderby
+        in: query
+        required: false
+        schema:
+          type: string
+          default: name desc
+      - name: searchValue
+        in: query
+        required: false
+        schema:
+          type: string
+          default: searchValue
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/OdataResponseAssetQueryResponse'
+      security:
+      - Authorization: []
+  /api/v1/Project/SearchAsset('{sapId}'):
+    get:
+      tags:
+      - Project
+      summary: Czytanie informacji o środkach trwałych
+      operationId: getAssetForProject
+      parameters:
+      - name: sapId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/AssetResponse'
+      security:
+      - Authorization: []
+  /api/v1/Project/ProjectContractTypes:
+    get:
+      tags:
+      - Project
+      summary: Listowanie typów projektów
+      operationId: getProjectContractTypesForProject
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProjectContractTypeResponse'
+      security:
+      - Authorization: []
+  /api/v1/Project/Keywords:
+    get:
+      tags:
+      - Project
+      summary: Wyszukuje słowa kluczowe dla projektow. Wspiera filtry stosowane przez dxTagBox
+      operationId: searchKeywords
+      parameters:
+      - name: $skip
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int64
+      - name: $top
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int64
+      - name: $filter
+        in: query
+        required: false
+        schema:
+          type: string
+          default: ''
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                uniqueItems: true
+                type: array
+                items:
+                  type: string
+      security:
+      - Authorization: []
+  /api/v1/Project/FindDistinct:
+    get:
+      tags:
+      - Project
+      summary: Listowanie danych o projektach (z paginacją - odata)
+      operationId: distinctForProject
+      parameters:
+      - name: $skip
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int64
+          default: 0
+      - name: $top
+        in: query
+        required: false
+        schema:
+          maximum: 1000
+          type: integer
+          format: int64
+          default: 10
+      - name: $filter
+        in: query
+        required: false
+        schema:
+          type: string
+          default: ()
+      - name: dataField
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/OdataResponseOdataHeaderFilterResponse'
+      security:
+      - Authorization: []
+  /api/v1/Project/BusinessEntities:
+    get:
+      tags:
+      - Project
+      summary: Listowanie podmiotów
+      operationId: getBusinessEntitiesForProject
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BusinessEntityResponse'
+      security:
+      - Authorization: []
+  /api/v1/Project/{projectId}/Remove:
+    delete:
+      tags:
+      - Project
+      summary: Usunięcie projektu
+      description: Usuwa projekt z istniejącymi relacjami jeśli ustawimy flage na true.
+      operationId: removeProject
+      parameters:
+      - name: projectId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: isRemoveCascade
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: false
+      responses:
+        '200':
+          description: OK
+      security:
+      - Authorization: []
+components:
+  schemas:
+    AbstractRequest:
+      required:
+      - keyw
+      type: object
+      properties:
+        id:
+          type: string
+        langCode:
+          type: string
+          description: kod języka typu PL, EN, EN-GB, itp - klucz naturalny do Language, zgodny z ISO (patrz Language)
+        title:
+          type: string
+          description: 'tytuł wynalazku/patentu/wzoru użytkowego/nazwa gatunku/nazwa botaniczna/nazwa odmiany w danym języku '
+        abstr:
+          type: string
+          description: streszczenie opisu wynalazku/wzoru użytkowego w danym języku
+        keyw:
+          maxItems: 100
+          minItems: 0
+          uniqueItems: true
+          type: array
+          description: słowa kluczowe w danym języku
+          items:
+            type: string
+            description: słowa kluczowe w danym języku
+        orderIndex:
+          minimum: 0
+          type: integer
+          description: 'kolejność wyświetlania abstraktów (domyślnie: 0)'
+          format: int32
+        original:
+          type: boolean
+          description: czy streszczenie jest w języku oryginału
+    ProjectFinancingInstitutionResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        projectId:
+          type: string
+        businessEntityId:
+          type: string
+        businessEntityName:
+          type: string
+        businessEntityAcronym:
+          type: string
+        percentage:
+          type: integer
+          format: int32
+        amount:
+          type: number
+        comment:
+          type: string
+        contractNumber:
+          type: string
+        primary:
+          type: boolean
+    ProjectFinancingUwRequest:
+      required:
+      - unitCode
+      type: object
+      properties:
+        id:
+          type: string
+        unitCode:
+          type: string
+        year:
+          type: integer
+          format: int32
+        grossPlanned:
+          type: number
+        grossRealized:
+          type: number
+        netPlanned:
+          type: number
+        netRealized:
+          type: number
+        openAccessPlanned:
+          type: number
+        openAccessRealized:
+          type: number
+        indirectPlanned:
+          type: number
+        indirectRealized:
+          type: number
+        apparatusPlanned:
+          type: number
+        apparatusRealized:
+          type: number
+    ProjectTeamRequest:
+      required:
+      - projectMembers
+      - projectProfileContacts
+      type: object
+      properties:
+        projectMembers:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ProjectProfileMemberRequest'
+        projectProfileContacts:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ProjectProfileContactRequest'
+        details:
+          $ref: '#/components/schemas/ProjectTeamDetailsRequest'
+    AssetResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        initialValue:
+          type: number
+        depreciationAmount:
+          type: number
+        currencyCode:
+          type: string
+        amortizationMethod:
+          type: string
+        inventoryNumber:
+          type: string
+        initialSapId:
+          type: string
+        sapId:
+          type: string
+        departmentCode:
+          type: string
+        unitName:
+          type: string
+        uwCode:
+          type: string
+        objectType:
+          type: string
+        grwName:
+          type: string
+        kst:
+          type: string
+        documentNumber:
+          type: string
+        admissionDate:
+          type: string
+        liquidationDate:
+          type: string
+        otDate:
+          type: string
+          format: date
+        otNumber:
+          type: string
+        purchaseDate:
+          type: string
+        personId:
+          type: string
+        description:
+          type: string
+        shelfLifeFrom:
+          type: string
+          format: date
+        shelfLifeTo:
+          type: string
+          format: date
+        commercialUsage:
+          type: boolean
+        commercialUsageFrom:
+          type: string
+          format: date
+        purposeOfUse:
+          type: string
+        yearAcquisition:
+          type: string
+    UwEconomicDepartmentResponse:
+      type: object
+      properties:
+        uwCode:
+          type: string
+          description: Unikalny kod działu gospodarczego
+        uwUnitCode:
+          type: string
+          description: Unikalny kod jednostki
+        namePl:
+          type: string
+          description: Polska nazwa działu gospodarczego
+        nameEn:
+          type: string
+          description: Angielska nazwa działu gospodarczego
+        unitNamePl:
+          type: string
+          description: Polska nazwa jednostki
+        unitNameEn:
+          type: string
+          description: Angielska nazwa jednostki
+        internalKSeFIdentifier:
+          type: string
+          description: Identyfikator wewnętrzny KSeF
+        invoiceEmail:
+          type: string
+          description: Faktura email
+        displayNamePl:
+          type: string
+          description: Nazwa wyświetlana po polsku
+        displayNameEn:
+          type: string
+          description: Nazwa wyświetlana po angielsku
+      description: Dział gospodarczy UW
+    ProjectFinancingExternalResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        projectId:
+          type: string
+        comments:
+          type: string
+        amount:
+          type: number
+        category:
+          type: string
+        projectRole:
+          type: string
+          enum:
+          - LEADER
+          - CONSORTIUM_MEMBER
+          - FORMALIZED_COLLABORATION
+          - ECONOMIC_PARTNER
+        contractNumber:
+          type: string
+        contractDate:
+          type: string
+          format: date
+        businessEntityId:
+          type: string
+        businessEntityName:
+          type: string
+        businessEntityAcro:
+          type: string
+        businessEntityCountryCode:
+          type: string
+      description: Informacje o podmiotach zewnętrznych finansowania
+    ProjectAssetsRequest:
+      type: object
+      properties:
+        assetSapId:
+          type: string
+        assetCustomName:
+          type: string
+    QueryProjectsItemResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        startDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+        acro:
+          type: string
+        projectName:
+          type: string
+        polonId:
+          type: string
+        keywords:
+          type: array
+          items:
+            type: string
+        competitionNumber:
+          type: string
+        competitionName:
+          type: string
+        projectNumber:
+          type: string
+        registrationNumber:
+          type: string
+        grantAgreementNumber:
+          type: string
+        budget:
+          type: number
+        budgetUw:
+          type: number
+        currencyCode:
+          type: string
+        internationalProject:
+          type: boolean
+        partnershipProject:
+          type: boolean
+        roleUw:
+          type: string
+        startDateUw:
+          type: string
+          format: date
+        endDateUw:
+          type: string
+          format: date
+        status:
+          type: string
+          enum:
+          - UNDER_EVALUATION
+          - AWAITING
+          - IN_PROGRESS
+          - COMPLETED_NOT_SETTLED
+          - COMPLETED_SETTLED
+        auditRequired:
+          type: boolean
+        responsibleProfileId:
+          type: string
+        responsibleProfileName:
+          type: string
+        responsibleUnitCode:
+          type: string
+        responsibleUnitNamePl:
+          type: string
+        responsibleUnitNameEn:
+          type: string
+        langCode:
+          type: string
+        projectContractTypeId:
+          type: integer
+          format: int32
+        pspElement:
+          type: string
+        hasManager:
+          type: boolean
+        managerProfileId:
+          type: string
+        managerProfileName:
+          type: string
+        researchManagerProfileId:
+          type: string
+        researchManagerProfileName:
+          type: string
+        intermediaryInstitutionName:
+          type: string
+        financingInstitutionName:
+          type: string
+        uwContractNumber:
+          type: string
+        isPrivate:
+          type: boolean
+      description: Podstawowe informacje o projekcie
+    ProjectTeamDetailsRequest:
+      type: object
+      properties:
+        regulation75:
+          type: string
+          enum:
+          - P
+          - F
+          - ND
+        managerProfileId:
+          type: string
+        researchManagerProfileId:
+          type: string
+        hasManager:
+          type: boolean
+    RecordOwnersRequest:
+      required:
+      - departmentOwners
+      - personOwners
+      type: object
+      properties:
+        departmentOwners:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        personOwners:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+    ProjectAppendixRequest:
+      required:
+      - documentDate
+      - number
+      type: object
+      properties:
+        id:
+          type: string
+        number:
+          type: string
+        documentDate:
+          type: string
+          format: date
+        notes:
+          type: string
+    ProfileResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        firstName:
+          type: string
+        middleNames:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        emailsOther:
+          type: array
+          items:
+            type: string
+        phone:
+          type: string
+        personId:
+          type: string
+        orcid:
+          type: string
+        uidPolon:
+          type: string
+        uidPolonStud:
+          type: string
+        uidPolonDokt:
+          type: string
+        pbnId:
+          type: string
+        scopusId:
+          type: string
+        degree:
+          type: string
+        cfKeyw:
+          type: array
+          items:
+            type: string
+        articleId:
+          type: string
+        scienceDisciplinesStatementDate:
+          type: string
+          format: date
+        roles:
+          type: array
+          items:
+            type: string
+        isPubliclyVisible:
+          type: boolean
+        profilePublicId:
+          type: string
+    AbstractResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Id abstraltu
+        langCode:
+          type: string
+          description: kod języka typu PL, EN, EN-GB, itp - klucz naturalny do Language, zgodny z ISO (patrz Language)
+        title:
+          type: string
+          description: 'tytuł wynalazku/patentu/wzoru użytkowego/nazwa gatunku/nazwa botaniczna/nazwa odmiany w danym języku '
+        abstr:
+          type: string
+          description: streszczenie opisu wynalazku/wzoru użytkowego w danym języku
+        keyw:
+          type: array
+          description: słowa kluczowe w danym języku
+          items:
+            type: string
+            description: słowa kluczowe w danym języku
+        orderIndex:
+          type: integer
+          description: 'kolejność wyświetlania abstraktów (domyślnie: 0)'
+          format: int32
+        objectId:
+          type: string
+          description: Id obiektu
+        objectType:
+          type: string
+          description: Typ obiektu
+        original:
+          type: boolean
+          description: czy streszczenie jest w języku oryginału
+    ProjectDisciplineResponse:
+      type: object
+      properties:
+        isDisciplineAssigned:
+          type: boolean
+        scienceDisciplines:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProjectScienceDisciplineResponse'
+        specialities:
+          type: array
+          items:
+            type: string
+    ProjectAssetResponse:
+      type: object
+      properties:
+        projectId:
+          type: string
+        sapId:
+          type: string
+        assetCustomName:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        purposeOfUse:
+          type: string
+        shelfLifeFrom:
+          type: string
+          format: date
+        shelfLifeTo:
+          type: string
+          format: date
+        inventoryNumber:
+          type: string
+        commercialUsage:
+          type: boolean
+        commercialUsageFrom:
+          type: string
+          format: date
+        otDate:
+          type: string
+          format: date
+        otNumber:
+          type: string
+        subInventoryNumber:
+          type: string
+        value:
+          type: number
+        currency:
+          type: string
+    ProjectFinancingRequest:
+      required:
+      - financingExternalInstitutions
+      - financingInstitutions
+      - financingUwUnits
+      - projectUwUnits
+      type: object
+      properties:
+        financingInstitutions:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ProjectFinancingInstitutionRequest'
+        financingUwUnits:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ProjectFinancingUwRequest'
+        financingExternalInstitutions:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ProjectFinancingExternalRequest'
+        projectUwUnits:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ProjectUwUnitRequest'
+        details:
+          $ref: '#/components/schemas/ProjectFinancingDetailsRequest'
+        additionalInfo:
+          $ref: '#/components/schemas/ProjectFinancingAdditionalInfoRequest'
+    ProjectAbstractRequest:
+      required:
+      - langCode
+      - otherAbstracts
+      type: object
+      properties:
+        langCode:
+          type: string
+        projectAbstract:
+          type: string
+        otherAbstracts:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/AbstractRequest'
+    ProjectFinancingInstitutionRequest:
+      required:
+      - businessEntityId
+      type: object
+      properties:
+        id:
+          type: string
+        businessEntityId:
+          type: string
+        percentage:
+          maximum: 100
+          minimum: 0
+          type: integer
+          format: int32
+        amount:
+          type: number
+        comment:
+          maxLength: 255
+          minLength: 0
+          type: string
+        contractNumber:
+          type: string
+        primary:
+          type: boolean
+    ProjectProfileContactRequest:
+      type: object
+      properties:
+        id:
+          type: string
+        profileId:
+          type: string
+        unitCode:
+          type: string
+    ProjectLinkRequest:
+      required:
+      - name
+      - url
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          maxLength: 255
+          minLength: 0
+          type: string
+        url:
+          maxLength: 255
+          minLength: 0
+          type: string
+    ProjectFinancingAdditionalInfoRequest:
+      type: object
+      properties:
+        bankAccountNumber:
+          type: string
+        financingModel:
+          type: string
+          enum:
+          - ADVANCE_PAYMENT
+          - REFUNDED
+          - MIXED
+        vatQualification:
+          type: string
+          enum:
+          - FULL_EXEMPTION
+          - PRE_FACTOR
+          - STRUCTURE_INDICATOR
+          - PRE_FACTOR_AND_STRUCTURE_INDICATOR
+          - NO_EXEMPTION
+        publicAid:
+          type: boolean
+        deMinimisAid:
+          type: boolean
+    OdataResponseQueryProfileItemResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/QueryProfileItemResponse'
+        totalCount:
+          type: integer
+          format: int32
+    ProjectProfileMemberRequest:
+      required:
+      - profileId
+      type: object
+      properties:
+        id:
+          type: string
+        profileId:
+          type: string
+        roleId:
+          type: integer
+          format: int32
+        regulation75RoleId:
+          type: integer
+          format: int32
+        unitCode:
+          type: string
+        fromDate:
+          type: string
+          format: date
+        toDate:
+          type: string
+          format: date
+    ProjectLinkResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: id linku
+        projectId:
+          type: string
+          description: id projektu
+        name:
+          type: string
+          description: nazwa linku
+        url:
+          type: string
+          description: link
+      description: Link do projektu
+    ProjectRelationsRequest:
+      type: object
+      properties:
+        parentId:
+          type: string
+    ProjectScienceDisciplineResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        projectId:
+          type: string
+        scienceDisciplineCode:
+          type: string
+        scienceDisciplineName:
+          type: string
+        scienceDisciplineNameEn:
+          type: string
+        scienceFieldCode:
+          type: string
+        scienceFieldName:
+          type: string
+        scienceFieldNameEn:
+          type: string
+        percentage:
+          type: number
+    OdataResponseAssetQueryResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/AssetQueryResponse'
+        totalCount:
+          type: integer
+          format: int32
+    ProjectProfileContactResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        projectId:
+          type: string
+        profileId:
+          type: string
+        profileName:
+          type: string
+        profileEmails:
+          type: array
+          items:
+            type: string
+        profilePhone:
+          type: string
+        unitCode:
+          type: string
+        unitNamePl:
+          type: string
+        unitNameEn:
+          type: string
+        email:
+          type: string
+    OdataResponseQueryProjectsItemResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/QueryProjectsItemResponse'
+        totalCount:
+          type: integer
+          format: int32
+    ProjectTeamResponse:
+      type: object
+      properties:
+        projectProfileContacts:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProjectProfileContactResponse'
+        projectMembers:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProjectProfileMemberResponse'
+        details:
+          $ref: '#/components/schemas/ProjectTeamDetailsResponse'
+    AssetQueryResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        sapId:
+          type: string
+        name:
+          type: string
+        departmentCode:
+          type: string
+        inventoryNumber:
+          type: string
+        grwName:
+          type: string
+        initialValue:
+          type: number
+        objectType:
+          type: string
+        description:
+          type: string
+        shelfLifeFrom:
+          type: string
+          format: date
+        shelfLifeTo:
+          type: string
+          format: date
+        commercialUsage:
+          type: boolean
+        commercialUsageFrom:
+          type: string
+          format: date
+        purposeOfUse:
+          type: string
+        yearAcquisition:
+          type: string
+    OdataResponsePersonViewResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/PersonViewResponse'
+        totalCount:
+          type: integer
+          format: int32
+    ProjectFinancingUwResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        projectId:
+          type: string
+        unitCode:
+          type: string
+        year:
+          type: integer
+          format: int32
+        unitNamePl:
+          type: string
+        unitNameEn:
+          type: string
+        grossPlanned:
+          type: number
+        grossRealized:
+          type: number
+        netPlanned:
+          type: number
+        netRealized:
+          type: number
+        openAccessPlanned:
+          type: number
+        openAccessRealized:
+          type: number
+        indirectPlanned:
+          type: number
+        indirectRealized:
+          type: number
+        apparatusPlanned:
+          type: number
+        apparatusRealized:
+          type: number
+    OdataResponseOdataHeaderFilterResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/OdataHeaderFilterResponse'
+        totalCount:
+          type: integer
+          format: int32
+    ProjectFinancingExternalRequest:
+      required:
+      - businessEntityId
+      type: object
+      properties:
+        id:
+          type: string
+        businessEntityId:
+          type: string
+        comments:
+          type: string
+        amount:
+          type: number
+        category:
+          type: string
+          enum:
+          - UNIVERSITY
+          - SCIENTIFIC_INSTITUTION
+          - ENTREPRENEUR
+          - LOCAL_GOVERNMENT_UNIT
+          - NON_GOVERNMENTAL_ORGANIZATION
+          - STATE_ADMINISTRATION
+          - OTHER
+        projectRole:
+          type: string
+          enum:
+          - LEADER
+          - CONSORTIUM_MEMBER
+          - FORMALIZED_COLLABORATION
+          - ECONOMIC_PARTNER
+        contractNumber:
+          type: string
+        contractDate:
+          type: string
+          format: date
+    OdataHeaderFilterResponse:
+      type: object
+      properties:
+        text:
+          type: string
+        value:
+          type: string
+    ProjectAppendixResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: id aneksu do projektu
+        projectId:
+          type: string
+          description: id projektu
+        number:
+          type: string
+          description: id numer do aneksu
+        documentDate:
+          type: string
+          format: date
+        notes:
+          type: string
+      description: Aneks do projektu
+    ProjectScienceDisciplineRequest:
+      required:
+      - scienceDisciplineCode
+      type: object
+      properties:
+        scienceDisciplineCode:
+          type: string
+        percentage:
+          type: number
+    ProjectTeamDetailsResponse:
+      type: object
+      properties:
+        regulation75:
+          type: string
+          enum:
+          - P
+          - F
+          - ND
+        hasManager:
+          type: boolean
+        managerProfileId:
+          type: string
+        managerProfileName:
+          type: string
+        researchManagerProfileId:
+          type: string
+        researchManagerProfileName:
+          type: string
+    ProjectAbstractResponse:
+      type: object
+      properties:
+        projectName:
+          type: string
+        langCode:
+          type: string
+        projectAbstract:
+          type: string
+        keywords:
+          type: array
+          items:
+            type: string
+        otherAbstracts:
+          type: array
+          items:
+            $ref: '#/components/schemas/AbstractResponse'
+    ProjectContractTypeResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        mainType:
+          type: string
+        mainTypeOld:
+          type: string
+        contractType:
+          type: string
+        institution:
+          type: string
+        groupName:
+          type: string
+        typeName:
+          type: string
+      description: Informacje o typie projektu
+    RecordOwnersResponse:
+      type: object
+      properties:
+        departmentOwners:
+          type: array
+          items:
+            $ref: '#/components/schemas/UwEconomicDepartmentResponse'
+        personOwners:
+          type: array
+          items:
+            $ref: '#/components/schemas/PersonViewResponse'
+    ProjectResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        sourceId:
+          type: string
+          description: id źródłowe
+        startDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+        acro:
+          type: string
+        polonId:
+          type: string
+        financingInstitutionId:
+          type: string
+        financingInstitutionName:
+          type: string
+        intermediaryInstitutionId:
+          type: string
+        intermediaryInstitutionName:
+          type: string
+        internationalProject:
+          type: boolean
+        internationalDetailProjectId:
+          type: integer
+          format: int32
+        budget:
+          type: number
+        budgetUw:
+          type: number
+        partnershipProject:
+          type: boolean
+        keywords:
+          type: array
+          items:
+            type: string
+        projectAbstract:
+          type: string
+        roleUw:
+          type: string
+          enum:
+          - LEADER
+          - CONSORTIUM_MEMBER
+          - SELF_EXECUTION
+          - SUBCONTRACTOR
+        startDateUw:
+          type: string
+          format: date
+        endDateUw:
+          type: string
+          format: date
+        settlementDate:
+          type: string
+          format: date
+        pspElement:
+          type: string
+        projectName:
+          type: string
+        projectTypeId:
+          type: integer
+          format: int32
+        projectProgramId:
+          type: integer
+          format: int32
+        projectProgramDetailedId:
+          type: integer
+          format: int32
+        competitionNumber:
+          type: string
+        competitionName:
+          type: string
+        projectNumber:
+          type: string
+        registrationNumber:
+          type: string
+        grantAgreementNumber:
+          type: string
+        grantAgreementDate:
+          type: string
+          format: date
+        currencyCode:
+          type: string
+        subjectsCount:
+          type: integer
+          format: int32
+        decisionDate:
+          type: string
+          format: date
+        decisionNumber:
+          type: string
+        status:
+          type: string
+          enum:
+          - UNDER_EVALUATION
+          - AWAITING
+          - IN_PROGRESS
+          - COMPLETED_NOT_SETTLED
+          - COMPLETED_SETTLED
+        auditRequired:
+          type: boolean
+        shelfLifeDate:
+          type: string
+          format: date
+        responsibleProfileId:
+          type: string
+        responsibleProfileName:
+          type: string
+        responsibleUnitCode:
+          type: string
+        responsibleUnitNamePl:
+          type: string
+        responsibleUnitNameEn:
+          type: string
+        appendicesCount:
+          type: integer
+          format: int32
+        managerProfileId:
+          type: string
+        managerProfileName:
+          type: string
+        researchManagerProfileId:
+          type: string
+        researchManagerProfileName:
+          type: string
+        hasManager:
+          type: boolean
+        created:
+          type: string
+          format: date-time
+        departmentOwners:
+          type: array
+          items:
+            type: string
+        personOwners:
+          type: array
+          items:
+            type: string
+        uwContractNumber:
+          type: string
+        isPrivate:
+          type: boolean
+    QueryProfileItemResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        firstName:
+          type: string
+        middleNames:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        emailsOther:
+          type: array
+          items:
+            type: string
+        phone:
+          type: string
+        personId:
+          type: string
+        orcid:
+          type: string
+        uidPolon:
+          type: string
+        uidPolonStud:
+          type: string
+        uidPolonDokt:
+          type: string
+        pbnId:
+          type: string
+        scopusId:
+          type: string
+        degree:
+          type: string
+        cfKeyw:
+          type: array
+          items:
+            type: string
+        articleId:
+          type: string
+        scienceDisciplinesStatementDate:
+          type: string
+          format: date
+        roles:
+          type: array
+          items:
+            type: string
+        isPubliclyVisible:
+          type: boolean
+        profilePublicId:
+          type: string
+        emails:
+          type: array
+          items:
+            type: string
+        profileRoles:
+          type: array
+          items:
+            type: string
+        keyw:
+          type: array
+          items:
+            type: string
+        units:
+          type: array
+          items:
+            type: string
+        unitsAll:
+          type: array
+          items:
+            type: string
+        scienceDisciplines:
+          type: array
+          items:
+            type: string
+        patentsCount:
+          type: integer
+          format: int64
+        projectsCount:
+          type: integer
+          format: int64
+        coursesCount:
+          type: integer
+          format: int64
+        publicationsCount:
+          type: integer
+          format: int64
+        promotedPublicationsCount:
+          type: integer
+          format: int64
+    ProjectUwUnitResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        projectId:
+          type: string
+        unitCode:
+          type: string
+        unitNamePl:
+          type: string
+        unitNameEn:
+          type: string
+        fromDate:
+          type: string
+          format: date
+        toDate:
+          type: string
+          format: date
+        pspElement:
+          type: string
+        main:
+          type: boolean
+    ProjectOtherInfoResponse:
+      type: object
+      properties:
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProjectLinkResponse'
+        appendices:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProjectAppendixResponse'
+        notes:
+          type: string
+        projectContractTypeId:
+          type: integer
+          format: int32
+    ProjectFilterRequest:
+      type: object
+      properties:
+        activeFrom:
+          type: string
+          format: date
+        activeTo:
+          type: string
+          format: date
+        unitCodes:
+          type: array
+          items:
+            type: string
+        scienceDisciplines:
+          type: array
+          items:
+            type: string
+    ProjectUwUnitRequest:
+      type: object
+      properties:
+        id:
+          type: string
+        unitCode:
+          type: string
+        fromDate:
+          type: string
+          format: date
+        toDate:
+          type: string
+          format: date
+        pspElement:
+          type: string
+        main:
+          type: boolean
+    ProjectFinancingDetailsRequest:
+      type: object
+      properties:
+        grantAmount:
+          type: number
+        ownContributionRequired:
+          type: boolean
+        ownContribution:
+          type: number
+    ProjectFinancingAdditionalInfoResponse:
+      type: object
+      properties:
+        bankAccountNumber:
+          type: string
+        financingModel:
+          type: string
+          enum:
+          - ADVANCE_PAYMENT
+          - REFUNDED
+          - MIXED
+        vatQualification:
+          type: string
+          enum:
+          - FULL_EXEMPTION
+          - PRE_FACTOR
+          - STRUCTURE_INDICATOR
+          - PRE_FACTOR_AND_STRUCTURE_INDICATOR
+          - NO_EXEMPTION
+        publicAid:
+          type: boolean
+        deMinimisAid:
+          type: boolean
+    ProjectRequest:
+      required:
+      - currencyCode
+      - grantAgreementDate
+      - grantAgreementNumber
+      - keywords
+      - projectName
+      - responsibleUnitCode
+      - roleUw
+      type: object
+      properties:
+        projectName:
+          maxLength: 255
+          minLength: 0
+          type: string
+        acro:
+          maxLength: 255
+          minLength: 0
+          type: string
+        keywords:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        polonId:
+          maxLength: 255
+          minLength: 0
+          type: string
+        grantAgreementNumber:
+          maxLength: 255
+          minLength: 0
+          type: string
+        grantAgreementDate:
+          type: string
+          format: date
+        pspElement:
+          type: string
+        projectNumber:
+          maxLength: 255
+          minLength: 0
+          type: string
+        registrationNumber:
+          maxLength: 255
+          minLength: 0
+          type: string
+        decisionNumber:
+          maxLength: 255
+          minLength: 0
+          type: string
+        decisionDate:
+          type: string
+          format: date
+        projectTypeId:
+          type: integer
+          format: int32
+        projectProgramId:
+          type: integer
+          format: int32
+        projectProgramDetailedId:
+          type: integer
+          format: int32
+        competitionNumber:
+          maxLength: 255
+          minLength: 0
+          type: string
+        competitionName:
+          maxLength: 255
+          minLength: 0
+          type: string
+        intermediaryInstitutionId:
+          type: string
+        startDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+        budget:
+          type: number
+        budgetUw:
+          type: number
+        currencyCode:
+          type: string
+        partnershipProject:
+          type: boolean
+        internationalProject:
+          type: boolean
+        internationalDetailProjectId:
+          type: integer
+          format: int32
+        roleUw:
+          type: string
+          enum:
+          - LEADER
+          - CONSORTIUM_MEMBER
+          - SELF_EXECUTION
+          - SUBCONTRACTOR
+        startDateUw:
+          type: string
+          format: date
+        endDateUw:
+          type: string
+          format: date
+        settlementDate:
+          type: string
+          format: date
+        status:
+          type: string
+          enum:
+          - UNDER_EVALUATION
+          - AWAITING
+          - IN_PROGRESS
+          - COMPLETED_NOT_SETTLED
+          - COMPLETED_SETTLED
+        auditRequired:
+          type: boolean
+        shelfLifeDate:
+          type: string
+          format: date
+        responsibleUnitCode:
+          type: string
+        responsibleProfileId:
+          type: string
+        uwContractNumber:
+          type: string
+        isPrivate:
+          type: boolean
+    ProjectOtherInfoRequest:
+      type: object
+      properties:
+        links:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ProjectLinkRequest'
+        appendices:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ProjectAppendixRequest'
+        notes:
+          maxLength: 2000
+          minLength: 0
+          type: string
+        projectContractTypeId:
+          type: integer
+          format: int32
+    HistoryResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        whoType:
+          type: string
+        whoId:
+          type: string
+        whoName:
+          type: string
+        eventTime:
+          type: string
+          format: date-time
+        operation:
+          type: string
+        changes:
+          type: string
+        objType:
+          type: string
+        objId:
+          type: string
+        relationId:
+          type: string
+        relationName:
+          type: string
+    ProjectDisciplineRequest:
+      required:
+      - scienceDisciplines
+      - specialities
+      type: object
+      properties:
+        isDisciplineAssigned:
+          type: boolean
+        scienceDisciplines:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ProjectScienceDisciplineRequest'
+        specialities:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+    PersonViewResponse:
+      type: object
+      properties:
+        personId:
+          type: string
+        university:
+          type: string
+          enum:
+          - CUNI
+          - UAH
+          - SU
+          - KU
+          - UNIMI
+          - UW
+          - UNIGE
+          - PARIS_2
+        orcid:
+          type: string
+        firstName:
+          type: string
+        middleNames:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        profileId:
+          type: string
+        degree:
+          type: string
+        universityIndexNumber:
+          type: string
+    ProjectProfileMemberResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        profileId:
+          type: string
+        projectId:
+          type: string
+        profileName:
+          type: string
+        roleId:
+          type: integer
+          format: int32
+        roleNamePl:
+          type: string
+        roleNameEn:
+          type: string
+        regulation75RoleId:
+          type: integer
+          format: int32
+        regulation75RoleNamePl:
+          type: string
+        regulation75RoleNameEn:
+          type: string
+        unitCode:
+          type: string
+        unitNamePl:
+          type: string
+        unitNameEn:
+          type: string
+        fromDate:
+          type: string
+          format: date
+        toDate:
+          type: string
+          format: date
+    ProjectRelationsResponse:
+      type: object
+      properties:
+        parent:
+          $ref: '#/components/schemas/QueryProjectsItemResponse'
+        subprojects:
+          type: array
+          items:
+            $ref: '#/components/schemas/QueryProjectsItemResponse'
+    ProjectFinancingDetailsResponse:
+      type: object
+      properties:
+        grantAgreementNumber:
+          type: string
+        grantAgreementDate:
+          type: string
+          format: date
+        budget:
+          type: number
+        budgetUw:
+          type: number
+        grantAmount:
+          type: number
+        ownContributionRequired:
+          type: boolean
+        ownContribution:
+          type: number
+    ProjectFinancingResponse:
+      type: object
+      properties:
+        financingUwUnits:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProjectFinancingUwResponse'
+        financingInstitutions:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProjectFinancingInstitutionResponse'
+        financingExternalInstitutions:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProjectFinancingExternalResponse'
+        projectUwUnits:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProjectUwUnitResponse'
+        details:
+          $ref: '#/components/schemas/ProjectFinancingDetailsResponse'
+        additionalInfo:
+          $ref: '#/components/schemas/ProjectFinancingAdditionalInfoResponse'
+    BusinessEntityResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Id podmiotu, id techniczne
+        acro:
+          type: string
+          description: Akronim podmiotu - wartość unikalna
+        name:
+          type: string
+          description: Nazwa podmiotu
+        type:
+          type: string
+          description: Typ podmiotu
+        countryCode:
+          type: string
+          description: Kod kraju
+      description: Podmiot
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

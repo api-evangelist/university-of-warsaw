@@ -1,0 +1,176 @@
+openapi: 3.2.0
+info:
+  title: Jaskier Magazine API
+  version: 1.2.25
+servers:
+- url: https://api.jaskier.uw.edu.pl
+tags:
+- name: Magazine
+paths:
+  /api/v1/Magazine/{id}:
+    get:
+      tags:
+      - Magazine
+      summary: Czytanie czasopisma
+      operationId: getMagazine
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/MagazineResponse'
+      security:
+      - Authorization: []
+    put:
+      tags:
+      - Magazine
+      summary: Aktualizacja czasopisma
+      operationId: updateMagazine
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MagazineRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/MagazineResponse'
+      security:
+      - Authorization: []
+    delete:
+      tags:
+      - Magazine
+      summary: Usunięcie czasopisma
+      operationId: removeMagazine
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+      security:
+      - Authorization: []
+  /api/v1/Magazine:
+    get:
+      tags:
+      - Magazine
+      summary: Czytanie listy czasopism
+      operationId: findAllMagazines
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MagazineResponse'
+      security:
+      - Authorization: []
+    post:
+      tags:
+      - Magazine
+      summary: Dodawanie czasopisma
+      operationId: addMagazine
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MagazineRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/MagazineResponse'
+      security:
+      - Authorization: []
+components:
+  schemas:
+    MagazineResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        title:
+          type: string
+        publisher:
+          type: string
+        impactFactor:
+          type: number
+        quartileImpactFactor:
+          type: integer
+          format: int32
+        percentileScopus:
+          type: integer
+          format: int32
+        quartileScopus:
+          type: integer
+          format: int32
+        numbersOfPointsMNiSW:
+          type: integer
+          format: int32
+        issn:
+          type: string
+        eissn:
+          type: string
+        pissn:
+          type: string
+    MagazineRequest:
+      type: object
+      properties:
+        title:
+          type: string
+        publisher:
+          type: string
+        impactFactor:
+          type: number
+        quartileImpactFactor:
+          type: integer
+          format: int32
+        percentileScopus:
+          type: integer
+          format: int32
+        quartileScopus:
+          type: integer
+          format: int32
+        numbersOfPointsMNiSW:
+          type: integer
+          format: int32
+        issn:
+          type: string
+        eissn:
+          type: string
+        pissn:
+          type: string
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

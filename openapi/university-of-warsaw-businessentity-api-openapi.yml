@@ -1,0 +1,173 @@
+openapi: 3.2.0
+info:
+  title: Jaskier Business Entity API
+  version: 1.2.25
+servers:
+- url: https://api.jaskier.uw.edu.pl
+tags:
+- name: BusinessEntity
+paths:
+  /api/v1/BusinessEntity/{businessEntityId}:
+    get:
+      tags:
+      - BusinessEntity
+      summary: Czytanie informacji o instytucji z podanym id
+      operationId: getBusinessEntityById
+      parameters:
+      - name: businessEntityId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/BusinessEntityResponse'
+      security:
+      - Authorization: []
+    put:
+      tags:
+      - BusinessEntity
+      summary: Aktualizacja instytucji
+      operationId: updateBusinessEntity
+      parameters:
+      - name: businessEntityId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BusinessEntityRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/BusinessEntityResponse'
+      security:
+      - Authorization: []
+  /api/v1/BusinessEntity:
+    get:
+      tags:
+      - BusinessEntity
+      summary: Listowanie podmiotów
+      operationId: queryForBusinessEntities
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BusinessEntityResponse'
+      security:
+      - Authorization: []
+    post:
+      tags:
+      - BusinessEntity
+      summary: Dodawanie instytucji
+      operationId: addBusinessEntity
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BusinessEntityRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/BusinessEntityResponse'
+      security:
+      - Authorization: []
+  /api/v1/BusinessEntity/Acro/{acro}:
+    get:
+      tags:
+      - BusinessEntity
+      summary: Czytanie informacji o instytucji po akronimie
+      operationId: getBusinessEntityByAcro
+      parameters:
+      - name: acro
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/BusinessEntityResponse'
+      security:
+      - Authorization: []
+components:
+  schemas:
+    BusinessEntityRequest:
+      required:
+      - acro
+      - name
+      type: object
+      properties:
+        acro:
+          maxLength: 16
+          minLength: 0
+          type: string
+          description: Akronim podmiotu - wartość unikalna
+        name:
+          maxLength: 128
+          minLength: 0
+          type: string
+          description: Nazwa podmiotu
+        type:
+          type: string
+          description: Typ organizacji
+          enum:
+          - UNIVERSITY
+          - SCIENTIFIC_INSTITUTION
+          - ENTREPRENEUR
+          - LOCAL_GOVERNMENT_UNIT
+          - NON_GOVERNMENTAL_ORGANIZATION
+          - STATE_ADMINISTRATION
+          - PATENT_OFFICE
+          - NATURAL_PERSON
+          - OTHER
+        countryCode:
+          type: string
+          description: Kod kraju
+      description: Podmiot
+    BusinessEntityResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Id podmiotu, id techniczne
+        acro:
+          type: string
+          description: Akronim podmiotu - wartość unikalna
+        name:
+          type: string
+          description: Nazwa podmiotu
+        type:
+          type: string
+          description: Typ podmiotu
+        countryCode:
+          type: string
+          description: Kod kraju
+      description: Podmiot
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

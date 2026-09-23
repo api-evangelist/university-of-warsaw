@@ -1,0 +1,169 @@
+openapi: 3.2.0
+info:
+  title: Jaskier Uw Person Docsense API
+  version: 1.2.25
+servers:
+- url: https://api.jaskier.uw.edu.pl
+tags:
+- name: UwPersonDocsense
+paths:
+  /api/v1/Docsense/People:
+    get:
+      tags:
+      - UwPersonDocsense
+      summary: Listowanie danych ( z paginacją - odata
+      operationId: filterPeople
+      parameters:
+      - name: $skip
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int64
+          default: 0
+      - name: $top
+        in: query
+        required: false
+        schema:
+          maximum: 1000
+          type: integer
+          format: int64
+          default: 10
+      - name: $inlinecount
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: $orderby
+        in: query
+        required: false
+        schema:
+          type: string
+          default: firstName,lastName
+      - name: $filter
+        in: query
+        required: false
+        schema:
+          type: string
+          default: ()
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/OdataResponseDocsensePersonResponse'
+      security:
+      - Authorization: []
+  /api/v1/Docsense/People/Search:
+    get:
+      tags:
+      - UwPersonDocsense
+      summary: Można szukać po imieniu nazwisku albo po mailu
+      operationId: searchPersonForPatent_1
+      parameters:
+      - name: $skip
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int64
+          default: 0
+      - name: $top
+        in: query
+        required: false
+        schema:
+          maximum: 100
+          type: integer
+          format: int64
+          default: 10
+      - name: $inlinecount
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: $orderby
+        in: query
+        required: false
+        schema:
+          type: string
+          default: lastName,firstName,email
+      - name: searchValue
+        in: query
+        required: false
+        schema:
+          type: string
+          default: searchValue
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/OdataResponseDocsensePersonResponse'
+      security:
+      - Authorization: []
+  /api/v1/Docsense/People/SearchByIdentifier:
+    get:
+      tags:
+      - UwPersonDocsense
+      summary: Jeżeli nie znaleziono osoby o danym osID to nie pojawi się ona na liście (w…
+      operationId: searchPeople
+      parameters:
+      - name: osId
+        in: query
+        required: true
+        schema:
+          type: array
+          items:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DocsensePersonResponse'
+      security:
+      - Authorization: []
+components:
+  schemas:
+    OdataResponseDocsensePersonResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/DocsensePersonResponse'
+        totalCount:
+          type: integer
+          format: int32
+    DocsensePersonResponse:
+      type: object
+      properties:
+        osId:
+          type: string
+        masterId:
+          type: string
+        firstName:
+          type: string
+        secondName:
+          type: string
+        lastName:
+          type: string
+        unitNamePl:
+          type: string
+        unitNameEn:
+          type: string
+        primaryEmail:
+          type: string
+        expId:
+          type: string
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

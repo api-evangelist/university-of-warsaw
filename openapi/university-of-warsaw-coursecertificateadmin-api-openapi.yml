@@ -1,0 +1,465 @@
+openapi: 3.2.0
+info:
+  title: OpenAPI definition Course Certificate Admin API
+  version: v0
+servers:
+- url: https://api.sp4eu.uw.edu.pl
+tags:
+- name: CourseCertificateAdmin
+paths:
+  /api/v1/Admin/CourseCertificate/{documentId}:
+    get:
+      tags:
+      - CourseCertificateAdmin
+      summary: Wyświetlanie danych konkretnego certyfikatu
+      operationId: getCertificateById
+      parameters:
+      - name: documentId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/DocumentPersonResponse'
+      security:
+      - Authorization: []
+    put:
+      tags:
+      - CourseCertificateAdmin
+      summary: Aktualizacja danych certyfikatu
+      operationId: updateCertificate
+      parameters:
+      - name: documentId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CourseCertificateRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+      security:
+      - Authorization: []
+    delete:
+      tags:
+      - CourseCertificateAdmin
+      summary: Usunięcie certyfikatu (wraz z powiązanymi plikami)
+      operationId: deleteCertificate
+      parameters:
+      - name: documentId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      security:
+      - Authorization: []
+  /api/v1/Admin/CourseCertificate/{documentId}/File/{fileId}:
+    get:
+      tags:
+      - CourseCertificateAdmin
+      summary: Wyświetlanie danych pliku
+      operationId: getFileById
+      parameters:
+      - name: documentId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: fileId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/AttachedFileResponse'
+      security:
+      - Authorization: []
+    put:
+      tags:
+      - CourseCertificateAdmin
+      summary: Aktualizacja danych pliku
+      operationId: updateFile
+      parameters:
+      - name: documentId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: fileId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AttachedFileRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+      security:
+      - Authorization: []
+    delete:
+      tags:
+      - CourseCertificateAdmin
+      summary: Usunięcie pliku
+      operationId: deleteFile
+      parameters:
+      - name: documentId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: fileId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      security:
+      - Authorization: []
+  /api/v1/Admin/CourseCertificate:
+    get:
+      tags:
+      - CourseCertificateAdmin
+      summary: Wyświetlanie listy danych wszystkich certyfikatów
+      operationId: findAllCertificates
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DocumentPersonResponse'
+      security:
+      - Authorization: []
+    post:
+      tags:
+      - CourseCertificateAdmin
+      summary: Dodanie certyfikatu (bez załączonego pliku)
+      operationId: addCertificate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CourseCertificateRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/DocumentPersonResponse'
+      security:
+      - Authorization: []
+  /api/v1/Admin/CourseCertificate/{documentId}/File:
+    post:
+      tags:
+      - CourseCertificateAdmin
+      summary: Dodanie pliku
+      operationId: addFile
+      parameters:
+      - name: documentId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                attachedFileRequest:
+                  $ref: '#/components/schemas/AttachedFileRequest'
+                file:
+                  type: string
+                  format: binary
+              required:
+              - attachedFileRequest
+              - file
+      responses:
+        '200':
+          description: OK
+      security:
+      - Authorization: []
+  /api/v1/Admin/CourseCertificate/{personId}/Person:
+    get:
+      tags:
+      - CourseCertificateAdmin
+      summary: Wyświetlanie listy danych certyfikatów dla danej osoby
+      operationId: findByPersonId
+      parameters:
+      - name: personId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DocumentPersonResponse'
+      security:
+      - Authorization: []
+  /api/v1/Admin/CourseCertificate/{documentId}/Download:
+    get:
+      tags:
+      - CourseCertificateAdmin
+      summary: Pobranie wszystkich plików dla danego certyfikatu
+      operationId: downloadAll
+      parameters:
+      - name: documentId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      security:
+      - Authorization: []
+  /api/v1/Admin/CourseCertificate/{documentId}/Download/{fileId}:
+    get:
+      tags:
+      - CourseCertificateAdmin
+      summary: Pobranie konkretnego pliku
+      operationId: download
+      parameters:
+      - name: documentId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: fileId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      security:
+      - Authorization: []
+  /api/v1/Admin/CourseCertificate/{courseId}/Course:
+    get:
+      tags:
+      - CourseCertificateAdmin
+      summary: Wyświetlanie listy danych certyfikatów dla danego kursu
+      operationId: findByCourseId
+      parameters:
+      - name: courseId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DocumentPersonResponse'
+      security:
+      - Authorization: []
+  /api/v1/Admin/CourseCertificate/SearchPerson:
+    get:
+      tags:
+      - CourseCertificateAdmin
+      operationId: searchPersonForCourse_2
+      parameters:
+      - name: $skip
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int64
+          default: 0
+      - name: $top
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int64
+          default: 10
+          maximum: 100
+      - name: $inlinecount
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: $orderby
+        in: query
+        required: false
+        schema:
+          type: string
+          default: lastName,firstName,email
+      - name: searchValue
+        in: query
+        required: false
+        schema:
+          type: string
+          default: searchValue
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/OdataResponsePersonResponse'
+      security:
+      - Authorization: []
+      summary: Search person for course 2
+      x-summary-source: derived
+  /api/v1/Admin/CourseCertificate/SearchPerson/{personId}:
+    get:
+      tags:
+      - CourseCertificateAdmin
+      summary: Czytanie informacji o osobie
+      operationId: getSearchPersonForCourse_2
+      parameters:
+      - name: personId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PersonResponse'
+      security:
+      - Authorization: []
+components:
+  schemas:
+    DocumentPersonResponse:
+      type: object
+      properties:
+        documentId:
+          type: string
+        files:
+          type: array
+          items:
+            $ref: '#/components/schemas/AttachedFileResponse'
+        name:
+          type: string
+        created:
+          type: string
+          format: date-time
+        personId:
+          type: string
+        university:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        type:
+          type: string
+        details:
+          type: object
+          additionalProperties:
+            type: object
+    AttachedFileRequest:
+      type: object
+      properties:
+        description:
+          type: string
+        name:
+          type: string
+    AttachedFileResponse:
+      type: object
+      properties:
+        fileId:
+          type: string
+        description:
+          type: string
+        name:
+          type: string
+    OdataResponsePersonResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/PersonResponse'
+        totalCount:
+          type: integer
+          format: int32
+    PersonResponse:
+      type: object
+      properties:
+        personId:
+          type: string
+        university:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        lastLoginTime:
+          type: string
+          format: date-time
+        createdAt:
+          type: string
+          format: date-time
+    CourseCertificateRequest:
+      type: object
+      properties:
+        personId:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+        courseId:
+          type: string
+        courseName:
+          type: string
+      required:
+      - courseId
+      - courseName
+      - name
+      - personId
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

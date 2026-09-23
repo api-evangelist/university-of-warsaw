@@ -1,0 +1,64 @@
+openapi: 3.2.0
+info:
+  title: Jaskier Currency API
+  version: 1.2.25
+servers:
+- url: https://api.jaskier.uw.edu.pl
+tags:
+- name: Currency
+paths:
+  /api/v1/Currency/Rearrange:
+    post:
+      tags:
+      - Currency
+      summary: Zmiana kolejności wpisów
+      operationId: rearrangeCurrencies
+      requestBody:
+        description: Lista wszystkich kodów (code) w nowej kolejności
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: string
+                example: PLN
+        required: true
+      responses:
+        '200':
+          description: OK
+      security:
+      - Authorization: []
+  /api/v1/Currency:
+    get:
+      tags:
+      - Currency
+      summary: Lista walut
+      operationId: queryForCurrency
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CurrencyResponse'
+      security:
+      - Authorization: []
+components:
+  schemas:
+    CurrencyResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Kod waluty
+        name:
+          type: string
+          description: Nazwa waluty
+      description: Waluta
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

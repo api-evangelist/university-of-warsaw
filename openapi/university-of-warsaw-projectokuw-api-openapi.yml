@@ -1,0 +1,338 @@
+openapi: 3.2.0
+info:
+  title: Jaskier Project Ok Uw API
+  version: 1.2.25
+servers:
+- url: https://api.jaskier.uw.edu.pl
+tags:
+- name: ProjectOkUw
+paths:
+  /api/v1/OkUw/Project:
+    get:
+      tags:
+      - ProjectOkUw
+      summary: Listowanie danych o projektach
+      operationId: queryForProjectOkUw
+      parameters:
+      - name: $skip
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int64
+          default: 0
+      - name: $top
+        in: query
+        required: false
+        schema:
+          maximum: 1000
+          type: integer
+          format: int64
+          default: 10
+      - name: $inlinecount
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: $orderby
+        in: query
+        required: false
+        schema:
+          type: string
+          default: projectName
+      - name: $filter
+        in: query
+        required: false
+        schema:
+          type: string
+          default: ()
+      - name: searchValue
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: disciplineCode
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/OdataResponseProjectOkUwQueryResponse'
+      security:
+      - Authorization: []
+  /api/v1/OkUw/Project/{projectId}:
+    get:
+      tags:
+      - ProjectOkUw
+      summary: Czytanie projektu z podanym id
+      operationId: getProjectByIdOkUw
+      parameters:
+      - name: projectId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ProjectOkUwResponse'
+      security:
+      - Authorization: []
+  /api/v1/OkUw/Project/Type:
+    get:
+      tags:
+      - ProjectOkUw
+      summary: Listowanie typów projektu
+      operationId: queryForProjectTypeOkUw
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProjectTypeResponse'
+      security:
+      - Authorization: []
+components:
+  schemas:
+    ProjectOkUwProfileResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        projectId:
+          type: string
+        profileId:
+          type: string
+        profilePublicId:
+          type: string
+        profileName:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        degree:
+          type: string
+        unitCode:
+          type: string
+        unitNamePl:
+          type: string
+        unitNameEn:
+          type: string
+        roles:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProjectPublicMemberRoleResponse'
+    ProjectOkUwResponse:
+      type: object
+      properties:
+        project:
+          $ref: '#/components/schemas/ProjectOkUwQueryResponse'
+        members:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProjectOkUwProfileResponse'
+        units:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProjectUwUnitResponse'
+        financingExternal:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProjectFinancingExternalResponse'
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProjectLinkResponse'
+    ProjectTypeResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        type:
+          type: string
+        specificType:
+          type: string
+      description: Informacje o typie projektu
+    ProjectFinancingExternalResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        projectId:
+          type: string
+        comments:
+          type: string
+        amount:
+          type: number
+        category:
+          type: string
+        projectRole:
+          type: string
+          enum:
+          - LEADER
+          - CONSORTIUM_MEMBER
+          - FORMALIZED_COLLABORATION
+          - ECONOMIC_PARTNER
+        contractNumber:
+          type: string
+        contractDate:
+          type: string
+          format: date
+        businessEntityId:
+          type: string
+        businessEntityName:
+          type: string
+        businessEntityAcro:
+          type: string
+        businessEntityCountryCode:
+          type: string
+      description: Informacje o podmiotach zewnętrznych finansowania
+    ProjectLinkResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: id linku
+        projectId:
+          type: string
+          description: id projektu
+        name:
+          type: string
+          description: nazwa linku
+        url:
+          type: string
+          description: link
+      description: Link do projektu
+    ProjectOkUwQueryResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        projectName:
+          type: string
+        projectNumber:
+          type: string
+        projectAbstract:
+          type: string
+        projectType:
+          type: string
+        keywords:
+          type: array
+          items:
+            type: string
+        startDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+        roleUw:
+          type: string
+          enum:
+          - LEADER
+          - CONSORTIUM_MEMBER
+          - SELF_EXECUTION
+          - SUBCONTRACTOR
+        startDateUw:
+          type: string
+          format: date
+        endDateUw:
+          type: string
+          format: date
+        budget:
+          type: number
+        grantAmount:
+          type: number
+        financingInstitutionId:
+          type: string
+        financingInstitutionName:
+          type: string
+        projectProgramId:
+          type: integer
+          format: int32
+        projectProgramName:
+          type: string
+        projectProgramDetailedId:
+          type: integer
+          format: int32
+        projectProgramDetailedName:
+          type: string
+        competitionNumber:
+          type: string
+        competitionName:
+          type: string
+        scienceDisciplineCodes:
+          type: array
+          items:
+            type: string
+        managerProfileId:
+          type: string
+        managerProfileName:
+          type: string
+        responsibleUnitCode:
+          type: string
+        responsibleUnitNamePl:
+          type: string
+        responsibleUnitNameEn:
+          type: string
+    ProjectUwUnitResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        projectId:
+          type: string
+        unitCode:
+          type: string
+        unitNamePl:
+          type: string
+        unitNameEn:
+          type: string
+        fromDate:
+          type: string
+          format: date
+        toDate:
+          type: string
+          format: date
+        pspElement:
+          type: string
+        main:
+          type: boolean
+    ProjectPublicMemberRoleResponse:
+      type: object
+      properties:
+        namePl:
+          type: string
+        nameEn:
+          type: string
+        orderIndex:
+          type: integer
+          format: int32
+    OdataResponseProjectOkUwQueryResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProjectOkUwQueryResponse'
+        totalCount:
+          type: integer
+          format: int32
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

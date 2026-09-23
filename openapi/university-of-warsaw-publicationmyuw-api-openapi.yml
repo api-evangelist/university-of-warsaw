@@ -1,0 +1,220 @@
+openapi: 3.2.0
+info:
+  title: Jaskier Publication My Uw API
+  version: 1.2.25
+servers:
+- url: https://api.jaskier.uw.edu.pl
+tags:
+- name: PublicationMyUw
+paths:
+  /api/v1/MyUw/Publication/{publicationId}:
+    get:
+      tags:
+      - PublicationMyUw
+      summary: Czytanie publikacji z podanym id
+      operationId: getPublicationByIdForMyUw
+      parameters:
+      - name: publicationId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PublicationResponse'
+      security:
+      - Authorization: []
+  /api/v1/MyUw/Publication/{publicationId}/Profile:
+    get:
+      tags:
+      - PublicationMyUw
+      summary: Lista autorów publikacji
+      description: 'Lista autorów publikacji
+
+        Filtry:
+
+        * role
+
+        - gdy brak -> zwraca wszystkich autorów publikacje niezależnie od roli'
+      operationId: getPublicationProfileForMyUw
+      parameters:
+      - name: publicationId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: role
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - AUTHOR
+          - SUPERVISOR
+          - EDITOR
+          - TRANSLATOR
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PublicationProfileResponse'
+      security:
+      - Authorization: []
+  /api/v1/MyUw/Publication/{publicationId}/Abstract:
+    get:
+      tags:
+      - PublicationMyUw
+      summary: Lista abstraktów publikacji
+      operationId: getPublicationAbstractsForMyUw
+      parameters:
+      - name: publicationId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AbstractResponse'
+      security:
+      - Authorization: []
+components:
+  schemas:
+    PublicationResponse:
+      type: object
+      properties:
+        publicationId:
+          type: string
+          description: id publikacji
+        cfUri:
+          type: string
+          description: link do publikacji
+        doi:
+          type: string
+          description: link do globalnie unikalnego identyfikatora
+        publicationDate:
+          type: string
+          description: data wydania publikacji
+        year:
+          type: integer
+          description: rok wydania publikacji
+          format: int32
+        types:
+          type: array
+          description: typ publikacji
+          items:
+            type: string
+            description: typ publikacji
+        languages:
+          type: array
+          description: lista języków publikacji
+          items:
+            type: string
+            description: lista języków publikacji
+        cfTitle:
+          type: string
+          description: tytuł publikacji pobierany z abstraktu o najniższym indeksie
+        cfKeyw:
+          type: array
+          description: słowa kluczowe pobierane z abstraktu o najniższym indeksie
+          items:
+            type: string
+            description: słowa kluczowe pobierane z abstraktu o najniższym indeksie
+        creationTime:
+          type: string
+          format: date-time
+      description: Informacje o publikacji
+    AbstractResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Id abstraltu
+        langCode:
+          type: string
+          description: kod języka typu PL, EN, EN-GB, itp - klucz naturalny do Language, zgodny z ISO (patrz Language)
+        title:
+          type: string
+          description: 'tytuł wynalazku/patentu/wzoru użytkowego/nazwa gatunku/nazwa botaniczna/nazwa odmiany w danym języku '
+        abstr:
+          type: string
+          description: streszczenie opisu wynalazku/wzoru użytkowego w danym języku
+        keyw:
+          type: array
+          description: słowa kluczowe w danym języku
+          items:
+            type: string
+            description: słowa kluczowe w danym języku
+        orderIndex:
+          type: integer
+          description: 'kolejność wyświetlania abstraktów (domyślnie: 0)'
+          format: int32
+        objectId:
+          type: string
+          description: Id obiektu
+        objectType:
+          type: string
+          description: Typ obiektu
+        original:
+          type: boolean
+          description: czy streszczenie jest w języku oryginału
+    PublicationProfileResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: id relacji course_person
+        publicationId:
+          type: string
+          description: id kursu
+        name:
+          type: string
+          description: imię i nazwisko autora (ustawiane dowolnie)
+        profileId:
+          type: string
+          description: id profilu
+        profilePublicId:
+          type: string
+          description: id publiczne profilu
+        profileFirstName:
+          type: string
+          description: imię osoby
+        profileLastName:
+          type: string
+          description: nazwisko osoby
+        profileEmails:
+          type: array
+          description: emaile osoby
+          items:
+            type: string
+            description: emaile osoby
+        profileDegree:
+          type: string
+          description: stopień naukowy osoby
+        role:
+          type: string
+          description: rola osoby
+        email:
+          type: string
+          description: email
+        isPubliclyVisible:
+          type: boolean
+          description: czy profil jest publiczny
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

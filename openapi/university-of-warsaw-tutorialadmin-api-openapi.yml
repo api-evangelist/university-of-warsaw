@@ -1,0 +1,321 @@
+openapi: 3.2.0
+info:
+  title: OpenAPI definition Tutorial Admin API
+  version: v0
+servers:
+- url: https://api.sp4eu.uw.edu.pl
+tags:
+- name: TutorialAdmin
+paths:
+  /api/v1/Admin/Tutorial/{tutorialId}:
+    put:
+      tags:
+      - TutorialAdmin
+      summary: Aktualizacja tutorialu
+      operationId: updateTutorial
+      parameters:
+      - name: tutorialId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TutorialRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Sp4euTutorialResponse'
+      security:
+      - Authorization: []
+    delete:
+      tags:
+      - TutorialAdmin
+      summary: Usunięcie tutorialu z relacjami
+      operationId: removeTutorial
+      parameters:
+      - name: tutorialId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      security:
+      - Authorization: []
+  /api/v1/Admin/Tutorial:
+    get:
+      tags:
+      - TutorialAdmin
+      summary: Listowanie danych o tutorialach
+      operationId: queryTutorialsForAdmin
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/QueryTutorialItemSp4euResponse'
+      security:
+      - Authorization: []
+    post:
+      tags:
+      - TutorialAdmin
+      summary: Dodawanie tutorialu
+      operationId: addTutorial
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TutorialRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Sp4euTutorialResponse'
+      security:
+      - Authorization: []
+  /api/v1/Admin/Tutorial/{id}:
+    get:
+      tags:
+      - TutorialAdmin
+      summary: Pobranie danych o tutorialu o podanym id
+      operationId: getTutorialByIdForAdmin
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Sp4euTutorialResponse'
+      security:
+      - Authorization: []
+components:
+  schemas:
+    Sp4euTutorialResponse:
+      type: object
+      properties:
+        tutorialId:
+          type: string
+        tutorialCode:
+          type: string
+        isPublished:
+          type: boolean
+        providedBy:
+          type: array
+          items:
+            type: string
+            enum:
+            - CUNI
+            - UAH
+            - SU
+            - KU
+            - UNIMI
+            - UW
+            - UNIGE
+            - PARIS_2
+        publishedBy:
+          type: string
+          enum:
+          - CUNI
+          - UAH
+          - SU
+          - KU
+          - UNIMI
+          - UW
+          - UNIGE
+          - PARIS_2
+        creationTime:
+          type: string
+        title:
+          type: string
+        category:
+          type: string
+          enum:
+          - SelfOrganization
+          - OnlineLearning
+          - CulturalAwareness
+          - GroupDynamics
+          - HandlingConflicts
+        languages:
+          type: array
+          items:
+            type: string
+        level:
+          type: string
+          enum:
+          - BASIC
+          - MEDIUM
+          - ADVANCED
+        duration:
+          type: string
+        url:
+          type: string
+        isFree:
+          type: boolean
+        description:
+          type: string
+        cfTitle:
+          type: string
+          deprecated: true
+        cfKeyw:
+          type: array
+          deprecated: true
+          items:
+            type: string
+            deprecated: true
+    TutorialRequest:
+      type: object
+      properties:
+        tutorialCode:
+          type: string
+        isPublished:
+          type: boolean
+        providedBy:
+          type: array
+          items:
+            type: string
+            enum:
+            - CUNI
+            - UAH
+            - SU
+            - KU
+            - UNIMI
+            - UW
+            - UNIGE
+            - PARIS_2
+        publishedBy:
+          type: string
+          enum:
+          - CUNI
+          - UAH
+          - SU
+          - KU
+          - UNIMI
+          - UW
+          - UNIGE
+          - PARIS_2
+        title:
+          type: string
+        category:
+          type: string
+          enum:
+          - SelfOrganization
+          - OnlineLearning
+          - CulturalAwareness
+          - GroupDynamics
+          - HandlingConflicts
+        languages:
+          type: array
+          items:
+            type: string
+          uniqueItems: true
+        level:
+          type: string
+          enum:
+          - BASIC
+          - MEDIUM
+          - ADVANCED
+        duration:
+          type: string
+        url:
+          type: string
+        isFree:
+          type: boolean
+        description:
+          type: string
+    QueryTutorialItemSp4euResponse:
+      type: object
+      properties:
+        tutorialId:
+          type: string
+        tutorialCode:
+          type: string
+        isPublished:
+          type: boolean
+        providedBy:
+          type: array
+          items:
+            type: string
+            enum:
+            - CUNI
+            - UAH
+            - SU
+            - KU
+            - UNIMI
+            - UW
+            - UNIGE
+            - PARIS_2
+        publishedBy:
+          type: string
+          enum:
+          - CUNI
+          - UAH
+          - SU
+          - KU
+          - UNIMI
+          - UW
+          - UNIGE
+          - PARIS_2
+        creationTime:
+          type: string
+        title:
+          type: string
+        category:
+          type: string
+          enum:
+          - SelfOrganization
+          - OnlineLearning
+          - CulturalAwareness
+          - GroupDynamics
+          - HandlingConflicts
+        languages:
+          type: array
+          items:
+            type: string
+        level:
+          type: string
+          enum:
+          - BASIC
+          - MEDIUM
+          - ADVANCED
+        duration:
+          type: string
+        url:
+          type: string
+        isFree:
+          type: boolean
+        description:
+          type: string
+        cfTitle:
+          type: string
+          deprecated: true
+        cfKeyw:
+          type: array
+          deprecated: true
+          items:
+            type: string
+            deprecated: true
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

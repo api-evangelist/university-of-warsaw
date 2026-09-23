@@ -1,0 +1,50 @@
+openapi: 3.2.0
+info:
+  title: Jaskier Country API
+  version: 1.2.25
+servers:
+- url: https://api.jaskier.uw.edu.pl
+tags:
+- name: Country
+paths:
+  /api/v1/Country:
+    get:
+      tags:
+      - Country
+      summary: Lista krajów
+      operationId: queryForCountry
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CountryResponse'
+      security:
+      - Authorization: []
+components:
+  schemas:
+    CountryResponse:
+      type: object
+      properties:
+        cfCountryCode:
+          type: string
+          description: kod kraju
+        namePl:
+          type: string
+          description: polska nazwa kraju
+        nameEn:
+          type: string
+          description: angielska nazwa kraju
+        orderIndex:
+          type: integer
+          description: kolejność niestandardowa
+          format: int32
+      description: Kraj
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

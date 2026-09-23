@@ -1,0 +1,1291 @@
+openapi: 3.2.0
+info:
+  title: Jaskier Student Organization API
+  version: 1.2.25
+servers:
+- url: https://api.jaskier.uw.edu.pl
+tags:
+- name: StudentOrganization
+paths:
+  /api/v1/StudentOrganization/{organizationId}/Report:
+    put:
+      tags:
+      - StudentOrganization
+      operationId: upsertReportsForStudentOrganization
+      parameters:
+      - name: organizationId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              uniqueItems: true
+              type: array
+              items:
+                $ref: '#/components/schemas/StudentOrganizationReportRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/StudentOrganizationReportResponse'
+      security:
+      - Authorization: []
+      summary: Upsert reports for student organization
+      x-summary-source: derived
+  /api/v1/StudentOrganization/{organizationId}/Link:
+    get:
+      tags:
+      - StudentOrganization
+      operationId: getOrganizationLinks
+      parameters:
+      - name: organizationId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/StudentOrganizationLinkResponse'
+      security:
+      - Authorization: []
+      summary: Get organization links
+      x-summary-source: derived
+    put:
+      tags:
+      - StudentOrganization
+      operationId: updateOrganizationLinks
+      parameters:
+      - name: organizationId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              uniqueItems: true
+              type: array
+              items:
+                $ref: '#/components/schemas/StudentOrganizationLinkRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/StudentOrganizationLinkResponse'
+      security:
+      - Authorization: []
+      summary: Update organization links
+      x-summary-source: derived
+  /api/v1/StudentOrganization/{id}:
+    get:
+      tags:
+      - StudentOrganization
+      operationId: getStudentOrganizationById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/StudentOrganizationResponse'
+      security:
+      - Authorization: []
+      summary: Get student organization by id
+      x-summary-source: derived
+    put:
+      tags:
+      - StudentOrganization
+      operationId: updateStudentOrganization
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StudentOrganizationRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/StudentOrganizationResponse'
+      security:
+      - Authorization: []
+      summary: Update student organization
+      x-summary-source: derived
+    delete:
+      tags:
+      - StudentOrganization
+      operationId: deleteStudentOrganization
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      security:
+      - Authorization: []
+      summary: Delete student organization
+      x-summary-source: derived
+  /api/v1/StudentOrganization/{id}/Unit:
+    get:
+      tags:
+      - StudentOrganization
+      operationId: getUnitsForStudentOrganization
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/StudentOrganizationUnitResponse'
+      security:
+      - Authorization: []
+      summary: Get units for student organization
+      x-summary-source: derived
+    put:
+      tags:
+      - StudentOrganization
+      operationId: upsertUnitsForStudentOrganization
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/StudentOrganizationUnitRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/StudentOrganizationUnitResponse'
+      security:
+      - Authorization: []
+      summary: Upsert units for student organization
+      x-summary-source: derived
+  /api/v1/StudentOrganization/{id}/Supervisor:
+    get:
+      tags:
+      - StudentOrganization
+      operationId: getSupervisorsForStudentOrganization
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/StudentOrganizationSupervisorResponse'
+      security:
+      - Authorization: []
+      summary: Get supervisors for student organization
+      x-summary-source: derived
+    put:
+      tags:
+      - StudentOrganization
+      operationId: upsertSupervisorsForStudentOrganization
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/StudentOrganizationSupervisorRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/StudentOrganizationSupervisorResponse'
+      security:
+      - Authorization: []
+      summary: Upsert supervisors for student organization
+      x-summary-source: derived
+  /api/v1/StudentOrganization/{id}/Status:
+    get:
+      tags:
+      - StudentOrganization
+      operationId: getStatusesForStudentOrganization
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/StudentOrganizationStatusResponse'
+      security:
+      - Authorization: []
+      summary: Get statuses for student organization
+      x-summary-source: derived
+    put:
+      tags:
+      - StudentOrganization
+      operationId: upsertStatusesForStudentOrganization
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/StudentOrganizationStatusRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/StudentOrganizationStatusResponse'
+      security:
+      - Authorization: []
+      summary: Upsert statuses for student organization
+      x-summary-source: derived
+  /api/v1/StudentOrganization/{id}/Name:
+    get:
+      tags:
+      - StudentOrganization
+      operationId: getNamesForStudentOrganization
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/StudentOrganizationNameResponse'
+      security:
+      - Authorization: []
+      summary: Get names for student organization
+      x-summary-source: derived
+    put:
+      tags:
+      - StudentOrganization
+      operationId: upsertNamesForStudentOrganization
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/StudentOrganizationNameRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/StudentOrganizationNameResponse'
+      security:
+      - Authorization: []
+      summary: Upsert names for student organization
+      x-summary-source: derived
+  /api/v1/StudentOrganization/{id}/Founder:
+    get:
+      tags:
+      - StudentOrganization
+      operationId: getFoundersForStudentOrganization
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/StudentOrganizationFounderResponse'
+      security:
+      - Authorization: []
+      summary: Get founders for student organization
+      x-summary-source: derived
+    put:
+      tags:
+      - StudentOrganization
+      operationId: upsertFoundersForStudentOrganization
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/StudentOrganizationFounderRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/StudentOrganizationFounderResponse'
+      security:
+      - Authorization: []
+      summary: Upsert founders for student organization
+      x-summary-source: derived
+  /api/v1/StudentOrganization/{id}/BoardMember:
+    get:
+      tags:
+      - StudentOrganization
+      operationId: getBoardMembersForStudentOrganization
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/StudentOrganizationBoardMemberResponse'
+      security:
+      - Authorization: []
+      summary: Get board members for student organization
+      x-summary-source: derived
+    put:
+      tags:
+      - StudentOrganization
+      operationId: upsertBoardMembersForStudentOrganization
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/StudentOrganizationBoardMemberRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/StudentOrganizationBoardMemberResponse'
+      security:
+      - Authorization: []
+      summary: Upsert board members for student organization
+      x-summary-source: derived
+  /api/v1/StudentOrganization/{id}/Activity:
+    get:
+      tags:
+      - StudentOrganization
+      operationId: getActivitiesForStudentOrganization
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/StudentOrganizationActivityResponse'
+      security:
+      - Authorization: []
+      summary: Get activities for student organization
+      x-summary-source: derived
+    put:
+      tags:
+      - StudentOrganization
+      operationId: upsertActivitiesForStudentOrganization
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/StudentOrganizationActivityRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/StudentOrganizationActivityResponse'
+      security:
+      - Authorization: []
+      summary: Upsert activities for student organization
+      x-summary-source: derived
+  /api/v1/StudentOrganization:
+    get:
+      tags:
+      - StudentOrganization
+      operationId: findAllStudentOrganizations
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/StudentOrganizationResponse'
+      security:
+      - Authorization: []
+      summary: Find all student organizations
+      x-summary-source: derived
+    post:
+      tags:
+      - StudentOrganization
+      operationId: addStudentOrganization
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StudentOrganizationRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/StudentOrganizationResponse'
+      security:
+      - Authorization: []
+      summary: Add student organization
+      x-summary-source: derived
+  /api/v1/StudentOrganization/{id}/Report:
+    get:
+      tags:
+      - StudentOrganization
+      operationId: getReportsForStudentOrganization
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/StudentOrganizationReportResponse'
+      security:
+      - Authorization: []
+      summary: Get reports for student organization
+      x-summary-source: derived
+  /api/v1/StudentOrganization/SearchPerson:
+    get:
+      tags:
+      - StudentOrganization
+      summary: Listowanie danych o osobach
+      operationId: searchPersonForStudentOrganization
+      parameters:
+      - name: $skip
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int64
+          default: 0
+      - name: $top
+        in: query
+        required: false
+        schema:
+          maximum: 100
+          type: integer
+          format: int64
+          default: 10
+      - name: $inlinecount
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: $orderby
+        in: query
+        required: false
+        schema:
+          type: string
+          default: lastName,firstName,email
+      - name: searchValue
+        in: query
+        required: false
+        schema:
+          type: string
+          default: searchValue
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/OdataResponsePersonViewResponse'
+      security:
+      - Authorization: []
+  /api/v1/StudentOrganization/SearchPerson('{personId}'):
+    get:
+      tags:
+      - StudentOrganization
+      summary: Czytanie informacji o osobie
+      operationId: getPersonForStudentOrganization
+      parameters:
+      - name: personId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PersonViewResponse'
+      security:
+      - Authorization: []
+  /api/v1/StudentOrganization/RelationsReport:
+    get:
+      tags:
+      - StudentOrganization
+      operationId: getOrganizationsRelationsReport
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/StudentOrganizationRelationsReportResponse'
+      security:
+      - Authorization: []
+      summary: Get organizations relations report
+      x-summary-source: derived
+  /api/v1/StudentOrganization/ActivityProfiles:
+    get:
+      tags:
+      - StudentOrganization
+      operationId: getActivitiesProfiles
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  type: string
+      security:
+      - Authorization: []
+      summary: Get activities profiles
+      x-summary-source: derived
+components:
+  schemas:
+    StudentOrganizationLinkResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        url:
+          type: string
+    StudentOrganizationNameRequest:
+      type: object
+      properties:
+        id:
+          type: string
+        namePl:
+          maxLength: 255
+          minLength: 0
+          type: string
+        nameEn:
+          maxLength: 255
+          minLength: 0
+          type: string
+        shortNamePl:
+          maxLength: 255
+          minLength: 0
+          type: string
+        shortNameEn:
+          maxLength: 255
+          minLength: 0
+          type: string
+        dateFrom:
+          type: string
+          format: date
+        dateTo:
+          type: string
+          format: date
+        note:
+          maxLength: 1000
+          minLength: 0
+          type: string
+    StudentOrganizationStatusRequest:
+      type: object
+      properties:
+        id:
+          type: string
+        status:
+          type: string
+          enum:
+          - ACTIVE
+          - SUSPENDED
+          - CLOSED
+        dateFrom:
+          type: string
+          format: date
+        dateTo:
+          type: string
+          format: date
+        note:
+          maxLength: 1000
+          minLength: 0
+          type: string
+    StudentOrganizationNameResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        namePl:
+          type: string
+        nameEn:
+          type: string
+        shortNamePl:
+          type: string
+        shortNameEn:
+          type: string
+        dateFrom:
+          type: string
+          format: date
+        dateTo:
+          type: string
+          format: date
+        note:
+          type: string
+    StudentOrganizationFounderResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        personId:
+          type: string
+        studentOrganizationId:
+          type: string
+        note:
+          type: string
+        name:
+          type: string
+        preferredName:
+          type: string
+        email:
+          type: string
+        usosId:
+          type: string
+        universityIndexNumber:
+          type: string
+        phoneNumbers:
+          type: array
+          items:
+            type: string
+        fieldOfStudy:
+          type: string
+        yearOfStudy:
+          type: integer
+          format: int32
+    StudentOrganizationActivityRequest:
+      required:
+      - mainProfile
+      type: object
+      properties:
+        id:
+          type: string
+        mainProfile:
+          type: string
+        dateFrom:
+          type: string
+          format: date
+        dateTo:
+          type: string
+          format: date
+        note:
+          maxLength: 1000
+          minLength: 0
+          type: string
+    StudentOrganizationBoardMemberRequest:
+      required:
+      - personId
+      - role
+      type: object
+      properties:
+        id:
+          type: string
+        personId:
+          type: string
+        role:
+          type: string
+          enum:
+          - CHAIR_M
+          - CHAIR_F
+          - CHAIR_N
+          - VICE_CHAIR_M
+          - VICE_CHAIR_F
+          - VICE_CHAIR_N
+          - TREASURER_M
+          - TREASURER_F
+          - TREASURER_N
+          - SECRETARY_M
+          - SECRETARY_F
+          - SECRETARY_N
+          - BOARD_MEMBER_M
+          - BOARD_MEMBER_F
+          - BOARD_MEMBER_N
+        dateFrom:
+          type: string
+          format: date
+        dateTo:
+          type: string
+          format: date
+        note:
+          maxLength: 1000
+          minLength: 0
+          type: string
+        fieldOfStudy:
+          maxLength: 256
+          minLength: 0
+          type: string
+        yearOfStudy:
+          type: integer
+          format: int32
+    StudentOrganizationRequest:
+      type: object
+      properties:
+        registeredDate:
+          type: string
+          format: date
+        contactPersonId:
+          type: string
+        registerNumber:
+          type: integer
+          format: int32
+        email:
+          type: string
+        url:
+          type: string
+        type:
+          type: string
+          enum:
+          - GENERAL
+          - STUDENT
+          - DOCTORAL
+        initNamePl:
+          type: string
+        initNameEn:
+          type: string
+    StudentOrganizationStatusResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        status:
+          type: string
+          enum:
+          - ACTIVE
+          - SUSPENDED
+          - CLOSED
+        dateFrom:
+          type: string
+          format: date
+        dateTo:
+          type: string
+          format: date
+        note:
+          type: string
+    StudentOrganizationFounderRequest:
+      required:
+      - personId
+      type: object
+      properties:
+        id:
+          type: string
+        personId:
+          type: string
+        note:
+          type: string
+        fieldOfStudy:
+          type: string
+        yearOfStudy:
+          type: integer
+          format: int32
+    StudentOrganizationUnitRequest:
+      required:
+      - unitCode
+      type: object
+      properties:
+        id:
+          type: string
+        unitCode:
+          type: string
+        dateFrom:
+          type: string
+          format: date
+        dateTo:
+          type: string
+          format: date
+        note:
+          maxLength: 1000
+          minLength: 0
+          type: string
+    StudentOrganizationUnitResponse:
+      type: object
+      properties:
+        unitCode:
+          type: string
+        unitNamePl:
+          type: string
+        unitNameEn:
+          type: string
+        dateFrom:
+          type: string
+          format: date
+        dateTo:
+          type: string
+          format: date
+        note:
+          type: string
+    StudentOrganizationBoardMemberResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        personId:
+          type: string
+        name:
+          type: string
+        preferredName:
+          type: string
+        usosId:
+          type: string
+        email:
+          type: string
+        phoneNumbers:
+          type: array
+          items:
+            type: string
+        role:
+          type: string
+        dateFrom:
+          type: string
+          format: date
+        dateTo:
+          type: string
+          format: date
+        note:
+          type: string
+        fieldOfStudy:
+          type: string
+        yearOfStudy:
+          type: integer
+          format: int32
+        universityIndexNumber:
+          type: string
+    OdataResponsePersonViewResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/PersonViewResponse'
+        totalCount:
+          type: integer
+          format: int32
+    StudentOrganizationSupervisorResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        personId:
+          type: string
+        name:
+          type: string
+        degree:
+          type: string
+        email:
+          type: string
+        role:
+          type: string
+        dateFrom:
+          type: string
+          format: date
+        dateTo:
+          type: string
+          format: date
+        note:
+          type: string
+        unitCode:
+          type: string
+        unitNamePl:
+          type: string
+        unitNameEn:
+          type: string
+    StudentOrganizationLinkRequest:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        url:
+          type: string
+    StudentOrganizationResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        namePl:
+          type: string
+        nameEn:
+          type: string
+        shortNamePl:
+          type: string
+        shortNameEn:
+          type: string
+        email:
+          type: string
+        url:
+          type: string
+        type:
+          type: string
+        status:
+          type: string
+          enum:
+          - ACTIVE
+          - SUSPENDED
+          - CLOSED
+        reportSubmitted:
+          type: boolean
+        unitCode:
+          type: string
+        unitNamePl:
+          type: string
+        unitNameEn:
+          type: string
+        mainProfiles:
+          type: array
+          items:
+            type: string
+        registeredDate:
+          type: string
+          format: date
+        registerNumber:
+          type: integer
+          format: int32
+        contactPersonId:
+          type: string
+        contactPersonName:
+          type: string
+        contactPersonEmail:
+          type: string
+        mainSupervisorPersonId:
+          type: string
+        mainSupervisorName:
+          type: string
+        mainSupervisorEmail:
+          type: string
+        mainSupervisorDegree:
+          type: string
+        mainPresidentPersonId:
+          type: string
+        mainPresidentName:
+          type: string
+        mainPresidentEmail:
+          type: string
+    StudentOrganizationReportResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        year:
+          type: integer
+          format: int32
+        submittedDate:
+          type: string
+          format: date
+        accepted:
+          type: boolean
+        note:
+          type: string
+    StudentOrganizationRelationsReportResponse:
+      type: object
+      properties:
+        studentOrganization:
+          $ref: '#/components/schemas/StudentOrganizationResponse'
+        names:
+          type: array
+          items:
+            $ref: '#/components/schemas/StudentOrganizationNameResponse'
+        statuses:
+          type: array
+          items:
+            $ref: '#/components/schemas/StudentOrganizationStatusResponse'
+        activities:
+          type: array
+          items:
+            $ref: '#/components/schemas/StudentOrganizationActivityResponse'
+        units:
+          type: array
+          items:
+            $ref: '#/components/schemas/StudentOrganizationUnitResponse'
+        boardMembers:
+          type: array
+          items:
+            $ref: '#/components/schemas/StudentOrganizationBoardMemberResponse'
+        supervisors:
+          type: array
+          items:
+            $ref: '#/components/schemas/StudentOrganizationSupervisorResponse'
+        founders:
+          type: array
+          items:
+            $ref: '#/components/schemas/StudentOrganizationFounderResponse'
+        reports:
+          type: array
+          items:
+            $ref: '#/components/schemas/StudentOrganizationReportResponse'
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/StudentOrganizationLinkResponse'
+    StudentOrganizationActivityResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        mainProfile:
+          type: string
+        dateFrom:
+          type: string
+          format: date
+        dateTo:
+          type: string
+          format: date
+        note:
+          type: string
+    PersonViewResponse:
+      type: object
+      properties:
+        personId:
+          type: string
+        university:
+          type: string
+          enum:
+          - CUNI
+          - UAH
+          - SU
+          - KU
+          - UNIMI
+          - UW
+          - UNIGE
+          - PARIS_2
+        orcid:
+          type: string
+        firstName:
+          type: string
+        middleNames:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        profileId:
+          type: string
+        degree:
+          type: string
+        universityIndexNumber:
+          type: string
+    StudentOrganizationSupervisorRequest:
+      required:
+      - personId
+      type: object
+      properties:
+        id:
+          type: string
+        personId:
+          type: string
+        dateFrom:
+          type: string
+          format: date
+        dateTo:
+          type: string
+          format: date
+        role:
+          type: string
+        note:
+          maxLength: 1000
+          minLength: 0
+          type: string
+        unitCode:
+          type: string
+    StudentOrganizationReportRequest:
+      required:
+      - accepted
+      - submittedDate
+      - year
+      type: object
+      properties:
+        id:
+          type: string
+        year:
+          minimum: 1
+          type: integer
+          format: int32
+        submittedDate:
+          type: string
+          format: date
+        accepted:
+          type: boolean
+        note:
+          maxLength: 1000
+          minLength: 0
+          type: string
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

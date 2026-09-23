@@ -1,0 +1,168 @@
+openapi: 3.2.0
+info:
+  title: Jaskier Science Field/Science Discipline API
+  version: 1.2.25
+servers:
+- url: https://api.jaskier.uw.edu.pl
+tags:
+- name: ScienceField/ScienceDiscipline
+paths:
+  /api/v1/Dict/ScienceField:
+    get:
+      tags:
+      - ScienceField/ScienceDiscipline
+      summary: Lista dziedzin naukowych
+      operationId: queryForScienceFields
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ScienceFieldResponse'
+      security:
+      - Authorization: []
+  /api/v1/ScienceField:
+    get:
+      tags:
+      - ScienceField/ScienceDiscipline
+      summary: Lista dziedzin naukowych
+      operationId: queryForScienceFields_1
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ScienceFieldResponse'
+      security:
+      - Authorization: []
+  /api/v1/ScienceDiscipline/{code}:
+    get:
+      tags:
+      - ScienceField/ScienceDiscipline
+      summary: Lista dyscyplin naukowych dla danej dziedziny
+      operationId: findByScienceField
+      parameters:
+      - name: code
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                uniqueItems: true
+                type: array
+                items:
+                  $ref: '#/components/schemas/ScienceDisciplineResponse'
+      security:
+      - Authorization: []
+  /api/v1/Dict/ScienceDiscipline/{code}:
+    get:
+      tags:
+      - ScienceField/ScienceDiscipline
+      summary: Lista dyscyplin naukowych dla danej dziedziny
+      operationId: findByScienceField_1
+      parameters:
+      - name: code
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                uniqueItems: true
+                type: array
+                items:
+                  $ref: '#/components/schemas/ScienceDisciplineResponse'
+      security:
+      - Authorization: []
+  /api/v1/ScienceDiscipline:
+    get:
+      tags:
+      - ScienceField/ScienceDiscipline
+      summary: Lista dyscyplin naukowych
+      operationId: queryForScienceDisciplines
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ScienceDisciplineResponse'
+      security:
+      - Authorization: []
+  /api/v1/Dict/ScienceDiscipline:
+    get:
+      tags:
+      - ScienceField/ScienceDiscipline
+      summary: Lista dyscyplin naukowych
+      operationId: queryForScienceDisciplines_1
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ScienceDisciplineResponse'
+      security:
+      - Authorization: []
+components:
+  schemas:
+    ScienceFieldResponse:
+      type: object
+      properties:
+        code:
+          type: string
+        name:
+          type: string
+        nameEn:
+          type: string
+        effectiveFrom:
+          type: string
+          format: date
+        effectiveTo:
+          type: string
+          format: date
+    ScienceDisciplineResponse:
+      type: object
+      properties:
+        code:
+          type: string
+        name:
+          type: string
+        nameEn:
+          type: string
+        effectiveFrom:
+          type: string
+          format: date
+        effectiveTo:
+          type: string
+          format: date
+        scienceFieldCode:
+          type: string
+        scienceFieldName:
+          type: string
+        scienceFieldNameEn:
+          type: string
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

@@ -1,0 +1,179 @@
+openapi: 3.2.0
+info:
+  title: Jaskier Public Procurement Legal Basis API
+  version: 1.2.25
+servers:
+- url: https://api.jaskier.uw.edu.pl
+tags:
+- name: PublicProcurementLegalBasis
+paths:
+  /api/v1/PublicProcurementLegalBasis/{id}:
+    get:
+      tags:
+      - PublicProcurementLegalBasis
+      operationId: getLegalBasisById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: visibleFor
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - DOCSENSE
+          - FRAMEWORK_AGREEMENT
+          - PUBLIC_PROCUREMENT_PLAN
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/LegalBasisResponse'
+      security:
+      - Authorization: []
+      summary: Get legal basis by id
+      x-summary-source: derived
+    put:
+      tags:
+      - PublicProcurementLegalBasis
+      operationId: updateLegalBasis
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LegalBasisRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/LegalBasisResponse'
+      security:
+      - Authorization: []
+      summary: Update legal basis
+      x-summary-source: derived
+    delete:
+      tags:
+      - PublicProcurementLegalBasis
+      operationId: deleteLegalBasis
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+      security:
+      - Authorization: []
+      summary: Delete legal basis
+      x-summary-source: derived
+  /api/v1/PublicProcurementLegalBasis:
+    get:
+      tags:
+      - PublicProcurementLegalBasis
+      operationId: findAllProcurementPlanProcedures
+      parameters:
+      - name: visibleFor
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - DOCSENSE
+          - FRAMEWORK_AGREEMENT
+          - PUBLIC_PROCUREMENT_PLAN
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LegalBasisResponse'
+      security:
+      - Authorization: []
+      summary: Find all procurement plan procedures
+      x-summary-source: derived
+    post:
+      tags:
+      - PublicProcurementLegalBasis
+      operationId: addLegalBasis
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LegalBasisRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/LegalBasisResponse'
+      security:
+      - Authorization: []
+      summary: Add legal basis
+      x-summary-source: derived
+components:
+  schemas:
+    LegalBasisResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        name:
+          type: string
+        visibleFor:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+            enum:
+            - DOCSENSE
+            - FRAMEWORK_AGREEMENT
+            - PUBLIC_PROCUREMENT_PLAN
+    LegalBasisRequest:
+      required:
+      - name
+      - visibleFor
+      type: object
+      properties:
+        name:
+          maxLength: 256
+          minLength: 0
+          type: string
+        visibleFor:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+            enum:
+            - DOCSENSE
+            - FRAMEWORK_AGREEMENT
+            - PUBLIC_PROCUREMENT_PLAN
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

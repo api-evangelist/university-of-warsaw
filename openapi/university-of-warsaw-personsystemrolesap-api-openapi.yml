@@ -1,0 +1,576 @@
+openapi: 3.2.0
+info:
+  title: Jaskier Person System Role Sap API
+  version: 1.2.25
+servers:
+- url: https://api.jaskier.uw.edu.pl
+tags:
+- name: PersonSystemRoleSap
+paths:
+  /api/v1/PersonSystemRoleSap/Workflow:
+    get:
+      tags:
+      - PersonSystemRoleSap
+      operationId: getWorkflows
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+      security:
+      - Authorization: []
+      summary: Get workflows
+      x-summary-source: derived
+  /api/v1/PersonSystemRoleSap/Workflow/Members:
+    get:
+      tags:
+      - PersonSystemRoleSap
+      operationId: getWorkflowMembers
+      parameters:
+      - name: workflowId
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: economicDepartmentCode
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SapWorkflowResponse'
+      security:
+      - Authorization: []
+      summary: Get workflow members
+      x-summary-source: derived
+  /api/v1/PersonSystemRoleSap/Workflow/Members/Export:
+    get:
+      tags:
+      - PersonSystemRoleSap
+      operationId: exportWorkflowMembers
+      parameters:
+      - name: workflowId
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: economicDepartmentCode
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+                format: binary
+          x-is-file: 'true'
+      security:
+      - Authorization: []
+      summary: Export workflow members
+      x-summary-source: derived
+  /api/v1/PersonSystemRoleSap/Workflow/Members/Export/All:
+    get:
+      tags:
+      - PersonSystemRoleSap
+      operationId: exportWorkflowMembers_1
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+                format: binary
+          x-is-file: 'true'
+      security:
+      - Authorization: []
+      summary: Export workflow members 1
+      x-summary-source: derived
+  /api/v1/PersonSystemRoleSap/Vim/Members/WithoutEconomicDepartment:
+    get:
+      tags:
+      - PersonSystemRoleSap
+      operationId: getVimWithoutEconomicDepartment
+      parameters:
+      - name: vimRoleCode
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: personId
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SapVim2Response'
+      security:
+      - Authorization: []
+      summary: Get vim without economic department
+      x-summary-source: derived
+  /api/v1/PersonSystemRoleSap/Vim/Members/WithoutEconomicDepartment/Export:
+    get:
+      tags:
+      - PersonSystemRoleSap
+      operationId: exportVimWithoutEconomicDepartment
+      parameters:
+      - name: vimRoleCode
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: personId
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+                format: binary
+          x-is-file: 'true'
+      security:
+      - Authorization: []
+      summary: Export vim without economic department
+      x-summary-source: derived
+  /api/v1/PersonSystemRoleSap/Vim/Members/WithEconomicDepartment:
+    get:
+      tags:
+      - PersonSystemRoleSap
+      operationId: getVimWithEconomicDepartment
+      parameters:
+      - name: vimRoleCode
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: personId
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SapVim1Response'
+      security:
+      - Authorization: []
+      summary: Get vim with economic department
+      x-summary-source: derived
+  /api/v1/PersonSystemRoleSap/Vim/Members/WithEconomicDepartment/Export:
+    get:
+      tags:
+      - PersonSystemRoleSap
+      operationId: exportVimWithEconomicDepartment
+      parameters:
+      - name: vimRoleCode
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: personId
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+                format: binary
+          x-is-file: 'true'
+      security:
+      - Authorization: []
+      summary: Export vim with economic department
+      x-summary-source: derived
+  /api/v1/PersonSystemRoleSap/Security:
+    get:
+      tags:
+      - PersonSystemRoleSap
+      operationId: getSecurityRoles
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+      security:
+      - Authorization: []
+      summary: Get security roles
+      x-summary-source: derived
+  /api/v1/PersonSystemRoleSap/Security/Members:
+    get:
+      tags:
+      - PersonSystemRoleSap
+      operationId: getSecurityMembers
+      parameters:
+      - name: personId
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SapSecurityResponse'
+      security:
+      - Authorization: []
+      summary: Get security members
+      x-summary-source: derived
+  /api/v1/PersonSystemRoleSap/Security/Members/Export:
+    get:
+      tags:
+      - PersonSystemRoleSap
+      operationId: exportSecurityMembers
+      parameters:
+      - name: personId
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+                format: binary
+          x-is-file: 'true'
+      security:
+      - Authorization: []
+      summary: Export security members
+      x-summary-source: derived
+  /api/v1/PersonSystemRoleSap/SearchPerson:
+    get:
+      tags:
+      - PersonSystemRoleSap
+      summary: Wyszukiwanie osoby
+      operationId: searchPersonForProject_1
+      parameters:
+      - name: $skip
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int64
+          default: 0
+      - name: $top
+        in: query
+        required: false
+        schema:
+          maximum: 100
+          type: integer
+          format: int64
+          default: 10
+      - name: $inlinecount
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: $orderby
+        in: query
+        required: false
+        schema:
+          type: string
+          default: lastName,firstName,email
+      - name: searchValue
+        in: query
+        required: false
+        schema:
+          type: string
+          default: searchValue
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/OdataResponsePersonViewResponse'
+      security:
+      - Authorization: []
+  /api/v1/PersonSystemRoleSap/SearchPerson('{personId}'):
+    get:
+      tags:
+      - PersonSystemRoleSap
+      summary: Czytanie informacji o osobie
+      operationId: getSearchPersonForProject_1
+      parameters:
+      - name: personId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PersonViewResponse'
+      security:
+      - Authorization: []
+  /api/v1/PersonSystemRoleSap/Roles:
+    get:
+      tags:
+      - PersonSystemRoleSap
+      operationId: getVimRoles
+      parameters:
+      - name: type
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+      security:
+      - Authorization: []
+      summary: Get vim roles
+      x-summary-source: derived
+  /api/v1/PersonSystemRoleSap/CoaUser/Members:
+    get:
+      tags:
+      - PersonSystemRoleSap
+      operationId: getCoaUsers
+      parameters:
+      - name: personId
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SapCoaResponse'
+      security:
+      - Authorization: []
+      summary: Get coa users
+      x-summary-source: derived
+  /api/v1/PersonSystemRoleSap/CoaUser/Members/Export:
+    get:
+      tags:
+      - PersonSystemRoleSap
+      operationId: exportCoaUsers
+      parameters:
+      - name: personId
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+                format: binary
+          x-is-file: 'true'
+      security:
+      - Authorization: []
+      summary: Export coa users
+      x-summary-source: derived
+components:
+  schemas:
+    SapVim2Response:
+      type: object
+      properties:
+        nazwaRoli:
+          type: string
+        jgOd:
+          type: string
+        id1Trasy:
+          type: string
+        jgDo:
+          type: string
+        typAgenta:
+          type: string
+        idAgenta:
+          type: string
+    SapSecurityResponse:
+      type: object
+      properties:
+        sapRole:
+          type: string
+        sapLogin:
+          type: string
+    SapCoaResponse:
+      type: object
+      properties:
+        col1:
+          type: string
+        col2:
+          type: string
+        col3:
+          type: string
+        col4:
+          type: string
+        col5Dg:
+          type: string
+        col6Email:
+          type: string
+        col7:
+          type: string
+        col8Imie:
+          type: string
+        col9Nazwisko:
+          type: string
+        col10:
+          type: string
+        col11LoginSap:
+          type: string
+        col12:
+          type: string
+        col13:
+          type: string
+        col14:
+          type: string
+        col15:
+          type: string
+        col16LoginSap:
+          type: string
+        col17:
+          type: string
+        col18:
+          type: string
+        col19:
+          type: string
+        col20:
+          type: string
+    SapVim1Response:
+      type: object
+      properties:
+        nazwaRoli:
+          type: string
+        jg1:
+          type: string
+        id1TrasyOd:
+          type: string
+        jg2:
+          type: string
+        id1TrasyTo:
+          type: string
+        typAgenta:
+          type: string
+        idAgenta:
+          type: string
+    PersonViewResponse:
+      type: object
+      properties:
+        personId:
+          type: string
+        university:
+          type: string
+          enum:
+          - CUNI
+          - UAH
+          - SU
+          - KU
+          - UNIMI
+          - UW
+          - UNIGE
+          - PARIS_2
+        orcid:
+          type: string
+        firstName:
+          type: string
+        middleNames:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        profileId:
+          type: string
+        degree:
+          type: string
+        universityIndexNumber:
+          type: string
+    OdataResponsePersonViewResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/PersonViewResponse'
+        totalCount:
+          type: integer
+          format: int32
+    SapWorkflowResponse:
+      type: object
+      properties:
+        col1:
+          type: string
+        col2:
+          type: string
+        col3:
+          type: string
+        col4:
+          type: string
+        col5:
+          type: string
+        col6:
+          type: string
+        col7:
+          type: string
+        col8:
+          type: string
+        col9:
+          type: string
+        col10:
+          type: string
+        col11:
+          type: string
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

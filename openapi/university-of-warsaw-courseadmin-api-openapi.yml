@@ -1,0 +1,943 @@
+openapi: 3.2.0
+info:
+  title: OpenAPI definition Course Admin API
+  version: v0
+servers:
+- url: https://api.sp4eu.uw.edu.pl
+tags:
+- name: CourseAdmin
+paths:
+  /api/v1/Admin/Course/{courseId}:
+    put:
+      tags:
+      - CourseAdmin
+      summary: Aktualizacja kursu
+      operationId: updateCourse
+      parameters:
+      - name: courseId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CourseRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CourseSp4euResponse'
+      security:
+      - Authorization: []
+  /api/v1/Admin/Course/{courseId}/Syllabus/{courseSyllabusId}:
+    put:
+      tags:
+      - CourseAdmin
+      summary: Aktualizowanie sylabusa kursu
+      operationId: updateCourseSyllabus
+      parameters:
+      - name: courseId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: courseSyllabusId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CourseSyllabusRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CourseSyllabusResponse'
+      security:
+      - Authorization: []
+  /api/v1/Admin/Course/{courseId}/Profile:
+    put:
+      tags:
+      - CourseAdmin
+      summary: Aktualizacja profilu dla kursu
+      operationId: updateCourseProfile
+      parameters:
+      - name: courseId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CourseProfileSp4euRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CourseProfileResponse'
+      security:
+      - Authorization: []
+  /api/v1/Admin/Course:
+    get:
+      tags:
+      - CourseAdmin
+      summary: Listowanie danych o kursach
+      operationId: getAllCourses
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CourseSp4euResponse'
+      security:
+      - Authorization: []
+    post:
+      tags:
+      - CourseAdmin
+      summary: Dodawanie kursu
+      operationId: addCourse
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CourseRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CourseSp4euResponse'
+      security:
+      - Authorization: []
+  /api/v1/Admin/Course/{courseId}/Syllabus:
+    post:
+      tags:
+      - CourseAdmin
+      summary: Dodawanie sylabusa kursu
+      operationId: addCourseSyllabus
+      parameters:
+      - name: courseId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CourseSyllabusRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CourseSyllabusResponse'
+      security:
+      - Authorization: []
+  /api/v1/Admin/Course/ReadFromFile:
+    post:
+      tags:
+      - CourseAdmin
+      summary: czytanie kursów z pliku xls i xlsx
+      operationId: readFromFile
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                multipartFile:
+                  type: string
+                  format: binary
+              required:
+              - multipartFile
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CourseSp4euImportRequest'
+      security:
+      - Authorization: []
+  /api/v1/Admin/Course/Import:
+    post:
+      tags:
+      - CourseAdmin
+      summary: Importowanie kursu
+      operationId: importCourse
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CourseSp4euImportRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CourseSp4euImportResponse'
+      security:
+      - Authorization: []
+  /api/v1/Admin/Course/Export/SubjectIds:
+    post:
+      tags:
+      - CourseAdmin
+      summary: Eksport wybranych kursów do pliku xlsx na podstawie subjectIds
+      operationId: exportCoursesBySubjectIds
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: string
+              uniqueItems: true
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+                format: binary
+          x-is-file: 'true'
+      security:
+      - Authorization: []
+  /api/v1/Admin/Course/Export/CourseIds:
+    post:
+      tags:
+      - CourseAdmin
+      summary: Eksport wybranych kursów do pliku xlsx na podstawie courseIds
+      operationId: exportCoursesByIds
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: string
+              uniqueItems: true
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+                format: binary
+          x-is-file: 'true'
+      security:
+      - Authorization: []
+  /api/v1/Admin/Course/{id}:
+    get:
+      tags:
+      - CourseAdmin
+      summary: Pobranie danych o kursie o podanym id
+      operationId: getCourseById_1
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CourseSp4euResponse'
+      security:
+      - Authorization: []
+  /api/v1/Admin/Course/{id}/Syllabus:
+    get:
+      tags:
+      - CourseAdmin
+      summary: Pobranie danych o rejestracji kursu o podanym id
+      operationId: getCourseSyllabus_1
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CourseSyllabusResponse'
+      security:
+      - Authorization: []
+  /api/v1/Admin/Course/{id}/RegistrationInfo:
+    get:
+      tags:
+      - CourseAdmin
+      summary: Pobranie informacji o rejestracji kursu o podanym id
+      operationId: getCourseRegistrationInfo_2
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CourseRegistrationInfoResponse'
+      security:
+      - Authorization: []
+  /api/v1/Admin/Course/{id}/Profile:
+    get:
+      tags:
+      - CourseAdmin
+      summary: Pobranie profili instruktorów kursu o podanym id
+      operationId: getCourseInstructors_1
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CourseProfileResponse'
+      security:
+      - Authorization: []
+  /api/v1/Admin/Course/Import/FileTemplate:
+    get:
+      tags:
+      - CourseAdmin
+      summary: pobieranie szablonu pliku xlsx eksportu kursów do pliku
+      operationId: getCoursesFileTemplate
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+                format: binary
+          x-is-file: 'true'
+      security:
+      - Authorization: []
+  /api/v1/Admin/Course/Export:
+    get:
+      tags:
+      - CourseAdmin
+      summary: Eksport kursów do pliku xlsx.
+      operationId: exportCourses
+      parameters:
+      - name: publishedBy
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: year
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+                format: binary
+          x-is-file: 'true'
+      security:
+      - Authorization: []
+  /api/v1/Admin/Course/{courseId}/Remove:
+    delete:
+      tags:
+      - CourseAdmin
+      summary: Usunięcie kursu
+      description: Usuwa kurs z istniejącymi relacjami. Wywołanie funkcji z opcją dryRun nie powoduje zmian w bazie danych. Zwraca listę relacji patentu
+      operationId: removeCourses
+      parameters:
+      - name: courseId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: dryRun
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+                additionalProperties:
+                  type: object
+      security:
+      - Authorization: []
+components:
+  schemas:
+    CourseSp4euImportResponse:
+      type: object
+      properties:
+        course:
+          $ref: '#/components/schemas/CourseSp4euResponse'
+        courseRegistrationInfo:
+          $ref: '#/components/schemas/CourseRegistrationInfoResponse'
+        abstracts:
+          type: array
+          items:
+            $ref: '#/components/schemas/AbstractResponse'
+        courseProfiles:
+          type: array
+          items:
+            $ref: '#/components/schemas/CourseProfileResponse'
+        courseSyllabuses:
+          type: array
+          items:
+            $ref: '#/components/schemas/CourseSyllabusResponse'
+    CourseRequest:
+      type: object
+      properties:
+        subjectId:
+          type: string
+        subjectCode:
+          type: string
+        title:
+          type: string
+        term:
+          type: string
+        ects:
+          type: number
+          format: double
+        is4eu:
+          type: boolean
+        sp4euPublicationDate:
+          type: string
+          format: date
+        flagships4eu:
+          type: array
+          items:
+            type: string
+            enum:
+            - FLAG_1
+            - FLAG_2
+            - FLAG_3
+            - FLAG_4
+          uniqueItems: true
+        levels:
+          type: array
+          items:
+            type: string
+            enum:
+            - BA
+            - MA
+            - PhD
+            - PST
+          uniqueItems: true
+        faculties:
+          type: array
+          items:
+            type: string
+          uniqueItems: true
+        languages:
+          type: array
+          items:
+            type: string
+          uniqueItems: true
+        url:
+          type: string
+        providedBy:
+          type: array
+          items:
+            type: string
+            enum:
+            - CUNI
+            - UAH
+            - SU
+            - KU
+            - UNIMI
+            - UW
+            - UNIGE
+            - PARIS_2
+          uniqueItems: true
+        publishedBy:
+          type: string
+          enum:
+          - CUNI
+          - UAH
+          - SU
+          - KU
+          - UNIMI
+          - UW
+          - UNIGE
+          - PARIS_2
+        year:
+          type: integer
+          format: int32
+        workload:
+          type: integer
+          format: int32
+        startDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+        placesLimit4eu:
+          type: integer
+          format: int32
+        levels4eu:
+          type: array
+          items:
+            type: string
+            enum:
+            - BA
+            - MA
+            - PhD
+            - PST
+          uniqueItems: true
+        startDate4eu:
+          type: string
+          format: date
+        endDate4eu:
+          type: string
+          format: date
+        title4eu:
+          type: string
+        ects4eu:
+          type: number
+          format: double
+        facultyOrUnit4eu:
+          type: string
+        applicationDeadline:
+          type: string
+          format: date
+        sharedCompetencies4eu:
+          type: array
+          items:
+            type: string
+            enum:
+            - Multilingualism
+            - DataLiteracy
+            - CriticalThinking
+            - Entrepreneurship
+            - SocialEngagement
+          uniqueItems: true
+        learningPathways4eu:
+          type: array
+          items:
+            type: string
+            enum:
+            - EuropeanCitizenship
+            - Multilingualism
+            - BiodiversityEcologyEvolution
+          uniqueItems: true
+        teachingMode:
+          type: string
+          enum:
+          - Physical
+          - Online
+          - Blended
+          - Hybrid
+        teachingMode4eu:
+          type: string
+          enum:
+          - Physical
+          - Online
+          - Blended
+          - Hybrid
+        areasOfInterests:
+          type: array
+          items:
+            type: string
+          uniqueItems: true
+        academicYear:
+          type: string
+        registrationInfoId:
+          type: string
+        additionalInfo:
+          type: string
+    CourseProfileResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        courseId:
+          type: string
+        profileId:
+          type: string
+        profilePublicId:
+          type: string
+        profileFirstName:
+          type: string
+        profileLastName:
+          type: string
+        profileEmails:
+          type: array
+          deprecated: true
+          items:
+            type: string
+            deprecated: true
+        profileEmail:
+          type: string
+        profileDegree:
+          type: string
+        visible4eu:
+          type: boolean
+        isPubliclyVisible:
+          type: boolean
+    CourseRegistrationInfoResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        courseIds:
+          type: array
+          items:
+            type: string
+        courseNames:
+          type: array
+          items:
+            type: string
+    CourseProfileSp4euRequest:
+      type: object
+      properties:
+        profileIds:
+          type: array
+          items:
+            type: string
+          uniqueItems: true
+    CourseSp4euImportRequest:
+      type: object
+      properties:
+        is4eu:
+          type: boolean
+        publicationDate:
+          type: string
+          format: date
+        courseCode:
+          type: string
+        name:
+          type: string
+        semesterCode:
+          type: string
+        languages:
+          type: array
+          items:
+            type: string
+        url:
+          type: string
+        providedBy:
+          type: array
+          items:
+            type: string
+        publishedBy:
+          type: string
+        year:
+          type: integer
+          format: int32
+        academicYear:
+          type: string
+        ects:
+          type: number
+          format: double
+        teachingMode:
+          type: string
+        placesLimit:
+          type: integer
+          format: int32
+        startDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+        applicationDeadline:
+          type: string
+          format: date
+        levels:
+          type: array
+          items:
+            type: string
+        instructorsEmails:
+          type: array
+          items:
+            type: string
+        areasOfInterests:
+          type: array
+          items:
+            type: string
+        flagships:
+          type: array
+          items:
+            type: string
+        facultyOrUnit:
+          type: string
+        sharedCompetencies:
+          type: array
+          items:
+            type: string
+        learningPathways:
+          type: array
+          items:
+            type: string
+        syllabusShortDescription0:
+          type: string
+        syllabusAssessmentsInfo0:
+          type: string
+        syllabusLearningOutcomes0:
+          type: string
+        syllabusPrerequirements0:
+          type: string
+        syllabusLanguageCode0:
+          type: string
+        coursesRegistrationId:
+          type: string
+    CourseSyllabusResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        courseId:
+          type: string
+        shortDescription:
+          type: string
+        prerequirements:
+          type: string
+        learningOutcomes:
+          type: string
+        assessmentsInfo:
+          type: string
+        lang:
+          type: string
+    CourseSyllabusRequest:
+      type: object
+      properties:
+        shortDescription:
+          type: string
+        prerequirements:
+          type: string
+        learningOutcomes:
+          type: string
+        assessmentsInfo:
+          type: string
+        lang:
+          type: string
+    AbstractResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        langCode:
+          type: string
+        title:
+          type: string
+        abstr:
+          type: string
+        keyw:
+          type: array
+          items:
+            type: string
+        orderIndex:
+          type: integer
+          format: int32
+        objectId:
+          type: string
+        objectType:
+          type: string
+        original:
+          type: boolean
+    CourseSp4euResponse:
+      type: object
+      properties:
+        courseId:
+          type: string
+        subjectId:
+          type: string
+        subjectCode:
+          type: string
+        term:
+          type: string
+        sp4euPublicationDate:
+          type: string
+          format: date
+        flagships4eu:
+          type: array
+          items:
+            type: string
+            enum:
+            - FLAG_1
+            - FLAG_2
+            - FLAG_3
+            - FLAG_4
+        faculties:
+          type: array
+          items:
+            type: string
+        languages:
+          type: array
+          items:
+            type: string
+        url:
+          type: string
+        providedBy:
+          type: array
+          items:
+            type: string
+            enum:
+            - CUNI
+            - UAH
+            - SU
+            - KU
+            - UNIMI
+            - UW
+            - UNIGE
+            - PARIS_2
+        publishedBy:
+          type: string
+          enum:
+          - CUNI
+          - UAH
+          - SU
+          - KU
+          - UNIMI
+          - UW
+          - UNIGE
+          - PARIS_2
+        year:
+          type: integer
+          format: int32
+        placesLimit4eu:
+          type: integer
+          format: int32
+        workload:
+          type: integer
+          format: int32
+        title:
+          type: string
+        levels4eu:
+          type: array
+          items:
+            type: string
+            enum:
+            - BA
+            - MA
+            - PhD
+            - PST
+        startDate4eu:
+          type: string
+          format: date
+        endDate4eu:
+          type: string
+          format: date
+        title4eu:
+          type: string
+        facultyOrUnit4eu:
+          type: string
+        ects4eu:
+          type: number
+          format: double
+        importSourceType:
+          type: string
+        applicationDeadline:
+          type: string
+          format: date
+        sharedCompetencies4eu:
+          type: array
+          items:
+            type: string
+            enum:
+            - Multilingualism
+            - DataLiteracy
+            - CriticalThinking
+            - Entrepreneurship
+            - SocialEngagement
+        learningPathways4eu:
+          type: array
+          items:
+            type: string
+        teachingMode4eu:
+          type: string
+          enum:
+          - Physical
+          - Online
+          - Blended
+          - Hybrid
+        areasOfInterests:
+          type: array
+          items:
+            type: string
+        registrationInfoId:
+          type: string
+        academicYear:
+          type: string
+        additionalInfo:
+          type: string
+        creationTime:
+          type: string
+        levels:
+          type: array
+          items:
+            type: string
+            enum:
+            - BA
+            - MA
+            - PhD
+            - PST
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

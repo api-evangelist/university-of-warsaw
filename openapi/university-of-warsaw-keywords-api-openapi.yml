@@ -1,0 +1,134 @@
+openapi: 3.2.0
+info:
+  title: Jaskier Keywords API
+  version: 1.2.25
+servers:
+- url: https://api.jaskier.uw.edu.pl
+tags:
+- name: Keywords
+paths:
+  /api/v1/Keyword:
+    get:
+      tags:
+      - Keywords
+      summary: Zwraca wszystkie słowa kluczowe
+      operationId: findAllKeywords
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                uniqueItems: true
+                type: array
+                items:
+                  type: string
+      security:
+      - Authorization: []
+  /api/v1/Keyword/{cfLangCode}:
+    get:
+      tags:
+      - Keywords
+      summary: Zwraca wszystkie słowa kluczowe w podanym języku
+      operationId: findAllKeywordsByLanguage
+      parameters:
+      - name: cfLangCode
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  type: string
+      security:
+      - Authorization: []
+  /api/v1/Keyword/SearchKeyword:
+    get:
+      tags:
+      - Keywords
+      summary: Wyszukuje słowa kluczowe. Wspiera filtry stosowane przez dxTagBox
+      operationId: findAllKeywords_1
+      parameters:
+      - name: $skip
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int64
+      - name: $top
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int64
+      - name: $filter
+        in: query
+        required: false
+        schema:
+          type: string
+          default: ''
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                uniqueItems: true
+                type: array
+                items:
+                  type: string
+      security:
+      - Authorization: []
+  /api/v1/Keyword/SearchKeyword/{cfLangCode}:
+    get:
+      tags:
+      - Keywords
+      summary: Wyszukuje słowa kluczowe w podanym języku.
+      operationId: findAllKeywordsByLanguage_1
+      parameters:
+      - name: cfLangCode
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: $skip
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int64
+      - name: $top
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int64
+      - name: $filter
+        in: query
+        required: false
+        schema:
+          type: string
+          default: ''
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  type: string
+      security:
+      - Authorization: []
+components:
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

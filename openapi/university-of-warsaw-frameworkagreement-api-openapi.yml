@@ -1,0 +1,1156 @@
+openapi: 3.2.0
+info:
+  title: Jaskier Framework Agreement API
+  version: 1.2.25
+servers:
+- url: https://api.jaskier.uw.edu.pl
+tags:
+- name: FrameworkAgreement
+paths:
+  /api/v1/Dict/FrameworkAgreement/{id}/Assortment:
+    get:
+      tags:
+      - FrameworkAgreement
+      summary: Lista asortymentów dla danej umowy ramowej
+      operationId: getAssortment
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AssortmentResponse'
+      security:
+      - Authorization: []
+    put:
+      tags:
+      - FrameworkAgreement
+      summary: Dodawanie asortymentu do umowy ramowej
+      operationId: addAssortment
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AssortmentRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/AssortmentResponse'
+      security:
+      - Authorization: []
+  /api/v1/FrameworkAgreement/{id}/Assortment:
+    get:
+      tags:
+      - FrameworkAgreement
+      summary: Lista asortymentów dla danej umowy ramowej
+      operationId: getAssortment_1
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AssortmentResponse'
+      security:
+      - Authorization: []
+    put:
+      tags:
+      - FrameworkAgreement
+      summary: Dodawanie asortymentu do umowy ramowej
+      operationId: addAssortment_1
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AssortmentRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/AssortmentResponse'
+      security:
+      - Authorization: []
+  /api/v1/FrameworkAgreement/{id}/AcceptanceRecipient/{acceptanceRecipientId}:
+    put:
+      tags:
+      - FrameworkAgreement
+      summary: Aktualizacja odbiorcy akceptacji do umowy ramowej
+      operationId: updateAcceptanceRecipient
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: acceptanceRecipientId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FrameworkAgreementAcceptanceRecipientRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/FrameworkAgreementAcceptanceRecipientResponse'
+      security:
+      - Authorization: []
+    delete:
+      tags:
+      - FrameworkAgreement
+      summary: Usunięcie odbiorcy akceptacji do umowy ramowej
+      operationId: removeAcceptanceRecipient
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: acceptanceRecipientId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      security:
+      - Authorization: []
+  /api/v1/Dict/FrameworkAgreement/{id}/AcceptanceRecipient/{acceptanceRecipientId}:
+    put:
+      tags:
+      - FrameworkAgreement
+      summary: Aktualizacja odbiorcy akceptacji do umowy ramowej
+      operationId: updateAcceptanceRecipient_1
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: acceptanceRecipientId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FrameworkAgreementAcceptanceRecipientRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/FrameworkAgreementAcceptanceRecipientResponse'
+      security:
+      - Authorization: []
+    delete:
+      tags:
+      - FrameworkAgreement
+      summary: Usunięcie odbiorcy akceptacji do umowy ramowej
+      operationId: removeAcceptanceRecipient_1
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: acceptanceRecipientId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      security:
+      - Authorization: []
+  /api/v1/Dict/FrameworkAgreement/{id}:
+    get:
+      tags:
+      - FrameworkAgreement
+      summary: Czytanie informacji o umowie ramowej z podanym id
+      operationId: getFrameworkAgreementById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/FrameworkAgreementResponse'
+      security:
+      - Authorization: []
+    put:
+      tags:
+      - FrameworkAgreement
+      summary: Aktualizacja umowy ramowej
+      operationId: updateFrameworkAgreement
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FrameworkAgreementRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/FrameworkAgreementResponse'
+      security:
+      - Authorization: []
+    delete:
+      tags:
+      - FrameworkAgreement
+      summary: Usunięcie umowy ramowej
+      operationId: removeFrameworkAgreement
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+                enum:
+                - 100 CONTINUE
+                - 101 SWITCHING_PROTOCOLS
+                - 102 PROCESSING
+                - 103 EARLY_HINTS
+                - 103 CHECKPOINT
+                - 200 OK
+                - 201 CREATED
+                - 202 ACCEPTED
+                - 203 NON_AUTHORITATIVE_INFORMATION
+                - 204 NO_CONTENT
+                - 205 RESET_CONTENT
+                - 206 PARTIAL_CONTENT
+                - 207 MULTI_STATUS
+                - 208 ALREADY_REPORTED
+                - 226 IM_USED
+                - 300 MULTIPLE_CHOICES
+                - 301 MOVED_PERMANENTLY
+                - 302 FOUND
+                - 302 MOVED_TEMPORARILY
+                - 303 SEE_OTHER
+                - 304 NOT_MODIFIED
+                - 305 USE_PROXY
+                - 307 TEMPORARY_REDIRECT
+                - 308 PERMANENT_REDIRECT
+                - 400 BAD_REQUEST
+                - 401 UNAUTHORIZED
+                - 402 PAYMENT_REQUIRED
+                - 403 FORBIDDEN
+                - 404 NOT_FOUND
+                - 405 METHOD_NOT_ALLOWED
+                - 406 NOT_ACCEPTABLE
+                - 407 PROXY_AUTHENTICATION_REQUIRED
+                - 408 REQUEST_TIMEOUT
+                - 409 CONFLICT
+                - 410 GONE
+                - 411 LENGTH_REQUIRED
+                - 412 PRECONDITION_FAILED
+                - 413 PAYLOAD_TOO_LARGE
+                - 413 REQUEST_ENTITY_TOO_LARGE
+                - 414 URI_TOO_LONG
+                - 414 REQUEST_URI_TOO_LONG
+                - 415 UNSUPPORTED_MEDIA_TYPE
+                - 416 REQUESTED_RANGE_NOT_SATISFIABLE
+                - 417 EXPECTATION_FAILED
+                - 418 I_AM_A_TEAPOT
+                - 419 INSUFFICIENT_SPACE_ON_RESOURCE
+                - 420 METHOD_FAILURE
+                - 421 DESTINATION_LOCKED
+                - 422 UNPROCESSABLE_ENTITY
+                - 423 LOCKED
+                - 424 FAILED_DEPENDENCY
+                - 425 TOO_EARLY
+                - 426 UPGRADE_REQUIRED
+                - 428 PRECONDITION_REQUIRED
+                - 429 TOO_MANY_REQUESTS
+                - 431 REQUEST_HEADER_FIELDS_TOO_LARGE
+                - 451 UNAVAILABLE_FOR_LEGAL_REASONS
+                - 500 INTERNAL_SERVER_ERROR
+                - 501 NOT_IMPLEMENTED
+                - 502 BAD_GATEWAY
+                - 503 SERVICE_UNAVAILABLE
+                - 504 GATEWAY_TIMEOUT
+                - 505 HTTP_VERSION_NOT_SUPPORTED
+                - 506 VARIANT_ALSO_NEGOTIATES
+                - 507 INSUFFICIENT_STORAGE
+                - 508 LOOP_DETECTED
+                - 509 BANDWIDTH_LIMIT_EXCEEDED
+                - 510 NOT_EXTENDED
+                - 511 NETWORK_AUTHENTICATION_REQUIRED
+      security:
+      - Authorization: []
+  /api/v1/FrameworkAgreement/{id}:
+    get:
+      tags:
+      - FrameworkAgreement
+      summary: Czytanie informacji o umowie ramowej z podanym id
+      operationId: getFrameworkAgreementById_1
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/FrameworkAgreementResponse'
+      security:
+      - Authorization: []
+    put:
+      tags:
+      - FrameworkAgreement
+      summary: Aktualizacja umowy ramowej
+      operationId: updateFrameworkAgreement_1
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FrameworkAgreementRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/FrameworkAgreementResponse'
+      security:
+      - Authorization: []
+    delete:
+      tags:
+      - FrameworkAgreement
+      summary: Usunięcie umowy ramowej
+      operationId: removeFrameworkAgreement_1
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+                enum:
+                - 100 CONTINUE
+                - 101 SWITCHING_PROTOCOLS
+                - 102 PROCESSING
+                - 103 EARLY_HINTS
+                - 103 CHECKPOINT
+                - 200 OK
+                - 201 CREATED
+                - 202 ACCEPTED
+                - 203 NON_AUTHORITATIVE_INFORMATION
+                - 204 NO_CONTENT
+                - 205 RESET_CONTENT
+                - 206 PARTIAL_CONTENT
+                - 207 MULTI_STATUS
+                - 208 ALREADY_REPORTED
+                - 226 IM_USED
+                - 300 MULTIPLE_CHOICES
+                - 301 MOVED_PERMANENTLY
+                - 302 FOUND
+                - 302 MOVED_TEMPORARILY
+                - 303 SEE_OTHER
+                - 304 NOT_MODIFIED
+                - 305 USE_PROXY
+                - 307 TEMPORARY_REDIRECT
+                - 308 PERMANENT_REDIRECT
+                - 400 BAD_REQUEST
+                - 401 UNAUTHORIZED
+                - 402 PAYMENT_REQUIRED
+                - 403 FORBIDDEN
+                - 404 NOT_FOUND
+                - 405 METHOD_NOT_ALLOWED
+                - 406 NOT_ACCEPTABLE
+                - 407 PROXY_AUTHENTICATION_REQUIRED
+                - 408 REQUEST_TIMEOUT
+                - 409 CONFLICT
+                - 410 GONE
+                - 411 LENGTH_REQUIRED
+                - 412 PRECONDITION_FAILED
+                - 413 PAYLOAD_TOO_LARGE
+                - 413 REQUEST_ENTITY_TOO_LARGE
+                - 414 URI_TOO_LONG
+                - 414 REQUEST_URI_TOO_LONG
+                - 415 UNSUPPORTED_MEDIA_TYPE
+                - 416 REQUESTED_RANGE_NOT_SATISFIABLE
+                - 417 EXPECTATION_FAILED
+                - 418 I_AM_A_TEAPOT
+                - 419 INSUFFICIENT_SPACE_ON_RESOURCE
+                - 420 METHOD_FAILURE
+                - 421 DESTINATION_LOCKED
+                - 422 UNPROCESSABLE_ENTITY
+                - 423 LOCKED
+                - 424 FAILED_DEPENDENCY
+                - 425 TOO_EARLY
+                - 426 UPGRADE_REQUIRED
+                - 428 PRECONDITION_REQUIRED
+                - 429 TOO_MANY_REQUESTS
+                - 431 REQUEST_HEADER_FIELDS_TOO_LARGE
+                - 451 UNAVAILABLE_FOR_LEGAL_REASONS
+                - 500 INTERNAL_SERVER_ERROR
+                - 501 NOT_IMPLEMENTED
+                - 502 BAD_GATEWAY
+                - 503 SERVICE_UNAVAILABLE
+                - 504 GATEWAY_TIMEOUT
+                - 505 HTTP_VERSION_NOT_SUPPORTED
+                - 506 VARIANT_ALSO_NEGOTIATES
+                - 507 INSUFFICIENT_STORAGE
+                - 508 LOOP_DETECTED
+                - 509 BANDWIDTH_LIMIT_EXCEEDED
+                - 510 NOT_EXTENDED
+                - 511 NETWORK_AUTHENTICATION_REQUIRED
+      security:
+      - Authorization: []
+  /api/v1/FrameworkAgreement/{id}/Copy:
+    post:
+      tags:
+      - FrameworkAgreement
+      summary: Utworzenie kopii umowy ramowej
+      operationId: copyFrameworkAgreement
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: number
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/FrameworkAgreementResponse'
+      security:
+      - Authorization: []
+  /api/v1/Dict/FrameworkAgreement/{id}/Copy:
+    post:
+      tags:
+      - FrameworkAgreement
+      summary: Utworzenie kopii umowy ramowej
+      operationId: copyFrameworkAgreement_1
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: number
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/FrameworkAgreementResponse'
+      security:
+      - Authorization: []
+  /api/v1/Dict/FrameworkAgreement/{id}/Assortment/{assortmentId}:
+    post:
+      tags:
+      - FrameworkAgreement
+      summary: Aktualizacja asortymentu do umowy ramowej
+      operationId: updateAssortment
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: assortmentId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AssortmentRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/AssortmentResponse'
+      security:
+      - Authorization: []
+    delete:
+      tags:
+      - FrameworkAgreement
+      summary: Usunięcie asortymentu do umowy ramowej
+      operationId: removeAssortment
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: assortmentId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      security:
+      - Authorization: []
+  /api/v1/FrameworkAgreement/{id}/Assortment/{assortmentId}:
+    post:
+      tags:
+      - FrameworkAgreement
+      summary: Aktualizacja asortymentu do umowy ramowej
+      operationId: updateAssortment_1
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: assortmentId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AssortmentRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/AssortmentResponse'
+      security:
+      - Authorization: []
+    delete:
+      tags:
+      - FrameworkAgreement
+      summary: Usunięcie asortymentu do umowy ramowej
+      operationId: removeAssortment_1
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: assortmentId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      security:
+      - Authorization: []
+  /api/v1/Dict/FrameworkAgreement/{id}/AcceptanceRecipient:
+    get:
+      tags:
+      - FrameworkAgreement
+      summary: Odbiorca akceptacji dla danej umowy ramowej
+      operationId: getAcceptanceRecipients
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FrameworkAgreementAcceptanceRecipientResponse'
+      security:
+      - Authorization: []
+    post:
+      tags:
+      - FrameworkAgreement
+      summary: Dodanie odbiorcy akceptacji do umowy ramowej
+      operationId: upsertAcceptanceRecipient
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FrameworkAgreementAcceptanceRecipientRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/FrameworkAgreementAcceptanceRecipientResponse'
+      security:
+      - Authorization: []
+  /api/v1/FrameworkAgreement/{id}/AcceptanceRecipient:
+    get:
+      tags:
+      - FrameworkAgreement
+      summary: Odbiorca akceptacji dla danej umowy ramowej
+      operationId: getAcceptanceRecipients_1
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FrameworkAgreementAcceptanceRecipientResponse'
+      security:
+      - Authorization: []
+    post:
+      tags:
+      - FrameworkAgreement
+      summary: Dodanie odbiorcy akceptacji do umowy ramowej
+      operationId: upsertAcceptanceRecipient_1
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FrameworkAgreementAcceptanceRecipientRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/FrameworkAgreementAcceptanceRecipientResponse'
+      security:
+      - Authorization: []
+  /api/v1/FrameworkAgreement:
+    get:
+      tags:
+      - FrameworkAgreement
+      summary: Czytanie listy umów ramowych
+      operationId: getFrameworkAgreement
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FrameworkAgreementItemResponse'
+      security:
+      - Authorization: []
+    post:
+      tags:
+      - FrameworkAgreement
+      summary: Dodawanie umowy ramowej
+      operationId: addFrameworkAgreement
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FrameworkAgreementRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/FrameworkAgreementResponse'
+      security:
+      - Authorization: []
+  /api/v1/Dict/FrameworkAgreement:
+    get:
+      tags:
+      - FrameworkAgreement
+      summary: Czytanie listy umów ramowych
+      operationId: getFrameworkAgreement_1
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FrameworkAgreementItemResponse'
+      security:
+      - Authorization: []
+    post:
+      tags:
+      - FrameworkAgreement
+      summary: Dodawanie umowy ramowej
+      operationId: addFrameworkAgreement_1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FrameworkAgreementRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/FrameworkAgreementResponse'
+      security:
+      - Authorization: []
+  /api/v1/Dict/FrameworkAgreement/{id}/Orders:
+    get:
+      tags:
+      - FrameworkAgreement
+      summary: Czytanie listy zamówień dla umowy ramowej
+      operationId: getFrameworkAgreementOrders
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FrameworkAgreementOrderResponse'
+      security:
+      - Authorization: []
+  /api/v1/FrameworkAgreement/{id}/Orders:
+    get:
+      tags:
+      - FrameworkAgreement
+      summary: Czytanie listy zamówień dla umowy ramowej
+      operationId: getFrameworkAgreementOrders_1
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FrameworkAgreementOrderResponse'
+      security:
+      - Authorization: []
+  /api/v1/FrameworkAgreement/DocSense:
+    get:
+      tags:
+      - FrameworkAgreement
+      summary: Czytanie listy umów ramowych dla DocSense
+      operationId: getFrameworkAgreementDocSense
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FrameworkAgreementFullResponse'
+      security:
+      - Authorization: []
+  /api/v1/Dict/FrameworkAgreement/DocSense:
+    get:
+      tags:
+      - FrameworkAgreement
+      summary: Czytanie listy umów ramowych dla DocSense
+      operationId: getFrameworkAgreementDocSense_1
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FrameworkAgreementFullResponse'
+      security:
+      - Authorization: []
+  /api/v1/FrameworkAgreement/AcceptanceRecipientIncludeIn:
+    get:
+      tags:
+      - FrameworkAgreement
+      summary: Lista dozwolonych wartości dla pola 'Uwzględnij w' odbiorcy akceptacji
+      operationId: getIncludeInDictionary
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  type: string
+      security:
+      - Authorization: []
+  /api/v1/Dict/FrameworkAgreement/AcceptanceRecipientIncludeIn:
+    get:
+      tags:
+      - FrameworkAgreement
+      summary: Lista dozwolonych wartości dla pola 'Uwzględnij w' odbiorcy akceptacji
+      operationId: getIncludeInDictionary_1
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  type: string
+      security:
+      - Authorization: []
+components:
+  schemas:
+    FrameworkAgreementRequest:
+      required:
+      - isActive
+      type: object
+      properties:
+        name:
+          type: string
+        contractor:
+          type: string
+        number:
+          type: string
+        fromDate:
+          type: string
+          format: date
+        toDate:
+          type: string
+          format: date
+        currencyCode:
+          type: string
+        isActive:
+          type: boolean
+        addressCity:
+          type: string
+        addressStreet:
+          type: string
+        nip:
+          type: string
+        additionalInfo:
+          type: string
+        legalBasisId:
+          type: integer
+          format: int32
+        informationForTheAgreement:
+          type: string
+        netValue:
+          type: number
+      description: umowa ramowa
+    AssortmentRequest:
+      required:
+      - position
+      type: object
+      properties:
+        name:
+          type: string
+        catalogNumber:
+          type: string
+        unit:
+          type: string
+        netPrice:
+          type: number
+        position:
+          type: integer
+          format: int32
+      description: asortyment umowy
+    FrameworkAgreementAcceptanceRecipientRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        type:
+          type: string
+          enum:
+          - GROUP
+        includeIn:
+          type: string
+    AssortmentResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        catalogNumber:
+          type: string
+        unit:
+          type: string
+        netPrice:
+          type: number
+        frameworkAgreementId:
+          type: string
+        position:
+          type: integer
+          format: int32
+      description: asortyment
+    FrameworkAgreementOrderResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        frameworkAgreementId:
+          type: string
+        orderId:
+          type: string
+        assortment:
+          type: string
+        economicDepartment:
+          type: string
+        pzpMode:
+          type: string
+        applicant:
+          type: string
+        netValue:
+          type: number
+        status:
+          type: string
+    FrameworkAgreementAcceptanceRecipientResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+          enum:
+          - GROUP
+        includeIn:
+          type: string
+    FrameworkAgreementFullResponse:
+      type: object
+      properties:
+        frameworkAgreement:
+          $ref: '#/components/schemas/FrameworkAgreementResponse'
+        assortments:
+          type: array
+          items:
+            $ref: '#/components/schemas/AssortmentResponse'
+        acceptanceRecipients:
+          type: array
+          items:
+            $ref: '#/components/schemas/FrameworkAgreementAcceptanceRecipientResponse'
+    FrameworkAgreementResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        contractor:
+          type: string
+        number:
+          type: string
+        fromDate:
+          type: string
+          format: date
+        toDate:
+          type: string
+          format: date
+        currencyCode:
+          type: string
+        isActive:
+          type: boolean
+        addressCity:
+          type: string
+        addressStreet:
+          type: string
+        nip:
+          type: string
+        additionalInfo:
+          type: string
+        legalBasisId:
+          type: integer
+          description: ID trybu zamówienia
+          format: int32
+        pzpMode:
+          type: string
+          description: Tekstowa reprezentacja trybu zamówienia
+        informationForTheAgreement:
+          type: string
+        netValue:
+          type: number
+        acceptedOrdersNetValue:
+          type: number
+        processingOrdersNetValue:
+          type: number
+      description: umowa ramowa
+    FrameworkAgreementItemResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        contractor:
+          type: string
+        number:
+          type: string
+        fromDate:
+          type: string
+          format: date
+        toDate:
+          type: string
+          format: date
+        currencyCode:
+          type: string
+        isActive:
+          type: boolean
+        addressCity:
+          type: string
+        addressStreet:
+          type: string
+        nip:
+          type: string
+        additionalInfo:
+          type: string
+        legalBasisId:
+          type: integer
+          description: ID trybu zamówienia
+          format: int32
+        pzpMode:
+          type: string
+          description: Tekstowa reprezentacja trybu zamówienia
+        informationForTheAgreement:
+          type: string
+        netValue:
+          type: number
+      description: element listy umów ramowych
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

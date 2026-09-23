@@ -1,0 +1,431 @@
+openapi: 3.2.0
+info:
+  title: Jaskier Uw Person API
+  version: 1.2.25
+servers:
+- url: https://api.jaskier.uw.edu.pl
+tags:
+- name: UwPerson
+paths:
+  /api/v1/UwPerson/ImportEmployeeData:
+    post:
+      tags:
+      - UwPerson
+      summary: Import informacji o zatrudnieniu.
+      operationId: importEmployeeData
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/UwPersonEmployeeDataRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  type: string
+      security:
+      - Authorization: []
+  /api/v1/UwPerson/ImportEmployeeData/Start:
+    post:
+      tags:
+      - UwPerson
+      summary: Zasygnalizowanie roczpoczęcia importu
+      operationId: startPublicationImport
+      parameters:
+      - name: source
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/SynchronizationResponse'
+      security:
+      - Authorization: []
+  /api/v1/UwPerson/ImportEmployeeData/End:
+    post:
+      tags:
+      - UwPerson
+      summary: Zasygnalizowanie zakończenia importu
+      operationId: endPublicationImport
+      parameters:
+      - name: synchronizationId
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      security:
+      - Authorization: []
+  /api/v1/UwPerson:
+    get:
+      tags:
+      - UwPerson
+      summary: Listowanie danych o osobach z UW
+      operationId: queryForUwPerson
+      parameters:
+      - name: $skip
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int64
+          default: 0
+      - name: $top
+        in: query
+        required: false
+        schema:
+          maximum: 1000
+          type: integer
+          format: int64
+          default: 10
+      - name: $inlinecount
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: $orderby
+        in: query
+        required: false
+        schema:
+          type: string
+          default: firstName,middleNames,lastName
+      - name: $filter
+        in: query
+        required: false
+        schema:
+          type: string
+          default: ()
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/OdataResponseUwPersonResponse'
+      security:
+      - Authorization: []
+  /api/v1/UwPerson/{personId}:
+    get:
+      tags:
+      - UwPerson
+      summary: Czytanie informacji o osobie UW
+      operationId: getUwPersonById
+      parameters:
+      - name: personId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UwPersonResponse'
+      security:
+      - Authorization: []
+  /api/v1/UwPerson/{personId}/Roles:
+    get:
+      tags:
+      - UwPerson
+      summary: Czytanie informacji o aktualnych rolach osoby
+      operationId: findPersonRoles
+      parameters:
+      - name: personId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UwPersonRoleResponse'
+      security:
+      - Authorization: []
+  /api/v1/UwPerson/{personId}/Employment:
+    get:
+      tags:
+      - UwPerson
+      summary: Czytanie informacji o aktualnym zatrudnieniu
+      operationId: getEmployeeData
+      parameters:
+      - name: personId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UwPersonEmployeeDataResponse'
+      security:
+      - Authorization: []
+components:
+  schemas:
+    UwPersonEmployment:
+      type: object
+      properties:
+        namePl:
+          type: string
+        nameEn:
+          type: string
+        unitCode:
+          type: string
+        startDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+        groupName:
+          type: string
+        subgroupName:
+          type: string
+    UwPersonEmployeeDataResponse:
+      type: object
+      properties:
+        functions:
+          type: array
+          items:
+            $ref: '#/components/schemas/UwPersonFunctionResponse'
+        employments:
+          type: array
+          items:
+            $ref: '#/components/schemas/UwPersonEmploymentResponse'
+    UwPersonResponse:
+      type: object
+      properties:
+        personId:
+          type: string
+        usosId:
+          type: string
+        orcid:
+          type: string
+        firstName:
+          type: string
+        middleNames:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        emailUw:
+          type: string
+        phoneNumbers:
+          type: array
+          items:
+            type: string
+        uidPolon:
+          type: string
+        uidPolonStud:
+          type: string
+        uidPolonDokt:
+          type: string
+        degree:
+          type: string
+        sapLogin:
+          type: string
+        sapExpId:
+          type: string
+        sapPersonnelNumbers:
+          type: array
+          items:
+            type: string
+    OdataResponseUwPersonResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/UwPersonResponse'
+        totalCount:
+          type: integer
+          format: int32
+    UwPersonFunctionResponse:
+      type: object
+      properties:
+        namePl:
+          type: string
+        nameEn:
+          type: string
+        unitCode:
+          type: string
+        unitNamePl:
+          type: string
+        unitNameEn:
+          type: string
+    UwPersonRoleResponse:
+      type: object
+      properties:
+        name:
+          type: string
+        unitCode:
+          type: string
+        unitNamePl:
+          type: string
+        unitNameEn:
+          type: string
+    UwPersonEmployeeDataRequest:
+      type: object
+      properties:
+        osId:
+          type: string
+        employments:
+          type: array
+          items:
+            $ref: '#/components/schemas/UwPersonEmployment'
+        functions:
+          type: array
+          items:
+            $ref: '#/components/schemas/UwPersonFunction'
+    UwPersonEmploymentResponse:
+      type: object
+      properties:
+        namePl:
+          type: string
+        nameEn:
+          type: string
+        unitCode:
+          type: string
+        unitNamePl:
+          type: string
+        unitNameEn:
+          type: string
+        groupName:
+          type: string
+        subgroupName:
+          type: string
+    UwPersonFunction:
+      type: object
+      properties:
+        namePl:
+          type: string
+        nameEn:
+          type: string
+        unitCode:
+          type: string
+        startDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+    SynchronizationResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - ACHIEVEMENTS_SUMMARY
+          - ADMIN
+          - ARTICLE
+          - ASSET
+          - BUILDING
+          - BUILDING_ACCESSIBILITY
+          - BUILDING_ATTRIBUTE
+          - BUILDING_BON
+          - BUILDING_PATH_OBJECT_TYPE
+          - BUILDING_PUBLIC
+          - BUSINESS_ENTITY
+          - CAMPUS
+          - COURSE
+          - COURSE_REGISTRATION_INFO
+          - CURRENCY
+          - EVENT
+          - FAQ
+          - GIVEAWAY
+          - ITEM_USED
+          - IT_SERVICE
+          - LABORATORY
+          - LABORATORY_TYPE
+          - LEGAL_BASIS
+          - LICENSE
+          - MOBILITY_OPTION
+          - MAGAZINE
+          - MONOGRAPH_PUBLISHER
+          - FRAMEWORK_AGREEMENT
+          - HOUSING_OPTION
+          - PATENT
+          - PASS_CONTROL
+          - PASS_CONTROL_PUBLIC
+          - PASS_CONTROL_DICTIONARY
+          - PERMISSION
+          - PERM_DEPARTMENT_PERSON
+          - PERM_DEPARTMENT_CAS_ROLE
+          - PERSON
+          - PERSON_ID_CARD
+          - PHONE_NUMBER
+          - PROFILE
+          - PROFILE_PUBLIC
+          - PROFILE_MYUW
+          - PERSON_PROFILE_MYUW
+          - PROJECT
+          - PROJECT_PUBLIC
+          - PROJECT_MIGRATION
+          - PROJECT_DICTIONARY
+          - PROJECT_PROGRAM
+          - PROJECT_INTERNATIONAL
+          - PROJECT_PROGRAM_DETAILED
+          - PROJECT_PROGRAM_CONTRACT
+          - PROJECT_TYPE
+          - PROJECT_REPORT
+          - PSP_ELEMENT
+          - PUBLICATION
+          - PUBLICATION_VENUE
+          - RESEARCH_SET
+          - PERSON_SYSTEM_ROLE
+          - PERSON_SYSTEM_ROLE_API
+          - SAP_OBJECT_ACCESS
+          - SYSTEM_ROLE
+          - PUBLIC_PROCUREMENT_PLAN
+          - PUBLIC_PROCUREMENT_PLAN_CATEGORY
+          - SAP_ROLE
+          - STUDENT_ORGANIZATION
+          - TRANSLATION
+          - TRANSLATION_CATEGORY
+          - TUTORIAL
+          - UNIVERSITY_INFO
+          - UW_ECONOMIC_DEPARTMENT
+          - UW_PERSON
+          - UW_PERSON_EMPLOYEE_DATA
+          - UW_UNIT
+        started:
+          type: string
+          format: date-time
+        ended:
+          type: string
+          format: date-time
+        source:
+          type: string
+        invokedBy:
+          type: string
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

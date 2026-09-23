@@ -1,0 +1,442 @@
+openapi: 3.2.0
+info:
+  title: University Of Warsaw Mobility Option API
+  version: '1.0'
+  description: 'Operations tagged MobilityOption across 2 of this provider''s published API definitions: university-of-warsaw-jaskier-api.json, university-of-warsaw-sp4eu-api.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api.jaskier.uw.edu.pl
+- url: https://api.sp4eu.uw.edu.pl
+tags:
+- name: MobilityOption
+paths:
+  /api/v1/MobilityOption/{id}:
+    get:
+      tags:
+      - MobilityOption
+      summary: Czytanie informacji o opcji mobilności po id
+      operationId: findMobilityOptionById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/MobilityOptionResponse'
+      security:
+      - Authorization: []
+    put:
+      tags:
+      - MobilityOption
+      summary: Aktualizacja opcji mobilności
+      operationId: updateMobilityOption_1
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MobilityOptionRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/MobilityOptionResponse'
+      security:
+      - Authorization: []
+    delete:
+      tags:
+      - MobilityOption
+      summary: Usuwanie opcji mobilności
+      operationId: removeMobilityOption_1
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      security:
+      - Authorization: []
+    servers:
+    - url: https://api.jaskier.uw.edu.pl
+  /api/v1/MobilityOption/{id}/ApplicationProcedure:
+    get:
+      tags:
+      - MobilityOption
+      summary: Czytanie procedury aplikacji dla opcji mobilności po id
+      operationId: getApplicationProcedure
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ArticlePreviewResponse'
+      security:
+      - Authorization: []
+    put:
+      tags:
+      - MobilityOption
+      summary: Ustawianie procedury aplikacji dla opcji mobilności po id
+      operationId: setApplicationProcedure
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: articleId
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ArticlePreviewResponse'
+      security:
+      - Authorization: []
+    delete:
+      tags:
+      - MobilityOption
+      summary: Usuwanie procedury aplikacji dla opcji mobilności po id
+      operationId: removeApplicationProcedure
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      security:
+      - Authorization: []
+    servers:
+    - url: https://api.jaskier.uw.edu.pl
+  /api/v1/MobilityOption:
+    get:
+      tags:
+      - MobilityOption
+      summary: Listowanie opcji mobilności (z paginacją - odata)
+      operationId: queryForMobilityOptions
+      parameters:
+      - name: $skip
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int64
+          default: 0
+      - name: $top
+        in: query
+        required: false
+        schema:
+          maximum: 1000
+          type: integer
+          format: int64
+          default: 10
+      - name: $inlinecount
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: $orderby
+        in: query
+        required: false
+        schema:
+          type: string
+          default: mobilityProgram
+      - name: $filter
+        in: query
+        required: false
+        schema:
+          type: string
+          default: ()
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/OdataResponseMobilityOptionResponse'
+      security:
+      - Authorization: []
+    post:
+      tags:
+      - MobilityOption
+      summary: Dodawanie opcji mobilności
+      operationId: addMobilityOption
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MobilityOptionRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/MobilityOptionResponse'
+      security:
+      - Authorization: []
+    servers:
+    - url: https://api.jaskier.uw.edu.pl
+  /api/v1/MobilityOption/All:
+    get:
+      tags:
+      - MobilityOption
+      summary: Listowanie wszystkich opcji mobilności
+      operationId: queryForAllMobilityOptions_1
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MobilityOptionResponse'
+      security:
+      - Authorization: []
+    servers:
+    - url: https://api.jaskier.uw.edu.pl
+  /api/v1/MobilityOption/{id}/HostApplication:
+    get:
+      tags:
+      - MobilityOption
+      summary: Pobranie procedur aplikacji dla opcji mobilności o podanym id
+      operationId: getHostApplicationProceduresForOption_1
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ArticlePreviewResponse_2'
+      security:
+      - Authorization: []
+    servers:
+    - url: https://api.sp4eu.uw.edu.pl
+components:
+  schemas:
+    OdataResponseMobilityOptionResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/MobilityOptionResponse'
+        totalCount:
+          type: integer
+          format: int32
+    MobilityOptionResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        mobilityProgram:
+          type: string
+        university:
+          type: string
+          enum:
+          - CUNI
+          - UAH
+          - SU
+          - KU
+          - UNIMI
+          - UW
+          - UNIGE
+          - PARIS_2
+        suitableFor:
+          type: array
+          items:
+            type: string
+            enum:
+            - BA
+            - MA
+            - PhD
+            - Staff
+        fundingSource:
+          type: string
+        action:
+          type: string
+        contactDetails:
+          type: string
+        description:
+          type: string
+        applicationProcedureArticleId:
+          type: string
+        is4eu:
+          type: boolean
+        type:
+          type: string
+        duration:
+          type: string
+        applicationDeadline:
+          type: string
+        areaOfStudy:
+          type: string
+    ArticlePreviewResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        titlePl:
+          type: string
+        titleEn:
+          type: string
+        contentPl:
+          type: string
+        contentEn:
+          type: string
+        visibleFrom:
+          type: string
+          format: date
+        visibleTo:
+          type: string
+          format: date
+        signification:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+        visible:
+          type: boolean
+        created:
+          type: string
+          format: date-time
+    MobilityOptionRequest:
+      required:
+      - mobilityProgram
+      - suitableFor
+      - university
+      type: object
+      properties:
+        mobilityProgram:
+          maxLength: 255
+          minLength: 0
+          type: string
+        fundingSource:
+          maxLength: 255
+          minLength: 0
+          type: string
+        action:
+          maxLength: 255
+          minLength: 0
+          type: string
+        university:
+          type: string
+          enum:
+          - CUNI
+          - UAH
+          - SU
+          - KU
+          - UNIMI
+          - UW
+          - UNIGE
+          - PARIS_2
+        suitableFor:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+            enum:
+            - BA
+            - MA
+            - PhD
+            - Staff
+        contactDetails:
+          maxLength: 255
+          minLength: 0
+          type: string
+        duration:
+          maxLength: 255
+          minLength: 0
+          type: string
+        description:
+          maxLength: 255
+          minLength: 0
+          type: string
+        applicationDeadline:
+          maxLength: 255
+          minLength: 0
+          type: string
+        areaOfStudy:
+          maxLength: 255
+          minLength: 0
+          type: string
+        type:
+          maxLength: 255
+          minLength: 0
+          type: string
+    ArticlePreviewResponse_2:
+      type: object
+      properties:
+        id:
+          type: string
+        titlePl:
+          type: string
+        titleEn:
+          type: string
+        contentPl:
+          type: string
+        contentEn:
+          type: string
+        visibleFrom:
+          type: string
+          format: date
+        visibleTo:
+          type: string
+          format: date
+        signification:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+        visible:
+          type: boolean
+        created:
+          type: string
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header
+x-refined-from:
+- university-of-warsaw-jaskier-api.json
+- university-of-warsaw-sp4eu-api.json

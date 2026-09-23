@@ -1,0 +1,127 @@
+openapi: 3.2.0
+info:
+  title: Jaskier Giveaway My Uw API
+  version: 1.2.25
+servers:
+- url: https://api.jaskier.uw.edu.pl
+tags:
+- name: GiveawayMyUw
+paths:
+  /api/v1/MyUw/Person/{personId}/Giveaway/{giveawayId}/Code:
+    post:
+      tags:
+      - GiveawayMyUw
+      operationId: giveCodeToPerson
+      parameters:
+      - name: personId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: giveawayId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GiveawayCodeResponse'
+      security:
+      - Authorization: []
+      summary: Give code to person
+      x-summary-source: derived
+  /api/v1/MyUw/Person/{personId}/Giveaway/Code/{codeId}/Use:
+    post:
+      tags:
+      - GiveawayMyUw
+      operationId: useCode
+      parameters:
+      - name: personId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: codeId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      security:
+      - Authorization: []
+      summary: Use code
+      x-summary-source: derived
+  /api/v1/MyUw/Person/{personId}/Giveaway:
+    get:
+      tags:
+      - GiveawayMyUw
+      operationId: findAvailableGiveawaysForPerson
+      parameters:
+      - name: personId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GiveawayMyuwResponse'
+      security:
+      - Authorization: []
+      summary: Find available giveaways for person
+      x-summary-source: derived
+components:
+  schemas:
+    GiveawayMyuwResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        nameEn:
+          type: string
+        url:
+          type: string
+        urlEn:
+          type: string
+        startDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+        codes:
+          type: array
+          items:
+            $ref: '#/components/schemas/GiveawayCodeResponse'
+    GiveawayCodeResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        code:
+          type: string
+        personId:
+          type: string
+        receivedAt:
+          type: string
+          format: date
+        used:
+          type: boolean
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

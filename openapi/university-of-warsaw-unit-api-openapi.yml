@@ -1,0 +1,222 @@
+openapi: 3.2.0
+info:
+  title: Jaskier Unit API
+  version: 1.2.25
+servers:
+- url: https://api.jaskier.uw.edu.pl
+tags:
+- name: Unit
+paths:
+  /api/v1/Unit/{code}:
+    get:
+      tags:
+      - Unit
+      summary: Czytanie jednostki na podstawie kodu
+      operationId: getUnitByCode
+      parameters:
+      - name: code
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UnitViewResponse'
+      security:
+      - Authorization: []
+  /api/v1/Dict/Unit/{code}:
+    get:
+      tags:
+      - Unit
+      summary: Czytanie jednostki na podstawie kodu
+      operationId: getUnitByCode_1
+      parameters:
+      - name: code
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UnitViewResponse'
+      security:
+      - Authorization: []
+  /api/v1/Dict/Unit/WithHierarchy/{code}:
+    get:
+      tags:
+      - Unit
+      summary: Czytanie jednostki z hierarchia na podstawie kodu
+      operationId: getUnitWithHierarchyByCode
+      parameters:
+      - name: code
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UnitWithHierarchyResponse'
+      security:
+      - Authorization: []
+  /api/v1/Unit/WithHierarchy/{code}:
+    get:
+      tags:
+      - Unit
+      summary: Czytanie jednostki z hierarchia na podstawie kodu
+      operationId: getUnitWithHierarchyByCode_1
+      parameters:
+      - name: code
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UnitWithHierarchyResponse'
+      security:
+      - Authorization: []
+  /api/v1/Dict/Unit/WithHierarchy:
+    get:
+      tags:
+      - Unit
+      summary: Listowanie jednostek z hierarchia
+      operationId: queryForUnitsWithHierarchy
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UnitWithHierarchyResponse'
+      security:
+      - Authorization: []
+  /api/v1/Unit/WithHierarchy:
+    get:
+      tags:
+      - Unit
+      summary: Listowanie jednostek z hierarchia
+      operationId: queryForUnitsWithHierarchy_1
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UnitWithHierarchyResponse'
+      security:
+      - Authorization: []
+  /api/v1/Dict/Unit:
+    get:
+      tags:
+      - Unit
+      summary: Listowanie jednostek
+      operationId: queryForUnits
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UnitViewResponse'
+      security:
+      - Authorization: []
+  /api/v1/Unit:
+    get:
+      tags:
+      - Unit
+      summary: Listowanie jednostek
+      operationId: queryForUnits_1
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UnitViewResponse'
+      security:
+      - Authorization: []
+components:
+  schemas:
+    UnitViewResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Unikalny kod jednostki
+        university:
+          type: string
+          description: Uniwersytet do którego należy jednostka
+          enum:
+          - CUNI
+          - UAH
+          - SU
+          - KU
+          - UNIMI
+          - UW
+          - UNIGE
+          - PARIS_2
+        namePl:
+          type: string
+          description: Polska nazwa jednostki
+        nameEn:
+          type: string
+          description: Angielska nazwa jednostki
+        parentUnitCode:
+          type: string
+          description: Unikalny kod jednostki nadrzędnej
+        url:
+          type: string
+          description: Adres strony jednostki
+        isVisible:
+          type: boolean
+        financingCode:
+          type: string
+      description: Jednostki organizacyjne
+    UnitWithHierarchyResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Unikalny kod jednostki
+        namePl:
+          type: string
+          description: Polska nazwa jednostki
+        nameEn:
+          type: string
+          description: Angielska nazwa jednostki
+        hierarchy:
+          type: array
+          description: Hierarchia jednostki
+          items:
+            type: string
+            description: Hierarchia jednostki
+      description: Jednostki organizacyjne z hierarchia
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

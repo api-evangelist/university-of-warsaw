@@ -1,0 +1,519 @@
+openapi: 3.2.0
+info:
+  title: Jaskier Research Set API
+  version: 1.2.25
+servers:
+- url: https://api.jaskier.uw.edu.pl
+tags:
+- name: ResearchSet
+paths:
+  /api/v1/ResearchSet/{cfSetId}/Article:
+    get:
+      tags:
+      - ResearchSet
+      summary: Czytanie artykułu do zbioru aparatury
+      operationId: getResearchSetArticle
+      parameters:
+      - name: cfSetId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ArticlePreviewResponse'
+      security:
+      - Authorization: []
+    put:
+      tags:
+      - ResearchSet
+      summary: Dodawanie lub aktualizacja artykułu do zbioru aparatury
+      operationId: upsertResearchSetArticle
+      parameters:
+      - name: cfSetId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ArticlePreviewResponse'
+      security:
+      - Authorization: []
+  /api/v1/ResearchSet/{cfSetId}/Abstract:
+    get:
+      tags:
+      - ResearchSet
+      summary: Lista abstraktów dla zbioru aparatury
+      operationId: getResearchSetAbstracts
+      parameters:
+      - name: cfSetId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AbstractResponse'
+      security:
+      - Authorization: []
+    put:
+      tags:
+      - ResearchSet
+      summary: Dodawanie abstraktu do zbioru aparatury
+      operationId: addResearchSetAbstract
+      parameters:
+      - name: cfSetId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AbstractRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/AbstractResponse'
+      security:
+      - Authorization: []
+  /api/v1/ResearchSet:
+    get:
+      tags:
+      - ResearchSet
+      summary: Listowanie danych o zbiorach aparatury
+      operationId: queryForResearchSets
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/QueryResearchSetItemResponse'
+      security:
+      - Authorization: []
+    post:
+      tags:
+      - ResearchSet
+      summary: Dodanie zbioru aparatury
+      operationId: addResearchSet
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ResearchSetRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ResearchSetResponse'
+      security:
+      - Authorization: []
+  /api/v1/ResearchSet/{cfSetId}:
+    get:
+      tags:
+      - ResearchSet
+      summary: Informacje o zbiorze aparatury
+      operationId: getResearchSetById
+      parameters:
+      - name: cfSetId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ResearchSetResponse'
+      security:
+      - Authorization: []
+    post:
+      tags:
+      - ResearchSet
+      summary: Aktualizacja informacji o sprzęcie
+      operationId: updateResearchSet
+      parameters:
+      - name: cfSetId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ResearchSetRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ResearchSetResponse'
+      security:
+      - Authorization: []
+  /api/v1/ResearchSet/{cfSetId}/Asset:
+    get:
+      tags:
+      - ResearchSet
+      summary: Czytanie listy środków trwałych zbioru aparatury
+      operationId: getResearchSetAssets
+      parameters:
+      - name: cfSetId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AssetResponse'
+      security:
+      - Authorization: []
+    post:
+      tags:
+      - ResearchSet
+      summary: Aktualizacja listy środków trwałych zbioru aparatury
+      operationId: updateResearchSetAssets
+      parameters:
+      - name: cfSetId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ResearchSetAssetsRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AssetResponse'
+      security:
+      - Authorization: []
+  /api/v1/ResearchSet/{cfSetId}/Abstract/{cfAbstrId}:
+    post:
+      tags:
+      - ResearchSet
+      summary: Aktualizacja abstraktu dla zbioru aparatury
+      operationId: updateResearchSetAbstract
+      parameters:
+      - name: cfSetId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: cfAbstrId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AbstractRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/AbstractResponse'
+      security:
+      - Authorization: []
+    delete:
+      tags:
+      - ResearchSet
+      summary: Usunięcie abstraktu dla zbioru aparatury
+      operationId: removeResearchSetAbstract
+      parameters:
+      - name: cfSetId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: cfAbstrId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      security:
+      - Authorization: []
+  /api/v1/ResearchSet/{cfSetId}/Article/Remove:
+    delete:
+      tags:
+      - ResearchSet
+      summary: Usunięcie artykułu dla zbioru aparatury
+      operationId: removeResearchSetArticle
+      parameters:
+      - name: cfSetId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      security:
+      - Authorization: []
+components:
+  schemas:
+    AbstractRequest:
+      required:
+      - keyw
+      type: object
+      properties:
+        id:
+          type: string
+        langCode:
+          type: string
+          description: kod języka typu PL, EN, EN-GB, itp - klucz naturalny do Language, zgodny z ISO (patrz Language)
+        title:
+          type: string
+          description: 'tytuł wynalazku/patentu/wzoru użytkowego/nazwa gatunku/nazwa botaniczna/nazwa odmiany w danym języku '
+        abstr:
+          type: string
+          description: streszczenie opisu wynalazku/wzoru użytkowego w danym języku
+        keyw:
+          maxItems: 100
+          minItems: 0
+          uniqueItems: true
+          type: array
+          description: słowa kluczowe w danym języku
+          items:
+            type: string
+            description: słowa kluczowe w danym języku
+        orderIndex:
+          minimum: 0
+          type: integer
+          description: 'kolejność wyświetlania abstraktów (domyślnie: 0)'
+          format: int32
+        original:
+          type: boolean
+          description: czy streszczenie jest w języku oryginału
+    AssetResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        initialValue:
+          type: number
+        depreciationAmount:
+          type: number
+        currencyCode:
+          type: string
+        amortizationMethod:
+          type: string
+        inventoryNumber:
+          type: string
+        initialSapId:
+          type: string
+        sapId:
+          type: string
+        departmentCode:
+          type: string
+        unitName:
+          type: string
+        uwCode:
+          type: string
+        objectType:
+          type: string
+        grwName:
+          type: string
+        kst:
+          type: string
+        documentNumber:
+          type: string
+        admissionDate:
+          type: string
+        liquidationDate:
+          type: string
+        otDate:
+          type: string
+          format: date
+        otNumber:
+          type: string
+        purchaseDate:
+          type: string
+        personId:
+          type: string
+        description:
+          type: string
+        shelfLifeFrom:
+          type: string
+          format: date
+        shelfLifeTo:
+          type: string
+          format: date
+        commercialUsage:
+          type: boolean
+        commercialUsageFrom:
+          type: string
+          format: date
+        purposeOfUse:
+          type: string
+        yearAcquisition:
+          type: string
+    ResearchSetAssetsRequest:
+      required:
+      - assetSapIds
+      type: object
+      properties:
+        assetSapIds:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+    ResearchSetResponse:
+      type: object
+      properties:
+        cfSetId:
+          type: string
+          description: id zbioru aparatury
+        name:
+          type: string
+          description: nazwa zbioru aparatury
+        articleId:
+          type: string
+          description: id artykułu opisującego zbiór aparatury
+      description: Informacje o zbiorze aparaturze
+    QueryResearchSetItemResponse:
+      type: object
+      properties:
+        cfSetId:
+          type: string
+          description: id zbioru aparatury
+        name:
+          type: string
+          description: nazwa zbioru aparatury
+      description: Podstawowe informacje o zbiorze aparaturze
+    AbstractResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Id abstraltu
+        langCode:
+          type: string
+          description: kod języka typu PL, EN, EN-GB, itp - klucz naturalny do Language, zgodny z ISO (patrz Language)
+        title:
+          type: string
+          description: 'tytuł wynalazku/patentu/wzoru użytkowego/nazwa gatunku/nazwa botaniczna/nazwa odmiany w danym języku '
+        abstr:
+          type: string
+          description: streszczenie opisu wynalazku/wzoru użytkowego w danym języku
+        keyw:
+          type: array
+          description: słowa kluczowe w danym języku
+          items:
+            type: string
+            description: słowa kluczowe w danym języku
+        orderIndex:
+          type: integer
+          description: 'kolejność wyświetlania abstraktów (domyślnie: 0)'
+          format: int32
+        objectId:
+          type: string
+          description: Id obiektu
+        objectType:
+          type: string
+          description: Typ obiektu
+        original:
+          type: boolean
+          description: czy streszczenie jest w języku oryginału
+    ArticlePreviewResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        titlePl:
+          type: string
+        titleEn:
+          type: string
+        contentPl:
+          type: string
+        contentEn:
+          type: string
+        visibleFrom:
+          type: string
+          format: date
+        visibleTo:
+          type: string
+          format: date
+        signification:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+        visible:
+          type: boolean
+        created:
+          type: string
+          format: date-time
+    ResearchSetRequest:
+      required:
+      - name
+      type: object
+      properties:
+        name:
+          type: string
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

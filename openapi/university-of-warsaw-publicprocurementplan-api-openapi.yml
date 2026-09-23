@@ -1,0 +1,507 @@
+openapi: 3.2.0
+info:
+  title: Jaskier Public Procurement Plan API
+  version: 1.2.25
+servers:
+- url: https://api.jaskier.uw.edu.pl
+tags:
+- name: PublicProcurementPlan
+paths:
+  /api/v1/PublicProcurementPlan/{id}:
+    get:
+      tags:
+      - PublicProcurementPlan
+      operationId: getProcurementPlanById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PublicProcurementPlanResponse'
+      security:
+      - Authorization: []
+      summary: Get procurement plan by id
+      x-summary-source: derived
+    put:
+      tags:
+      - PublicProcurementPlan
+      operationId: updateProcurementPlan_1
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PublicProcurementPlanRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PublicProcurementPlanResponse'
+      security:
+      - Authorization: []
+      summary: Update procurement plan 1
+      x-summary-source: derived
+    delete:
+      tags:
+      - PublicProcurementPlan
+      operationId: deleteProcurementPlan_1
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      security:
+      - Authorization: []
+      summary: Delete procurement plan 1
+      x-summary-source: derived
+  /api/v1/PublicProcurementPlan:
+    get:
+      tags:
+      - PublicProcurementPlan
+      operationId: findAllProcurementPlans
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PublicProcurementPlanResponse'
+      security:
+      - Authorization: []
+      summary: Find all procurement plans
+      x-summary-source: derived
+    post:
+      tags:
+      - PublicProcurementPlan
+      operationId: addProcurementPlan
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PublicProcurementPlanRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PublicProcurementPlanResponse'
+      security:
+      - Authorization: []
+      summary: Add procurement plan
+      x-summary-source: derived
+  /api/v1/PublicProcurementPlan/{id}/Unmerge:
+    post:
+      tags:
+      - PublicProcurementPlan
+      summary: Rozdzielenie połączonego rekordu
+      description: Aplikacja usuwa rekord powstały w wyniku łączenia i przywraca rekordy składowe
+      operationId: unmergeProcurementPlans
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+                enum:
+                - 100 CONTINUE
+                - 101 SWITCHING_PROTOCOLS
+                - 102 PROCESSING
+                - 103 EARLY_HINTS
+                - 103 CHECKPOINT
+                - 200 OK
+                - 201 CREATED
+                - 202 ACCEPTED
+                - 203 NON_AUTHORITATIVE_INFORMATION
+                - 204 NO_CONTENT
+                - 205 RESET_CONTENT
+                - 206 PARTIAL_CONTENT
+                - 207 MULTI_STATUS
+                - 208 ALREADY_REPORTED
+                - 226 IM_USED
+                - 300 MULTIPLE_CHOICES
+                - 301 MOVED_PERMANENTLY
+                - 302 FOUND
+                - 302 MOVED_TEMPORARILY
+                - 303 SEE_OTHER
+                - 304 NOT_MODIFIED
+                - 305 USE_PROXY
+                - 307 TEMPORARY_REDIRECT
+                - 308 PERMANENT_REDIRECT
+                - 400 BAD_REQUEST
+                - 401 UNAUTHORIZED
+                - 402 PAYMENT_REQUIRED
+                - 403 FORBIDDEN
+                - 404 NOT_FOUND
+                - 405 METHOD_NOT_ALLOWED
+                - 406 NOT_ACCEPTABLE
+                - 407 PROXY_AUTHENTICATION_REQUIRED
+                - 408 REQUEST_TIMEOUT
+                - 409 CONFLICT
+                - 410 GONE
+                - 411 LENGTH_REQUIRED
+                - 412 PRECONDITION_FAILED
+                - 413 PAYLOAD_TOO_LARGE
+                - 413 REQUEST_ENTITY_TOO_LARGE
+                - 414 URI_TOO_LONG
+                - 414 REQUEST_URI_TOO_LONG
+                - 415 UNSUPPORTED_MEDIA_TYPE
+                - 416 REQUESTED_RANGE_NOT_SATISFIABLE
+                - 417 EXPECTATION_FAILED
+                - 418 I_AM_A_TEAPOT
+                - 419 INSUFFICIENT_SPACE_ON_RESOURCE
+                - 420 METHOD_FAILURE
+                - 421 DESTINATION_LOCKED
+                - 422 UNPROCESSABLE_ENTITY
+                - 423 LOCKED
+                - 424 FAILED_DEPENDENCY
+                - 425 TOO_EARLY
+                - 426 UPGRADE_REQUIRED
+                - 428 PRECONDITION_REQUIRED
+                - 429 TOO_MANY_REQUESTS
+                - 431 REQUEST_HEADER_FIELDS_TOO_LARGE
+                - 451 UNAVAILABLE_FOR_LEGAL_REASONS
+                - 500 INTERNAL_SERVER_ERROR
+                - 501 NOT_IMPLEMENTED
+                - 502 BAD_GATEWAY
+                - 503 SERVICE_UNAVAILABLE
+                - 504 GATEWAY_TIMEOUT
+                - 505 HTTP_VERSION_NOT_SUPPORTED
+                - 506 VARIANT_ALSO_NEGOTIATES
+                - 507 INSUFFICIENT_STORAGE
+                - 508 LOOP_DETECTED
+                - 509 BANDWIDTH_LIMIT_EXCEEDED
+                - 510 NOT_EXTENDED
+                - 511 NETWORK_AUTHENTICATION_REQUIRED
+      security:
+      - Authorization: []
+  /api/v1/PublicProcurementPlan/Merge:
+    post:
+      tags:
+      - PublicProcurementPlan
+      summary: Łączenie rekordów
+      description: Aplikacja tworzy nowy rekord na podstawie już istniejących. Rekord może być połączony tylko raz. W przypadku gdy łączony rekord jest wynikiem innej operacji łączenia, wówczas jest on usuwany, a rekordy tworzące ten rekord zostają połączone z nowym rekordem.
+      operationId: mergeProcurementPlans
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PublicProcurementPlanMergeRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PublicProcurementPlanResponse'
+      security:
+      - Authorization: []
+  /api/v1/PublicProcurementPlan/{id}/Ancestors:
+    get:
+      tags:
+      - PublicProcurementPlan
+      operationId: getProcurementPlanAncestors
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PublicProcurementPlanResponse'
+      security:
+      - Authorization: []
+      summary: Get procurement plan ancestors
+      x-summary-source: derived
+  /api/v1/PublicProcurementPlan/SearchPerson:
+    get:
+      tags:
+      - PublicProcurementPlan
+      summary: Listowanie danych o osobach
+      operationId: searchPersonForProcurementPlan
+      parameters:
+      - name: $skip
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int64
+          default: 0
+      - name: $top
+        in: query
+        required: false
+        schema:
+          maximum: 100
+          type: integer
+          format: int64
+          default: 10
+      - name: $inlinecount
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: $orderby
+        in: query
+        required: false
+        schema:
+          type: string
+          default: lastName,firstName,email
+      - name: searchValue
+        in: query
+        required: false
+        schema:
+          type: string
+          default: searchValue
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/OdataResponsePersonViewResponse'
+      security:
+      - Authorization: []
+  /api/v1/PublicProcurementPlan/SearchPerson('{personId}'):
+    get:
+      tags:
+      - PublicProcurementPlan
+      summary: Czytanie informacji o osobie
+      operationId: getSearchPersonForProcurementPlan
+      parameters:
+      - name: personId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PersonViewResponse'
+      security:
+      - Authorization: []
+components:
+  schemas:
+    PublicProcurementPlanMergeRequest:
+      required:
+      - ids
+      type: object
+      properties:
+        ids:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+    PersonViewResponse:
+      type: object
+      properties:
+        personId:
+          type: string
+        university:
+          type: string
+          enum:
+          - CUNI
+          - UAH
+          - SU
+          - KU
+          - UNIMI
+          - UW
+          - UNIGE
+          - PARIS_2
+        orcid:
+          type: string
+        firstName:
+          type: string
+        middleNames:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        profileId:
+          type: string
+        degree:
+          type: string
+        universityIndexNumber:
+          type: string
+    OdataResponsePersonViewResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/PersonViewResponse'
+        totalCount:
+          type: integer
+          format: int32
+    PublicProcurementPlanResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        item:
+          type: string
+        type:
+          type: string
+        legalBasisId:
+          type: integer
+          description: ID trybu zamówienia
+          format: int32
+        legalBasisName:
+          type: string
+          description: Tekstowa reprezentacja trybu zamówienia
+        number:
+          type: string
+        netAmountEstimate:
+          type: number
+        plannedStartYear:
+          type: integer
+          format: int32
+        plannedStartQuarter:
+          type: integer
+          format: int32
+        plannedStartMonth:
+          type: integer
+          format: int32
+        cpvCodes:
+          type: array
+          items:
+            type: string
+        departmentCodes:
+          type: array
+          items:
+            type: string
+        realizedByDepartmentCode:
+          type: string
+        responsiblePersonId:
+          type: string
+        responsiblePersonFirstName:
+          type: string
+        responsiblePersonLastName:
+          type: string
+        responsiblePersonEmail:
+          type: string
+        reportingPersonId:
+          type: string
+        reportingPersonFirstName:
+          type: string
+        reportingPersonLastName:
+          type: string
+        reportingPersonEmail:
+          type: string
+        categoryId:
+          type: integer
+          format: int32
+        categoryGroup:
+          type: string
+        categorySubgroup:
+          type: string
+        categoryName:
+          type: string
+        categoryCpvCode:
+          type: string
+    PublicProcurementPlanRequest:
+      required:
+      - cpvCodes
+      - departmentCodes
+      type: object
+      properties:
+        departmentCodes:
+          uniqueItems: true
+          type: array
+          description: Kod działu gospodarczego UW
+          items:
+            type: string
+            description: Kod działu gospodarczego UW
+        realizedByDepartmentCode:
+          type: string
+          description: Kod działu gospodarczego UW realizującego za zamówienie
+        item:
+          type: string
+          description: Przedmiot zamówienia
+        type:
+          type: string
+          description: Rodzaj zamówienia
+        legalBasisId:
+          type: integer
+          description: Id trybu zamówienia
+          format: int32
+        number:
+          type: string
+          description: Numer zamówienia
+        netAmountEstimate:
+          type: number
+          description: Ostentacyjna wartość netto zamówienia
+        plannedStartYear:
+          type: integer
+          description: Przewidywany rok rozpoczęcia realizacji zamówienia
+          format: int32
+        plannedStartQuarter:
+          type: integer
+          description: Przewidywany kwartał rozpoczęcia realizacji zamówienia
+          format: int32
+        plannedStartMonth:
+          type: integer
+          description: Przewidywany miesiąc rozpoczęcia realizacji zamówienia
+          format: int32
+        responsiblePersonId:
+          type: string
+          description: Id osoby odpowiedzialnej
+        reportingPersonId:
+          type: string
+          description: Id osoby zgłaszającej
+        categoryId:
+          type: integer
+          description: Id kategorii planu zamówień
+          format: int32
+        cpvCodes:
+          uniqueItems: true
+          type: array
+          description: Zbiór kodów cpv
+          items:
+            type: string
+            description: Zbiór kodów cpv
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

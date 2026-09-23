@@ -1,0 +1,236 @@
+openapi: 3.2.0
+info:
+  title: Jaskier Translation Category API
+  version: 1.2.25
+servers:
+- url: https://api.jaskier.uw.edu.pl
+tags:
+- name: TranslationCategory
+paths:
+  /api/v1/TranslationCategory:
+    get:
+      tags:
+      - TranslationCategory
+      summary: Czytanie listy kategori tłumaczeń
+      operationId: findAllTranslationCategories
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TranslationCategoryResponse'
+      security:
+      - Authorization: []
+    post:
+      tags:
+      - TranslationCategory
+      summary: Dodawanie kategori tłumaczenia
+      operationId: addTranslationCategory
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TranslationCategoryAddRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/TranslationCategoryResponse'
+      security:
+      - Authorization: []
+  /api/v1/TranslationCategory/{name}:
+    get:
+      tags:
+      - TranslationCategory
+      summary: Czytanie kategori tłumaczenia
+      operationId: getByTranslationCategoryByName
+      parameters:
+      - name: name
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/TranslationCategoryResponse'
+      security:
+      - Authorization: []
+    post:
+      tags:
+      - TranslationCategory
+      summary: Aktualizacja kategorii tłumaczenia
+      operationId: updateTranslationCategory
+      parameters:
+      - name: name
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TranslationCategoryRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/TranslationCategoryResponse'
+      security:
+      - Authorization: []
+    delete:
+      tags:
+      - TranslationCategory
+      summary: Usunięcie kategorii tłumaczenia
+      operationId: removeTranslationCategory
+      parameters:
+      - name: name
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      security:
+      - Authorization: []
+components:
+  schemas:
+    TranslationCategoryAddRequest:
+      required:
+      - en
+      - name
+      type: object
+      properties:
+        name:
+          maxLength: 255
+          minLength: 0
+          type: string
+        en:
+          maxLength: 255
+          minLength: 0
+          type: string
+        pl:
+          maxLength: 255
+          minLength: 0
+          type: string
+        fr:
+          maxLength: 255
+          minLength: 0
+          type: string
+        it:
+          maxLength: 255
+          minLength: 0
+          type: string
+        da:
+          maxLength: 255
+          minLength: 0
+          type: string
+        de:
+          maxLength: 255
+          minLength: 0
+          type: string
+        cs:
+          maxLength: 255
+          minLength: 0
+          type: string
+        uk:
+          maxLength: 255
+          minLength: 0
+          type: string
+        ru:
+          maxLength: 255
+          minLength: 0
+          type: string
+        be:
+          maxLength: 255
+          minLength: 0
+          type: string
+    TranslationCategoryRequest:
+      required:
+      - en
+      type: object
+      properties:
+        en:
+          maxLength: 255
+          minLength: 0
+          type: string
+        pl:
+          maxLength: 255
+          minLength: 0
+          type: string
+        fr:
+          maxLength: 255
+          minLength: 0
+          type: string
+        it:
+          maxLength: 255
+          minLength: 0
+          type: string
+        da:
+          maxLength: 255
+          minLength: 0
+          type: string
+        de:
+          maxLength: 255
+          minLength: 0
+          type: string
+        cs:
+          maxLength: 255
+          minLength: 0
+          type: string
+        uk:
+          maxLength: 255
+          minLength: 0
+          type: string
+        ru:
+          maxLength: 255
+          minLength: 0
+          type: string
+        be:
+          maxLength: 255
+          minLength: 0
+          type: string
+    TranslationCategoryResponse:
+      type: object
+      properties:
+        name:
+          type: string
+        en:
+          type: string
+        pl:
+          type: string
+        fr:
+          type: string
+        it:
+          type: string
+        da:
+          type: string
+        de:
+          type: string
+        cs:
+          type: string
+        uk:
+          type: string
+        ru:
+          type: string
+        be:
+          type: string
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

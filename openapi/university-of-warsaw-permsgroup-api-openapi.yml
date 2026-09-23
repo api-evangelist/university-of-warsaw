@@ -1,0 +1,427 @@
+openapi: 3.2.0
+info:
+  title: Jaskier Perms Group API
+  version: 1.2.25
+servers:
+- url: https://api.jaskier.uw.edu.pl
+tags:
+- name: PermsGroup
+paths:
+  /api/v1/PermsGroups:
+    get:
+      tags:
+      - PermsGroup
+      summary: Zwraca listę grup uprawnień
+      operationId: getPermGroups
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PermGroupNameResponse'
+      security:
+      - Authorization: []
+    post:
+      tags:
+      - PermsGroup
+      summary: Dodaje grupę uprawnień
+      operationId: addPermsGroup
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GroupRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PermGroupNameResponse'
+      security:
+      - Authorization: []
+  /api/v1/PermsGroups/{name}/Members:
+    get:
+      tags:
+      - PermsGroup
+      summary: Zwraca listę członków grupy
+      operationId: getPermGroupMembers
+      parameters:
+      - name: name
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PermGroupPersonResponse'
+      security:
+      - Authorization: []
+    post:
+      tags:
+      - PermsGroup
+      summary: Aktualizuje listę członków grupy
+      operationId: updatePermGroupMembers
+      parameters:
+      - name: name
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PermGroupPersonRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PermGroupPersonResponse'
+      security:
+      - Authorization: []
+  /api/v1/PermsGroups/{name}/Members/UpdateBySystemRole:
+    post:
+      tags:
+      - PermsGroup
+      summary: Nadpisuje członków grupy na podstawie roli systemowej (może usunąć istniejących…
+      operationId: updateBySystemRole
+      parameters:
+      - name: name
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: roleCode
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PermGroupPersonResponse'
+      security:
+      - Authorization: []
+  /api/v1/PermsGroups/SystemRoles:
+    get:
+      tags:
+      - PermsGroup
+      summary: Listowanie ról systemowych
+      operationId: querySystemRoleForPermGroup
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SystemRoleResponse'
+      security:
+      - Authorization: []
+  /api/v1/PermsGroups/SearchPerson:
+    get:
+      tags:
+      - PermsGroup
+      summary: Listowanie danych o osobach
+      operationId: searchPersonForPermGroup
+      parameters:
+      - name: $skip
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int64
+          default: 0
+      - name: $top
+        in: query
+        required: false
+        schema:
+          maximum: 100
+          type: integer
+          format: int64
+          default: 10
+      - name: $inlinecount
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: $orderby
+        in: query
+        required: false
+        schema:
+          type: string
+          default: lastName,firstName,email
+      - name: searchValue
+        in: query
+        required: false
+        schema:
+          type: string
+          default: searchValue
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/OdataResponsePersonViewResponse'
+      security:
+      - Authorization: []
+  /api/v1/PermsGroups/SearchPerson('{personId}'):
+    get:
+      tags:
+      - PermsGroup
+      summary: Czytanie informacji o osobie
+      operationId: getSearchPersonForPermGroup
+      parameters:
+      - name: personId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PersonViewResponse'
+      security:
+      - Authorization: []
+  /api/v1/PermsGroups/{name}:
+    delete:
+      tags:
+      - PermsGroup
+      summary: Usuwa grupę uprawnień
+      operationId: deletePermsGroup
+      parameters:
+      - name: name
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+                enum:
+                - 100 CONTINUE
+                - 101 SWITCHING_PROTOCOLS
+                - 102 PROCESSING
+                - 103 EARLY_HINTS
+                - 103 CHECKPOINT
+                - 200 OK
+                - 201 CREATED
+                - 202 ACCEPTED
+                - 203 NON_AUTHORITATIVE_INFORMATION
+                - 204 NO_CONTENT
+                - 205 RESET_CONTENT
+                - 206 PARTIAL_CONTENT
+                - 207 MULTI_STATUS
+                - 208 ALREADY_REPORTED
+                - 226 IM_USED
+                - 300 MULTIPLE_CHOICES
+                - 301 MOVED_PERMANENTLY
+                - 302 FOUND
+                - 302 MOVED_TEMPORARILY
+                - 303 SEE_OTHER
+                - 304 NOT_MODIFIED
+                - 305 USE_PROXY
+                - 307 TEMPORARY_REDIRECT
+                - 308 PERMANENT_REDIRECT
+                - 400 BAD_REQUEST
+                - 401 UNAUTHORIZED
+                - 402 PAYMENT_REQUIRED
+                - 403 FORBIDDEN
+                - 404 NOT_FOUND
+                - 405 METHOD_NOT_ALLOWED
+                - 406 NOT_ACCEPTABLE
+                - 407 PROXY_AUTHENTICATION_REQUIRED
+                - 408 REQUEST_TIMEOUT
+                - 409 CONFLICT
+                - 410 GONE
+                - 411 LENGTH_REQUIRED
+                - 412 PRECONDITION_FAILED
+                - 413 PAYLOAD_TOO_LARGE
+                - 413 REQUEST_ENTITY_TOO_LARGE
+                - 414 URI_TOO_LONG
+                - 414 REQUEST_URI_TOO_LONG
+                - 415 UNSUPPORTED_MEDIA_TYPE
+                - 416 REQUESTED_RANGE_NOT_SATISFIABLE
+                - 417 EXPECTATION_FAILED
+                - 418 I_AM_A_TEAPOT
+                - 419 INSUFFICIENT_SPACE_ON_RESOURCE
+                - 420 METHOD_FAILURE
+                - 421 DESTINATION_LOCKED
+                - 422 UNPROCESSABLE_ENTITY
+                - 423 LOCKED
+                - 424 FAILED_DEPENDENCY
+                - 425 TOO_EARLY
+                - 426 UPGRADE_REQUIRED
+                - 428 PRECONDITION_REQUIRED
+                - 429 TOO_MANY_REQUESTS
+                - 431 REQUEST_HEADER_FIELDS_TOO_LARGE
+                - 451 UNAVAILABLE_FOR_LEGAL_REASONS
+                - 500 INTERNAL_SERVER_ERROR
+                - 501 NOT_IMPLEMENTED
+                - 502 BAD_GATEWAY
+                - 503 SERVICE_UNAVAILABLE
+                - 504 GATEWAY_TIMEOUT
+                - 505 HTTP_VERSION_NOT_SUPPORTED
+                - 506 VARIANT_ALSO_NEGOTIATES
+                - 507 INSUFFICIENT_STORAGE
+                - 508 LOOP_DETECTED
+                - 509 BANDWIDTH_LIMIT_EXCEEDED
+                - 510 NOT_EXTENDED
+                - 511 NETWORK_AUTHENTICATION_REQUIRED
+      security:
+      - Authorization: []
+components:
+  schemas:
+    PermGroupPersonResponse:
+      type: object
+      properties:
+        personId:
+          type: string
+          description: id osoby
+        firstName:
+          type: string
+          description: imię osoby
+        lastName:
+          type: string
+          description: nazwisko osoby
+        email:
+          type: string
+          description: email osoby
+        group:
+          type: string
+          description: nazwa grupy
+    PermGroupNameResponse:
+      type: object
+      properties:
+        name:
+          type: string
+    PermGroupPersonRequest:
+      required:
+      - personIds
+      type: object
+      properties:
+        personIds:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+    SystemRoleResponse:
+      type: object
+      properties:
+        roleCode:
+          type: string
+          description: Unikalny kod roli
+        roleName:
+          type: string
+          description: Nazwa roli
+        comment:
+          type: string
+          description: Komentarz
+        orderIndex:
+          type: integer
+          description: 'kolejność wyświetlania ról systemowych (domyślnie: 0)'
+          format: int32
+        sapMapping:
+          type: object
+          additionalProperties:
+            type: array
+            description: mapowanie roli na role w SAPie
+            items:
+              type: string
+              description: mapowanie roli na role w SAPie
+          description: mapowanie roli na role w SAPie
+        jaskierMapping:
+          type: object
+          additionalProperties:
+            type: array
+            description: mapowanie roli na uprawnienia w Jaskrze
+            items:
+              type: string
+              description: mapowanie roli na uprawnienia w Jaskrze
+          description: mapowanie roli na uprawnienia w Jaskrze
+      description: System role
+    GroupRequest:
+      required:
+      - name
+      type: object
+      properties:
+        name:
+          type: string
+          description: Nazwa grupy uprawnień
+    PersonViewResponse:
+      type: object
+      properties:
+        personId:
+          type: string
+        university:
+          type: string
+          enum:
+          - CUNI
+          - UAH
+          - SU
+          - KU
+          - UNIMI
+          - UW
+          - UNIGE
+          - PARIS_2
+        orcid:
+          type: string
+        firstName:
+          type: string
+        middleNames:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        profileId:
+          type: string
+        degree:
+          type: string
+        universityIndexNumber:
+          type: string
+    OdataResponsePersonViewResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/PersonViewResponse'
+        totalCount:
+          type: integer
+          format: int32
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

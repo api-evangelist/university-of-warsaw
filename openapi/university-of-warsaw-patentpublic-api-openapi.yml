@@ -1,0 +1,160 @@
+openapi: 3.2.0
+info:
+  title: Jaskier Patent Public API
+  version: 1.2.25
+servers:
+- url: https://api.jaskier.uw.edu.pl
+tags:
+- name: PatentPublic
+paths:
+  /api/v1/PatentPublic:
+    get:
+      tags:
+      - PatentPublic
+      summary: Listowanie danych o patentach
+      operationId: queryForPatentPublic
+      parameters:
+      - name: $skip
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int64
+          default: 0
+      - name: $top
+        in: query
+        required: false
+        schema:
+          maximum: 1000
+          type: integer
+          format: int64
+          default: 10
+      - name: $inlinecount
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: $orderby
+        in: query
+        required: false
+        schema:
+          type: string
+          default: cfUri
+      - name: $filter
+        in: query
+        required: false
+        schema:
+          type: string
+          default: ()
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/OdataResponseQueryPatentPublicItemResponse'
+      security:
+      - Authorization: []
+components:
+  schemas:
+    OdataResponseQueryPatentPublicItemResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/QueryPatentPublicItemResponse'
+        totalCount:
+          type: integer
+          format: int32
+    QueryPatentPublicItemResponse:
+      type: object
+      properties:
+        cfPatId:
+          type: string
+          description: id patentu
+        cfCountryCodes:
+          type: array
+          description: kody państw, na terytorium których uzyskano ochronę
+          items:
+            type: string
+            description: kody państw, na terytorium których uzyskano ochronę
+        cfRegisterDate:
+          type: string
+          description: data zarejestrowania patentu
+          format: date
+        cfApprovDate:
+          type: string
+          description: data zatwierdzenia patentu
+          format: date
+        cfPatentNum:
+          type: string
+          description: numer patentu
+        cfUri:
+          type: string
+          description: uri do informacji źródłowej o patencie
+        cfTitle:
+          type: string
+          description: tytuł patentu pobierany z abstraktu o najniższym indeksie
+        cfKeyw:
+          type: array
+          description: słowa kluczowe patentu pobierane z abstraktu o najniższym indeksie
+          items:
+            type: string
+            description: słowa kluczowe patentu pobierane z abstraktu o najniższym indeksie
+        year:
+          type: integer
+          description: rok
+          format: int32
+        applicationNumber:
+          type: string
+          description: numer zgłoszenia patentowego
+        businessEntityObtainedBy:
+          type: string
+          description: podmiot pozyskujący
+        businessEntityGrantedBy:
+          type: string
+          description: podmiot udzielający
+        referenceNumber:
+          type: string
+          description: numer referencyjny
+        translationDate:
+          type: string
+          description: data tłumaczenia
+          format: date
+        protectionType:
+          type: string
+          description: rodzaj ochrony
+        protectionSubject:
+          type: string
+          description: przedmiot ochrony
+        protectionStatus:
+          type: string
+          description: status ochrony
+        financialNumber:
+          type: string
+          description: numer finansowy
+        applicationCountry:
+          type: array
+          description: kraj zgłoszenia
+          items:
+            type: string
+            description: kraj zgłoszenia
+        applicationProcedure:
+          type: string
+          description: procedura zgłoszenia
+        applicationNumberUPRP:
+          type: string
+          description: numer zgłoszenia UPRP
+        endProtectionDate:
+          type: string
+          description: data końca ochrony
+          format: date
+        validationCountry:
+          type: string
+          description: państwo walidacji
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

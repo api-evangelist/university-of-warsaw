@@ -1,0 +1,156 @@
+openapi: 3.2.0
+info:
+  title: Jaskier Asset Migration API
+  version: 1.2.25
+servers:
+- url: https://api.jaskier.uw.edu.pl
+tags:
+- name: AssetMigration
+paths:
+  /api/v1/Asset/Migration/Export/DepartmentCodes:
+    put:
+      tags:
+      - AssetMigration
+      summary: Eksport wybranych składników majątków do pliku xlsx na podstawie działów…
+      operationId: exportByDepartmentCodes
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: string
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+                format: binary
+          x-is-file: 'true'
+      security:
+      - Authorization: []
+  /api/v1/Asset/Migration/Export/DepartmentCode:
+    put:
+      tags:
+      - AssetMigration
+      summary: Eksport wybranych składników majątków do pliku xlsx na podstawie działu…
+      operationId: exportByDepartmentCode
+      parameters:
+      - name: departmentCode
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+                format: binary
+          x-is-file: 'true'
+      security:
+      - Authorization: []
+  /api/v1/Asset/Migration/ReadFromFile:
+    post:
+      tags:
+      - AssetMigration
+      summary: Czytanie środkach trwałych z pliku xls i xlsx
+      operationId: readAssetFromXLSX
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              required:
+              - multipartFile
+              type: object
+              properties:
+                multipartFile:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AssetExcelResponse'
+      security:
+      - Authorization: []
+  /api/v1/Asset/Migration/Export/Zip:
+    get:
+      tags:
+      - AssetMigration
+      summary: Eksport środków trwałych do pliku zip
+      operationId: exportZipAsset
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+                format: binary
+          x-is-file: 'true'
+      security:
+      - Authorization: []
+components:
+  schemas:
+    AssetExcelResponse:
+      type: object
+      properties:
+        name:
+          type: string
+        initialValue:
+          type: number
+        currencyCode:
+          type: string
+        purposeOfUse:
+          type: string
+        inventoryNumber:
+          type: string
+        subInventoryNumber:
+          type: string
+        sapId:
+          type: string
+        initialSapId:
+          type: string
+        departmentCode:
+          type: string
+        uwCode:
+          type: string
+        unitName:
+          type: string
+        personId:
+          type: string
+        objectType:
+          type: string
+        grwName:
+          type: string
+        kst:
+          type: string
+        documentNumber:
+          type: string
+        purchaseDate:
+          type: string
+        admissionDate:
+          type: string
+        liquidationDate:
+          type: string
+        depreciationAmount:
+          type: number
+        amortizationMethod:
+          type: string
+        yearAcquisition:
+          type: string
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

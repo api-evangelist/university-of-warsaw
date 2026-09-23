@@ -1,0 +1,170 @@
+openapi: 3.2.0
+info:
+  title: Jaskier Person System Role Migration API
+  version: 1.2.25
+servers:
+- url: https://api.jaskier.uw.edu.pl
+tags:
+- name: PersonSystemRoleMigration
+paths:
+  /api/v1/PersonSystemRole/Migration/ReadFromFile:
+    post:
+      tags:
+      - PersonSystemRoleMigration
+      summary: czytanie ról systemowych z pliku xls i xlsx
+      operationId: readPersonSystemFromXLSX
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              required:
+              - multipartFile
+              type: object
+              properties:
+                multipartFile:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PersonSystemRoleImportRequest'
+      security:
+      - Authorization: []
+  /api/v1/PersonSystemRole/Migration/Import/Extended:
+    post:
+      tags:
+      - PersonSystemRoleMigration
+      summary: Importowanie ról systemowych
+      operationId: importSystemRoles
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PersonSystemRoleImportRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PersonSystemRoleResponse'
+      security:
+      - Authorization: []
+  /api/v1/PersonSystemRole/Migration/Export/Selected:
+    post:
+      tags:
+      - PersonSystemRoleMigration
+      summary: Eksport wybranych ról systemowych do pliku xlsx
+      operationId: exportRolesByIds
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: string
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+                format: binary
+          x-is-file: 'true'
+      security:
+      - Authorization: []
+  /api/v1/PersonSystemRole/Migration/Import/FileTemplate:
+    get:
+      tags:
+      - PersonSystemRoleMigration
+      summary: pobieranie szablonu pliku xlsx eksportu ról systemowych do pliku
+      operationId: getPersonSystemFileTemplate
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+                format: binary
+          x-is-file: 'true'
+      security:
+      - Authorization: []
+  /api/v1/PersonSystemRole/Migration/Export:
+    get:
+      tags:
+      - PersonSystemRoleMigration
+      summary: Eksport ról systemowych do pliku xlsx
+      operationId: exportSystemRoles
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+                format: binary
+          x-is-file: 'true'
+      security:
+      - Authorization: []
+components:
+  schemas:
+    PersonSystemRoleImportRequest:
+      type: object
+      properties:
+        personId:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        economicDepartmentCode:
+          type: string
+        sapLogin:
+          type: string
+        systemRoleCodes:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+    PersonSystemRoleResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        personId:
+          type: string
+        personFirstName:
+          type: string
+        personLastName:
+          type: string
+        personEmail:
+          type: string
+        personSapLogin:
+          type: string
+        economicDepartmentCode:
+          type: string
+        economicDepartmentNamePl:
+          type: string
+        economicDepartmentNameEn:
+          type: string
+        systemRoleCodes:
+          type: array
+          items:
+            type: string
+      description: Informacje o rolach osób
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

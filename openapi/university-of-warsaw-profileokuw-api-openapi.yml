@@ -1,0 +1,512 @@
+openapi: 3.2.0
+info:
+  title: Jaskier Profile Ok Uw API
+  version: 1.2.25
+servers:
+- url: https://api.jaskier.uw.edu.pl
+tags:
+- name: ProfileOkUw
+paths:
+  /api/v1/OkUw/Profile:
+    get:
+      tags:
+      - ProfileOkUw
+      summary: Listowanie danych o profilach z flagą is_publicly_visible = true
+      operationId: queryForProfilePublic
+      parameters:
+      - name: $skip
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int64
+          default: 0
+      - name: $top
+        in: query
+        required: false
+        schema:
+          maximum: 1000
+          type: integer
+          format: int64
+          default: 10
+      - name: $inlinecount
+        in: query
+        required: false
+        schema:
+          type: string
+          default: allpages
+      - name: $orderby
+        in: query
+        required: false
+        schema:
+          type: string
+          default: firstName,middleNames,lastName
+      - name: $filter
+        in: query
+        required: false
+        schema:
+          type: string
+          default: ()
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/OdataResponseProfileOkUwResponse'
+      security:
+      - Authorization: []
+  /api/v1/OkUw/Profile/{id}:
+    get:
+      tags:
+      - ProfileOkUw
+      summary: Czytanie profilu z podanym publicznym id i flagą is_publicly_visible = true
+      operationId: getProfilePublicById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ProfileOkUwResponse'
+      security:
+      - Authorization: []
+  /api/v1/OkUw/Profile/{id}/Theses:
+    get:
+      tags:
+      - ProfileOkUw
+      summary: Czytanie listy publikacji, które są pracami dyplomowymi i których autorem jest…
+      description: 'Czytanie listy publikacji, które są pracami dyplomowymi i których autorem jest wybrany profil.
+
+
+        Filtry:
+
+        * role
+
+        - gdy brak -> zwraca wszystkie publikacje niezależnie od roli'
+      operationId: getProfileThesesById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: role
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - AUTHOR
+          - SUPERVISOR
+          - EDITOR
+          - TRANSLATOR
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProfilePublicationResponse'
+      security:
+      - Authorization: []
+  /api/v1/OkUw/Profile/{id}/Publications:
+    get:
+      tags:
+      - ProfileOkUw
+      summary: Czytanie listy publikacji, które nie są pracami dyplomowymi i których autorem…
+      description: 'Czytanie listy publikacji, które nie są pracami dyplomowymi i których autorem jest wybrany profil.
+
+
+        Filtry:
+
+        * role
+
+        - gdy brak -> zwraca wszystkie publikacje niezależnie od roli'
+      operationId: getProfilePublicationsById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: role
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - AUTHOR
+          - SUPERVISOR
+          - EDITOR
+          - TRANSLATOR
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProfilePublicationResponse'
+      security:
+      - Authorization: []
+  /api/v1/OkUw/Profile/{id}/Project:
+    get:
+      tags:
+      - ProfileOkUw
+      summary: Czytanie listy projektów, których członkiem jest wybrany profil z danym…
+      operationId: getProfileProjectAuthorById_1
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProfileProjectResponse'
+      security:
+      - Authorization: []
+  /api/v1/OkUw/Profile/{id}/Picture:
+    get:
+      tags:
+      - ProfileOkUw
+      operationId: downloadPublicProfilePicture
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      security:
+      - Authorization: []
+      summary: Download public profile picture
+      x-summary-source: derived
+  /api/v1/OkUw/Profile/{id}/Patent:
+    get:
+      tags:
+      - ProfileOkUw
+      summary: Czytanie listy patentów, których członkiem jest wybrany profil z danym…
+      operationId: getProfilePatentProfileById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProfilePatentResponse'
+      security:
+      - Authorization: []
+  /api/v1/OkUw/Profile/{id}/Courses:
+    get:
+      tags:
+      - ProfileOkUw
+      summary: Czytanie listy kursów powiązanych z profilem z danym publicznym id
+      operationId: getProfileCoursesById_1
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProfileCourseResponse'
+      security:
+      - Authorization: []
+  /api/v1/OkUw/Profile/Search:
+    get:
+      tags:
+      - ProfileOkUw
+      summary: Listowanie danych o profilach z flagą is_publicly_visible = true
+      operationId: searchProfilePublic
+      parameters:
+      - name: $skip
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int64
+          default: 0
+      - name: $top
+        in: query
+        required: false
+        schema:
+          maximum: 1000
+          type: integer
+          format: int64
+          default: 10
+      - name: $inlinecount
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: $orderby
+        in: query
+        required: false
+        schema:
+          type: string
+          default: firstName,middleNames,lastName
+      - name: $filter
+        in: query
+        required: false
+        schema:
+          type: string
+          default: ()
+      - name: searchValue
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: disciplineCode
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/OdataResponseProfileOkUwResponse'
+      security:
+      - Authorization: []
+  /api/v1/OkUw/Profile/ScienceDiscipline:
+    get:
+      tags:
+      - ProfileOkUw
+      summary: Lista dyscyplin naukowych, które są w jakichkolwiek widocznych publicznie…
+      operationId: getScienceDisciplinesWithAnyPublicProfiles
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ScienceDisciplineResponse'
+      security:
+      - Authorization: []
+  /api/v1/OkUw/Profile/Analysis:
+    get:
+      tags:
+      - ProfileOkUw
+      summary: Czytanie listy profili z flagą is_publicly_visible = true
+      operationId: calculateQuantity_2
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+                additionalProperties:
+                  type: integer
+                  format: int32
+      security:
+      - Authorization: []
+components:
+  schemas:
+    ProfileCourseResponse:
+      type: object
+      properties:
+        profileId:
+          type: string
+        courseId:
+          type: string
+        title:
+          type: string
+        titlePl:
+          type: string
+        titleEn:
+          type: string
+        subjectCode:
+          type: string
+        year:
+          type: integer
+          format: int32
+        term:
+          type: string
+        startDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+    ProfilePublicationResponse:
+      type: object
+      properties:
+        profileId:
+          type: string
+        publicationId:
+          type: string
+        title:
+          type: string
+        titlePl:
+          type: string
+        titleEn:
+          type: string
+        publicationDate:
+          type: string
+        role:
+          type: string
+        year:
+          type: integer
+          format: int32
+        types:
+          type: array
+          items:
+            type: string
+    ProfilePatentResponse:
+      type: object
+      properties:
+        profileId:
+          type: string
+        patentId:
+          type: string
+        title:
+          type: string
+        titlePl:
+          type: string
+        titleEn:
+          type: string
+        applicationNumber:
+          type: string
+        consentForEvaluation:
+          type: boolean
+        fraction:
+          type: number
+          format: double
+        decisionDate:
+          type: string
+          format: date
+    ScienceDisciplineResponse:
+      type: object
+      properties:
+        code:
+          type: string
+        name:
+          type: string
+        nameEn:
+          type: string
+        effectiveFrom:
+          type: string
+          format: date
+        effectiveTo:
+          type: string
+          format: date
+        scienceFieldCode:
+          type: string
+        scienceFieldName:
+          type: string
+        scienceFieldNameEn:
+          type: string
+    ProfileProjectResponse:
+      type: object
+      properties:
+        projectId:
+          type: string
+        title:
+          type: string
+        titlePl:
+          type: string
+        titleEn:
+          type: string
+        startDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+        roles:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProjectPublicMemberRoleResponse'
+    ProfileOkUwResponse:
+      type: object
+      properties:
+        profileId:
+          type: string
+        profilePublicId:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        degree:
+          type: string
+        coursesCount:
+          type: integer
+          format: int64
+        publicationsCount:
+          type: integer
+          format: int64
+        promotedPublicationsCount:
+          type: integer
+          format: int64
+        projectsCount:
+          type: integer
+          format: int64
+        scienceDisciplineCodes:
+          type: array
+          items:
+            type: string
+    ProjectPublicMemberRoleResponse:
+      type: object
+      properties:
+        namePl:
+          type: string
+        nameEn:
+          type: string
+        orderIndex:
+          type: integer
+          format: int32
+    OdataResponseProfileOkUwResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProfileOkUwResponse'
+        totalCount:
+          type: integer
+          format: int32
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

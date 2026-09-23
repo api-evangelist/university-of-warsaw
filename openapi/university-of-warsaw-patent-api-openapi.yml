@@ -1,0 +1,2066 @@
+openapi: 3.2.0
+info:
+  title: Jaskier Patent API
+  version: 1.2.25
+servers:
+- url: https://api.jaskier.uw.edu.pl
+tags:
+- name: Patent
+paths:
+  /api/v1/Patent/{cfPatId}:
+    get:
+      tags:
+      - Patent
+      summary: Czytanie patentu z podanym id
+      operationId: getPatentById
+      parameters:
+      - name: cfPatId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PatentResponse'
+      security:
+      - Authorization: []
+    put:
+      tags:
+      - Patent
+      summary: Aktualizacja patentu
+      operationId: updatePatent
+      parameters:
+      - name: cfPatId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatentRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PatentResponse'
+      security:
+      - Authorization: []
+  /api/v1/Patent/{cfPatId}/PatentUnit:
+    get:
+      tags:
+      - Patent
+      summary: Czytanie listy jednostek powiązanych z patentem
+      operationId: getPatentUnits
+      parameters:
+      - name: cfPatId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PatentUnitResponse'
+      security:
+      - Authorization: []
+    put:
+      tags:
+      - Patent
+      summary: Dodawanie jednostki do patentu
+      operationId: addPatentUnit
+      parameters:
+      - name: cfPatId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatentUnitRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PatentUnitResponse'
+      security:
+      - Authorization: []
+  /api/v1/Patent/{cfPatId}/PatentUnit/{patentUnitId}:
+    put:
+      tags:
+      - Patent
+      summary: Aktualizacja powiązania jednostki z patentem
+      operationId: updatePatentUnit
+      parameters:
+      - name: cfPatId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: patentUnitId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatentUnitRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PatentUnitResponse'
+      security:
+      - Authorization: []
+    delete:
+      tags:
+      - Patent
+      summary: Usunięcie powiązania patentu z jednostką
+      operationId: removePatentUnit
+      parameters:
+      - name: cfPatId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: patentUnitId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      security:
+      - Authorization: []
+  /api/v1/Patent/{cfPatId}/InstitutionalOwner:
+    get:
+      tags:
+      - Patent
+      summary: Czytanie listy współwłaścicieli instytucjonalnych patentu
+      operationId: getPatentInstitutionalOwners
+      parameters:
+      - name: cfPatId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PatentInstitutionalOwnerResponse'
+      security:
+      - Authorization: []
+    put:
+      tags:
+      - Patent
+      summary: Dodawanie współwłaściciela instytucjonalnego patentu
+      operationId: addPatentInstitutionalOwner
+      parameters:
+      - name: cfPatId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatentInstitutionalOwnerRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PatentInstitutionalOwnerResponse'
+      security:
+      - Authorization: []
+  /api/v1/Patent/{cfPatId}/InstitutionalOwner/{ownerId}:
+    put:
+      tags:
+      - Patent
+      summary: Aktualizacja współwłaściciela instytucjonalnego patentu
+      operationId: updatePatentInstitutionalOwner
+      parameters:
+      - name: cfPatId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: ownerId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatentInstitutionalOwnerRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PatentInstitutionalOwnerResponse'
+      security:
+      - Authorization: []
+    delete:
+      tags:
+      - Patent
+      summary: Usunięcie współwłaściciela instytucjonalnego patentu
+      operationId: removePatentInstitutionalOwner
+      parameters:
+      - name: cfPatId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: ownerId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      security:
+      - Authorization: []
+  /api/v1/Patent/{cfPatId}/Financing:
+    get:
+      tags:
+      - Patent
+      summary: Czytanie listy źródeł finansowania patentu
+      operationId: getPatentFinancing
+      parameters:
+      - name: cfPatId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PatentFinancingResponse'
+      security:
+      - Authorization: []
+    put:
+      tags:
+      - Patent
+      summary: Dodawanie źródła finansowania patentu
+      operationId: addPatentFinancing
+      parameters:
+      - name: cfPatId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatentFinancingRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PatentFinancingResponse'
+      security:
+      - Authorization: []
+  /api/v1/Patent/{cfPatId}/Financing/{financingId}:
+    put:
+      tags:
+      - Patent
+      summary: Aktualizacja źródła finansowania patentu
+      operationId: updatePatentFinancing
+      parameters:
+      - name: cfPatId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: financingId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatentFinancingRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PatentFinancingResponse'
+      security:
+      - Authorization: []
+    delete:
+      tags:
+      - Patent
+      summary: Usunięcie źródła finansowania patentu
+      operationId: removePatentFinancing
+      parameters:
+      - name: cfPatId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: financingId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      security:
+      - Authorization: []
+  /api/v1/Patent/{cfPatId}/ContactPerson:
+    get:
+      tags:
+      - Patent
+      summary: Czytanie listy osób kontaktowych patentu
+      operationId: getPatentContactPersons
+      parameters:
+      - name: cfPatId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PatentContactPersonResponse'
+      security:
+      - Authorization: []
+    put:
+      tags:
+      - Patent
+      summary: Dodawanie osób kontaktowych do patentu
+      operationId: addPatentContactPerson
+      parameters:
+      - name: cfPatId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatentContactPersonRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PatentContactPersonResponse'
+      security:
+      - Authorization: []
+  /api/v1/Patent/{cfPatId}/ContactPerson/{contactPersonId}:
+    put:
+      tags:
+      - Patent
+      summary: Aktualizacja danych o autorze patentu
+      operationId: updatePatentContactPerson
+      parameters:
+      - name: cfPatId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: contactPersonId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatentContactPersonRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PatentContactPersonResponse'
+      security:
+      - Authorization: []
+    delete:
+      tags:
+      - Patent
+      summary: Usunięcie osoby kontaktowej patentu
+      operationId: removePatentContactPerson
+      parameters:
+      - name: cfPatId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: contactPersonId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      security:
+      - Authorization: []
+  /api/v1/Patent/{cfPatId}/Author:
+    get:
+      tags:
+      - Patent
+      summary: Czytanie listy autorów patentu
+      operationId: getPatentAuthors
+      parameters:
+      - name: cfPatId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PatentAuthorResponse'
+      security:
+      - Authorization: []
+    put:
+      tags:
+      - Patent
+      summary: Dodawanie autorów patentu
+      operationId: addPatentAuthor
+      parameters:
+      - name: cfPatId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatentAuthorRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PatentAuthorResponse'
+      security:
+      - Authorization: []
+  /api/v1/Patent/{cfPatId}/Author/{authorId}:
+    put:
+      tags:
+      - Patent
+      summary: Aktualizacja danych o autorze patentu
+      operationId: updatePatentAuthor
+      parameters:
+      - name: cfPatId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: authorId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatentAuthorRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PatentAuthorResponse'
+      security:
+      - Authorization: []
+    delete:
+      tags:
+      - Patent
+      summary: Usunięcie autora patentu
+      operationId: removePatentAuthor
+      parameters:
+      - name: cfPatId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: authorId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      security:
+      - Authorization: []
+  /api/v1/Patent/{cfPatId}/Abstract:
+    get:
+      tags:
+      - Patent
+      summary: Lista abstraktów dla danego patentu
+      operationId: getPatentAbstracts
+      parameters:
+      - name: cfPatId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AbstractResponse'
+      security:
+      - Authorization: []
+    put:
+      tags:
+      - Patent
+      summary: Dodawanie abstraktu do patentu
+      operationId: addPatentAbstract
+      parameters:
+      - name: cfPatId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AbstractRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/AbstractResponse'
+      security:
+      - Authorization: []
+  /api/v1/Patent:
+    get:
+      tags:
+      - Patent
+      summary: Listowanie danych o patentach
+      operationId: queryForPatent
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/QueryPatentsItemResponse'
+      security:
+      - Authorization: []
+    post:
+      tags:
+      - Patent
+      summary: Dodawanie patentu
+      operationId: addPatent
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatentRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PatentResponse'
+      security:
+      - Authorization: []
+  /api/v1/Patent/{patentId}/Copy:
+    post:
+      tags:
+      - Patent
+      summary: Utworzenie kopii patentu z podanym id
+      operationId: copyPatentById
+      parameters:
+      - name: patentId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CopyPatentRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PatentResponse'
+      security:
+      - Authorization: []
+  /api/v1/Patent/{cfPatId}/Notes:
+    post:
+      tags:
+      - Patent
+      summary: Aktualizacja notatek do patentu
+      operationId: upsertPatentNotes
+      parameters:
+      - name: cfPatId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AdditionalInfoRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PatentResponse'
+      security:
+      - Authorization: []
+  /api/v1/Patent/{cfPatId}/Abstract/{cfAbstrId}:
+    post:
+      tags:
+      - Patent
+      summary: Aktualizacja abstraktu dla patentu
+      operationId: updatePatentAbstract
+      parameters:
+      - name: cfPatId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: cfAbstrId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AbstractRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/AbstractResponse'
+      security:
+      - Authorization: []
+    delete:
+      tags:
+      - Patent
+      summary: Usunięcie abstraktu dla patentu
+      operationId: removePatentAbstract
+      parameters:
+      - name: cfPatId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: cfAbstrId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      security:
+      - Authorization: []
+  /api/v1/Patent/{cfPatId}/History:
+    get:
+      tags:
+      - Patent
+      summary: Czytanie historii zmian patentu
+      operationId: getPatentHistory
+      parameters:
+      - name: cfPatId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/HistoryResponse'
+      security:
+      - Authorization: []
+  /api/v1/Patent/my:
+    get:
+      tags:
+      - Patent
+      summary: Listowanie patentów zalogowanego użytkownika
+      operationId: queryForMyPatent
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/QueryPatentsItemResponse'
+      security:
+      - Authorization: []
+  /api/v1/Patent/Units:
+    get:
+      tags:
+      - Patent
+      summary: Listowanie jednostek
+      operationId: getUnitsForPatent
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UnitViewResponse'
+      security:
+      - Authorization: []
+  /api/v1/Patent/SearchProfile:
+    get:
+      tags:
+      - Patent
+      summary: Wyszukiwanie profilu (np. w celu wpisania jako autora)
+      operationId: searchProfileForPatent
+      parameters:
+      - name: $skip
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int64
+          default: 0
+      - name: $top
+        in: query
+        required: false
+        schema:
+          maximum: 100
+          type: integer
+          format: int64
+          default: 10
+      - name: $inlinecount
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: $orderby
+        in: query
+        required: false
+        schema:
+          type: string
+          default: lastName,firstName,name
+      - name: searchValue
+        in: query
+        required: false
+        schema:
+          type: string
+          default: searchValue
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/OdataResponseQueryProfileItemResponse'
+      security:
+      - Authorization: []
+  /api/v1/Patent/SearchProfile('{profileId}'):
+    get:
+      tags:
+      - Patent
+      summary: Czytanie informacji o profilu
+      operationId: getSearchProfileForPatent
+      parameters:
+      - name: profileId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ProfileResponse'
+      security:
+      - Authorization: []
+  /api/v1/Patent/SearchPerson:
+    get:
+      tags:
+      - Patent
+      summary: Wyszukiwanie osoby (np. w celu wpisania jako osoby kontaktowej)
+      operationId: searchPersonForPatent
+      parameters:
+      - name: $skip
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int64
+          default: 0
+      - name: $top
+        in: query
+        required: false
+        schema:
+          maximum: 100
+          type: integer
+          format: int64
+          default: 10
+      - name: $inlinecount
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: $orderby
+        in: query
+        required: false
+        schema:
+          type: string
+          default: lastName,firstName,email
+      - name: searchValue
+        in: query
+        required: false
+        schema:
+          type: string
+          default: searchValue
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/OdataResponsePersonViewResponse'
+      security:
+      - Authorization: []
+  /api/v1/Patent/SearchPerson('{personId}'):
+    get:
+      tags:
+      - Patent
+      summary: Czytanie informacji o osobie
+      operationId: getSearchPersonForPatent
+      parameters:
+      - name: personId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PersonViewResponse'
+      security:
+      - Authorization: []
+  /api/v1/Patent/ProtectionTypes:
+    get:
+      tags:
+      - Patent
+      summary: Zwraca listę wszystkich rodzajów ochrony (lookup)
+      operationId: getPatentProtectionTypes
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProtectionTypeResponse'
+      security:
+      - Authorization: []
+  /api/v1/Patent/ProtectionSubjects:
+    get:
+      tags:
+      - Patent
+      summary: Zwraca listę wszystkich przedmiotów ochrony (lookup)
+      operationId: getPatentProtectionSubjects
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProtectionSubjectResponse'
+      security:
+      - Authorization: []
+  /api/v1/Patent/PatentInternationalOrganizations:
+    get:
+      tags:
+      - Patent
+      summary: Zwraca listę organizacji międzynarodowych powiązanych z obsługą patentów
+      operationId: getPatentInternationalOrganizations
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  type: string
+      security:
+      - Authorization: []
+  /api/v1/Patent/FinancingSources:
+    get:
+      tags:
+      - Patent
+      summary: Czytanie listy wszystkich źródeł finansowania (lookup)
+      operationId: getPatentFinancingSources
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  type: string
+      security:
+      - Authorization: []
+  /api/v1/Patent/BusinessEntities:
+    get:
+      tags:
+      - Patent
+      summary: Listowanie podmiotów
+      operationId: getBusinessEntitiesForPatent
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BusinessEntityResponse'
+      security:
+      - Authorization: []
+  /api/v1/Patent/{cfPatId}/Remove:
+    delete:
+      tags:
+      - Patent
+      summary: Usunięcie patentu
+      description: Usuwa patent z istniejącymi relacjami. Wywołanie funkcji z opcją dryRun nie powoduje zmian w bazie danych. Zwraca listę relacji patentu
+      operationId: removePatent
+      parameters:
+      - name: cfPatId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: dryRun
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+                additionalProperties:
+                  type: array
+                  items:
+                    type: string
+      security:
+      - Authorization: []
+components:
+  schemas:
+    AbstractRequest:
+      required:
+      - keyw
+      type: object
+      properties:
+        id:
+          type: string
+        langCode:
+          type: string
+          description: kod języka typu PL, EN, EN-GB, itp - klucz naturalny do Language, zgodny z ISO (patrz Language)
+        title:
+          type: string
+          description: 'tytuł wynalazku/patentu/wzoru użytkowego/nazwa gatunku/nazwa botaniczna/nazwa odmiany w danym języku '
+        abstr:
+          type: string
+          description: streszczenie opisu wynalazku/wzoru użytkowego w danym języku
+        keyw:
+          maxItems: 100
+          minItems: 0
+          uniqueItems: true
+          type: array
+          description: słowa kluczowe w danym języku
+          items:
+            type: string
+            description: słowa kluczowe w danym języku
+        orderIndex:
+          minimum: 0
+          type: integer
+          description: 'kolejność wyświetlania abstraktów (domyślnie: 0)'
+          format: int32
+        original:
+          type: boolean
+          description: czy streszczenie jest w języku oryginału
+    PatentFinancingRequest:
+      required:
+      - financingSource
+      - fraction
+      type: object
+      properties:
+        financingSource:
+          type: string
+          description: źródło finansowania
+        fraction:
+          maximum: 100
+          minimum: 0.01
+          type: number
+          description: udział procentowy finansowania
+          format: double
+    PatentUnitRequest:
+      required:
+      - unitCode
+      type: object
+      properties:
+        unitCode:
+          type: string
+          description: kod jednostki
+        comment:
+          maxLength: 256
+          minLength: 0
+          type: string
+          description: dodatkowe informacje o relacji
+        fraction:
+          type: number
+          description: udział procentowy własności
+          format: double
+    PatentContactPersonRequest:
+      required:
+      - personEmail
+      type: object
+      properties:
+        personId:
+          type: string
+          description: id osoby
+        personName:
+          maxLength: 255
+          minLength: 0
+          type: string
+          description: imię i nazwisko osoby
+        personEmail:
+          type: string
+          description: imię i nazwisko osoby
+        comment:
+          maxLength: 255
+          minLength: 0
+          type: string
+          description: dodatkowe informacje
+        phoneNumber:
+          type: string
+          description: numer telefonu
+      description: Osoba kontaktowa patentu
+    ProfileResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        firstName:
+          type: string
+        middleNames:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        emailsOther:
+          type: array
+          items:
+            type: string
+        phone:
+          type: string
+        personId:
+          type: string
+        orcid:
+          type: string
+        uidPolon:
+          type: string
+        uidPolonStud:
+          type: string
+        uidPolonDokt:
+          type: string
+        pbnId:
+          type: string
+        scopusId:
+          type: string
+        degree:
+          type: string
+        cfKeyw:
+          type: array
+          items:
+            type: string
+        articleId:
+          type: string
+        scienceDisciplinesStatementDate:
+          type: string
+          format: date
+        roles:
+          type: array
+          items:
+            type: string
+        isPubliclyVisible:
+          type: boolean
+        profilePublicId:
+          type: string
+    AbstractResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Id abstraltu
+        langCode:
+          type: string
+          description: kod języka typu PL, EN, EN-GB, itp - klucz naturalny do Language, zgodny z ISO (patrz Language)
+        title:
+          type: string
+          description: 'tytuł wynalazku/patentu/wzoru użytkowego/nazwa gatunku/nazwa botaniczna/nazwa odmiany w danym języku '
+        abstr:
+          type: string
+          description: streszczenie opisu wynalazku/wzoru użytkowego w danym języku
+        keyw:
+          type: array
+          description: słowa kluczowe w danym języku
+          items:
+            type: string
+            description: słowa kluczowe w danym języku
+        orderIndex:
+          type: integer
+          description: 'kolejność wyświetlania abstraktów (domyślnie: 0)'
+          format: int32
+        objectId:
+          type: string
+          description: Id obiektu
+        objectType:
+          type: string
+          description: Typ obiektu
+        original:
+          type: boolean
+          description: czy streszczenie jest w języku oryginału
+    UnitViewResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Unikalny kod jednostki
+        university:
+          type: string
+          description: Uniwersytet do którego należy jednostka
+          enum:
+          - CUNI
+          - UAH
+          - SU
+          - KU
+          - UNIMI
+          - UW
+          - UNIGE
+          - PARIS_2
+        namePl:
+          type: string
+          description: Polska nazwa jednostki
+        nameEn:
+          type: string
+          description: Angielska nazwa jednostki
+        parentUnitCode:
+          type: string
+          description: Unikalny kod jednostki nadrzędnej
+        url:
+          type: string
+          description: Adres strony jednostki
+        isVisible:
+          type: boolean
+        financingCode:
+          type: string
+      description: Jednostki organizacyjne
+    ProtectionTypeResponse:
+      type: object
+      properties:
+        code:
+          type: string
+        namePl:
+          type: string
+        nameEn:
+          type: string
+    OdataResponseQueryProfileItemResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/QueryProfileItemResponse'
+        totalCount:
+          type: integer
+          format: int32
+    PatentAuthorResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: id relacji
+        profileId:
+          type: string
+          description: id profilu
+        name:
+          type: string
+          description: imię i nazwisko osoby
+        cfPatId:
+          type: string
+          description: id patentu
+        fraction:
+          type: number
+          description: udział procentowy własności
+          format: double
+        consentForEvaluation:
+          type: boolean
+          description: zgoda na wykazanie osiągnięcia w procesie ewaluacji jakości działalności naukowej
+        statementDate:
+          type: string
+          description: Data oświadczenia
+          format: date
+        scienceDisciplineCode:
+          type: string
+          description: Dyscyplina osiągnięcia wskazana przez twórcę
+        scienceDisciplineName:
+          type: string
+          description: Nazwa dyscypliny naukowej
+        scienceDisciplineNameEn:
+          type: string
+          description: Nazwa aglojęzyczna dyscypliny naukowej
+        scienceFieldCode:
+          type: string
+          description: Kod dziedziny naukowej
+        scienceFieldName:
+          type: string
+          description: Nazwa dziedziny naukowej
+        scienceFieldNameEn:
+          type: string
+          description: Nazwa aglojęzyczna dziedziny naukowej
+      description: Autor patentu
+    PatentResponse:
+      type: object
+      properties:
+        cfPatId:
+          type: string
+          description: id patentu
+        cfCountryCodes:
+          type: array
+          description: kody państw, na terytorium których uzyskano ochronę
+          items:
+            type: string
+            description: kody państw, na terytorium których uzyskano ochronę
+        cfRegisterDate:
+          type: string
+          description: data zarejestrowania patentu
+          format: date
+        cfApprovDate:
+          type: string
+          description: data zatwierdzenia patentu
+          format: date
+        cfPatentNum:
+          type: string
+          description: numer patentu
+        cfUri:
+          type: string
+          description: uri do informacji źródłowej o patencie
+        cfTitle:
+          type: string
+          description: tytuł patentu pobierany z abstraktu o najniższym indeksie
+        cfKeyw:
+          type: array
+          description: słowa kluczowe patentu pobierane z abstraktu o najniższym indeksie
+          items:
+            type: string
+            description: słowa kluczowe patentu pobierane z abstraktu o najniższym indeksie
+        year:
+          type: integer
+          description: rok
+          format: int32
+        applicationNumber:
+          type: string
+          description: numer zgłoszenia patentowego
+        businessEntityObtainedBy:
+          type: string
+          description: podmiot pozyskujący
+        businessEntityGrantedBy:
+          type: string
+          description: podmiot udzielający
+        referenceNumber:
+          type: string
+          description: numer referencyjny
+        translationDate:
+          type: string
+          description: data tłumaczenia
+          format: date
+        protectionType:
+          type: string
+          description: rodzaj ochrony
+        protectionSubject:
+          type: string
+          description: przedmiot ochrony
+        protectionStatus:
+          type: string
+          description: status ochrony
+        exhibitionDesignation:
+          type: string
+          description: oznaczenie wystawy
+        priorPriority:
+          type: boolean
+          description: uprzednie pierwszeństwo
+        priorPriorityCountry:
+          type: string
+          description: państwo uprzedniego pierwszeństwa
+        priorityNumber:
+          type: string
+          description: numer pierwszeństwa
+        priorPriorityDate:
+          type: string
+          description: data uprzedniego pierwszeństwa
+          format: date
+        financialNumber:
+          type: string
+          description: numer finansowy
+        applicationCountry:
+          uniqueItems: true
+          type: array
+          description: kraj zgłoszenia
+          items:
+            type: string
+            description: kraj zgłoszenia
+        applicationProcedure:
+          type: string
+          description: procedura zgłoszenia
+        endProtectionDate:
+          type: string
+          description: data końca ochrony
+          format: date
+        recordCreation:
+          type: string
+          description: data utworzenia rekordu
+          format: date
+        publicationApplicationDate:
+          type: string
+          description: data publikacji zgłoszenia
+          format: date
+        applicationTitle:
+          type: string
+          description: tytuł zgłoszenia
+        applicationStatus:
+          type: string
+          description: status zgłoszenia
+        entityValidation:
+          type: string
+          description: podmiot walidujący
+        additionalProtectionStatus:
+          type: boolean
+          description: dodatkowe prawo ochronne
+        patentOffice:
+          type: string
+          description: urząd patentowy przyjmujący zgłoszenie
+        europeanPatent:
+          type: boolean
+          description: patent europejski o jednolitym skutku
+        decisionDate:
+          type: string
+          description: data decyzji
+          format: date
+        protectionNumberCountryValidation:
+          type: string
+          description: numer ochrony w kraju walidacji
+        endProtectionCountryValidation:
+          type: string
+          description: data końca ochrony w kraju walidacji
+          format: date
+        protectionRange:
+          type: string
+          description: zasięg ochrony
+        notes:
+          type: string
+          description: uwagi
+      description: Szczegółowe informacje o patencie
+    PatentContactPersonResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: id relacji
+        cfPatId:
+          type: string
+          description: id patentu
+        personId:
+          type: string
+          description: id osoby
+        personName:
+          type: string
+          description: imię i nazwisko osoby
+        personEmail:
+          type: string
+          description: imię i nazwisko osoby
+        comment:
+          type: string
+          description: id osoby (jeżeli jest powiązana z profilem)
+        phoneNumber:
+          type: string
+          description: numer telefonu
+      description: Osoba kontaktowa patentu
+    OdataResponsePersonViewResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/PersonViewResponse'
+        totalCount:
+          type: integer
+          format: int32
+    PatentFinancingResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: id relacji
+        financingSource:
+          type: string
+          description: źródło finansowania
+        cfPatId:
+          type: string
+          description: id patentu
+        fraction:
+          type: number
+          description: udział procentowy finansowania
+          format: double
+      description: Współwłaściciel instytucjonalny patentu
+    QueryPatentsItemResponse:
+      type: object
+      properties:
+        cfPatId:
+          type: string
+          description: id patentu
+        cfCountryCodes:
+          type: array
+          description: kody państw, na terytorium których uzyskano ochronę
+          items:
+            type: string
+            description: kody państw, na terytorium których uzyskano ochronę
+        cfRegisterDate:
+          type: string
+          description: data zarejestrowania patentu
+          format: date
+        cfApprovDate:
+          type: string
+          description: data zatwierdzenia patentu
+          format: date
+        cfPatentNum:
+          type: string
+          description: numer patentu
+        cfUri:
+          type: string
+          description: uri do informacji źródłowej o patencie
+        cfTitle:
+          type: string
+          description: tytuł patentu pobierany z abstraktu o najniższym indeksie
+        cfKeyw:
+          type: array
+          description: słowa kluczowe patentu pobierane z abstraktu o najniższym indeksie
+          items:
+            type: string
+            description: słowa kluczowe patentu pobierane z abstraktu o najniższym indeksie
+        year:
+          type: integer
+          description: rok
+          format: int32
+        applicationNumber:
+          type: string
+          description: numer zgłoszenia patentowego
+        businessEntityObtainedBy:
+          type: string
+          description: podmiot pozyskujący
+        businessEntityGrantedBy:
+          type: string
+          description: podmiot udzielający
+        referenceNumber:
+          type: string
+          description: numer referencyjny
+        protectionType:
+          type: string
+          description: rodzaj ochrony
+        protectionSubject:
+          type: string
+          description: przedmiot ochrony
+        protectionStatus:
+          type: string
+          description: status ochrony
+        financialNumber:
+          type: string
+          description: numer finansowy
+        applicationCountry:
+          uniqueItems: true
+          type: array
+          description: kraj zgłoszenia
+          items:
+            type: string
+            description: kraj zgłoszenia
+        applicationProcedure:
+          type: string
+          description: procedura zgłoszenia
+        endProtectionDate:
+          type: string
+          description: data końca ochrony
+          format: date
+        recordCreation:
+          type: string
+          description: data utworzenia rekordu
+          format: date
+        publicationApplicationDate:
+          type: string
+          description: data publikacji zgłoszenia
+          format: date
+        applicationTitle:
+          type: string
+          description: tytuł zgłoszenia
+        applicationStatus:
+          type: string
+          description: status zgłoszenia
+        entityValidation:
+          type: string
+          description: status zgłoszenia
+        additionalProtectionStatus:
+          type: boolean
+          description: dodatkowe prawo ochronne
+        patentOffice:
+          type: string
+          description: urząd patentowy przyjmujący zgłoszenie
+        europeanPatent:
+          type: boolean
+          description: patent europejski o jednolitym skutku
+        decisionDate:
+          type: string
+          description: data decyzji
+          format: date
+        protectionNumberCountryValidation:
+          type: string
+          description: numer ochrony w kraju walidacji
+        endProtectionCountryValidation:
+          type: string
+          description: data końca ochrony w kraju walidacji
+          format: date
+        protectionRange:
+          type: string
+          description: zasięg ochrony
+      description: Podstawowe informacje o patencie
+    PatentAuthorRequest:
+      required:
+      - fraction
+      - name
+      type: object
+      properties:
+        profileId:
+          type: string
+        name:
+          type: string
+        fraction:
+          maximum: 100
+          minimum: 0.01
+          type: number
+          format: double
+        consentForEvaluation:
+          type: boolean
+        statementDate:
+          type: string
+          format: date
+        scienceDisciplineCode:
+          type: string
+    PatentInstitutionalOwnerRequest:
+      required:
+      - businessEntityAcro
+      - fraction
+      type: object
+      properties:
+        businessEntityAcro:
+          type: string
+        fraction:
+          maximum: 100
+          minimum: 0.01
+          type: number
+          format: double
+        comment:
+          maxLength: 255
+          minLength: 0
+          type: string
+    ProtectionSubjectResponse:
+      type: object
+      properties:
+        code:
+          type: string
+        namePl:
+          type: string
+        nameEn:
+          type: string
+    QueryProfileItemResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        firstName:
+          type: string
+        middleNames:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        emailsOther:
+          type: array
+          items:
+            type: string
+        phone:
+          type: string
+        personId:
+          type: string
+        orcid:
+          type: string
+        uidPolon:
+          type: string
+        uidPolonStud:
+          type: string
+        uidPolonDokt:
+          type: string
+        pbnId:
+          type: string
+        scopusId:
+          type: string
+        degree:
+          type: string
+        cfKeyw:
+          type: array
+          items:
+            type: string
+        articleId:
+          type: string
+        scienceDisciplinesStatementDate:
+          type: string
+          format: date
+        roles:
+          type: array
+          items:
+            type: string
+        isPubliclyVisible:
+          type: boolean
+        profilePublicId:
+          type: string
+        emails:
+          type: array
+          items:
+            type: string
+        profileRoles:
+          type: array
+          items:
+            type: string
+        keyw:
+          type: array
+          items:
+            type: string
+        units:
+          type: array
+          items:
+            type: string
+        unitsAll:
+          type: array
+          items:
+            type: string
+        scienceDisciplines:
+          type: array
+          items:
+            type: string
+        patentsCount:
+          type: integer
+          format: int64
+        projectsCount:
+          type: integer
+          format: int64
+        coursesCount:
+          type: integer
+          format: int64
+        publicationsCount:
+          type: integer
+          format: int64
+        promotedPublicationsCount:
+          type: integer
+          format: int64
+    PatentUnitResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        cfPatId:
+          type: string
+        unitCode:
+          type: string
+        comment:
+          type: string
+        fraction:
+          type: number
+          format: double
+    PatentRequest:
+      required:
+      - applicationCountry
+      - cfCountryCodes
+      type: object
+      properties:
+        cfCountryCodes:
+          uniqueItems: true
+          type: array
+          description: kody państw, na terytorium których uzyskano ochronę lub kod organizacji międzynarodowej powiązanej z patentami (np. EPO)
+          items:
+            type: string
+            description: kody państw, na terytorium których uzyskano ochronę lub kod organizacji międzynarodowej powiązanej z patentami (np. EPO)
+        cfPatentNum:
+          type: string
+          description: numer patentu w danym kraju
+        cfRegisterDate:
+          type: string
+          description: data zarejestrowania patentu w danym kraju
+          format: date
+        cfApprovDate:
+          type: string
+          description: data zatwierdzenia patentu w danym kraju
+          format: date
+        cfUri:
+          type: string
+        year:
+          type: integer
+          description: rok
+          format: int32
+        applicationNumber:
+          type: string
+          description: numer zgłoszenia patentowego
+        businessEntityObtainedBy:
+          type: string
+          description: podmiot pozyskujący
+        businessEntityGrantedBy:
+          type: string
+          description: podmiot udzielający
+        referenceNumber:
+          type: string
+          description: numer referencyjny
+        translationDate:
+          type: string
+          description: data tłumaczenia
+          format: date
+        protectionType:
+          type: string
+          description: rodzaj ochrony
+        protectionSubject:
+          type: string
+          description: przedmiot ochrony
+        protectionStatus:
+          type: string
+          description: status praw ochronnych
+        exhibitionDesignation:
+          type: string
+          description: oznaczenie wystawy
+        priorPriority:
+          type: boolean
+          description: uprzednie pierwszeństwo
+        priorPriorityCountry:
+          type: string
+          description: państwo uprzedniego pierwszeństwa
+        priorityNumber:
+          type: string
+          description: numer pierwszeństwa
+        priorPriorityDate:
+          type: string
+          description: data uprzedniego pierwszeństwa
+          format: date
+        financialNumber:
+          type: string
+          description: numer finansowy
+        applicationCountry:
+          uniqueItems: true
+          type: array
+          description: kraj zgłoszenia
+          items:
+            type: string
+            description: kraj zgłoszenia
+        applicationProcedure:
+          type: string
+          description: procedura zgłoszenia
+        endProtectionDate:
+          type: string
+          description: data końca ochrony
+          format: date
+        recordCreation:
+          type: string
+          description: data utworzenia rekordu
+          format: date
+        publicationApplicationDate:
+          type: string
+          description: data publikacji zgłoszenia
+          format: date
+        applicationTitle:
+          type: string
+          description: tytuł zgłoszenia
+        applicationStatus:
+          type: string
+          description: status zgłoszenia
+        entityValidation:
+          type: string
+          description: status zgłoszenia
+        additionalProtectionStatus:
+          type: boolean
+          description: dodatkowe prawo ochronne
+        patentOffice:
+          type: string
+          description: urząd patentowy przyjmujący zgłoszenie
+        europeanPatent:
+          type: boolean
+          description: patent europejski o jednolitym skutku
+        decisionDate:
+          type: string
+          description: data decyzji
+          format: date
+        protectionNumberCountryValidation:
+          type: string
+          description: numer ochrony w kraju walidacji
+        endProtectionCountryValidation:
+          type: string
+          description: data końca ochrony w kraju walidacji
+          format: date
+        protectionRange:
+          type: string
+          description: zasięg ochrony
+    CopyPatentRequest:
+      required:
+      - countryCodes
+      - patentNumber
+      - referenceNumber
+      type: object
+      properties:
+        countryCodes:
+          type: array
+          items:
+            type: string
+        patentNumber:
+          type: string
+        referenceNumber:
+          type: string
+    AdditionalInfoRequest:
+      type: object
+      properties:
+        content:
+          type: string
+    HistoryResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        whoType:
+          type: string
+        whoId:
+          type: string
+        whoName:
+          type: string
+        eventTime:
+          type: string
+          format: date-time
+        operation:
+          type: string
+        changes:
+          type: string
+        objType:
+          type: string
+        objId:
+          type: string
+        relationId:
+          type: string
+        relationName:
+          type: string
+    PersonViewResponse:
+      type: object
+      properties:
+        personId:
+          type: string
+        university:
+          type: string
+          enum:
+          - CUNI
+          - UAH
+          - SU
+          - KU
+          - UNIMI
+          - UW
+          - UNIGE
+          - PARIS_2
+        orcid:
+          type: string
+        firstName:
+          type: string
+        middleNames:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        profileId:
+          type: string
+        degree:
+          type: string
+        universityIndexNumber:
+          type: string
+    PatentInstitutionalOwnerResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: id relacji
+        cfPatId:
+          type: string
+          description: id patentu
+        businessEntityAcro:
+          type: string
+          description: acronim instytucji
+        comment:
+          type: string
+          description: dodatkowe informacje o relacji
+        fraction:
+          type: number
+          description: udział procentowy własności
+          format: double
+      description: Współwłaściciel instytucjonalny patentu
+    BusinessEntityResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Id podmiotu, id techniczne
+        acro:
+          type: string
+          description: Akronim podmiotu - wartość unikalna
+        name:
+          type: string
+          description: Nazwa podmiotu
+        type:
+          type: string
+          description: Typ podmiotu
+        countryCode:
+          type: string
+          description: Kod kraju
+      description: Podmiot
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

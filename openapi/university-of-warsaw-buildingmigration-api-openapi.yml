@@ -1,0 +1,426 @@
+openapi: 3.2.0
+info:
+  title: Jaskier Building Migration API
+  version: 1.2.25
+servers:
+- url: https://api.jaskier.uw.edu.pl
+tags:
+- name: BuildingMigration
+paths:
+  /api/v1/Building/{buildingId}/Unit/Import/Extended:
+    post:
+      tags:
+      - BuildingMigration
+      summary: Importowanie informacji o jendostkach
+      operationId: importUnitsExtended
+      parameters:
+      - name: buildingId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/BuildingUnitExtendedRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BuildingUnitResponse'
+      security:
+      - Authorization: []
+  /api/v1/Building/{buildingId}/Room/Import/Extended:
+    post:
+      tags:
+      - BuildingMigration
+      summary: Importowanie informacji o salach
+      operationId: importRoomsExtended
+      parameters:
+      - name: buildingId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/BuildingRoomExtendedImportRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BuildingRoomResponse'
+      security:
+      - Authorization: []
+  /api/v1/Building/Import/Start:
+    post:
+      tags:
+      - BuildingMigration
+      summary: Zasygnalizowanie roczpoczęcia importu budynków
+      operationId: startBuildingImport
+      parameters:
+      - name: source
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/SynchronizationResponse'
+      security:
+      - Authorization: []
+  /api/v1/Building/Import/Extended:
+    post:
+      tags:
+      - BuildingMigration
+      summary: Importowanie informacji o budynkach
+      operationId: importBuildingsExtended
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BuildingExtendedImportRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/BuildingResponse'
+      security:
+      - Authorization: []
+  /api/v1/Building/Import/End:
+    post:
+      tags:
+      - BuildingMigration
+      summary: Zasygnalizowanie zakończenia importu budynków
+      operationId: endBuildingImport
+      parameters:
+      - name: synchronizationId
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      security:
+      - Authorization: []
+components:
+  schemas:
+    BuildingUnitResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        buildingId:
+          type: string
+        unitCode:
+          type: string
+        unitNamePl:
+          type: string
+        unitNameEn:
+          type: string
+        url:
+          type: string
+        fallbackUrl:
+          type: string
+        isUnitVisible:
+          type: boolean
+        isMain:
+          type: boolean
+    BuildingRoomResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        buildingId:
+          type: string
+        number:
+          type: string
+        description:
+          type: string
+        floorNumber:
+          type: integer
+          format: int32
+        persons:
+          type: array
+          items:
+            $ref: '#/components/schemas/BuildingRoomPersonResponse'
+        x:
+          type: number
+        y:
+          type: number
+        importSourceType:
+          type: string
+        importSourceId:
+          type: string
+    BuildingRoomPersonResponse:
+      type: object
+      properties:
+        personId:
+          type: string
+        firstName:
+          type: string
+        middleNames:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        degree:
+          type: string
+    BuildingRoomExtendedImportRequest:
+      type: object
+      properties:
+        number:
+          type: string
+        personIds:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        importSourceType:
+          type: string
+        importSourceId:
+          type: string
+    BuildingExtendedImportRequest:
+      type: object
+      properties:
+        namePl:
+          type: string
+        nameEn:
+          type: string
+        descriptionPl:
+          type: string
+        descriptionEn:
+          type: string
+        city:
+          type: string
+        postalCode:
+          type: string
+        street:
+          type: string
+        number:
+          type: string
+        latitude:
+          type: number
+        longitude:
+          type: number
+        campusCode:
+          type: string
+        benNumber:
+          type: string
+        usosCode:
+          type: string
+        importSourceType:
+          type: string
+        importSourceId:
+          type: string
+        visible:
+          type: boolean
+    BuildingUnitExtendedRequest:
+      type: object
+      properties:
+        unitCode:
+          type: string
+        isMain:
+          type: boolean
+        importSourceType:
+          type: string
+        importSourceId:
+          type: string
+    BuildingResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        namePl:
+          type: string
+        nameEn:
+          type: string
+        namePlAlt:
+          type: string
+        nameEnAlt:
+          type: string
+        phone:
+          type: string
+        campusCode:
+          type: string
+        campusNamePl:
+          type: string
+        campusNameEn:
+          type: string
+        usosCode:
+          type: string
+        latitude:
+          type: number
+        longitude:
+          type: number
+        street:
+          type: string
+        number:
+          type: string
+        postalCode:
+          type: string
+        city:
+          type: string
+        administratorPersonId:
+          type: string
+        administratorFirstName:
+          type: string
+        administratorLastName:
+          type: string
+        administratorEmail:
+          type: string
+        descriptionPl:
+          type: string
+        descriptionEn:
+          type: string
+        descriptionPlAlt:
+          type: string
+        descriptionEnAlt:
+          type: string
+        publicId:
+          type: string
+        visibleUsos:
+          type: boolean
+        visibleOkUw:
+          type: boolean
+        visibleMyUw:
+          type: boolean
+        hasFloorPlan:
+          type: boolean
+        importSourceId:
+          type: string
+        importSourceType:
+          type: string
+        benNumber:
+          type: string
+          description: Numer biura ewidencji nieruchomości
+        buildingAttributeCodes:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      description: Informacje o budynku
+    SynchronizationResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - ACHIEVEMENTS_SUMMARY
+          - ADMIN
+          - ARTICLE
+          - ASSET
+          - BUILDING
+          - BUILDING_ACCESSIBILITY
+          - BUILDING_ATTRIBUTE
+          - BUILDING_BON
+          - BUILDING_PATH_OBJECT_TYPE
+          - BUILDING_PUBLIC
+          - BUSINESS_ENTITY
+          - CAMPUS
+          - COURSE
+          - COURSE_REGISTRATION_INFO
+          - CURRENCY
+          - EVENT
+          - FAQ
+          - GIVEAWAY
+          - ITEM_USED
+          - IT_SERVICE
+          - LABORATORY
+          - LABORATORY_TYPE
+          - LEGAL_BASIS
+          - LICENSE
+          - MOBILITY_OPTION
+          - MAGAZINE
+          - MONOGRAPH_PUBLISHER
+          - FRAMEWORK_AGREEMENT
+          - HOUSING_OPTION
+          - PATENT
+          - PASS_CONTROL
+          - PASS_CONTROL_PUBLIC
+          - PASS_CONTROL_DICTIONARY
+          - PERMISSION
+          - PERM_DEPARTMENT_PERSON
+          - PERM_DEPARTMENT_CAS_ROLE
+          - PERSON
+          - PERSON_ID_CARD
+          - PHONE_NUMBER
+          - PROFILE
+          - PROFILE_PUBLIC
+          - PROFILE_MYUW
+          - PERSON_PROFILE_MYUW
+          - PROJECT
+          - PROJECT_PUBLIC
+          - PROJECT_MIGRATION
+          - PROJECT_DICTIONARY
+          - PROJECT_PROGRAM
+          - PROJECT_INTERNATIONAL
+          - PROJECT_PROGRAM_DETAILED
+          - PROJECT_PROGRAM_CONTRACT
+          - PROJECT_TYPE
+          - PROJECT_REPORT
+          - PSP_ELEMENT
+          - PUBLICATION
+          - PUBLICATION_VENUE
+          - RESEARCH_SET
+          - PERSON_SYSTEM_ROLE
+          - PERSON_SYSTEM_ROLE_API
+          - SAP_OBJECT_ACCESS
+          - SYSTEM_ROLE
+          - PUBLIC_PROCUREMENT_PLAN
+          - PUBLIC_PROCUREMENT_PLAN_CATEGORY
+          - SAP_ROLE
+          - STUDENT_ORGANIZATION
+          - TRANSLATION
+          - TRANSLATION_CATEGORY
+          - TUTORIAL
+          - UNIVERSITY_INFO
+          - UW_ECONOMIC_DEPARTMENT
+          - UW_PERSON
+          - UW_PERSON_EMPLOYEE_DATA
+          - UW_UNIT
+        started:
+          type: string
+          format: date-time
+        ended:
+          type: string
+          format: date-time
+        source:
+          type: string
+        invokedBy:
+          type: string
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

@@ -1,0 +1,215 @@
+openapi: 3.2.0
+info:
+  title: Jaskier University Info API
+  version: 1.2.25
+servers:
+- url: https://api.jaskier.uw.edu.pl
+tags:
+- name: UniversityInfo
+paths:
+  /api/v1/UniversityInfo/{id}/ApplicationRequirements:
+    get:
+      tags:
+      - UniversityInfo
+      summary: Czytanie wymagań aplikacji dla uniwersytetu
+      operationId: getApplicationRequirements
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ArticlePreviewResponse'
+      security:
+      - Authorization: []
+    put:
+      tags:
+      - UniversityInfo
+      summary: Ustawianie wymagań aplikacji dla uniwersytetu
+      operationId: setApplicationRequirements
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: articleId
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ArticlePreviewResponse'
+      security:
+      - Authorization: []
+    delete:
+      tags:
+      - UniversityInfo
+      summary: Usuwanie wymagań aplikacji dla uniwersytetu
+      operationId: removeApplicationRequirements
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      security:
+      - Authorization: []
+  /api/v1/UniversityInfo:
+    get:
+      tags:
+      - UniversityInfo
+      summary: Czytanie listy informacji o uniwersytetach
+      operationId: findAllUniversityInfos
+      parameters:
+      - name: universities
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - CUNI
+            - UAH
+            - SU
+            - KU
+            - UNIMI
+            - UW
+            - UNIGE
+            - PARIS_2
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UniversityInfoResponse'
+      security:
+      - Authorization: []
+    post:
+      tags:
+      - UniversityInfo
+      summary: Dodawanie informacji dla uniwersytetu
+      operationId: addUniversityInfo
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UniversityInfoCreateRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UniversityInfoResponse'
+      security:
+      - Authorization: []
+  /api/v1/UniversityInfo/{id}:
+    get:
+      tags:
+      - UniversityInfo
+      summary: Czytanie informacji o uniwersytecie
+      operationId: getByUniversityInfoById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UniversityInfoResponse'
+      security:
+      - Authorization: []
+components:
+  schemas:
+    UniversityInfoResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        university:
+          type: string
+          enum:
+          - CUNI
+          - UAH
+          - SU
+          - KU
+          - UNIMI
+          - UW
+          - UNIGE
+          - PARIS_2
+    UniversityInfoCreateRequest:
+      required:
+      - university
+      type: object
+      properties:
+        university:
+          type: string
+          enum:
+          - CUNI
+          - UAH
+          - SU
+          - KU
+          - UNIMI
+          - UW
+          - UNIGE
+          - PARIS_2
+    ArticlePreviewResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        titlePl:
+          type: string
+        titleEn:
+          type: string
+        contentPl:
+          type: string
+        contentEn:
+          type: string
+        visibleFrom:
+          type: string
+          format: date
+        visibleTo:
+          type: string
+          format: date
+        signification:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+        visible:
+          type: boolean
+        created:
+          type: string
+          format: date-time
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

@@ -1,0 +1,79 @@
+openapi: 3.2.0
+info:
+  title: Jaskier API Key Principal API
+  version: 1.2.25
+servers:
+- url: https://api.jaskier.uw.edu.pl
+tags:
+- name: ApiKeyPrincipal
+paths:
+  /api/v1/principal/apikey:
+    get:
+      tags:
+      - ApiKeyPrincipal
+      summary: Dane aktualnie używanego klucza api
+      operationId: apiPrincipal
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ApiKeyPrincipalResponse'
+      security:
+      - Authorization: []
+  /api/v1/principal/apikey/permissions:
+    get:
+      tags:
+      - ApiKeyPrincipal
+      summary: Uprawnienia aktualnie używanego klucza api
+      operationId: apiPrincipalPermissions
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+                additionalProperties:
+                  uniqueItems: true
+                  type: array
+                  items:
+                    type: string
+      security:
+      - Authorization: []
+  /api/v1/principal/apikey/authenticated:
+    get:
+      tags:
+      - ApiKeyPrincipal
+      summary: Czy jestem uwierzytelniony kluczem api?
+      operationId: isApiAuthenticated
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: boolean
+      security:
+      - Authorization: []
+components:
+  schemas:
+    ApiKeyPrincipalResponse:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Nazwa klucza api
+        note:
+          type: string
+          description: Notatka
+        validUntil:
+          type: string
+          description: Ważność klucza
+          format: date-time
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

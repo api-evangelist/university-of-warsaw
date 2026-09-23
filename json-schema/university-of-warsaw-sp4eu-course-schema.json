@@ -1,0 +1,198 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/university-of-warsaw/main/json-schema/university-of-warsaw-sp4eu-course-schema.json",
+  "title": "Student Portal 4EU+ Course",
+  "description": "JSON Schema for a Student Portal 4EU+ course object as returned by the Course endpoints on api.sp4eu.uw.edu.pl.",
+  "x-provenance": {
+    "generated": "2026-09-01",
+    "method": "derived",
+    "source": "openapi/university-of-warsaw-sp4eu-api-openapi.yml",
+    "x-operator": "institution",
+    "evidence": "components.schemas.CourseSp4euResponse of the service's own OpenAPI at https://api.sp4eu.uw.edu.pl/v3/api-docs"
+  },
+  "type": "object",
+  "properties": {
+    "courseId": {
+      "type": "string"
+    },
+    "subjectId": {
+      "type": "string"
+    },
+    "subjectCode": {
+      "type": "string"
+    },
+    "term": {
+      "type": "string"
+    },
+    "sp4euPublicationDate": {
+      "type": "string",
+      "format": "date"
+    },
+    "flagships4eu": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "FLAG_1",
+          "FLAG_2",
+          "FLAG_3",
+          "FLAG_4"
+        ]
+      }
+    },
+    "faculties": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "languages": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "url": {
+      "type": "string"
+    },
+    "providedBy": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "CUNI",
+          "UAH",
+          "SU",
+          "KU",
+          "UNIMI",
+          "UW",
+          "UNIGE",
+          "PARIS_2"
+        ]
+      }
+    },
+    "publishedBy": {
+      "type": "string",
+      "enum": [
+        "CUNI",
+        "UAH",
+        "SU",
+        "KU",
+        "UNIMI",
+        "UW",
+        "UNIGE",
+        "PARIS_2"
+      ]
+    },
+    "year": {
+      "type": "integer",
+      "format": "int32"
+    },
+    "placesLimit4eu": {
+      "type": "integer",
+      "format": "int32"
+    },
+    "workload": {
+      "type": "integer",
+      "format": "int32"
+    },
+    "title": {
+      "type": "string"
+    },
+    "levels4eu": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "BA",
+          "MA",
+          "PhD",
+          "PST"
+        ]
+      }
+    },
+    "startDate4eu": {
+      "type": "string",
+      "format": "date"
+    },
+    "endDate4eu": {
+      "type": "string",
+      "format": "date"
+    },
+    "title4eu": {
+      "type": "string"
+    },
+    "facultyOrUnit4eu": {
+      "type": "string"
+    },
+    "ects4eu": {
+      "type": "number",
+      "format": "double"
+    },
+    "importSourceType": {
+      "type": "string"
+    },
+    "applicationDeadline": {
+      "type": "string",
+      "format": "date"
+    },
+    "sharedCompetencies4eu": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "Multilingualism",
+          "DataLiteracy",
+          "CriticalThinking",
+          "Entrepreneurship",
+          "SocialEngagement"
+        ]
+      }
+    },
+    "learningPathways4eu": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "teachingMode4eu": {
+      "type": "string",
+      "enum": [
+        "Physical",
+        "Online",
+        "Blended",
+        "Hybrid"
+      ]
+    },
+    "areasOfInterests": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "registrationInfoId": {
+      "type": "string"
+    },
+    "academicYear": {
+      "type": "string"
+    },
+    "additionalInfo": {
+      "type": "string"
+    },
+    "creationTime": {
+      "type": "string"
+    },
+    "levels": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "BA",
+          "MA",
+          "PhD",
+          "PST"
+        ]
+      }
+    }
+  }
+}
