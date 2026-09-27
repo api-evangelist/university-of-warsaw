@@ -533,71 +533,6 @@ paths:
       - Authorization: []
 components:
   schemas:
-    AssetResponse:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        initialValue:
-          type: number
-        depreciationAmount:
-          type: number
-        currencyCode:
-          type: string
-        amortizationMethod:
-          type: string
-        inventoryNumber:
-          type: string
-        initialSapId:
-          type: string
-        sapId:
-          type: string
-        departmentCode:
-          type: string
-        unitName:
-          type: string
-        uwCode:
-          type: string
-        objectType:
-          type: string
-        grwName:
-          type: string
-        kst:
-          type: string
-        documentNumber:
-          type: string
-        admissionDate:
-          type: string
-        liquidationDate:
-          type: string
-        otDate:
-          type: string
-          format: date
-        otNumber:
-          type: string
-        purchaseDate:
-          type: string
-        personId:
-          type: string
-        description:
-          type: string
-        shelfLifeFrom:
-          type: string
-          format: date
-        shelfLifeTo:
-          type: string
-          format: date
-        commercialUsage:
-          type: boolean
-        commercialUsageFrom:
-          type: string
-          format: date
-        purposeOfUse:
-          type: string
-        yearAcquisition:
-          type: string
     LaboratoryTypeLaboratoryResponse:
       type: object
       properties:
@@ -608,276 +543,6 @@ components:
         typeNameEn:
           type: string
         main:
-          type: boolean
-    LaboratoryDescriptionResponse:
-      type: object
-      properties:
-        id:
-          type: string
-        description:
-          type: string
-        technicalDescription:
-          type: string
-        keywords:
-          type: array
-          items:
-            type: string
-    OdataResponseAssetQueryResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/AssetQueryResponse'
-        totalCount:
-          type: integer
-          format: int32
-    LaboratoryDescriptionRequest:
-      type: object
-      properties:
-        description:
-          maxLength: 5000
-          minLength: 0
-          type: string
-        technicalDescription:
-          maxLength: 5000
-          minLength: 0
-          type: string
-        keywords:
-          type: array
-          items:
-            type: string
-    LaboratoryTypeLaboratoryRequest:
-      type: object
-      properties:
-        typeId:
-          type: string
-        main:
-          type: boolean
-    AssetQueryResponse:
-      type: object
-      properties:
-        id:
-          type: string
-        sapId:
-          type: string
-        name:
-          type: string
-        departmentCode:
-          type: string
-        inventoryNumber:
-          type: string
-        grwName:
-          type: string
-        initialValue:
-          type: number
-        objectType:
-          type: string
-        description:
-          type: string
-        shelfLifeFrom:
-          type: string
-          format: date
-        shelfLifeTo:
-          type: string
-          format: date
-        commercialUsage:
-          type: boolean
-        commercialUsageFrom:
-          type: string
-          format: date
-        purposeOfUse:
-          type: string
-        yearAcquisition:
-          type: string
-    OdataResponsePersonViewResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/PersonViewResponse'
-        totalCount:
-          type: integer
-          format: int32
-    LaboratoryOwnersResponse:
-      type: object
-      properties:
-        persons:
-          type: array
-          items:
-            $ref: '#/components/schemas/LaboratoryPersonResponse'
-        units:
-          type: array
-          items:
-            $ref: '#/components/schemas/LaboratoryUnitResponse'
-    LaboratoryPersonResponse:
-      type: object
-      properties:
-        laboratoryId:
-          type: string
-        personId:
-          type: string
-        personName:
-          type: string
-        supervisor:
-          type: boolean
-        substitute:
-          type: boolean
-        contactPerson:
-          type: boolean
-    LaboratoryResponse:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        keywords:
-          type: array
-          items:
-            type: string
-        buildingId:
-          type: string
-        buildingNamePl:
-          type: string
-        buildingNameEn:
-          type: string
-        roomNumber:
-          type: string
-        mainTypeId:
-          type: string
-        mainTypeNamePl:
-          type: string
-        mainTypeNameEn:
-          type: string
-        secondaryTypes:
-          type: array
-          items:
-            type: string
-        coreFacility:
-          type: boolean
-        scienceDisciplines:
-          type: array
-          items:
-            $ref: '#/components/schemas/LaboratoryScienceDisciplineResponse'
-        technicalStatus:
-          type: string
-          enum:
-          - OPERATIONAL
-          - INSPECTION_DUE
-          - IN_MAINTENANCE
-          - NON_OPERATIONAL
-        lastInspectionDate:
-          type: string
-          format: date
-        supervisor:
-          $ref: '#/components/schemas/LaboratoryPersonShortResponse'
-        contactPerson:
-          $ref: '#/components/schemas/LaboratoryPersonShortResponse'
-        url:
-          type: string
-    OdataResponseBuildingResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/BuildingResponse'
-        totalCount:
-          type: integer
-          format: int32
-    LaboratoryRequest:
-      type: object
-      properties:
-        name:
-          maxLength: 255
-          minLength: 0
-          type: string
-        buildingId:
-          type: string
-        roomNumber:
-          type: string
-        coreFacility:
-          type: boolean
-        scienceDisciplineCodes:
-          type: array
-          items:
-            type: string
-        technicalStatus:
-          type: string
-          enum:
-          - OPERATIONAL
-          - INSPECTION_DUE
-          - IN_MAINTENANCE
-          - NON_OPERATIONAL
-        lastInspectionDate:
-          type: string
-          format: date
-        url:
-          type: string
-    LaboratoryAssetResponse:
-      type: object
-      properties:
-        id:
-          type: string
-        laboratoryId:
-          type: string
-        assetId:
-          type: string
-        assetSapId:
-          type: string
-        assetName:
-          type: string
-    LaboratoryUnitResponse:
-      type: object
-      properties:
-        id:
-          type: string
-        laboratoryId:
-          type: string
-        unitCode:
-          type: string
-        unitNamePl:
-          type: string
-        unitNameEn:
-          type: string
-    LaboratoryScienceDisciplineResponse:
-      type: object
-      properties:
-        code:
-          type: string
-        name:
-          type: string
-        nameEn:
-          type: string
-    LaboratoryPersonShortResponse:
-      type: object
-      properties:
-        personId:
-          type: string
-        personName:
-          type: string
-    LaboratoryAssetRequest:
-      type: object
-      properties:
-        sapIds:
-          uniqueItems: true
-          type: array
-          items:
-            type: string
-    LaboratoryPersonRequest:
-      required:
-      - personId
-      type: object
-      properties:
-        personId:
-          type: string
-        supervisor:
-          type: boolean
-        substitute:
-          type: boolean
-        contactPerson:
           type: boolean
     BuildingResponse:
       type: object
@@ -953,6 +618,21 @@ components:
           items:
             type: string
       description: Informacje o budynku
+    LaboratoryDescriptionRequest:
+      type: object
+      properties:
+        description:
+          maxLength: 5000
+          minLength: 0
+          type: string
+        technicalDescription:
+          maxLength: 5000
+          minLength: 0
+          type: string
+        keywords:
+          type: array
+          items:
+            type: string
     PersonViewResponse:
       type: object
       properties:
@@ -985,6 +665,223 @@ components:
           type: string
         universityIndexNumber:
           type: string
+    LaboratoryAssetResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        laboratoryId:
+          type: string
+        assetId:
+          type: string
+        assetSapId:
+          type: string
+        assetName:
+          type: string
+    LaboratoryDescriptionResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        description:
+          type: string
+        technicalDescription:
+          type: string
+        keywords:
+          type: array
+          items:
+            type: string
+    OdataResponseAssetQueryResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/AssetQueryResponse'
+        totalCount:
+          type: integer
+          format: int32
+    LaboratoryAssetRequest:
+      type: object
+      properties:
+        sapIds:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+    AssetResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        initialValue:
+          type: number
+        depreciationAmount:
+          type: number
+        currencyCode:
+          type: string
+        amortizationMethod:
+          type: string
+        inventoryNumber:
+          type: string
+        initialSapId:
+          type: string
+        sapId:
+          type: string
+        departmentCode:
+          type: string
+        unitName:
+          type: string
+        uwCode:
+          type: string
+        objectType:
+          type: string
+        grwName:
+          type: string
+        kst:
+          type: string
+        documentNumber:
+          type: string
+        admissionDate:
+          type: string
+        liquidationDate:
+          type: string
+        otDate:
+          type: string
+          format: date
+        otNumber:
+          type: string
+        purchaseDate:
+          type: string
+        personId:
+          type: string
+        description:
+          type: string
+        shelfLifeFrom:
+          type: string
+          format: date
+        shelfLifeTo:
+          type: string
+          format: date
+        commercialUsage:
+          type: boolean
+        commercialUsageFrom:
+          type: string
+          format: date
+        purposeOfUse:
+          type: string
+        yearAcquisition:
+          type: string
+    LaboratoryPersonResponse:
+      type: object
+      properties:
+        laboratoryId:
+          type: string
+        personId:
+          type: string
+        personName:
+          type: string
+        supervisor:
+          type: boolean
+        substitute:
+          type: boolean
+        contactPerson:
+          type: boolean
+    LaboratoryTypeLaboratoryRequest:
+      type: object
+      properties:
+        typeId:
+          type: string
+        main:
+          type: boolean
+    LaboratoryScienceDisciplineResponse:
+      type: object
+      properties:
+        code:
+          type: string
+        name:
+          type: string
+        nameEn:
+          type: string
+    LaboratoryResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        keywords:
+          type: array
+          items:
+            type: string
+        buildingId:
+          type: string
+        buildingNamePl:
+          type: string
+        buildingNameEn:
+          type: string
+        roomNumber:
+          type: string
+        mainTypeId:
+          type: string
+        mainTypeNamePl:
+          type: string
+        mainTypeNameEn:
+          type: string
+        secondaryTypes:
+          type: array
+          items:
+            type: string
+        coreFacility:
+          type: boolean
+        scienceDisciplines:
+          type: array
+          items:
+            $ref: '#/components/schemas/LaboratoryScienceDisciplineResponse'
+        technicalStatus:
+          type: string
+          enum:
+          - OPERATIONAL
+          - INSPECTION_DUE
+          - IN_MAINTENANCE
+          - NON_OPERATIONAL
+        lastInspectionDate:
+          type: string
+          format: date
+        supervisor:
+          $ref: '#/components/schemas/LaboratoryPersonShortResponse'
+        contactPerson:
+          $ref: '#/components/schemas/LaboratoryPersonShortResponse'
+        url:
+          type: string
+    LaboratoryPersonRequest:
+      required:
+      - personId
+      type: object
+      properties:
+        personId:
+          type: string
+        supervisor:
+          type: boolean
+        substitute:
+          type: boolean
+        contactPerson:
+          type: boolean
+    LaboratoryUnitResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        laboratoryId:
+          type: string
+        unitCode:
+          type: string
+        unitNamePl:
+          type: string
+        unitNameEn:
+          type: string
     LaboratoryOwnersRequest:
       type: object
       properties:
@@ -996,6 +893,109 @@ components:
           type: array
           items:
             type: string
+    LaboratoryPersonShortResponse:
+      type: object
+      properties:
+        personId:
+          type: string
+        personName:
+          type: string
+    OdataResponseBuildingResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/BuildingResponse'
+        totalCount:
+          type: integer
+          format: int32
+    AssetQueryResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        sapId:
+          type: string
+        name:
+          type: string
+        departmentCode:
+          type: string
+        inventoryNumber:
+          type: string
+        grwName:
+          type: string
+        initialValue:
+          type: number
+        objectType:
+          type: string
+        description:
+          type: string
+        shelfLifeFrom:
+          type: string
+          format: date
+        shelfLifeTo:
+          type: string
+          format: date
+        commercialUsage:
+          type: boolean
+        commercialUsageFrom:
+          type: string
+          format: date
+        purposeOfUse:
+          type: string
+        yearAcquisition:
+          type: string
+    LaboratoryOwnersResponse:
+      type: object
+      properties:
+        persons:
+          type: array
+          items:
+            $ref: '#/components/schemas/LaboratoryPersonResponse'
+        units:
+          type: array
+          items:
+            $ref: '#/components/schemas/LaboratoryUnitResponse'
+    LaboratoryRequest:
+      type: object
+      properties:
+        name:
+          maxLength: 255
+          minLength: 0
+          type: string
+        buildingId:
+          type: string
+        roomNumber:
+          type: string
+        coreFacility:
+          type: boolean
+        scienceDisciplineCodes:
+          type: array
+          items:
+            type: string
+        technicalStatus:
+          type: string
+          enum:
+          - OPERATIONAL
+          - INSPECTION_DUE
+          - IN_MAINTENANCE
+          - NON_OPERATIONAL
+        lastInspectionDate:
+          type: string
+          format: date
+        url:
+          type: string
+    OdataResponsePersonViewResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/PersonViewResponse'
+        totalCount:
+          type: integer
+          format: int32
   securitySchemes:
     Authorization:
       type: apiKey

@@ -74,16 +74,6 @@ paths:
       - Authorization: []
 components:
   schemas:
-    OdataResponseAchievementsSummaryResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/AchievementsSummaryResponse'
-        totalCount:
-          type: integer
-          format: int32
     AchievementsSummaryResponse:
       type: object
       properties:
@@ -118,6 +108,16 @@ components:
         coursesCount:
           type: integer
           format: int64
+    OdataResponseAchievementsSummaryResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/AchievementsSummaryResponse'
+        totalCount:
+          type: integer
+          format: int32
   securitySchemes:
     Authorization:
       type: apiKey

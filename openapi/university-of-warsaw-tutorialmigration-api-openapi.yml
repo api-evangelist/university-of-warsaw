@@ -107,6 +107,121 @@ paths:
       - Authorization: []
 components:
   schemas:
+    TutorialResponse:
+      type: object
+      properties:
+        tutorialId:
+          type: string
+          description: id tutorialu (musi być unikalne w skali całego rejestru)
+        tutorialCode:
+          type: string
+          description: kod tutorialu (musi być unikalne w skali całego rejestru)
+        isPublished:
+          type: boolean
+          description: czy tutorial powinien być dostępny w ofercie 4eu plus alliance?
+        providedBy:
+          type: array
+          description: lista uczelni zaangażowanych w dostarczenie tutorialu
+          items:
+            type: string
+            description: lista uczelni zaangażowanych w dostarczenie tutorialu
+            enum:
+            - CUNI
+            - UAH
+            - SU
+            - KU
+            - UNIMI
+            - UW
+            - UNIGE
+            - PARIS_2
+        publishedBy:
+          type: string
+          description: nazwa uczelni, która opublikowała informację o tutorialu
+          enum:
+          - CUNI
+          - UAH
+          - SU
+          - KU
+          - UNIMI
+          - UW
+          - UNIGE
+          - PARIS_2
+        creationTime:
+          type: string
+          description: Czas utworzenia
+          format: date-time
+        title:
+          type: string
+          description: Tytuł tutorialu
+        category:
+          type: string
+          description: kategoria tematyki, której dotyczy tutorial
+          enum:
+          - SelfOrganization
+          - OnlineLearning
+          - CulturalAwareness
+          - GroupDynamics
+          - HandlingConflicts
+        languages:
+          type: array
+          description: lista języków, w których dostępny jest tutorial
+          items:
+            type: string
+            description: lista języków, w których dostępny jest tutorial
+        level:
+          type: string
+          description: poziom zaawansowania tutorialu
+          enum:
+          - BASIC
+          - MEDIUM
+          - ADVANCED
+        duration:
+          type: string
+          description: czas trwania tutorialu
+        url:
+          type: string
+          description: link do tutorialu
+        isFree:
+          type: boolean
+          description: czy tutorial jest darmowy
+        description:
+          type: string
+          description: Opis tutorialu
+      description: Informacje o tutorialu
+    AbstractResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Id abstraltu
+        langCode:
+          type: string
+          description: kod języka typu PL, EN, EN-GB, itp - klucz naturalny do Language, zgodny z ISO (patrz Language)
+        title:
+          type: string
+          description: 'tytuł wynalazku/patentu/wzoru użytkowego/nazwa gatunku/nazwa botaniczna/nazwa odmiany w danym języku '
+        abstr:
+          type: string
+          description: streszczenie opisu wynalazku/wzoru użytkowego w danym języku
+        keyw:
+          type: array
+          description: słowa kluczowe w danym języku
+          items:
+            type: string
+            description: słowa kluczowe w danym języku
+        orderIndex:
+          type: integer
+          description: 'kolejność wyświetlania abstraktów (domyślnie: 0)'
+          format: int32
+        objectId:
+          type: string
+          description: Id obiektu
+        objectType:
+          type: string
+          description: Typ obiektu
+        original:
+          type: boolean
+          description: czy streszczenie jest w języku oryginału
     TutorialImportRequest:
       type: object
       properties:
@@ -196,121 +311,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/AbstractResponse'
-    AbstractResponse:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Id abstraltu
-        langCode:
-          type: string
-          description: kod języka typu PL, EN, EN-GB, itp - klucz naturalny do Language, zgodny z ISO (patrz Language)
-        title:
-          type: string
-          description: 'tytuł wynalazku/patentu/wzoru użytkowego/nazwa gatunku/nazwa botaniczna/nazwa odmiany w danym języku '
-        abstr:
-          type: string
-          description: streszczenie opisu wynalazku/wzoru użytkowego w danym języku
-        keyw:
-          type: array
-          description: słowa kluczowe w danym języku
-          items:
-            type: string
-            description: słowa kluczowe w danym języku
-        orderIndex:
-          type: integer
-          description: 'kolejność wyświetlania abstraktów (domyślnie: 0)'
-          format: int32
-        objectId:
-          type: string
-          description: Id obiektu
-        objectType:
-          type: string
-          description: Typ obiektu
-        original:
-          type: boolean
-          description: czy streszczenie jest w języku oryginału
-    TutorialResponse:
-      type: object
-      properties:
-        tutorialId:
-          type: string
-          description: id tutorialu (musi być unikalne w skali całego rejestru)
-        tutorialCode:
-          type: string
-          description: kod tutorialu (musi być unikalne w skali całego rejestru)
-        isPublished:
-          type: boolean
-          description: czy tutorial powinien być dostępny w ofercie 4eu plus alliance?
-        providedBy:
-          type: array
-          description: lista uczelni zaangażowanych w dostarczenie tutorialu
-          items:
-            type: string
-            description: lista uczelni zaangażowanych w dostarczenie tutorialu
-            enum:
-            - CUNI
-            - UAH
-            - SU
-            - KU
-            - UNIMI
-            - UW
-            - UNIGE
-            - PARIS_2
-        publishedBy:
-          type: string
-          description: nazwa uczelni, która opublikowała informację o tutorialu
-          enum:
-          - CUNI
-          - UAH
-          - SU
-          - KU
-          - UNIMI
-          - UW
-          - UNIGE
-          - PARIS_2
-        creationTime:
-          type: string
-          description: Czas utworzenia
-          format: date-time
-        title:
-          type: string
-          description: Tytuł tutorialu
-        category:
-          type: string
-          description: kategoria tematyki, której dotyczy tutorial
-          enum:
-          - SelfOrganization
-          - OnlineLearning
-          - CulturalAwareness
-          - GroupDynamics
-          - HandlingConflicts
-        languages:
-          type: array
-          description: lista języków, w których dostępny jest tutorial
-          items:
-            type: string
-            description: lista języków, w których dostępny jest tutorial
-        level:
-          type: string
-          description: poziom zaawansowania tutorialu
-          enum:
-          - BASIC
-          - MEDIUM
-          - ADVANCED
-        duration:
-          type: string
-          description: czas trwania tutorialu
-        url:
-          type: string
-          description: link do tutorialu
-        isFree:
-          type: boolean
-          description: czy tutorial jest darmowy
-        description:
-          type: string
-          description: Opis tutorialu
-      description: Informacje o tutorialu
   securitySchemes:
     Authorization:
       type: apiKey

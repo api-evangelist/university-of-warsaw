@@ -133,15 +133,6 @@ paths:
       - Authorization: []
 components:
   schemas:
-    ProjectInternationalDetailResponse:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
-        name:
-          type: string
-      description: Informacje o programie projektu
     ProjectInternationalDetailRequest:
       required:
       - name
@@ -151,6 +142,15 @@ components:
           maxLength: 255
           minLength: 0
           type: string
+    ProjectInternationalDetailResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        name:
+          type: string
+      description: Informacje o programie projektu
   securitySchemes:
     Authorization:
       type: apiKey

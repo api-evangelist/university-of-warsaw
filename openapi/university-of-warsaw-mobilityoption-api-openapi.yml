@@ -252,16 +252,6 @@ paths:
     - url: https://api.sp4eu.uw.edu.pl
 components:
   schemas:
-    OdataResponseMobilityOptionResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/MobilityOptionResponse'
-        totalCount:
-          type: integer
-          format: int32
     MobilityOptionResponse:
       type: object
       properties:
@@ -403,6 +393,16 @@ components:
           maxLength: 255
           minLength: 0
           type: string
+    OdataResponseMobilityOptionResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/MobilityOptionResponse'
+        totalCount:
+          type: integer
+          format: int32
     ArticlePreviewResponse_2:
       type: object
       properties:

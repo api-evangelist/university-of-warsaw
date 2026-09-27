@@ -115,46 +115,6 @@ paths:
       - Authorization: []
 components:
   schemas:
-    PublicProcurementPlanImportRequest:
-      type: object
-      properties:
-        publicProcurementPlanId:
-          type: string
-        departmentCodes:
-          type: array
-          items:
-            type: string
-        realizedByDepartmentCode:
-          type: string
-        item:
-          type: string
-        type:
-          type: string
-        procedure:
-          type: string
-        number:
-          type: string
-        netAmountEstimate:
-          type: number
-        plannedStartYear:
-          type: integer
-          format: int32
-        plannedStartQuarter:
-          type: integer
-          format: int32
-        plannedStartMonth:
-          type: integer
-          format: int32
-        responsiblePersonId:
-          type: string
-        reportingPersonId:
-          type: string
-        category:
-          type: string
-        cpvCodes:
-          type: array
-          items:
-            type: string
     PublicProcurementPlanResponse:
       type: object
       properties:
@@ -221,6 +181,46 @@ components:
           type: string
         categoryCpvCode:
           type: string
+    PublicProcurementPlanImportRequest:
+      type: object
+      properties:
+        publicProcurementPlanId:
+          type: string
+        departmentCodes:
+          type: array
+          items:
+            type: string
+        realizedByDepartmentCode:
+          type: string
+        item:
+          type: string
+        type:
+          type: string
+        procedure:
+          type: string
+        number:
+          type: string
+        netAmountEstimate:
+          type: number
+        plannedStartYear:
+          type: integer
+          format: int32
+        plannedStartQuarter:
+          type: integer
+          format: int32
+        plannedStartMonth:
+          type: integer
+          format: int32
+        responsiblePersonId:
+          type: string
+        reportingPersonId:
+          type: string
+        category:
+          type: string
+        cpvCodes:
+          type: array
+          items:
+            type: string
     PublicProcurementPlanExportRequest:
       type: object
       properties:

@@ -506,78 +506,6 @@ paths:
       - Authorization: []
 components:
   schemas:
-    ItemUsedResponse:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        description:
-          type: string
-        storagePlace:
-          type: string
-        personId:
-          type: string
-        firstname:
-          type: string
-        lastname:
-          type: string
-        email:
-          type: string
-        phoneNumber:
-          type: string
-        departmentCode:
-          type: string
-        departmentNamePl:
-          type: string
-        departmentNameEn:
-          type: string
-        quantity:
-          type: integer
-          format: int32
-    ItemUsedFileResponse:
-      type: object
-      properties:
-        itemUsedFileId:
-          type: string
-        itemUsedId:
-          type: string
-        fileId:
-          type: string
-        extension:
-          type: string
-        name:
-          type: string
-        uploadedDate:
-          type: string
-          format: date-time
-    ItemUsedRequest:
-      required:
-      - personId
-      - quantity
-      type: object
-      properties:
-        name:
-          type: string
-        description:
-          type: string
-        personId:
-          type: string
-        email:
-          type: string
-        phoneNumber:
-          maxLength: 12
-          minLength: 0
-          type: string
-        departmentCode:
-          type: string
-        storagePlace:
-          type: string
-        quantity:
-          minimum: 1
-          type: integer
-          format: int32
     PersonViewResponse:
       type: object
       properties:
@@ -610,6 +538,78 @@ components:
           type: string
         universityIndexNumber:
           type: string
+    ItemUsedResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        storagePlace:
+          type: string
+        personId:
+          type: string
+        firstname:
+          type: string
+        lastname:
+          type: string
+        email:
+          type: string
+        phoneNumber:
+          type: string
+        departmentCode:
+          type: string
+        departmentNamePl:
+          type: string
+        departmentNameEn:
+          type: string
+        quantity:
+          type: integer
+          format: int32
+    ItemUsedRequest:
+      required:
+      - personId
+      - quantity
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        personId:
+          type: string
+        email:
+          type: string
+        phoneNumber:
+          maxLength: 12
+          minLength: 0
+          type: string
+        departmentCode:
+          type: string
+        storagePlace:
+          type: string
+        quantity:
+          minimum: 1
+          type: integer
+          format: int32
+    ItemUsedFileResponse:
+      type: object
+      properties:
+        itemUsedFileId:
+          type: string
+        itemUsedId:
+          type: string
+        fileId:
+          type: string
+        extension:
+          type: string
+        name:
+          type: string
+        uploadedDate:
+          type: string
+          format: date-time
     OdataResponsePersonViewResponse:
       type: object
       properties:

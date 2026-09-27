@@ -109,22 +109,6 @@ components:
         totalCount:
           type: integer
           format: int32
-    PersonUniversityUWResponse:
-      type: object
-      properties:
-        usosId:
-          type: string
-        masterId:
-          type: string
-        uidPolon:
-          type: string
-        uidPolonStud:
-          type: string
-        uidPolonDokt:
-          type: string
-        sapLogin:
-          type: string
-      description: Dodatkowe informacje o osobie jeżeli z UW. Może być nullem, jeżeli osoba nie ma związku z UW.
     PersonViewResponse:
       type: object
       properties:
@@ -157,6 +141,22 @@ components:
           type: string
         universityIndexNumber:
           type: string
+    PersonUniversityUWResponse:
+      type: object
+      properties:
+        usosId:
+          type: string
+        masterId:
+          type: string
+        uidPolon:
+          type: string
+        uidPolonStud:
+          type: string
+        uidPolonDokt:
+          type: string
+        sapLogin:
+          type: string
+      description: Dodatkowe informacje o osobie jeżeli z UW. Może być nullem, jeżeli osoba nie ma związku z UW.
     PersonUniversityResponse:
       type: object
       properties:

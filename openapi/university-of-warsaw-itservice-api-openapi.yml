@@ -410,75 +410,6 @@ paths:
       - Authorization: []
 components:
   schemas:
-    QueryItServiceItemResponse:
-      type: object
-      properties:
-        id:
-          type: string
-        family:
-          type: string
-        system:
-          type: string
-        displayNamePl:
-          type: string
-        displayNameEn:
-          type: string
-        url:
-          type: string
-        keywords:
-          type: array
-          items:
-            type: string
-        logo:
-          type: string
-        articleId:
-          type: string
-        public:
-          type: boolean
-        protected:
-          type: boolean
-        private:
-          type: boolean
-        it:
-          type: boolean
-        student:
-          type: boolean
-        faculty:
-          type: boolean
-        staff:
-          type: boolean
-        guest:
-          type: boolean
-    ArticlePreviewResponse:
-      type: object
-      properties:
-        id:
-          type: string
-        titlePl:
-          type: string
-        titleEn:
-          type: string
-        contentPl:
-          type: string
-        contentEn:
-          type: string
-        visibleFrom:
-          type: string
-          format: date
-        visibleTo:
-          type: string
-          format: date
-        signification:
-          type: string
-        tags:
-          type: array
-          items:
-            type: string
-        visible:
-          type: boolean
-        created:
-          type: string
-          format: date-time
     ItServiceResponse:
       type: object
       properties:
@@ -551,6 +482,75 @@ components:
           type: boolean
         guest:
           type: boolean
+    QueryItServiceItemResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        family:
+          type: string
+        system:
+          type: string
+        displayNamePl:
+          type: string
+        displayNameEn:
+          type: string
+        url:
+          type: string
+        keywords:
+          type: array
+          items:
+            type: string
+        logo:
+          type: string
+        articleId:
+          type: string
+        public:
+          type: boolean
+        protected:
+          type: boolean
+        private:
+          type: boolean
+        it:
+          type: boolean
+        student:
+          type: boolean
+        faculty:
+          type: boolean
+        staff:
+          type: boolean
+        guest:
+          type: boolean
+    ArticlePreviewResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        titlePl:
+          type: string
+        titleEn:
+          type: string
+        contentPl:
+          type: string
+        contentEn:
+          type: string
+        visibleFrom:
+          type: string
+          format: date
+        visibleTo:
+          type: string
+          format: date
+        signification:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+        visible:
+          type: boolean
+        created:
+          type: string
+          format: date-time
   securitySchemes:
     Authorization:
       type: apiKey

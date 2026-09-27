@@ -187,9 +187,7 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    CampusRequest:
-      required:
-      - code
+    CampusResponse:
       type: object
       properties:
         code:
@@ -198,7 +196,9 @@ components:
           type: string
         nameEn:
           type: string
-    CampusResponse:
+    CampusRequest:
+      required:
+      - code
       type: object
       properties:
         code:

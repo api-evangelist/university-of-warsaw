@@ -1071,6 +1071,167 @@ paths:
       - Authorization: []
 components:
   schemas:
+    QueryPatentsItemResponse:
+      type: object
+      properties:
+        cfPatId:
+          type: string
+          description: id patentu
+        cfCountryCodes:
+          type: array
+          description: kody państw, na terytorium których uzyskano ochronę
+          items:
+            type: string
+            description: kody państw, na terytorium których uzyskano ochronę
+        cfRegisterDate:
+          type: string
+          description: data zarejestrowania patentu
+          format: date
+        cfApprovDate:
+          type: string
+          description: data zatwierdzenia patentu
+          format: date
+        cfPatentNum:
+          type: string
+          description: numer patentu
+        cfUri:
+          type: string
+          description: uri do informacji źródłowej o patencie
+        cfTitle:
+          type: string
+          description: tytuł patentu pobierany z abstraktu o najniższym indeksie
+        cfKeyw:
+          type: array
+          description: słowa kluczowe patentu pobierane z abstraktu o najniższym indeksie
+          items:
+            type: string
+            description: słowa kluczowe patentu pobierane z abstraktu o najniższym indeksie
+        year:
+          type: integer
+          description: rok
+          format: int32
+        applicationNumber:
+          type: string
+          description: numer zgłoszenia patentowego
+        businessEntityObtainedBy:
+          type: string
+          description: podmiot pozyskujący
+        businessEntityGrantedBy:
+          type: string
+          description: podmiot udzielający
+        referenceNumber:
+          type: string
+          description: numer referencyjny
+        protectionType:
+          type: string
+          description: rodzaj ochrony
+        protectionSubject:
+          type: string
+          description: przedmiot ochrony
+        protectionStatus:
+          type: string
+          description: status ochrony
+        financialNumber:
+          type: string
+          description: numer finansowy
+        applicationCountry:
+          uniqueItems: true
+          type: array
+          description: kraj zgłoszenia
+          items:
+            type: string
+            description: kraj zgłoszenia
+        applicationProcedure:
+          type: string
+          description: procedura zgłoszenia
+        endProtectionDate:
+          type: string
+          description: data końca ochrony
+          format: date
+        recordCreation:
+          type: string
+          description: data utworzenia rekordu
+          format: date
+        publicationApplicationDate:
+          type: string
+          description: data publikacji zgłoszenia
+          format: date
+        applicationTitle:
+          type: string
+          description: tytuł zgłoszenia
+        applicationStatus:
+          type: string
+          description: status zgłoszenia
+        entityValidation:
+          type: string
+          description: status zgłoszenia
+        additionalProtectionStatus:
+          type: boolean
+          description: dodatkowe prawo ochronne
+        patentOffice:
+          type: string
+          description: urząd patentowy przyjmujący zgłoszenie
+        europeanPatent:
+          type: boolean
+          description: patent europejski o jednolitym skutku
+        decisionDate:
+          type: string
+          description: data decyzji
+          format: date
+        protectionNumberCountryValidation:
+          type: string
+          description: numer ochrony w kraju walidacji
+        endProtectionCountryValidation:
+          type: string
+          description: data końca ochrony w kraju walidacji
+          format: date
+        protectionRange:
+          type: string
+          description: zasięg ochrony
+      description: Podstawowe informacje o patencie
+    PatentFinancingResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: id relacji
+        financingSource:
+          type: string
+          description: źródło finansowania
+        cfPatId:
+          type: string
+          description: id patentu
+        fraction:
+          type: number
+          description: udział procentowy finansowania
+          format: double
+      description: Współwłaściciel instytucjonalny patentu
+    HistoryResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        whoType:
+          type: string
+        whoId:
+          type: string
+        whoName:
+          type: string
+        eventTime:
+          type: string
+          format: date-time
+        operation:
+          type: string
+        changes:
+          type: string
+        objType:
+          type: string
+        objId:
+          type: string
+        relationId:
+          type: string
+        relationName:
+          type: string
     AbstractRequest:
       required:
       - keyw
@@ -1104,21 +1265,161 @@ components:
         original:
           type: boolean
           description: czy streszczenie jest w języku oryginału
-    PatentFinancingRequest:
-      required:
-      - financingSource
-      - fraction
+    PatentContactPersonResponse:
       type: object
       properties:
-        financingSource:
+        id:
           type: string
-          description: źródło finansowania
+          description: id relacji
+        cfPatId:
+          type: string
+          description: id patentu
+        personId:
+          type: string
+          description: id osoby
+        personName:
+          type: string
+          description: imię i nazwisko osoby
+        personEmail:
+          type: string
+          description: imię i nazwisko osoby
+        comment:
+          type: string
+          description: id osoby (jeżeli jest powiązana z profilem)
+        phoneNumber:
+          type: string
+          description: numer telefonu
+      description: Osoba kontaktowa patentu
+    PatentUnitResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        cfPatId:
+          type: string
+        unitCode:
+          type: string
+        comment:
+          type: string
+        fraction:
+          type: number
+          format: double
+    PatentAuthorRequest:
+      required:
+      - fraction
+      - name
+      type: object
+      properties:
+        profileId:
+          type: string
+        name:
+          type: string
         fraction:
           maximum: 100
           minimum: 0.01
           type: number
-          description: udział procentowy finansowania
           format: double
+        consentForEvaluation:
+          type: boolean
+        statementDate:
+          type: string
+          format: date
+        scienceDisciplineCode:
+          type: string
+    PersonViewResponse:
+      type: object
+      properties:
+        personId:
+          type: string
+        university:
+          type: string
+          enum:
+          - CUNI
+          - UAH
+          - SU
+          - KU
+          - UNIMI
+          - UW
+          - UNIGE
+          - PARIS_2
+        orcid:
+          type: string
+        firstName:
+          type: string
+        middleNames:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        profileId:
+          type: string
+        degree:
+          type: string
+        universityIndexNumber:
+          type: string
+    PatentAuthorResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: id relacji
+        profileId:
+          type: string
+          description: id profilu
+        name:
+          type: string
+          description: imię i nazwisko osoby
+        cfPatId:
+          type: string
+          description: id patentu
+        fraction:
+          type: number
+          description: udział procentowy własności
+          format: double
+        consentForEvaluation:
+          type: boolean
+          description: zgoda na wykazanie osiągnięcia w procesie ewaluacji jakości działalności naukowej
+        statementDate:
+          type: string
+          description: Data oświadczenia
+          format: date
+        scienceDisciplineCode:
+          type: string
+          description: Dyscyplina osiągnięcia wskazana przez twórcę
+        scienceDisciplineName:
+          type: string
+          description: Nazwa dyscypliny naukowej
+        scienceDisciplineNameEn:
+          type: string
+          description: Nazwa aglojęzyczna dyscypliny naukowej
+        scienceFieldCode:
+          type: string
+          description: Kod dziedziny naukowej
+        scienceFieldName:
+          type: string
+          description: Nazwa dziedziny naukowej
+        scienceFieldNameEn:
+          type: string
+          description: Nazwa aglojęzyczna dziedziny naukowej
+      description: Autor patentu
+    PatentInstitutionalOwnerRequest:
+      required:
+      - businessEntityAcro
+      - fraction
+      type: object
+      properties:
+        businessEntityAcro:
+          type: string
+        fraction:
+          maximum: 100
+          minimum: 0.01
+          type: number
+          format: double
+        comment:
+          maxLength: 255
+          minLength: 0
+          type: string
     PatentUnitRequest:
       required:
       - unitCode
@@ -1136,31 +1437,94 @@ components:
           type: number
           description: udział procentowy własności
           format: double
-    PatentContactPersonRequest:
+    PatentFinancingRequest:
       required:
-      - personEmail
+      - financingSource
+      - fraction
       type: object
       properties:
-        personId:
+        financingSource:
           type: string
-          description: id osoby
-        personName:
-          maxLength: 255
-          minLength: 0
+          description: źródło finansowania
+        fraction:
+          maximum: 100
+          minimum: 0.01
+          type: number
+          description: udział procentowy finansowania
+          format: double
+    PatentInstitutionalOwnerResponse:
+      type: object
+      properties:
+        id:
           type: string
-          description: imię i nazwisko osoby
-        personEmail:
+          description: id relacji
+        cfPatId:
           type: string
-          description: imię i nazwisko osoby
+          description: id patentu
+        businessEntityAcro:
+          type: string
+          description: acronim instytucji
         comment:
-          maxLength: 255
-          minLength: 0
           type: string
-          description: dodatkowe informacje
-        phoneNumber:
+          description: dodatkowe informacje o relacji
+        fraction:
+          type: number
+          description: udział procentowy własności
+          format: double
+      description: Współwłaściciel instytucjonalny patentu
+    OdataResponseQueryProfileItemResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/QueryProfileItemResponse'
+        totalCount:
+          type: integer
+          format: int32
+    AbstractResponse:
+      type: object
+      properties:
+        id:
           type: string
-          description: numer telefonu
-      description: Osoba kontaktowa patentu
+          description: Id abstraltu
+        langCode:
+          type: string
+          description: kod języka typu PL, EN, EN-GB, itp - klucz naturalny do Language, zgodny z ISO (patrz Language)
+        title:
+          type: string
+          description: 'tytuł wynalazku/patentu/wzoru użytkowego/nazwa gatunku/nazwa botaniczna/nazwa odmiany w danym języku '
+        abstr:
+          type: string
+          description: streszczenie opisu wynalazku/wzoru użytkowego w danym języku
+        keyw:
+          type: array
+          description: słowa kluczowe w danym języku
+          items:
+            type: string
+            description: słowa kluczowe w danym języku
+        orderIndex:
+          type: integer
+          description: 'kolejność wyświetlania abstraktów (domyślnie: 0)'
+          format: int32
+        objectId:
+          type: string
+          description: Id obiektu
+        objectType:
+          type: string
+          description: Typ obiektu
+        original:
+          type: boolean
+          description: czy streszczenie jest w języku oryginału
+    ProtectionSubjectResponse:
+      type: object
+      properties:
+        code:
+          type: string
+        namePl:
+          type: string
+        nameEn:
+          type: string
     ProfileResponse:
       type: object
       properties:
@@ -1215,139 +1579,6 @@ components:
           type: boolean
         profilePublicId:
           type: string
-    AbstractResponse:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Id abstraltu
-        langCode:
-          type: string
-          description: kod języka typu PL, EN, EN-GB, itp - klucz naturalny do Language, zgodny z ISO (patrz Language)
-        title:
-          type: string
-          description: 'tytuł wynalazku/patentu/wzoru użytkowego/nazwa gatunku/nazwa botaniczna/nazwa odmiany w danym języku '
-        abstr:
-          type: string
-          description: streszczenie opisu wynalazku/wzoru użytkowego w danym języku
-        keyw:
-          type: array
-          description: słowa kluczowe w danym języku
-          items:
-            type: string
-            description: słowa kluczowe w danym języku
-        orderIndex:
-          type: integer
-          description: 'kolejność wyświetlania abstraktów (domyślnie: 0)'
-          format: int32
-        objectId:
-          type: string
-          description: Id obiektu
-        objectType:
-          type: string
-          description: Typ obiektu
-        original:
-          type: boolean
-          description: czy streszczenie jest w języku oryginału
-    UnitViewResponse:
-      type: object
-      properties:
-        code:
-          type: string
-          description: Unikalny kod jednostki
-        university:
-          type: string
-          description: Uniwersytet do którego należy jednostka
-          enum:
-          - CUNI
-          - UAH
-          - SU
-          - KU
-          - UNIMI
-          - UW
-          - UNIGE
-          - PARIS_2
-        namePl:
-          type: string
-          description: Polska nazwa jednostki
-        nameEn:
-          type: string
-          description: Angielska nazwa jednostki
-        parentUnitCode:
-          type: string
-          description: Unikalny kod jednostki nadrzędnej
-        url:
-          type: string
-          description: Adres strony jednostki
-        isVisible:
-          type: boolean
-        financingCode:
-          type: string
-      description: Jednostki organizacyjne
-    ProtectionTypeResponse:
-      type: object
-      properties:
-        code:
-          type: string
-        namePl:
-          type: string
-        nameEn:
-          type: string
-    OdataResponseQueryProfileItemResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/QueryProfileItemResponse'
-        totalCount:
-          type: integer
-          format: int32
-    PatentAuthorResponse:
-      type: object
-      properties:
-        id:
-          type: string
-          description: id relacji
-        profileId:
-          type: string
-          description: id profilu
-        name:
-          type: string
-          description: imię i nazwisko osoby
-        cfPatId:
-          type: string
-          description: id patentu
-        fraction:
-          type: number
-          description: udział procentowy własności
-          format: double
-        consentForEvaluation:
-          type: boolean
-          description: zgoda na wykazanie osiągnięcia w procesie ewaluacji jakości działalności naukowej
-        statementDate:
-          type: string
-          description: Data oświadczenia
-          format: date
-        scienceDisciplineCode:
-          type: string
-          description: Dyscyplina osiągnięcia wskazana przez twórcę
-        scienceDisciplineName:
-          type: string
-          description: Nazwa dyscypliny naukowej
-        scienceDisciplineNameEn:
-          type: string
-          description: Nazwa aglojęzyczna dyscypliny naukowej
-        scienceFieldCode:
-          type: string
-          description: Kod dziedziny naukowej
-        scienceFieldName:
-          type: string
-          description: Nazwa dziedziny naukowej
-        scienceFieldNameEn:
-          type: string
-          description: Nazwa aglojęzyczna dziedziny naukowej
-      description: Autor patentu
     PatentResponse:
       type: object
       properties:
@@ -1489,224 +1720,6 @@ components:
           type: string
           description: uwagi
       description: Szczegółowe informacje o patencie
-    PatentContactPersonResponse:
-      type: object
-      properties:
-        id:
-          type: string
-          description: id relacji
-        cfPatId:
-          type: string
-          description: id patentu
-        personId:
-          type: string
-          description: id osoby
-        personName:
-          type: string
-          description: imię i nazwisko osoby
-        personEmail:
-          type: string
-          description: imię i nazwisko osoby
-        comment:
-          type: string
-          description: id osoby (jeżeli jest powiązana z profilem)
-        phoneNumber:
-          type: string
-          description: numer telefonu
-      description: Osoba kontaktowa patentu
-    OdataResponsePersonViewResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/PersonViewResponse'
-        totalCount:
-          type: integer
-          format: int32
-    PatentFinancingResponse:
-      type: object
-      properties:
-        id:
-          type: string
-          description: id relacji
-        financingSource:
-          type: string
-          description: źródło finansowania
-        cfPatId:
-          type: string
-          description: id patentu
-        fraction:
-          type: number
-          description: udział procentowy finansowania
-          format: double
-      description: Współwłaściciel instytucjonalny patentu
-    QueryPatentsItemResponse:
-      type: object
-      properties:
-        cfPatId:
-          type: string
-          description: id patentu
-        cfCountryCodes:
-          type: array
-          description: kody państw, na terytorium których uzyskano ochronę
-          items:
-            type: string
-            description: kody państw, na terytorium których uzyskano ochronę
-        cfRegisterDate:
-          type: string
-          description: data zarejestrowania patentu
-          format: date
-        cfApprovDate:
-          type: string
-          description: data zatwierdzenia patentu
-          format: date
-        cfPatentNum:
-          type: string
-          description: numer patentu
-        cfUri:
-          type: string
-          description: uri do informacji źródłowej o patencie
-        cfTitle:
-          type: string
-          description: tytuł patentu pobierany z abstraktu o najniższym indeksie
-        cfKeyw:
-          type: array
-          description: słowa kluczowe patentu pobierane z abstraktu o najniższym indeksie
-          items:
-            type: string
-            description: słowa kluczowe patentu pobierane z abstraktu o najniższym indeksie
-        year:
-          type: integer
-          description: rok
-          format: int32
-        applicationNumber:
-          type: string
-          description: numer zgłoszenia patentowego
-        businessEntityObtainedBy:
-          type: string
-          description: podmiot pozyskujący
-        businessEntityGrantedBy:
-          type: string
-          description: podmiot udzielający
-        referenceNumber:
-          type: string
-          description: numer referencyjny
-        protectionType:
-          type: string
-          description: rodzaj ochrony
-        protectionSubject:
-          type: string
-          description: przedmiot ochrony
-        protectionStatus:
-          type: string
-          description: status ochrony
-        financialNumber:
-          type: string
-          description: numer finansowy
-        applicationCountry:
-          uniqueItems: true
-          type: array
-          description: kraj zgłoszenia
-          items:
-            type: string
-            description: kraj zgłoszenia
-        applicationProcedure:
-          type: string
-          description: procedura zgłoszenia
-        endProtectionDate:
-          type: string
-          description: data końca ochrony
-          format: date
-        recordCreation:
-          type: string
-          description: data utworzenia rekordu
-          format: date
-        publicationApplicationDate:
-          type: string
-          description: data publikacji zgłoszenia
-          format: date
-        applicationTitle:
-          type: string
-          description: tytuł zgłoszenia
-        applicationStatus:
-          type: string
-          description: status zgłoszenia
-        entityValidation:
-          type: string
-          description: status zgłoszenia
-        additionalProtectionStatus:
-          type: boolean
-          description: dodatkowe prawo ochronne
-        patentOffice:
-          type: string
-          description: urząd patentowy przyjmujący zgłoszenie
-        europeanPatent:
-          type: boolean
-          description: patent europejski o jednolitym skutku
-        decisionDate:
-          type: string
-          description: data decyzji
-          format: date
-        protectionNumberCountryValidation:
-          type: string
-          description: numer ochrony w kraju walidacji
-        endProtectionCountryValidation:
-          type: string
-          description: data końca ochrony w kraju walidacji
-          format: date
-        protectionRange:
-          type: string
-          description: zasięg ochrony
-      description: Podstawowe informacje o patencie
-    PatentAuthorRequest:
-      required:
-      - fraction
-      - name
-      type: object
-      properties:
-        profileId:
-          type: string
-        name:
-          type: string
-        fraction:
-          maximum: 100
-          minimum: 0.01
-          type: number
-          format: double
-        consentForEvaluation:
-          type: boolean
-        statementDate:
-          type: string
-          format: date
-        scienceDisciplineCode:
-          type: string
-    PatentInstitutionalOwnerRequest:
-      required:
-      - businessEntityAcro
-      - fraction
-      type: object
-      properties:
-        businessEntityAcro:
-          type: string
-        fraction:
-          maximum: 100
-          minimum: 0.01
-          type: number
-          format: double
-        comment:
-          maxLength: 255
-          minLength: 0
-          type: string
-    ProtectionSubjectResponse:
-      type: object
-      properties:
-        code:
-          type: string
-        namePl:
-          type: string
-        nameEn:
-          type: string
     QueryProfileItemResponse:
       type: object
       properties:
@@ -1800,20 +1813,6 @@ components:
         promotedPublicationsCount:
           type: integer
           format: int64
-    PatentUnitResponse:
-      type: object
-      properties:
-        id:
-          type: string
-        cfPatId:
-          type: string
-        unitCode:
-          type: string
-        comment:
-          type: string
-        fraction:
-          type: number
-          format: double
     PatentRequest:
       required:
       - applicationCountry
@@ -1942,6 +1941,31 @@ components:
         protectionRange:
           type: string
           description: zasięg ochrony
+    PatentContactPersonRequest:
+      required:
+      - personEmail
+      type: object
+      properties:
+        personId:
+          type: string
+          description: id osoby
+        personName:
+          maxLength: 255
+          minLength: 0
+          type: string
+          description: imię i nazwisko osoby
+        personEmail:
+          type: string
+          description: imię i nazwisko osoby
+        comment:
+          maxLength: 255
+          minLength: 0
+          type: string
+          description: dodatkowe informacje
+        phoneNumber:
+          type: string
+          description: numer telefonu
+      description: Osoba kontaktowa patentu
     CopyPatentRequest:
       required:
       - countryCodes
@@ -1957,89 +1981,20 @@ components:
           type: string
         referenceNumber:
           type: string
+    ProtectionTypeResponse:
+      type: object
+      properties:
+        code:
+          type: string
+        namePl:
+          type: string
+        nameEn:
+          type: string
     AdditionalInfoRequest:
       type: object
       properties:
         content:
           type: string
-    HistoryResponse:
-      type: object
-      properties:
-        id:
-          type: string
-        whoType:
-          type: string
-        whoId:
-          type: string
-        whoName:
-          type: string
-        eventTime:
-          type: string
-          format: date-time
-        operation:
-          type: string
-        changes:
-          type: string
-        objType:
-          type: string
-        objId:
-          type: string
-        relationId:
-          type: string
-        relationName:
-          type: string
-    PersonViewResponse:
-      type: object
-      properties:
-        personId:
-          type: string
-        university:
-          type: string
-          enum:
-          - CUNI
-          - UAH
-          - SU
-          - KU
-          - UNIMI
-          - UW
-          - UNIGE
-          - PARIS_2
-        orcid:
-          type: string
-        firstName:
-          type: string
-        middleNames:
-          type: string
-        lastName:
-          type: string
-        email:
-          type: string
-        profileId:
-          type: string
-        degree:
-          type: string
-        universityIndexNumber:
-          type: string
-    PatentInstitutionalOwnerResponse:
-      type: object
-      properties:
-        id:
-          type: string
-          description: id relacji
-        cfPatId:
-          type: string
-          description: id patentu
-        businessEntityAcro:
-          type: string
-          description: acronim instytucji
-        comment:
-          type: string
-          description: dodatkowe informacje o relacji
-        fraction:
-          type: number
-          description: udział procentowy własności
-          format: double
-      description: Współwłaściciel instytucjonalny patentu
     BusinessEntityResponse:
       type: object
       properties:
@@ -2059,6 +2014,51 @@ components:
           type: string
           description: Kod kraju
       description: Podmiot
+    UnitViewResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Unikalny kod jednostki
+        university:
+          type: string
+          description: Uniwersytet do którego należy jednostka
+          enum:
+          - CUNI
+          - UAH
+          - SU
+          - KU
+          - UNIMI
+          - UW
+          - UNIGE
+          - PARIS_2
+        namePl:
+          type: string
+          description: Polska nazwa jednostki
+        nameEn:
+          type: string
+          description: Angielska nazwa jednostki
+        parentUnitCode:
+          type: string
+          description: Unikalny kod jednostki nadrzędnej
+        url:
+          type: string
+          description: Adres strony jednostki
+        isVisible:
+          type: boolean
+        financingCode:
+          type: string
+      description: Jednostki organizacyjne
+    OdataResponsePersonViewResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/PersonViewResponse'
+        totalCount:
+          type: integer
+          format: int32
   securitySchemes:
     Authorization:
       type: apiKey

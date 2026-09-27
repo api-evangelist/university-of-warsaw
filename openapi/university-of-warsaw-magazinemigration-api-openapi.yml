@@ -75,6 +75,33 @@ paths:
       - Authorization: []
 components:
   schemas:
+    MagazineImportRequest:
+      type: object
+      properties:
+        title:
+          type: string
+        publisher:
+          type: string
+        impactFactor:
+          type: number
+        quartileImpactFactor:
+          type: integer
+          format: int32
+        percentileScopus:
+          type: integer
+          format: int32
+        quartileScopus:
+          type: integer
+          format: int32
+        numbersOfPointsMNiSW:
+          type: integer
+          format: int32
+        issn:
+          type: string
+        eissn:
+          type: string
+        pissn:
+          type: string
     MagazineResponse:
       type: object
       properties:
@@ -110,33 +137,6 @@ components:
       properties:
         magazine:
           $ref: '#/components/schemas/MagazineResponse'
-    MagazineImportRequest:
-      type: object
-      properties:
-        title:
-          type: string
-        publisher:
-          type: string
-        impactFactor:
-          type: number
-        quartileImpactFactor:
-          type: integer
-          format: int32
-        percentileScopus:
-          type: integer
-          format: int32
-        quartileScopus:
-          type: integer
-          format: int32
-        numbersOfPointsMNiSW:
-          type: integer
-          format: int32
-        issn:
-          type: string
-        eissn:
-          type: string
-        pissn:
-          type: string
   securitySchemes:
     Authorization:
       type: apiKey

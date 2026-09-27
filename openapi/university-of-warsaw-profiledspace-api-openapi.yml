@@ -106,16 +106,6 @@ paths:
       - Authorization: []
 components:
   schemas:
-    OdataResponseQueryProfileDspaceItemResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/QueryProfileDspaceItemResponse'
-        totalCount:
-          type: integer
-          format: int32
     ProfileDspaceResponse:
       type: object
       properties:
@@ -147,6 +137,16 @@ components:
           type: array
           items:
             type: string
+    OdataResponseQueryProfileDspaceItemResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/QueryProfileDspaceItemResponse'
+        totalCount:
+          type: integer
+          format: int32
     QueryProfileDspaceItemResponse:
       type: object
       properties:

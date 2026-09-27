@@ -167,69 +167,6 @@ paths:
       - Authorization: []
 components:
   schemas:
-    LicenseRequest:
-      type: object
-      properties:
-        productGroup:
-          type: string
-          description: grupa produktowa
-        merchandise:
-          type: string
-          description: towar
-        year:
-          maximum: 3000
-          minimum: 1800
-          type: integer
-          description: rok
-          format: int32
-        cfUri:
-          type: string
-          description: uri
-        quantity:
-          minimum: 1
-          type: integer
-          description: ilość
-          format: int32
-        economicDepartment:
-          type: string
-          description: kod działu gospodarczego
-    QueryLicenseItemResponse:
-      type: object
-      properties:
-        id:
-          type: string
-          description: id licencji
-        productGroup:
-          type: string
-          description: grupa produktowa
-        merchandise:
-          type: string
-          description: towar
-        year:
-          type: integer
-          description: rok
-          format: int32
-        cfUri:
-          type: string
-          description: uri
-        quantity:
-          type: integer
-          description: ilość
-          format: int32
-        economicDepartment:
-          type: string
-          description: kod działu gospodarczego
-        importSourceType:
-          type: string
-          description: typ źródła importu
-        importSourceId:
-          type: string
-          description: id źródła importu
-        creationTime:
-          type: string
-          description: czas utworzenia rekordu
-          format: date-time
-      description: Podstawowe informacje o kursie
     LicenseResponse:
       type: object
       properties:
@@ -267,6 +204,69 @@ components:
           description: czas utworzenia rekordu
           format: date-time
       description: Informacje o kursie
+    QueryLicenseItemResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: id licencji
+        productGroup:
+          type: string
+          description: grupa produktowa
+        merchandise:
+          type: string
+          description: towar
+        year:
+          type: integer
+          description: rok
+          format: int32
+        cfUri:
+          type: string
+          description: uri
+        quantity:
+          type: integer
+          description: ilość
+          format: int32
+        economicDepartment:
+          type: string
+          description: kod działu gospodarczego
+        importSourceType:
+          type: string
+          description: typ źródła importu
+        importSourceId:
+          type: string
+          description: id źródła importu
+        creationTime:
+          type: string
+          description: czas utworzenia rekordu
+          format: date-time
+      description: Podstawowe informacje o kursie
+    LicenseRequest:
+      type: object
+      properties:
+        productGroup:
+          type: string
+          description: grupa produktowa
+        merchandise:
+          type: string
+          description: towar
+        year:
+          maximum: 3000
+          minimum: 1800
+          type: integer
+          description: rok
+          format: int32
+        cfUri:
+          type: string
+          description: uri
+        quantity:
+          minimum: 1
+          type: integer
+          description: ilość
+          format: int32
+        economicDepartment:
+          type: string
+          description: kod działu gospodarczego
   securitySchemes:
     Authorization:
       type: apiKey

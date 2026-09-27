@@ -321,16 +321,6 @@ paths:
       - Authorization: []
 components:
   schemas:
-    PublicProcurementPlanMergeRequest:
-      required:
-      - ids
-      type: object
-      properties:
-        ids:
-          uniqueItems: true
-          type: array
-          items:
-            type: string
     PersonViewResponse:
       type: object
       properties:
@@ -363,16 +353,77 @@ components:
           type: string
         universityIndexNumber:
           type: string
-    OdataResponsePersonViewResponse:
+    PublicProcurementPlanRequest:
+      required:
+      - cpvCodes
+      - departmentCodes
       type: object
       properties:
-        data:
+        departmentCodes:
+          uniqueItems: true
+          type: array
+          description: Kod działu gospodarczego UW
+          items:
+            type: string
+            description: Kod działu gospodarczego UW
+        realizedByDepartmentCode:
+          type: string
+          description: Kod działu gospodarczego UW realizującego za zamówienie
+        item:
+          type: string
+          description: Przedmiot zamówienia
+        type:
+          type: string
+          description: Rodzaj zamówienia
+        legalBasisId:
+          type: integer
+          description: Id trybu zamówienia
+          format: int32
+        number:
+          type: string
+          description: Numer zamówienia
+        netAmountEstimate:
+          type: number
+          description: Ostentacyjna wartość netto zamówienia
+        plannedStartYear:
+          type: integer
+          description: Przewidywany rok rozpoczęcia realizacji zamówienia
+          format: int32
+        plannedStartQuarter:
+          type: integer
+          description: Przewidywany kwartał rozpoczęcia realizacji zamówienia
+          format: int32
+        plannedStartMonth:
+          type: integer
+          description: Przewidywany miesiąc rozpoczęcia realizacji zamówienia
+          format: int32
+        responsiblePersonId:
+          type: string
+          description: Id osoby odpowiedzialnej
+        reportingPersonId:
+          type: string
+          description: Id osoby zgłaszającej
+        categoryId:
+          type: integer
+          description: Id kategorii planu zamówień
+          format: int32
+        cpvCodes:
+          uniqueItems: true
+          type: array
+          description: Zbiór kodów cpv
+          items:
+            type: string
+            description: Zbiór kodów cpv
+    PublicProcurementPlanMergeRequest:
+      required:
+      - ids
+      type: object
+      properties:
+        ids:
+          uniqueItems: true
           type: array
           items:
-            $ref: '#/components/schemas/PersonViewResponse'
-        totalCount:
-          type: integer
-          format: int32
+            type: string
     PublicProcurementPlanResponse:
       type: object
       properties:
@@ -439,67 +490,16 @@ components:
           type: string
         categoryCpvCode:
           type: string
-    PublicProcurementPlanRequest:
-      required:
-      - cpvCodes
-      - departmentCodes
+    OdataResponsePersonViewResponse:
       type: object
       properties:
-        departmentCodes:
-          uniqueItems: true
+        data:
           type: array
-          description: Kod działu gospodarczego UW
           items:
-            type: string
-            description: Kod działu gospodarczego UW
-        realizedByDepartmentCode:
-          type: string
-          description: Kod działu gospodarczego UW realizującego za zamówienie
-        item:
-          type: string
-          description: Przedmiot zamówienia
-        type:
-          type: string
-          description: Rodzaj zamówienia
-        legalBasisId:
+            $ref: '#/components/schemas/PersonViewResponse'
+        totalCount:
           type: integer
-          description: Id trybu zamówienia
           format: int32
-        number:
-          type: string
-          description: Numer zamówienia
-        netAmountEstimate:
-          type: number
-          description: Ostentacyjna wartość netto zamówienia
-        plannedStartYear:
-          type: integer
-          description: Przewidywany rok rozpoczęcia realizacji zamówienia
-          format: int32
-        plannedStartQuarter:
-          type: integer
-          description: Przewidywany kwartał rozpoczęcia realizacji zamówienia
-          format: int32
-        plannedStartMonth:
-          type: integer
-          description: Przewidywany miesiąc rozpoczęcia realizacji zamówienia
-          format: int32
-        responsiblePersonId:
-          type: string
-          description: Id osoby odpowiedzialnej
-        reportingPersonId:
-          type: string
-          description: Id osoby zgłaszającej
-        categoryId:
-          type: integer
-          description: Id kategorii planu zamówień
-          format: int32
-        cpvCodes:
-          uniqueItems: true
-          type: array
-          description: Zbiór kodów cpv
-          items:
-            type: string
-            description: Zbiór kodów cpv
   securitySchemes:
     Authorization:
       type: apiKey

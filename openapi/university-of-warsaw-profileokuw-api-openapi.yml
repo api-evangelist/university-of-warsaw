@@ -367,30 +367,6 @@ components:
         endDate:
           type: string
           format: date
-    ProfilePublicationResponse:
-      type: object
-      properties:
-        profileId:
-          type: string
-        publicationId:
-          type: string
-        title:
-          type: string
-        titlePl:
-          type: string
-        titleEn:
-          type: string
-        publicationDate:
-          type: string
-        role:
-          type: string
-        year:
-          type: integer
-          format: int32
-        types:
-          type: array
-          items:
-            type: string
     ProfilePatentResponse:
       type: object
       properties:
@@ -414,27 +390,6 @@ components:
         decisionDate:
           type: string
           format: date
-    ScienceDisciplineResponse:
-      type: object
-      properties:
-        code:
-          type: string
-        name:
-          type: string
-        nameEn:
-          type: string
-        effectiveFrom:
-          type: string
-          format: date
-        effectiveTo:
-          type: string
-          format: date
-        scienceFieldCode:
-          type: string
-        scienceFieldName:
-          type: string
-        scienceFieldNameEn:
-          type: string
     ProfileProjectResponse:
       type: object
       properties:
@@ -495,6 +450,30 @@ components:
         orderIndex:
           type: integer
           format: int32
+    ProfilePublicationResponse:
+      type: object
+      properties:
+        profileId:
+          type: string
+        publicationId:
+          type: string
+        title:
+          type: string
+        titlePl:
+          type: string
+        titleEn:
+          type: string
+        publicationDate:
+          type: string
+        role:
+          type: string
+        year:
+          type: integer
+          format: int32
+        types:
+          type: array
+          items:
+            type: string
     OdataResponseProfileOkUwResponse:
       type: object
       properties:
@@ -505,6 +484,27 @@ components:
         totalCount:
           type: integer
           format: int32
+    ScienceDisciplineResponse:
+      type: object
+      properties:
+        code:
+          type: string
+        name:
+          type: string
+        nameEn:
+          type: string
+        effectiveFrom:
+          type: string
+          format: date
+        effectiveTo:
+          type: string
+          format: date
+        scienceFieldCode:
+          type: string
+        scienceFieldName:
+          type: string
+        scienceFieldNameEn:
+          type: string
   securitySchemes:
     Authorization:
       type: apiKey

@@ -47,9 +47,7 @@ paths:
       - Authorization: []
 components:
   schemas:
-    CourseAreasInterestsRequest:
-      required:
-      - code
+    CourseAreasInterestsResponse:
       type: object
       properties:
         code:
@@ -58,7 +56,9 @@ components:
           type: string
         nameEn:
           type: string
-    CourseAreasInterestsResponse:
+    CourseAreasInterestsRequest:
+      required:
+      - code
       type: object
       properties:
         code:

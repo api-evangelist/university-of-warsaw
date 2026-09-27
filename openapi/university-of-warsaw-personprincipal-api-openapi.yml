@@ -288,6 +288,15 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/UnitPreviewResponse'
+    UnitPreviewResponse:
+      type: object
+      properties:
+        code:
+          type: string
+        namePl:
+          type: string
+        nameEn:
+          type: string
     PersonPrincipalResponse:
       type: object
       properties:
@@ -303,15 +312,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/UnitPreviewResponse'
-    UnitPreviewResponse:
-      type: object
-      properties:
-        code:
-          type: string
-        namePl:
-          type: string
-        nameEn:
-          type: string
     ProfilePrincipalRequest:
       required:
       - emails

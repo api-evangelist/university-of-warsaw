@@ -326,34 +326,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    GiveawayRequest:
-      required:
-      - endDate
-      - startDate
-      type: object
-      properties:
-        name:
-          type: string
-        nameEn:
-          type: string
-        url:
-          type: string
-        urlEn:
-          type: string
-        startDate:
-          type: string
-          format: date
-        endDate:
-          type: string
-          format: date
-    PermissionResponse:
-      type: object
-      properties:
-        permissions:
-          type: object
-          additionalProperties:
-            type: integer
-            format: int32
     GiveawayResponse:
       type: object
       properties:
@@ -387,6 +359,34 @@ components:
           format: date
         used:
           type: boolean
+    GiveawayRequest:
+      required:
+      - endDate
+      - startDate
+      type: object
+      properties:
+        name:
+          type: string
+        nameEn:
+          type: string
+        url:
+          type: string
+        urlEn:
+          type: string
+        startDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+    PermissionResponse:
+      type: object
+      properties:
+        permissions:
+          type: object
+          additionalProperties:
+            type: integer
+            format: int32
     PermissionRequest:
       type: object
       properties:

@@ -37,6 +37,18 @@ paths:
                 $ref: '#/components/schemas/BuildProperties'
 components:
   schemas:
+    GitProperties:
+      type: object
+      properties:
+        commitId:
+          type: string
+        branch:
+          type: string
+        shortCommitId:
+          type: string
+        commitTime:
+          type: string
+          format: date-time
     BuildProperties:
       type: object
       properties:
@@ -51,18 +63,6 @@ components:
           type: string
         artifact:
           type: string
-    GitProperties:
-      type: object
-      properties:
-        commitId:
-          type: string
-        branch:
-          type: string
-        shortCommitId:
-          type: string
-        commitTime:
-          type: string
-          format: date-time
   securitySchemes:
     Authorization:
       type: apiKey

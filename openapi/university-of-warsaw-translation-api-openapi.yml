@@ -126,10 +126,10 @@ paths:
       - Authorization: []
 components:
   schemas:
-    TranslationCategoryResponse:
+    TranslationResponse:
       type: object
       properties:
-        name:
+        id:
           type: string
         en:
           type: string
@@ -150,6 +150,8 @@ components:
         ru:
           type: string
         be:
+          type: string
+        category:
           type: string
     TranslationRequest:
       required:
@@ -199,10 +201,10 @@ components:
           type: string
         category:
           type: string
-    TranslationResponse:
+    TranslationCategoryResponse:
       type: object
       properties:
-        id:
+        name:
           type: string
         en:
           type: string
@@ -223,8 +225,6 @@ components:
         ru:
           type: string
         be:
-          type: string
-        category:
           type: string
   securitySchemes:
     Authorization:

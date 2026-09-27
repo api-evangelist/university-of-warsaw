@@ -109,20 +109,20 @@ paths:
       - Authorization: []
 components:
   schemas:
-    SapRoleRequest:
+    SapRoleResponse:
       type: object
       properties:
+        id:
+          type: string
         type:
           type: string
         code:
           type: string
         name:
           type: string
-    SapRoleResponse:
+    SapRoleRequest:
       type: object
       properties:
-        id:
-          type: string
         type:
           type: string
         code:

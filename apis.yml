@@ -109,7 +109,7 @@ apis:
     url: https://info.danebadawcze.uw.edu.pl/en/about-the-service/
 - aid: university-of-warsaw:university-of-warsaw-apiref-api
   x-operator: institution
-  name: University of Warsaw apiref API
+  name: University of Warsaw Apiref API
   description: Machine-readable method reference
   humanURL: https://usosapps.uw.edu.pl/developers/api/
   baseURL: https://usosapps.uw.edu.pl/services/
@@ -148,7 +148,7 @@ apis:
     url: json-ld/university-of-warsaw-context.jsonld
 - aid: university-of-warsaw:university-of-warsaw-apisrv-api
   x-operator: institution
-  name: University of Warsaw apisrv API
+  name: University of Warsaw Apisrv API
   description: USOS API server information and time
   humanURL: https://usosapps.uw.edu.pl/developers/api/
   baseURL: https://usosapps.uw.edu.pl/services/
@@ -187,7 +187,7 @@ apis:
     url: json-ld/university-of-warsaw-context.jsonld
 - aid: university-of-warsaw:university-of-warsaw-calendar-api
   x-operator: institution
-  name: University of Warsaw calendar API
+  name: University of Warsaw Calendar API
   description: Academic calendar events
   humanURL: https://usosapps.uw.edu.pl/developers/api/
   baseURL: https://usosapps.uw.edu.pl/services/
@@ -228,7 +228,7 @@ apis:
     url: json-ld/university-of-warsaw-context.jsonld
 - aid: university-of-warsaw:university-of-warsaw-courses-api
   x-operator: institution
-  name: University of Warsaw courses API
+  name: University of Warsaw Courses API
   description: Courses and course editions
   humanURL: https://usosapps.uw.edu.pl/developers/api/
   baseURL: https://usosapps.uw.edu.pl/services/
@@ -269,7 +269,7 @@ apis:
     url: json-ld/university-of-warsaw-context.jsonld
 - aid: university-of-warsaw:university-of-warsaw-fac-api
   x-operator: institution
-  name: University of Warsaw fac API
+  name: University of Warsaw Fac API
   description: Faculties and organizational units
   humanURL: https://usosapps.uw.edu.pl/developers/api/
   baseURL: https://usosapps.uw.edu.pl/services/
@@ -3767,8 +3767,6 @@ apis:
   humanURL: https://danebadawcze.uw.edu.pl/
   baseURL: https://danebadawcze.uw.edu.pl/api/
   tags:
-  - APIKeys
-  tags_raw:
   - API Key
   properties:
   - type: OpenAPI
@@ -3793,8 +3791,6 @@ apis:
   humanURL: https://danebadawcze.uw.edu.pl/
   baseURL: https://danebadawcze.uw.edu.pl/api/
   tags:
-  - Phone Numbers
-  tags_raw:
   - Phone Number
   properties:
   - type: OpenAPI

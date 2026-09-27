@@ -628,6 +628,17 @@ paths:
       - Authorization: []
 components:
   schemas:
+    RecordOwnersResponse:
+      type: object
+      properties:
+        departmentOwners:
+          type: array
+          items:
+            $ref: '#/components/schemas/UwEconomicDepartmentResponse'
+        personOwners:
+          type: array
+          items:
+            $ref: '#/components/schemas/PersonViewResponse'
     AbstractRequest:
       required:
       - keyw
@@ -661,84 +672,6 @@ components:
         original:
           type: boolean
           description: czy streszczenie jest w języku oryginału
-    EventScienceDisciplineRequest:
-      required:
-      - isMain
-      - scienceDisciplineCode
-      type: object
-      properties:
-        scienceDisciplineCode:
-          type: string
-        isMain:
-          type: boolean
-    EventOrganizerExternalRequest:
-      type: object
-      properties:
-        businessEntityId:
-          type: string
-        contactProfileId:
-          type: string
-        role:
-          type: string
-          enum:
-          - ORGANIZER
-          - SPONSOR
-          - MEDIA_SPONSOR
-          - OTHER
-        isMain:
-          type: boolean
-    UwEconomicDepartmentResponse:
-      type: object
-      properties:
-        uwCode:
-          type: string
-          description: Unikalny kod działu gospodarczego
-        uwUnitCode:
-          type: string
-          description: Unikalny kod jednostki
-        namePl:
-          type: string
-          description: Polska nazwa działu gospodarczego
-        nameEn:
-          type: string
-          description: Angielska nazwa działu gospodarczego
-        unitNamePl:
-          type: string
-          description: Polska nazwa jednostki
-        unitNameEn:
-          type: string
-          description: Angielska nazwa jednostki
-        internalKSeFIdentifier:
-          type: string
-          description: Identyfikator wewnętrzny KSeF
-        invoiceEmail:
-          type: string
-          description: Faktura email
-        displayNamePl:
-          type: string
-          description: Nazwa wyświetlana po polsku
-        displayNameEn:
-          type: string
-          description: Nazwa wyświetlana po angielsku
-      description: Dział gospodarczy UW
-    EventOrganizerResponse:
-      type: object
-      properties:
-        uwRole:
-          type: string
-          enum:
-          - ORGANIZER
-          - SPONSOR
-          - MEDIA_SPONSOR
-          - OTHER
-        organizersUw:
-          type: array
-          items:
-            $ref: '#/components/schemas/EventOrganizerUwResponse'
-        organizersExternal:
-          type: array
-          items:
-            $ref: '#/components/schemas/EventOrganizerExternalResponse'
     EventResponse:
       type: object
       properties:
@@ -789,28 +722,65 @@ components:
           type: array
           items:
             type: string
-    RecordOwnersRequest:
-      required:
-      - departmentOwners
-      - personOwners
-      type: object
-      properties:
-        departmentOwners:
-          uniqueItems: true
-          type: array
-          items:
-            type: string
-        personOwners:
-          uniqueItems: true
-          type: array
-          items:
-            type: string
-    ProfileResponse:
+    EventScienceDisciplineResponse:
       type: object
       properties:
         id:
           type: string
-        name:
+        eventId:
+          type: string
+        scienceDisciplineCode:
+          type: string
+        scienceDisciplineNamePl:
+          type: string
+        scienceDisciplineNameEn:
+          type: string
+        scienceFieldCode:
+          type: string
+        scienceFieldNamePl:
+          type: string
+        scienceFieldNameEn:
+          type: string
+        isMain:
+          type: boolean
+    EventProfileUwResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        eventId:
+          type: string
+        unitCode:
+          type: string
+        unitNamePl:
+          type: string
+        unitNameEn:
+          type: string
+        profileId:
+          type: string
+        profileName:
+          type: string
+        profileEmail:
+          type: string
+        profilePhone:
+          type: string
+    PersonViewResponse:
+      type: object
+      properties:
+        personId:
+          type: string
+        university:
+          type: string
+          enum:
+          - CUNI
+          - UAH
+          - SU
+          - KU
+          - UNIMI
+          - UW
+          - UNIGE
+          - PARIS_2
+        orcid:
           type: string
         firstName:
           type: string
@@ -820,120 +790,12 @@ components:
           type: string
         email:
           type: string
-        emailsOther:
-          type: array
-          items:
-            type: string
-        phone:
-          type: string
-        personId:
-          type: string
-        orcid:
-          type: string
-        uidPolon:
-          type: string
-        uidPolonStud:
-          type: string
-        uidPolonDokt:
-          type: string
-        pbnId:
-          type: string
-        scopusId:
+        profileId:
           type: string
         degree:
           type: string
-        cfKeyw:
-          type: array
-          items:
-            type: string
-        articleId:
+        universityIndexNumber:
           type: string
-        scienceDisciplinesStatementDate:
-          type: string
-          format: date
-        roles:
-          type: array
-          items:
-            type: string
-        isPubliclyVisible:
-          type: boolean
-        profilePublicId:
-          type: string
-    AbstractResponse:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Id abstraltu
-        langCode:
-          type: string
-          description: kod języka typu PL, EN, EN-GB, itp - klucz naturalny do Language, zgodny z ISO (patrz Language)
-        title:
-          type: string
-          description: 'tytuł wynalazku/patentu/wzoru użytkowego/nazwa gatunku/nazwa botaniczna/nazwa odmiany w danym języku '
-        abstr:
-          type: string
-          description: streszczenie opisu wynalazku/wzoru użytkowego w danym języku
-        keyw:
-          type: array
-          description: słowa kluczowe w danym języku
-          items:
-            type: string
-            description: słowa kluczowe w danym języku
-        orderIndex:
-          type: integer
-          description: 'kolejność wyświetlania abstraktów (domyślnie: 0)'
-          format: int32
-        objectId:
-          type: string
-          description: Id obiektu
-        objectType:
-          type: string
-          description: Typ obiektu
-        original:
-          type: boolean
-          description: czy streszczenie jest w języku oryginału
-    EventProfileResponse:
-      type: object
-      properties:
-        profilesUw:
-          type: array
-          items:
-            $ref: '#/components/schemas/EventProfileUwResponse'
-        profilesExternal:
-          type: array
-          items:
-            $ref: '#/components/schemas/EventProfileExternalResponse'
-    EventOrganizerRequest:
-      type: object
-      properties:
-        organizersExternal:
-          uniqueItems: true
-          type: array
-          items:
-            $ref: '#/components/schemas/EventOrganizerExternalRequest'
-        organizersUw:
-          uniqueItems: true
-          type: array
-          items:
-            $ref: '#/components/schemas/EventOrganizerUwRequest'
-        uwRole:
-          type: string
-          enum:
-          - ORGANIZER
-          - SPONSOR
-          - MEDIA_SPONSOR
-          - OTHER
-    OdataResponseQueryProfileItemResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/QueryProfileItemResponse'
-        totalCount:
-          type: integer
-          format: int32
     EventRequest:
       required:
       - city
@@ -994,104 +856,77 @@ components:
           maxLength: 1024
           minLength: 0
           type: string
-    EventProfileUwResponse:
-      type: object
-      properties:
-        id:
-          type: string
-        eventId:
-          type: string
-        unitCode:
-          type: string
-        unitNamePl:
-          type: string
-        unitNameEn:
-          type: string
-        profileId:
-          type: string
-        profileName:
-          type: string
-        profileEmail:
-          type: string
-        profilePhone:
-          type: string
-    EventProfileExternalRequest:
-      type: object
-      properties:
-        businessEntityId:
-          type: string
-        profileId:
-          type: string
-    EventProfileRequest:
+    EventProfileResponse:
       type: object
       properties:
         profilesUw:
           type: array
           items:
-            $ref: '#/components/schemas/EventProfileUwRequest'
+            $ref: '#/components/schemas/EventProfileUwResponse'
         profilesExternal:
           type: array
           items:
-            $ref: '#/components/schemas/EventProfileExternalRequest'
-    OdataResponsePersonViewResponse:
+            $ref: '#/components/schemas/EventProfileExternalResponse'
+    RecordOwnersRequest:
+      required:
+      - departmentOwners
+      - personOwners
+      type: object
+      properties:
+        departmentOwners:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        personOwners:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+    OdataResponseQueryProfileItemResponse:
       type: object
       properties:
         data:
           type: array
           items:
-            $ref: '#/components/schemas/PersonViewResponse'
+            $ref: '#/components/schemas/QueryProfileItemResponse'
         totalCount:
           type: integer
           format: int32
-    EventOrganizerExternalResponse:
+    AbstractResponse:
       type: object
       properties:
         id:
           type: string
-        eventId:
+          description: Id abstraltu
+        langCode:
           type: string
-        businessEntityId:
+          description: kod języka typu PL, EN, EN-GB, itp - klucz naturalny do Language, zgodny z ISO (patrz Language)
+        title:
           type: string
-        businessEntityName:
+          description: 'tytuł wynalazku/patentu/wzoru użytkowego/nazwa gatunku/nazwa botaniczna/nazwa odmiany w danym języku '
+        abstr:
           type: string
-        contactProfileId:
+          description: streszczenie opisu wynalazku/wzoru użytkowego w danym języku
+        keyw:
+          type: array
+          description: słowa kluczowe w danym języku
+          items:
+            type: string
+            description: słowa kluczowe w danym języku
+        orderIndex:
+          type: integer
+          description: 'kolejność wyświetlania abstraktów (domyślnie: 0)'
+          format: int32
+        objectId:
           type: string
-        contactName:
+          description: Id obiektu
+        objectType:
           type: string
-        contactEmail:
-          type: string
-        contactPhone:
-          type: string
-        role:
-          type: string
-          enum:
-          - ORGANIZER
-          - SPONSOR
-          - MEDIA_SPONSOR
-          - OTHER
-        isMain:
+          description: Typ obiektu
+        original:
           type: boolean
-    EventScienceDisciplineResponse:
-      type: object
-      properties:
-        id:
-          type: string
-        eventId:
-          type: string
-        scienceDisciplineCode:
-          type: string
-        scienceDisciplineNamePl:
-          type: string
-        scienceDisciplineNameEn:
-          type: string
-        scienceFieldCode:
-          type: string
-        scienceFieldNamePl:
-          type: string
-        scienceFieldNameEn:
-          type: string
-        isMain:
-          type: boolean
+          description: czy streszczenie jest w języku oryginału
     EventProfileUwRequest:
       type: object
       properties:
@@ -1099,40 +934,94 @@ components:
           type: string
         profileId:
           type: string
-    EventOrganizerUwResponse:
+    ProfileResponse:
       type: object
       properties:
         id:
           type: string
-        eventId:
+        name:
           type: string
-        unitCode:
+        firstName:
           type: string
-        unitNamePl:
+        middleNames:
           type: string
-        unitNameEn:
+        lastName:
           type: string
-        contactProfileId:
+        email:
           type: string
-        contactName:
+        emailsOther:
+          type: array
+          items:
+            type: string
+        phone:
           type: string
-        contactEmail:
+        personId:
           type: string
-        contactPhone:
+        orcid:
           type: string
-        isMain:
+        uidPolon:
+          type: string
+        uidPolonStud:
+          type: string
+        uidPolonDokt:
+          type: string
+        pbnId:
+          type: string
+        scopusId:
+          type: string
+        degree:
+          type: string
+        cfKeyw:
+          type: array
+          items:
+            type: string
+        articleId:
+          type: string
+        scienceDisciplinesStatementDate:
+          type: string
+          format: date
+        roles:
+          type: array
+          items:
+            type: string
+        isPubliclyVisible:
           type: boolean
-    RecordOwnersResponse:
+        profilePublicId:
+          type: string
+    UwEconomicDepartmentResponse:
       type: object
       properties:
-        departmentOwners:
-          type: array
-          items:
-            $ref: '#/components/schemas/UwEconomicDepartmentResponse'
-        personOwners:
-          type: array
-          items:
-            $ref: '#/components/schemas/PersonViewResponse'
+        uwCode:
+          type: string
+          description: Unikalny kod działu gospodarczego
+        uwUnitCode:
+          type: string
+          description: Unikalny kod jednostki
+        namePl:
+          type: string
+          description: Polska nazwa działu gospodarczego
+        nameEn:
+          type: string
+          description: Angielska nazwa działu gospodarczego
+        unitNamePl:
+          type: string
+          description: Polska nazwa jednostki
+        unitNameEn:
+          type: string
+          description: Angielska nazwa jednostki
+        internalKSeFIdentifier:
+          type: string
+          description: Identyfikator wewnętrzny KSeF
+        invoiceEmail:
+          type: string
+          description: Faktura email
+        displayNamePl:
+          type: string
+          description: Nazwa wyświetlana po polsku
+        displayNameEn:
+          type: string
+          description: Nazwa wyświetlana po angielsku
+      description: Dział gospodarczy UW
     QueryProfileItemResponse:
       type: object
       properties:
@@ -1226,6 +1115,37 @@ components:
         promotedPublicationsCount:
           type: integer
           format: int64
+    EventOrganizerRequest:
+      type: object
+      properties:
+        organizersExternal:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/EventOrganizerExternalRequest'
+        organizersUw:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/EventOrganizerUwRequest'
+        uwRole:
+          type: string
+          enum:
+          - ORGANIZER
+          - SPONSOR
+          - MEDIA_SPONSOR
+          - OTHER
+    EventProfileRequest:
+      type: object
+      properties:
+        profilesUw:
+          type: array
+          items:
+            $ref: '#/components/schemas/EventProfileUwRequest'
+        profilesExternal:
+          type: array
+          items:
+            $ref: '#/components/schemas/EventProfileExternalRequest'
     EventFileResponse:
       type: object
       properties:
@@ -1251,7 +1171,58 @@ components:
           type: string
         isMain:
           type: boolean
-    EventProfileExternalResponse:
+    EventOrganizerResponse:
+      type: object
+      properties:
+        uwRole:
+          type: string
+          enum:
+          - ORGANIZER
+          - SPONSOR
+          - MEDIA_SPONSOR
+          - OTHER
+        organizersUw:
+          type: array
+          items:
+            $ref: '#/components/schemas/EventOrganizerUwResponse'
+        organizersExternal:
+          type: array
+          items:
+            $ref: '#/components/schemas/EventOrganizerExternalResponse'
+    EventOrganizerExternalRequest:
+      type: object
+      properties:
+        businessEntityId:
+          type: string
+        contactProfileId:
+          type: string
+        role:
+          type: string
+          enum:
+          - ORGANIZER
+          - SPONSOR
+          - MEDIA_SPONSOR
+          - OTHER
+        isMain:
+          type: boolean
+    EventProfileExternalRequest:
+      type: object
+      properties:
+        businessEntityId:
+          type: string
+        profileId:
+          type: string
+    EventScienceDisciplineRequest:
+      required:
+      - isMain
+      - scienceDisciplineCode
+      type: object
+      properties:
+        scienceDisciplineCode:
+          type: string
+        isMain:
+          type: boolean
+    EventOrganizerExternalResponse:
       type: object
       properties:
         id:
@@ -1262,46 +1233,23 @@ components:
           type: string
         businessEntityName:
           type: string
-        profileId:
+        contactProfileId:
           type: string
-        profileName:
+        contactName:
           type: string
-        profileEmail:
+        contactEmail:
           type: string
-        profilePhone:
+        contactPhone:
           type: string
-    PersonViewResponse:
-      type: object
-      properties:
-        personId:
-          type: string
-        university:
+        role:
           type: string
           enum:
-          - CUNI
-          - UAH
-          - SU
-          - KU
-          - UNIMI
-          - UW
-          - UNIGE
-          - PARIS_2
-        orcid:
-          type: string
-        firstName:
-          type: string
-        middleNames:
-          type: string
-        lastName:
-          type: string
-        email:
-          type: string
-        profileId:
-          type: string
-        degree:
-          type: string
-        universityIndexNumber:
-          type: string
+          - ORGANIZER
+          - SPONSOR
+          - MEDIA_SPONSOR
+          - OTHER
+        isMain:
+          type: boolean
     BusinessEntityResponse:
       type: object
       properties:
@@ -1321,6 +1269,58 @@ components:
           type: string
           description: Kod kraju
       description: Podmiot
+    EventOrganizerUwResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        eventId:
+          type: string
+        unitCode:
+          type: string
+        unitNamePl:
+          type: string
+        unitNameEn:
+          type: string
+        contactProfileId:
+          type: string
+        contactName:
+          type: string
+        contactEmail:
+          type: string
+        contactPhone:
+          type: string
+        isMain:
+          type: boolean
+    OdataResponsePersonViewResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/PersonViewResponse'
+        totalCount:
+          type: integer
+          format: int32
+    EventProfileExternalResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        eventId:
+          type: string
+        businessEntityId:
+          type: string
+        businessEntityName:
+          type: string
+        profileId:
+          type: string
+        profileName:
+          type: string
+        profileEmail:
+          type: string
+        profilePhone:
+          type: string
   securitySchemes:
     Authorization:
       type: apiKey

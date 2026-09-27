@@ -365,6 +365,15 @@ paths:
       - Authorization: []
 components:
   schemas:
+    AttachedFileResponse:
+      type: object
+      properties:
+        fileId:
+          type: string
+        description:
+          type: string
+        name:
+          type: string
     DocumentPersonResponse:
       type: object
       properties:
@@ -398,15 +407,6 @@ components:
     AttachedFileRequest:
       type: object
       properties:
-        description:
-          type: string
-        name:
-          type: string
-    AttachedFileResponse:
-      type: object
-      properties:
-        fileId:
-          type: string
         description:
           type: string
         name:

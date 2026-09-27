@@ -167,18 +167,22 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    PermDepartmentCasRoleResponse:
+    PermDepartmentCasRoleRequest:
+      required:
+      - casRole
       type: object
       properties:
-        id:
-          type: string
         casRole:
           type: string
+          enum:
+          - STUDENT
+          - PRACOWNIK
+          - DOKTORANT
+          - ABSOLWENT
+          - KURS_JO
+          - DYDAKTYK
+          - EMERYT
         departmentCode:
-          type: string
-        departmentNamePl:
-          type: string
-        departmentNameEn:
           type: string
         perms:
           uniqueItems: true
@@ -271,22 +275,18 @@ components:
           - UW_PERSON
           - UW_PERSON_EMPLOYEE_DATA
           - UW_UNIT
-    PermDepartmentCasRoleRequest:
-      required:
-      - casRole
+    PermDepartmentCasRoleResponse:
       type: object
       properties:
+        id:
+          type: string
         casRole:
           type: string
-          enum:
-          - STUDENT
-          - PRACOWNIK
-          - DOKTORANT
-          - ABSOLWENT
-          - KURS_JO
-          - DYDAKTYK
-          - EMERYT
         departmentCode:
+          type: string
+        departmentNamePl:
+          type: string
+        departmentNameEn:
           type: string
         perms:
           uniqueItems: true

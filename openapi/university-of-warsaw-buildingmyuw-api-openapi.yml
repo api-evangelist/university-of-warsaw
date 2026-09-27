@@ -291,48 +291,6 @@ paths:
       - Authorization: []
 components:
   schemas:
-    BuildingRoomResponse:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
-        buildingId:
-          type: string
-        number:
-          type: string
-        description:
-          type: string
-        floorNumber:
-          type: integer
-          format: int32
-        persons:
-          type: array
-          items:
-            $ref: '#/components/schemas/BuildingRoomPersonResponse'
-        x:
-          type: number
-        y:
-          type: number
-        importSourceType:
-          type: string
-        importSourceId:
-          type: string
-    BuildingRoomPersonResponse:
-      type: object
-      properties:
-        personId:
-          type: string
-        firstName:
-          type: string
-        middleNames:
-          type: string
-        lastName:
-          type: string
-        email:
-          type: string
-        degree:
-          type: string
     BuildingPublicAttributeLocationResponse:
       type: object
       properties:
@@ -358,22 +316,21 @@ components:
           type: string
         url:
           type: string
-    BuildingFileResponse:
+    BuildingRoomPersonResponse:
       type: object
       properties:
-        buildingFileId:
+        personId:
           type: string
-        buildingId:
+        firstName:
           type: string
-        fileId:
+        middleNames:
           type: string
-        extension:
+        lastName:
           type: string
-        name:
+        email:
           type: string
-        uploadedDate:
+        degree:
           type: string
-          format: date-time
     OdataResponseBuildingResponse:
       type: object
       properties:
@@ -396,43 +353,6 @@ components:
           type: integer
           format: int32
         fileId:
-          type: string
-    BuildingAccessibilityResponse:
-      type: object
-      properties:
-        id:
-          type: string
-        entrance:
-          type: string
-        corridors:
-          type: string
-        elevators:
-          type: string
-        isPorterhouseAvailable:
-          type: boolean
-        porterhouseName:
-          type: string
-        porterhousePlacement:
-          type: string
-        porterhousePhone:
-          type: string
-        isToiletAvailable:
-          type: boolean
-        toiletPlacement:
-          type: string
-        accessAndParkingSpaces:
-          type: string
-        signLanguageInterpreter:
-          type: string
-        procedures:
-          type: string
-        extraHelp:
-          type: string
-        assistanceDog:
-          type: string
-        additionalCustomization:
-          type: string
-        additionalInformation:
           type: string
     BuildingResponse:
       type: object
@@ -508,6 +428,86 @@ components:
           items:
             type: string
       description: Informacje o budynku
+    BuildingFileResponse:
+      type: object
+      properties:
+        buildingFileId:
+          type: string
+        buildingId:
+          type: string
+        fileId:
+          type: string
+        extension:
+          type: string
+        name:
+          type: string
+        uploadedDate:
+          type: string
+          format: date-time
+    BuildingAccessibilityResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        entrance:
+          type: string
+        corridors:
+          type: string
+        elevators:
+          type: string
+        isPorterhouseAvailable:
+          type: boolean
+        porterhouseName:
+          type: string
+        porterhousePlacement:
+          type: string
+        porterhousePhone:
+          type: string
+        isToiletAvailable:
+          type: boolean
+        toiletPlacement:
+          type: string
+        accessAndParkingSpaces:
+          type: string
+        signLanguageInterpreter:
+          type: string
+        procedures:
+          type: string
+        extraHelp:
+          type: string
+        assistanceDog:
+          type: string
+        additionalCustomization:
+          type: string
+        additionalInformation:
+          type: string
+    BuildingRoomResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        buildingId:
+          type: string
+        number:
+          type: string
+        description:
+          type: string
+        floorNumber:
+          type: integer
+          format: int32
+        persons:
+          type: array
+          items:
+            $ref: '#/components/schemas/BuildingRoomPersonResponse'
+        x:
+          type: number
+        y:
+          type: number
+        importSourceType:
+          type: string
+        importSourceId:
+          type: string
   securitySchemes:
     Authorization:
       type: apiKey

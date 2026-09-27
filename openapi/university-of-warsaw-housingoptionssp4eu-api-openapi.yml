@@ -339,138 +339,6 @@ components:
         uploadedDate:
           type: string
           format: date-time
-    HousingOptionsRequest:
-      required:
-      - publishedBy
-      type: object
-      properties:
-        firstname:
-          type: string
-        lastname:
-          type: string
-        phone:
-          type: string
-        email:
-          type: string
-        co:
-          type: string
-        street:
-          type: string
-        postcode:
-          type: string
-        city:
-          type: string
-        district:
-          type: string
-        countryCode:
-          type: string
-        size:
-          type: number
-          format: double
-        accommodationType:
-          type: string
-          enum:
-          - FAMILY
-          - PRIVATE_APARTMENT
-          - SHARED_APARTMENT
-        bathroomType:
-          type: string
-          enum:
-          - SHARED
-          - PRIVATE_BATHROOM
-          - PRIVATE_SHOWER
-          - WASHBASIN
-        kitchenType:
-          type: string
-          enum:
-          - SHARED
-          - PRIVATE
-          - COOKING_FACILITIES
-        furnitureType:
-          type: string
-          enum:
-          - FURNISHED
-          - PARTLY_FURNISHED
-          - NOT_FURNISHED
-        washingMachineType:
-          type: string
-          enum:
-          - SHARED
-          - PRIVATE
-          - NO_WASHING
-        connections:
-          uniqueItems: true
-          type: array
-          items:
-            type: string
-            enum:
-            - COST_INCLUDED
-            - CONNECTION_PROVIDED
-        distance:
-          type: string
-          enum:
-          - LESS_5_MIN
-          - APPROX_10
-          - APPROX_15
-          - APPROX_20
-          - APPROX_30
-          - APPROX_45
-          - EQUAL_OR_MORE_60_MIN
-        rent:
-          type: number
-        utilities:
-          type: number
-        totalRent:
-          type: number
-        deposit:
-          type: number
-        from:
-          type: string
-          format: date
-        to:
-          type: string
-          format: date
-        description:
-          maxLength: 5000
-          minLength: 0
-          type: string
-        remarks:
-          maxLength: 5000
-          minLength: 0
-          type: string
-        currencyCode:
-          type: string
-        publishedBy:
-          type: string
-          enum:
-          - CUNI
-          - UAH
-          - SU
-          - KU
-          - UNIMI
-          - UW
-          - UNIGE
-          - PARIS_2
-        numberOfRoommates:
-          type: integer
-          format: int32
-        attributes:
-          type: array
-          items:
-            type: string
-        publish:
-          type: boolean
-      description: opcje mieszkaniowe
-    OdataResponseHousingOptionsResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/HousingOptionsResponse'
-        totalCount:
-          type: integer
-          format: int32
     HousingOptionsResponse:
       type: object
       properties:
@@ -589,6 +457,138 @@ components:
           format: date
         personId:
           type: string
+        attributes:
+          type: array
+          items:
+            type: string
+        publish:
+          type: boolean
+      description: opcje mieszkaniowe
+    OdataResponseHousingOptionsResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/HousingOptionsResponse'
+        totalCount:
+          type: integer
+          format: int32
+    HousingOptionsRequest:
+      required:
+      - publishedBy
+      type: object
+      properties:
+        firstname:
+          type: string
+        lastname:
+          type: string
+        phone:
+          type: string
+        email:
+          type: string
+        co:
+          type: string
+        street:
+          type: string
+        postcode:
+          type: string
+        city:
+          type: string
+        district:
+          type: string
+        countryCode:
+          type: string
+        size:
+          type: number
+          format: double
+        accommodationType:
+          type: string
+          enum:
+          - FAMILY
+          - PRIVATE_APARTMENT
+          - SHARED_APARTMENT
+        bathroomType:
+          type: string
+          enum:
+          - SHARED
+          - PRIVATE_BATHROOM
+          - PRIVATE_SHOWER
+          - WASHBASIN
+        kitchenType:
+          type: string
+          enum:
+          - SHARED
+          - PRIVATE
+          - COOKING_FACILITIES
+        furnitureType:
+          type: string
+          enum:
+          - FURNISHED
+          - PARTLY_FURNISHED
+          - NOT_FURNISHED
+        washingMachineType:
+          type: string
+          enum:
+          - SHARED
+          - PRIVATE
+          - NO_WASHING
+        connections:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+            enum:
+            - COST_INCLUDED
+            - CONNECTION_PROVIDED
+        distance:
+          type: string
+          enum:
+          - LESS_5_MIN
+          - APPROX_10
+          - APPROX_15
+          - APPROX_20
+          - APPROX_30
+          - APPROX_45
+          - EQUAL_OR_MORE_60_MIN
+        rent:
+          type: number
+        utilities:
+          type: number
+        totalRent:
+          type: number
+        deposit:
+          type: number
+        from:
+          type: string
+          format: date
+        to:
+          type: string
+          format: date
+        description:
+          maxLength: 5000
+          minLength: 0
+          type: string
+        remarks:
+          maxLength: 5000
+          minLength: 0
+          type: string
+        currencyCode:
+          type: string
+        publishedBy:
+          type: string
+          enum:
+          - CUNI
+          - UAH
+          - SU
+          - KU
+          - UNIMI
+          - UW
+          - UNIGE
+          - PARIS_2
+        numberOfRoommates:
+          type: integer
+          format: int32
         attributes:
           type: array
           items:

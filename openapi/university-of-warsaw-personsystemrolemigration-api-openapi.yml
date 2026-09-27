@@ -117,26 +117,6 @@ paths:
       - Authorization: []
 components:
   schemas:
-    PersonSystemRoleImportRequest:
-      type: object
-      properties:
-        personId:
-          type: string
-        firstName:
-          type: string
-        lastName:
-          type: string
-        email:
-          type: string
-        economicDepartmentCode:
-          type: string
-        sapLogin:
-          type: string
-        systemRoleCodes:
-          uniqueItems: true
-          type: array
-          items:
-            type: string
     PersonSystemRoleResponse:
       type: object
       properties:
@@ -163,6 +143,26 @@ components:
           items:
             type: string
       description: Informacje o rolach osób
+    PersonSystemRoleImportRequest:
+      type: object
+      properties:
+        personId:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        economicDepartmentCode:
+          type: string
+        sapLogin:
+          type: string
+        systemRoleCodes:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
   securitySchemes:
     Authorization:
       type: apiKey

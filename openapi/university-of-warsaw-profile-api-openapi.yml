@@ -1219,50 +1219,228 @@ paths:
     - url: https://api.jaskier.uw.edu.pl
 components:
   schemas:
-    ProfileRelationResponse:
+    ProfileCourseResponse:
       type: object
       properties:
         profileId:
           type: string
-        profileName:
+        courseId:
           type: string
-        profileFirstName:
+        title:
           type: string
-        profileMiddleNames:
+        titlePl:
           type: string
-        profileLastName:
+        titleEn:
           type: string
-        profileEmail:
+        subjectCode:
           type: string
-        courses:
+        year:
           type: integer
           format: int32
-        projects:
+        term:
+          type: string
+        startDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+    ProfilePatentResponse:
+      type: object
+      properties:
+        profileId:
+          type: string
+        patentId:
+          type: string
+        title:
+          type: string
+        titlePl:
+          type: string
+        titleEn:
+          type: string
+        applicationNumber:
+          type: string
+        consentForEvaluation:
+          type: boolean
+        fraction:
+          type: number
+          format: double
+        decisionDate:
+          type: string
+          format: date
+    ProfileUnitRequest:
+      required:
+      - functionsEn
+      - functionsPl
+      - unitCode
+      type: object
+      properties:
+        unitCode:
+          type: string
+        functionsPl:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        functionsEn:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        orderIndex:
+          minimum: 0
           type: integer
           format: int32
-        publications:
-          type: integer
-          format: int32
-        scienceDisciplines:
-          type: integer
-          format: int32
-        units:
-          type: integer
-          format: int32
-    ExternalLinkResponse:
+    HistoryResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        whoType:
+          type: string
+        whoId:
+          type: string
+        whoName:
+          type: string
+        eventTime:
+          type: string
+          format: date-time
+        operation:
+          type: string
+        changes:
+          type: string
+        objType:
+          type: string
+        objId:
+          type: string
+        relationId:
+          type: string
+        relationName:
+          type: string
+    ProfileOrcidRequest:
+      required:
+      - orcid
+      type: object
+      properties:
+        orcid:
+          type: string
+    PersonViewResponse:
+      type: object
+      properties:
+        personId:
+          type: string
+        university:
+          type: string
+          enum:
+          - CUNI
+          - UAH
+          - SU
+          - KU
+          - UNIMI
+          - UW
+          - UNIGE
+          - PARIS_2
+        orcid:
+          type: string
+        firstName:
+          type: string
+        middleNames:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        profileId:
+          type: string
+        degree:
+          type: string
+        universityIndexNumber:
+          type: string
+    ProfileDegreeRequest:
+      required:
+      - degreeName
+      - scienceDisciplineCode
+      type: object
+      properties:
+        degreeName:
+          type: string
+          description: stopień naukowy
+        scienceDisciplineCode:
+          type: string
+          description: kod dyscypliny naukowej
+        grantedBy:
+          type: string
+          description: 'business entity id '
+        grantedDate:
+          type: string
+          description: data nadania stopnia naukowego
+          format: date
+    ProfileScienceDisciplineRequest:
+      required:
+      - fraction
+      - scienceDisciplineCode
+      type: object
+      properties:
+        scienceDisciplineCode:
+          type: string
+        fraction:
+          maximum: 100
+          minimum: 0
+          type: number
+          description: udział procentowy
+          format: double
+    ProfileScienceDisciplineResponse:
       type: object
       properties:
         id:
           type: string
         profileId:
           type: string
-        url:
+        scienceDisciplineCode:
           type: string
-        name:
+        scienceDisciplineName:
           type: string
-        orderIndex:
+        scienceDisciplineNameEn:
+          type: string
+        scienceDisciplineEffectiveFrom:
+          type: string
+          format: date
+        scienceDisciplineEffectiveTo:
+          type: string
+          format: date
+        scienceFieldCode:
+          type: string
+        scienceFieldName:
+          type: string
+        scienceFieldNameEn:
+          type: string
+        fraction:
+          type: number
+          format: double
+    ProfilePublicationResponse:
+      type: object
+      properties:
+        profileId:
+          type: string
+        publicationId:
+          type: string
+        title:
+          type: string
+        titlePl:
+          type: string
+        titleEn:
+          type: string
+        publicationDate:
+          type: string
+        role:
+          type: string
+        year:
           type: integer
           format: int32
+        types:
+          type: array
+          items:
+            type: string
     ProfileRequest:
       required:
       - cfKeyw
@@ -1320,51 +1498,16 @@ components:
             - GUEST
         isPubliclyVisible:
           type: boolean
-    ProfileDegreeResponse:
+    OdataResponseQueryProfileItemResponse:
       type: object
       properties:
-        id:
-          type: string
-        profileId:
-          type: string
-        degreeName:
-          type: string
-        grantedDate:
-          type: string
-          format: date
-        grantedById:
-          type: string
-        grantedByName:
-          type: string
-        grantedByAcro:
-          type: string
-        grantedByIsHigherEducation:
-          type: boolean
-        scienceDisciplineCode:
-          type: string
-        scienceFieldCode:
-          type: string
-        scienceDisciplineName:
-          type: string
-        scienceDisciplineNameEn:
-          type: string
-        scienceFieldName:
-          type: string
-        scienceFieldNameEn:
-          type: string
-    ProfileOrcidRequest:
-      required:
-      - orcid
-      type: object
-      properties:
-        orcid:
-          type: string
-    ProfileScienceDisciplineDetailsResponse:
-      type: object
-      properties:
-        scienceDisciplinesStatementDate:
-          type: string
-          format: date
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/QueryProfileItemResponse'
+        totalCount:
+          type: integer
+          format: int32
     ProfileResponse:
       type: object
       properties:
@@ -1419,164 +1562,6 @@ components:
           type: boolean
         profilePublicId:
           type: string
-    ExternalLinkRequest:
-      required:
-      - name
-      - url
-      type: object
-      properties:
-        url:
-          type: string
-        name:
-          type: string
-        orderIndex:
-          minimum: 0
-          type: integer
-          description: 'kolejność wyświetlania abstraktów (domyślnie: 0)'
-          format: int32
-    ProfileCourseResponse:
-      type: object
-      properties:
-        profileId:
-          type: string
-        courseId:
-          type: string
-        title:
-          type: string
-        titlePl:
-          type: string
-        titleEn:
-          type: string
-        subjectCode:
-          type: string
-        year:
-          type: integer
-          format: int32
-        term:
-          type: string
-        startDate:
-          type: string
-          format: date
-        endDate:
-          type: string
-          format: date
-    OdataResponseQueryProfileItemResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/QueryProfileItemResponse'
-        totalCount:
-          type: integer
-          format: int32
-    ProfileMergeRequest:
-      required:
-      - mergeFrom
-      - mergeTo
-      type: object
-      properties:
-        mergeTo:
-          type: string
-        mergeFrom:
-          type: string
-    ProfileDegreeRequest:
-      required:
-      - degreeName
-      - scienceDisciplineCode
-      type: object
-      properties:
-        degreeName:
-          type: string
-          description: stopień naukowy
-        scienceDisciplineCode:
-          type: string
-          description: kod dyscypliny naukowej
-        grantedBy:
-          type: string
-          description: 'business entity id '
-        grantedDate:
-          type: string
-          description: data nadania stopnia naukowego
-          format: date
-    ProfileOrcidResponse:
-      type: object
-      properties:
-        orcid:
-          type: string
-    OdataResponsePersonViewResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/PersonViewResponse'
-        totalCount:
-          type: integer
-          format: int32
-    ProjectPublicMemberRoleResponse:
-      type: object
-      properties:
-        namePl:
-          type: string
-        nameEn:
-          type: string
-        orderIndex:
-          type: integer
-          format: int32
-    ProfilePersonRequest:
-      required:
-      - personId
-      type: object
-      properties:
-        personId:
-          type: string
-    ProfilePatentResponse:
-      type: object
-      properties:
-        profileId:
-          type: string
-        patentId:
-          type: string
-        title:
-          type: string
-        titlePl:
-          type: string
-        titleEn:
-          type: string
-        applicationNumber:
-          type: string
-        consentForEvaluation:
-          type: boolean
-        fraction:
-          type: number
-          format: double
-        decisionDate:
-          type: string
-          format: date
-    ProfileUnitRequest:
-      required:
-      - functionsEn
-      - functionsPl
-      - unitCode
-      type: object
-      properties:
-        unitCode:
-          type: string
-        functionsPl:
-          uniqueItems: true
-          type: array
-          items:
-            type: string
-        functionsEn:
-          uniqueItems: true
-          type: array
-          items:
-            type: string
-        orderIndex:
-          minimum: 0
-          type: integer
-          format: int32
     QueryProfileItemResponse:
       type: object
       properties:
@@ -1670,20 +1655,36 @@ components:
         promotedPublicationsCount:
           type: integer
           format: int64
-    ProfileScienceDisciplineRequest:
-      required:
-      - fraction
-      - scienceDisciplineCode
+    ProfileRelationResponse:
       type: object
       properties:
-        scienceDisciplineCode:
+        profileId:
           type: string
-        fraction:
-          maximum: 100
-          minimum: 0
-          type: number
-          description: udział procentowy
-          format: double
+        profileName:
+          type: string
+        profileFirstName:
+          type: string
+        profileMiddleNames:
+          type: string
+        profileLastName:
+          type: string
+        profileEmail:
+          type: string
+        courses:
+          type: integer
+          format: int32
+        projects:
+          type: integer
+          format: int32
+        publications:
+          type: integer
+          format: int32
+        scienceDisciplines:
+          type: integer
+          format: int32
+        units:
+          type: integer
+          format: int32
     ProfileUnitResponse:
       type: object
       properties:
@@ -1712,84 +1713,20 @@ components:
         orderIndex:
           type: integer
           format: int32
-    ProfileScienceDisciplineResponse:
+    ExternalLinkResponse:
       type: object
       properties:
         id:
           type: string
         profileId:
           type: string
-        scienceDisciplineCode:
+        url:
           type: string
-        scienceDisciplineName:
+        name:
           type: string
-        scienceDisciplineNameEn:
-          type: string
-        scienceDisciplineEffectiveFrom:
-          type: string
-          format: date
-        scienceDisciplineEffectiveTo:
-          type: string
-          format: date
-        scienceFieldCode:
-          type: string
-        scienceFieldName:
-          type: string
-        scienceFieldNameEn:
-          type: string
-        fraction:
-          type: number
-          format: double
-    ProfilePublicationResponse:
-      type: object
-      properties:
-        profileId:
-          type: string
-        publicationId:
-          type: string
-        title:
-          type: string
-        titlePl:
-          type: string
-        titleEn:
-          type: string
-        publicationDate:
-          type: string
-        role:
-          type: string
-        year:
+        orderIndex:
           type: integer
           format: int32
-        types:
-          type: array
-          items:
-            type: string
-    HistoryResponse:
-      type: object
-      properties:
-        id:
-          type: string
-        whoType:
-          type: string
-        whoId:
-          type: string
-        whoName:
-          type: string
-        eventTime:
-          type: string
-          format: date-time
-        operation:
-          type: string
-        changes:
-          type: string
-        objType:
-          type: string
-        objId:
-          type: string
-        relationId:
-          type: string
-        relationName:
-          type: string
     ProfileProjectResponse:
       type: object
       properties:
@@ -1811,43 +1748,100 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ProjectPublicMemberRoleResponse'
+    ExternalLinkRequest:
+      required:
+      - name
+      - url
+      type: object
+      properties:
+        url:
+          type: string
+        name:
+          type: string
+        orderIndex:
+          minimum: 0
+          type: integer
+          description: 'kolejność wyświetlania abstraktów (domyślnie: 0)'
+          format: int32
+    ProfileScienceDisciplineDetailsResponse:
+      type: object
+      properties:
+        scienceDisciplinesStatementDate:
+          type: string
+          format: date
+    ProjectPublicMemberRoleResponse:
+      type: object
+      properties:
+        namePl:
+          type: string
+        nameEn:
+          type: string
+        orderIndex:
+          type: integer
+          format: int32
     ProfileScienceDisciplineDetailsRequest:
       type: object
       properties:
         scienceDisciplinesStatementDate:
           type: string
           format: date
-    PersonViewResponse:
+    ProfilePersonRequest:
+      required:
+      - personId
       type: object
       properties:
         personId:
           type: string
-        university:
+    BusinessEntityResponse:
+      type: object
+      properties:
+        id:
           type: string
-          enum:
-          - CUNI
-          - UAH
-          - SU
-          - KU
-          - UNIMI
-          - UW
-          - UNIGE
-          - PARIS_2
-        orcid:
+          description: Id podmiotu, id techniczne
+        acro:
           type: string
-        firstName:
+          description: Akronim podmiotu - wartość unikalna
+        name:
           type: string
-        middleNames:
+          description: Nazwa podmiotu
+        type:
           type: string
-        lastName:
+          description: Typ podmiotu
+        countryCode:
           type: string
-        email:
+          description: Kod kraju
+      description: Podmiot
+    ProfileDegreeResponse:
+      type: object
+      properties:
+        id:
           type: string
         profileId:
           type: string
-        degree:
+        degreeName:
           type: string
-        universityIndexNumber:
+        grantedDate:
+          type: string
+          format: date
+        grantedById:
+          type: string
+        grantedByName:
+          type: string
+        grantedByAcro:
+          type: string
+        grantedByIsHigherEducation:
+          type: boolean
+        scienceDisciplineCode:
+          type: string
+        scienceFieldCode:
+          type: string
+        scienceDisciplineName:
+          type: string
+        scienceDisciplineNameEn:
+          type: string
+        scienceFieldName:
+          type: string
+        scienceFieldNameEn:
           type: string
     ArticlePreviewResponse:
       type: object
@@ -1879,25 +1873,31 @@ components:
         created:
           type: string
           format: date-time
-    BusinessEntityResponse:
+    ProfileMergeRequest:
+      required:
+      - mergeFrom
+      - mergeTo
       type: object
       properties:
-        id:
+        mergeTo:
           type: string
-          description: Id podmiotu, id techniczne
-        acro:
+        mergeFrom:
           type: string
-          description: Akronim podmiotu - wartość unikalna
-        name:
+    ProfileOrcidResponse:
+      type: object
+      properties:
+        orcid:
           type: string
-          description: Nazwa podmiotu
-        type:
-          type: string
-          description: Typ podmiotu
-        countryCode:
-          type: string
-          description: Kod kraju
-      description: Podmiot
+    OdataResponsePersonViewResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/PersonViewResponse'
+        totalCount:
+          type: integer
+          format: int32
     ProfileRequest_2:
       type: object
       properties:

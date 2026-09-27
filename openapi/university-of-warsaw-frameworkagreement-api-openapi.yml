@@ -968,75 +968,6 @@ components:
         netValue:
           type: number
       description: umowa ramowa
-    AssortmentRequest:
-      required:
-      - position
-      type: object
-      properties:
-        name:
-          type: string
-        catalogNumber:
-          type: string
-        unit:
-          type: string
-        netPrice:
-          type: number
-        position:
-          type: integer
-          format: int32
-      description: asortyment umowy
-    FrameworkAgreementAcceptanceRecipientRequest:
-      type: object
-      properties:
-        name:
-          type: string
-        type:
-          type: string
-          enum:
-          - GROUP
-        includeIn:
-          type: string
-    AssortmentResponse:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        catalogNumber:
-          type: string
-        unit:
-          type: string
-        netPrice:
-          type: number
-        frameworkAgreementId:
-          type: string
-        position:
-          type: integer
-          format: int32
-      description: asortyment
-    FrameworkAgreementOrderResponse:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-        frameworkAgreementId:
-          type: string
-        orderId:
-          type: string
-        assortment:
-          type: string
-        economicDepartment:
-          type: string
-        pzpMode:
-          type: string
-        applicant:
-          type: string
-        netValue:
-          type: number
-        status:
-          type: string
     FrameworkAgreementAcceptanceRecipientResponse:
       type: object
       properties:
@@ -1050,19 +981,17 @@ components:
           - GROUP
         includeIn:
           type: string
-    FrameworkAgreementFullResponse:
+    FrameworkAgreementAcceptanceRecipientRequest:
       type: object
       properties:
-        frameworkAgreement:
-          $ref: '#/components/schemas/FrameworkAgreementResponse'
-        assortments:
-          type: array
-          items:
-            $ref: '#/components/schemas/AssortmentResponse'
-        acceptanceRecipients:
-          type: array
-          items:
-            $ref: '#/components/schemas/FrameworkAgreementAcceptanceRecipientResponse'
+        name:
+          type: string
+        type:
+          type: string
+          enum:
+          - GROUP
+        includeIn:
+          type: string
     FrameworkAgreementResponse:
       type: object
       properties:
@@ -1108,6 +1037,77 @@ components:
         processingOrdersNetValue:
           type: number
       description: umowa ramowa
+    FrameworkAgreementOrderResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        frameworkAgreementId:
+          type: string
+        orderId:
+          type: string
+        assortment:
+          type: string
+        economicDepartment:
+          type: string
+        pzpMode:
+          type: string
+        applicant:
+          type: string
+        netValue:
+          type: number
+        status:
+          type: string
+    AssortmentResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        catalogNumber:
+          type: string
+        unit:
+          type: string
+        netPrice:
+          type: number
+        frameworkAgreementId:
+          type: string
+        position:
+          type: integer
+          format: int32
+      description: asortyment
+    FrameworkAgreementFullResponse:
+      type: object
+      properties:
+        frameworkAgreement:
+          $ref: '#/components/schemas/FrameworkAgreementResponse'
+        assortments:
+          type: array
+          items:
+            $ref: '#/components/schemas/AssortmentResponse'
+        acceptanceRecipients:
+          type: array
+          items:
+            $ref: '#/components/schemas/FrameworkAgreementAcceptanceRecipientResponse'
+    AssortmentRequest:
+      required:
+      - position
+      type: object
+      properties:
+        name:
+          type: string
+        catalogNumber:
+          type: string
+        unit:
+          type: string
+        netPrice:
+          type: number
+        position:
+          type: integer
+          format: int32
+      description: asortyment umowy
     FrameworkAgreementItemResponse:
       type: object
       properties:

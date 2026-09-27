@@ -320,11 +320,46 @@ components:
         group:
           type: string
           description: nazwa grupy
-    PermGroupNameResponse:
+    PersonViewResponse:
+      type: object
+      properties:
+        personId:
+          type: string
+        university:
+          type: string
+          enum:
+          - CUNI
+          - UAH
+          - SU
+          - KU
+          - UNIMI
+          - UW
+          - UNIGE
+          - PARIS_2
+        orcid:
+          type: string
+        firstName:
+          type: string
+        middleNames:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        profileId:
+          type: string
+        degree:
+          type: string
+        universityIndexNumber:
+          type: string
+    GroupRequest:
+      required:
+      - name
       type: object
       properties:
         name:
           type: string
+          description: Nazwa grupy uprawnień
     PermGroupPersonRequest:
       required:
       - personIds
@@ -335,6 +370,11 @@ components:
           type: array
           items:
             type: string
+    PermGroupNameResponse:
+      type: object
+      properties:
+        name:
+          type: string
     SystemRoleResponse:
       type: object
       properties:
@@ -370,46 +410,6 @@ components:
               description: mapowanie roli na uprawnienia w Jaskrze
           description: mapowanie roli na uprawnienia w Jaskrze
       description: System role
-    GroupRequest:
-      required:
-      - name
-      type: object
-      properties:
-        name:
-          type: string
-          description: Nazwa grupy uprawnień
-    PersonViewResponse:
-      type: object
-      properties:
-        personId:
-          type: string
-        university:
-          type: string
-          enum:
-          - CUNI
-          - UAH
-          - SU
-          - KU
-          - UNIMI
-          - UW
-          - UNIGE
-          - PARIS_2
-        orcid:
-          type: string
-        firstName:
-          type: string
-        middleNames:
-          type: string
-        lastName:
-          type: string
-        email:
-          type: string
-        profileId:
-          type: string
-        degree:
-          type: string
-        universityIndexNumber:
-          type: string
     OdataResponsePersonViewResponse:
       type: object
       properties:

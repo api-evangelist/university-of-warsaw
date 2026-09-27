@@ -146,11 +146,11 @@ paths:
       - Authorization: []
 components:
   schemas:
-    UniversityInfoResponse:
+    UniversityInfoCreateRequest:
+      required:
+      - university
       type: object
       properties:
-        id:
-          type: string
         university:
           type: string
           enum:
@@ -162,11 +162,11 @@ components:
           - UW
           - UNIGE
           - PARIS_2
-    UniversityInfoCreateRequest:
-      required:
-      - university
+    UniversityInfoResponse:
       type: object
       properties:
+        id:
+          type: string
         university:
           type: string
           enum:

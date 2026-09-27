@@ -94,6 +94,13 @@ paths:
       - Authorization: []
 components:
   schemas:
+    CourseRegistrationInfoRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
     CourseRegistrationInfoResponse:
       type: object
       properties:
@@ -111,13 +118,6 @@ components:
           type: array
           items:
             type: string
-    CourseRegistrationInfoRequest:
-      type: object
-      properties:
-        name:
-          type: string
-        description:
-          type: string
   securitySchemes:
     Authorization:
       type: apiKey

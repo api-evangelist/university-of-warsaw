@@ -255,28 +255,6 @@ paths:
       - Authorization: []
 components:
   schemas:
-    BuildingUnitResponse:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
-        buildingId:
-          type: string
-        unitCode:
-          type: string
-        unitNamePl:
-          type: string
-        unitNameEn:
-          type: string
-        url:
-          type: string
-        fallbackUrl:
-          type: string
-        isUnitVisible:
-          type: boolean
-        isMain:
-          type: boolean
     BuildingPublicAttributeLocationResponse:
       type: object
       properties:
@@ -302,6 +280,80 @@ components:
           type: string
         url:
           type: string
+    BuildingUnitResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        buildingId:
+          type: string
+        unitCode:
+          type: string
+        unitNamePl:
+          type: string
+        unitNameEn:
+          type: string
+        url:
+          type: string
+        fallbackUrl:
+          type: string
+        isUnitVisible:
+          type: boolean
+        isMain:
+          type: boolean
+    BuildingPublicResponse:
+      type: object
+      properties:
+        publicId:
+          type: string
+        namePl:
+          type: string
+        nameEn:
+          type: string
+        namePlAlt:
+          type: string
+        nameEnAlt:
+          type: string
+        campusCode:
+          type: string
+        campusNamePl:
+          type: string
+        campusNameEn:
+          type: string
+        latitude:
+          type: number
+        longitude:
+          type: number
+        street:
+          type: string
+        number:
+          type: string
+        postalCode:
+          type: string
+        city:
+          type: string
+        descriptionPl:
+          type: string
+        descriptionEn:
+          type: string
+        descriptionPlAlt:
+          type: string
+        descriptionEnAlt:
+          type: string
+        units:
+          type: array
+          items:
+            $ref: '#/components/schemas/BuildingPublicUnitResponse'
+        benNumber:
+          type: string
+          description: Numer biura ewidencji nieruchomości
+        buildingAttributeCodes:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      description: Publiczne informacje o budynku
     BuildingFileResponse:
       type: object
       properties:
@@ -384,58 +436,6 @@ components:
           type: string
         nameEn:
           type: string
-    BuildingPublicResponse:
-      type: object
-      properties:
-        publicId:
-          type: string
-        namePl:
-          type: string
-        nameEn:
-          type: string
-        namePlAlt:
-          type: string
-        nameEnAlt:
-          type: string
-        campusCode:
-          type: string
-        campusNamePl:
-          type: string
-        campusNameEn:
-          type: string
-        latitude:
-          type: number
-        longitude:
-          type: number
-        street:
-          type: string
-        number:
-          type: string
-        postalCode:
-          type: string
-        city:
-          type: string
-        descriptionPl:
-          type: string
-        descriptionEn:
-          type: string
-        descriptionPlAlt:
-          type: string
-        descriptionEnAlt:
-          type: string
-        units:
-          type: array
-          items:
-            $ref: '#/components/schemas/BuildingPublicUnitResponse'
-        benNumber:
-          type: string
-          description: Numer biura ewidencji nieruchomości
-        buildingAttributeCodes:
-          uniqueItems: true
-          type: array
-          items:
-            type: string
-      description: Publiczne informacje o budynku
   securitySchemes:
     Authorization:
       type: apiKey

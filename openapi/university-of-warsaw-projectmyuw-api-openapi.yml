@@ -145,6 +145,16 @@ paths:
       - Authorization: []
 components:
   schemas:
+    OdataResponseQueryProjectsItemResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/QueryProjectsItemResponse'
+        totalCount:
+          type: integer
+          format: int32
     ProjectScienceDisciplineResponse:
       type: object
       properties:
@@ -166,6 +176,46 @@ components:
           type: string
         percentage:
           type: number
+    ProjectMyUwProfileResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        projectId:
+          type: string
+        profileId:
+          type: string
+        profilePublicId:
+          type: string
+        isPubliclyVisible:
+          type: boolean
+        profileName:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        degree:
+          type: string
+        type:
+          type: string
+          enum:
+          - MEMBER
+          - CONTACT
+        roles:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProjectPublicMemberRoleResponse'
+    ProjectPublicMemberRoleResponse:
+      type: object
+      properties:
+        namePl:
+          type: string
+        nameEn:
+          type: string
+        orderIndex:
+          type: integer
+          format: int32
     QueryProjectsItemResponse:
       type: object
       properties:
@@ -261,16 +311,6 @@ components:
         isPrivate:
           type: boolean
       description: Podstawowe informacje o projekcie
-    OdataResponseQueryProjectsItemResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/QueryProjectsItemResponse'
-        totalCount:
-          type: integer
-          format: int32
     ProjectResponse:
       type: object
       properties:
@@ -417,6 +457,19 @@ components:
           type: string
         isPrivate:
           type: boolean
+    ProjectDisciplineResponse:
+      type: object
+      properties:
+        isDisciplineAssigned:
+          type: boolean
+        scienceDisciplines:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProjectScienceDisciplineResponse'
+        specialities:
+          type: array
+          items:
+            type: string
     AbstractResponse:
       type: object
       properties:
@@ -451,59 +504,6 @@ components:
         original:
           type: boolean
           description: czy streszczenie jest w języku oryginału
-    ProjectDisciplineResponse:
-      type: object
-      properties:
-        isDisciplineAssigned:
-          type: boolean
-        scienceDisciplines:
-          type: array
-          items:
-            $ref: '#/components/schemas/ProjectScienceDisciplineResponse'
-        specialities:
-          type: array
-          items:
-            type: string
-    ProjectPublicMemberRoleResponse:
-      type: object
-      properties:
-        namePl:
-          type: string
-        nameEn:
-          type: string
-        orderIndex:
-          type: integer
-          format: int32
-    ProjectMyUwProfileResponse:
-      type: object
-      properties:
-        id:
-          type: string
-        projectId:
-          type: string
-        profileId:
-          type: string
-        profilePublicId:
-          type: string
-        isPubliclyVisible:
-          type: boolean
-        profileName:
-          type: string
-        firstName:
-          type: string
-        lastName:
-          type: string
-        degree:
-          type: string
-        type:
-          type: string
-          enum:
-          - MEMBER
-          - CONTACT
-        roles:
-          type: array
-          items:
-            $ref: '#/components/schemas/ProjectPublicMemberRoleResponse'
   securitySchemes:
     Authorization:
       type: apiKey

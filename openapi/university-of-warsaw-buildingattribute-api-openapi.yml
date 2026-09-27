@@ -148,17 +148,16 @@ paths:
       - Authorization: []
 components:
   schemas:
-    BuildingAttributeResponse:
+    UpsertBuildingAttributeCategoryRequest:
+      required:
+      - categories
       type: object
       properties:
-        code:
-          type: string
-        namePl:
-          type: string
-        nameEn:
-          type: string
-        category:
-          type: string
+        categories:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/BuildingAttributeCategoryRequest'
     BuildingAttributeCategoryRequest:
       required:
       - code
@@ -169,6 +168,17 @@ components:
         namePl:
           type: string
         nameEn:
+          type: string
+    BuildingAttributeResponse:
+      type: object
+      properties:
+        code:
+          type: string
+        namePl:
+          type: string
+        nameEn:
+          type: string
+        category:
           type: string
     BuildingAttributeRequest:
       required:
@@ -184,16 +194,6 @@ components:
           type: string
         category:
           type: string
-    UpsertBuildingAttributeCategoryRequest:
-      required:
-      - categories
-      type: object
-      properties:
-        categories:
-          uniqueItems: true
-          type: array
-          items:
-            $ref: '#/components/schemas/BuildingAttributeCategoryRequest'
     BuildingAttributeCategoryResponse:
       type: object
       properties:

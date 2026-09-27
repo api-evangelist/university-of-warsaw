@@ -433,35 +433,6 @@ paths:
       - Authorization: []
 components:
   schemas:
-    GetOrCreateProfileRequest:
-      type: object
-      properties:
-        id:
-          type: string
-        firstName:
-          type: string
-        lastName:
-          type: string
-        email:
-          type: string
-        degree:
-          type: string
-    ProjectLinkRequest:
-      required:
-      - name
-      - url
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          maxLength: 255
-          minLength: 0
-          type: string
-        url:
-          maxLength: 255
-          minLength: 0
-          type: string
     ProjectContractTypeRequest:
       type: object
       properties:
@@ -490,22 +461,29 @@ components:
           minLength: 0
           type: string
       description: Informacje o typie projektu
-    ProjectScienceDisciplineRequest:
+    ProjectProfileMemberRequest:
       required:
-      - scienceDisciplineCode
+      - profileId
       type: object
       properties:
-        scienceDisciplineCode:
+        id:
           type: string
-        percentage:
-          type: number
-    ProjectFinancingInstitutionImportRequest:
-      type: object
-      properties:
-        acro:
+        profileId:
           type: string
-        primary:
-          type: boolean
+        roleId:
+          type: integer
+          format: int32
+        regulation75RoleId:
+          type: integer
+          format: int32
+        unitCode:
+          type: string
+        fromDate:
+          type: string
+          format: date
+        toDate:
+          type: string
+          format: date
     ProjectFinancingUwRequest:
       required:
       - unitCode
@@ -538,6 +516,41 @@ components:
           type: number
         apparatusRealized:
           type: number
+    ProjectAppendixRequest:
+      required:
+      - documentDate
+      - number
+      type: object
+      properties:
+        id:
+          type: string
+        number:
+          type: string
+        documentDate:
+          type: string
+          format: date
+        notes:
+          type: string
+    ProjectOtherInfoRequest:
+      type: object
+      properties:
+        links:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ProjectLinkRequest'
+        appendices:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ProjectAppendixRequest'
+        notes:
+          maxLength: 2000
+          minLength: 0
+          type: string
+        projectContractTypeId:
+          type: integer
+          format: int32
     ProjectRequest:
       required:
       - currencyCode
@@ -665,49 +678,33 @@ components:
           type: string
         isPrivate:
           type: boolean
-    ProjectProfileMemberRequest:
+    ProfilePersonRequest:
       required:
-      - profileId
+      - personId
+      type: object
+      properties:
+        personId:
+          type: string
+    ProjectFinancingInstitutionImportRequest:
+      type: object
+      properties:
+        acro:
+          type: string
+        primary:
+          type: boolean
+    GetOrCreateProfileRequest:
       type: object
       properties:
         id:
           type: string
-        profileId:
+        firstName:
           type: string
-        roleId:
-          type: integer
-          format: int32
-        regulation75RoleId:
-          type: integer
-          format: int32
-        unitCode:
+        lastName:
           type: string
-        fromDate:
+        email:
           type: string
-          format: date
-        toDate:
+        degree:
           type: string
-          format: date
-    ProjectOtherInfoRequest:
-      type: object
-      properties:
-        links:
-          uniqueItems: true
-          type: array
-          items:
-            $ref: '#/components/schemas/ProjectLinkRequest'
-        appendices:
-          uniqueItems: true
-          type: array
-          items:
-            $ref: '#/components/schemas/ProjectAppendixRequest'
-        notes:
-          maxLength: 2000
-          minLength: 0
-          type: string
-        projectContractTypeId:
-          type: integer
-          format: int32
     RecordOwnersRequest:
       required:
       - departmentOwners
@@ -724,27 +721,30 @@ components:
           type: array
           items:
             type: string
-    ProjectAppendixRequest:
+    ProjectScienceDisciplineRequest:
       required:
-      - documentDate
-      - number
+      - scienceDisciplineCode
+      type: object
+      properties:
+        scienceDisciplineCode:
+          type: string
+        percentage:
+          type: number
+    ProjectLinkRequest:
+      required:
+      - name
+      - url
       type: object
       properties:
         id:
           type: string
-        number:
+        name:
+          maxLength: 255
+          minLength: 0
           type: string
-        documentDate:
-          type: string
-          format: date
-        notes:
-          type: string
-    ProfilePersonRequest:
-      required:
-      - personId
-      type: object
-      properties:
-        personId:
+        url:
+          maxLength: 255
+          minLength: 0
           type: string
     ProjectUwUnitRequest:
       type: object

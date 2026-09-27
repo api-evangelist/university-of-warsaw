@@ -135,34 +135,6 @@ components:
           type: string
         importSourceId:
           type: string
-    PersonIdCardImportRequest:
-      type: object
-      properties:
-        mifareNumber:
-          type: string
-        personUsosId:
-          type: integer
-          format: int32
-        activeTo:
-          type: string
-          format: date
-        dateCancelled:
-          type: string
-          format: date
-        importSource:
-          type: string
-        importSourceId:
-          type: string
-    OdataResponsePersonIdCardResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/PersonIdCardResponse'
-        totalCount:
-          type: integer
-          format: int32
     SynchronizationResponse:
       type: object
       properties:
@@ -253,6 +225,34 @@ components:
         source:
           type: string
         invokedBy:
+          type: string
+    OdataResponsePersonIdCardResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/PersonIdCardResponse'
+        totalCount:
+          type: integer
+          format: int32
+    PersonIdCardImportRequest:
+      type: object
+      properties:
+        mifareNumber:
+          type: string
+        personUsosId:
+          type: integer
+          format: int32
+        activeTo:
+          type: string
+          format: date
+        dateCancelled:
+          type: string
+          format: date
+        importSource:
+          type: string
+        importSourceId:
           type: string
   securitySchemes:
     Authorization:

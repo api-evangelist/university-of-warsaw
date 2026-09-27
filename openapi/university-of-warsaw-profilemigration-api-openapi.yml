@@ -275,90 +275,6 @@ paths:
       - Authorization: []
 components:
   schemas:
-    ProfileExportRequest:
-      type: object
-      properties:
-        profileExportRequests:
-          uniqueItems: true
-          type: array
-          items:
-            type: string
-    ProfileUpdateOrcidResponse:
-      type: object
-      properties:
-        profileId:
-          type: string
-        uidPolon:
-          type: string
-    ProfileScienceDisciplineResponse:
-      type: object
-      properties:
-        id:
-          type: string
-        profileId:
-          type: string
-        scienceDisciplineCode:
-          type: string
-        scienceDisciplineName:
-          type: string
-        scienceDisciplineNameEn:
-          type: string
-        scienceDisciplineEffectiveFrom:
-          type: string
-          format: date
-        scienceDisciplineEffectiveTo:
-          type: string
-          format: date
-        scienceFieldCode:
-          type: string
-        scienceFieldName:
-          type: string
-        scienceFieldNameEn:
-          type: string
-        fraction:
-          type: number
-          format: double
-    ProfileImportRequest:
-      type: object
-      properties:
-        profilePublicId:
-          type: string
-        name:
-          type: string
-        firstName:
-          type: string
-        middleNames:
-          type: string
-        lastName:
-          type: string
-        email:
-          type: string
-        emailsOther:
-          type: array
-          items:
-            type: string
-        phone:
-          type: string
-        degree:
-          type: string
-        orcid:
-          type: string
-        uidPolon:
-          type: string
-        uidPolonStud:
-          type: string
-        uidPolonDokt:
-          type: string
-        pbnId:
-          type: string
-        cfKeyw:
-          type: array
-          items:
-            type: string
-        roles:
-          type: array
-          items:
-            type: string
     ProfileResponse:
       type: object
       properties:
@@ -412,6 +328,13 @@ components:
         isPubliclyVisible:
           type: boolean
         profilePublicId:
+          type: string
+    ProfileUpdateOrcidResponse:
+      type: object
+      properties:
+        profileId:
+          type: string
+        uidPolon:
           type: string
     QueryProfileItemResponse:
       type: object
@@ -506,6 +429,83 @@ components:
         promotedPublicationsCount:
           type: integer
           format: int64
+    ProfileImportRequest:
+      type: object
+      properties:
+        profilePublicId:
+          type: string
+        name:
+          type: string
+        firstName:
+          type: string
+        middleNames:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        emailsOther:
+          type: array
+          items:
+            type: string
+        phone:
+          type: string
+        degree:
+          type: string
+        orcid:
+          type: string
+        uidPolon:
+          type: string
+        uidPolonStud:
+          type: string
+        uidPolonDokt:
+          type: string
+        pbnId:
+          type: string
+        cfKeyw:
+          type: array
+          items:
+            type: string
+        roles:
+          type: array
+          items:
+            type: string
+    ProfileExportRequest:
+      type: object
+      properties:
+        profileExportRequests:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+    ProfileScienceDisciplineResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        profileId:
+          type: string
+        scienceDisciplineCode:
+          type: string
+        scienceDisciplineName:
+          type: string
+        scienceDisciplineNameEn:
+          type: string
+        scienceDisciplineEffectiveFrom:
+          type: string
+          format: date
+        scienceDisciplineEffectiveTo:
+          type: string
+          format: date
+        scienceFieldCode:
+          type: string
+        scienceFieldName:
+          type: string
+        scienceFieldNameEn:
+          type: string
+        fraction:
+          type: number
+          format: double
     MigrationProfileScienceDisciplineRequest:
       required:
       - fraction

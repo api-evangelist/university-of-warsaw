@@ -420,6 +420,38 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    PersonViewResponse:
+      type: object
+      properties:
+        personId:
+          type: string
+        university:
+          type: string
+          enum:
+          - CUNI
+          - UAH
+          - SU
+          - KU
+          - UNIMI
+          - UW
+          - UNIGE
+          - PARIS_2
+        orcid:
+          type: string
+        firstName:
+          type: string
+        middleNames:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        profileId:
+          type: string
+        degree:
+          type: string
+        universityIndexNumber:
+          type: string
     SapVim2Response:
       type: object
       properties:
@@ -434,6 +466,31 @@ components:
         typAgenta:
           type: string
         idAgenta:
+          type: string
+    SapWorkflowResponse:
+      type: object
+      properties:
+        col1:
+          type: string
+        col2:
+          type: string
+        col3:
+          type: string
+        col4:
+          type: string
+        col5:
+          type: string
+        col6:
+          type: string
+        col7:
+          type: string
+        col8:
+          type: string
+        col9:
+          type: string
+        col10:
+          type: string
+        col11:
           type: string
     SapSecurityResponse:
       type: object
@@ -502,38 +559,6 @@ components:
           type: string
         idAgenta:
           type: string
-    PersonViewResponse:
-      type: object
-      properties:
-        personId:
-          type: string
-        university:
-          type: string
-          enum:
-          - CUNI
-          - UAH
-          - SU
-          - KU
-          - UNIMI
-          - UW
-          - UNIGE
-          - PARIS_2
-        orcid:
-          type: string
-        firstName:
-          type: string
-        middleNames:
-          type: string
-        lastName:
-          type: string
-        email:
-          type: string
-        profileId:
-          type: string
-        degree:
-          type: string
-        universityIndexNumber:
-          type: string
     OdataResponsePersonViewResponse:
       type: object
       properties:
@@ -544,31 +569,6 @@ components:
         totalCount:
           type: integer
           format: int32
-    SapWorkflowResponse:
-      type: object
-      properties:
-        col1:
-          type: string
-        col2:
-          type: string
-        col3:
-          type: string
-        col4:
-          type: string
-        col5:
-          type: string
-        col6:
-          type: string
-        col7:
-          type: string
-        col8:
-          type: string
-        col9:
-          type: string
-        col10:
-          type: string
-        col11:
-          type: string
   securitySchemes:
     Authorization:
       type: apiKey

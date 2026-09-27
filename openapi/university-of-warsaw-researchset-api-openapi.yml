@@ -343,6 +343,110 @@ components:
         original:
           type: boolean
           description: czy streszczenie jest w języku oryginału
+    ResearchSetAssetsRequest:
+      required:
+      - assetSapIds
+      type: object
+      properties:
+        assetSapIds:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+    QueryResearchSetItemResponse:
+      type: object
+      properties:
+        cfSetId:
+          type: string
+          description: id zbioru aparatury
+        name:
+          type: string
+          description: nazwa zbioru aparatury
+      description: Podstawowe informacje o zbiorze aparaturze
+    ResearchSetRequest:
+      required:
+      - name
+      type: object
+      properties:
+        name:
+          type: string
+    ArticlePreviewResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        titlePl:
+          type: string
+        titleEn:
+          type: string
+        contentPl:
+          type: string
+        contentEn:
+          type: string
+        visibleFrom:
+          type: string
+          format: date
+        visibleTo:
+          type: string
+          format: date
+        signification:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+        visible:
+          type: boolean
+        created:
+          type: string
+          format: date-time
+    AbstractResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Id abstraltu
+        langCode:
+          type: string
+          description: kod języka typu PL, EN, EN-GB, itp - klucz naturalny do Language, zgodny z ISO (patrz Language)
+        title:
+          type: string
+          description: 'tytuł wynalazku/patentu/wzoru użytkowego/nazwa gatunku/nazwa botaniczna/nazwa odmiany w danym języku '
+        abstr:
+          type: string
+          description: streszczenie opisu wynalazku/wzoru użytkowego w danym języku
+        keyw:
+          type: array
+          description: słowa kluczowe w danym języku
+          items:
+            type: string
+            description: słowa kluczowe w danym języku
+        orderIndex:
+          type: integer
+          description: 'kolejność wyświetlania abstraktów (domyślnie: 0)'
+          format: int32
+        objectId:
+          type: string
+          description: Id obiektu
+        objectType:
+          type: string
+          description: Typ obiektu
+        original:
+          type: boolean
+          description: czy streszczenie jest w języku oryginału
+    ResearchSetResponse:
+      type: object
+      properties:
+        cfSetId:
+          type: string
+          description: id zbioru aparatury
+        name:
+          type: string
+          description: nazwa zbioru aparatury
+        articleId:
+          type: string
+          description: id artykułu opisującego zbiór aparatury
+      description: Informacje o zbiorze aparaturze
     AssetResponse:
       type: object
       properties:
@@ -407,110 +511,6 @@ components:
         purposeOfUse:
           type: string
         yearAcquisition:
-          type: string
-    ResearchSetAssetsRequest:
-      required:
-      - assetSapIds
-      type: object
-      properties:
-        assetSapIds:
-          uniqueItems: true
-          type: array
-          items:
-            type: string
-    ResearchSetResponse:
-      type: object
-      properties:
-        cfSetId:
-          type: string
-          description: id zbioru aparatury
-        name:
-          type: string
-          description: nazwa zbioru aparatury
-        articleId:
-          type: string
-          description: id artykułu opisującego zbiór aparatury
-      description: Informacje o zbiorze aparaturze
-    QueryResearchSetItemResponse:
-      type: object
-      properties:
-        cfSetId:
-          type: string
-          description: id zbioru aparatury
-        name:
-          type: string
-          description: nazwa zbioru aparatury
-      description: Podstawowe informacje o zbiorze aparaturze
-    AbstractResponse:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Id abstraltu
-        langCode:
-          type: string
-          description: kod języka typu PL, EN, EN-GB, itp - klucz naturalny do Language, zgodny z ISO (patrz Language)
-        title:
-          type: string
-          description: 'tytuł wynalazku/patentu/wzoru użytkowego/nazwa gatunku/nazwa botaniczna/nazwa odmiany w danym języku '
-        abstr:
-          type: string
-          description: streszczenie opisu wynalazku/wzoru użytkowego w danym języku
-        keyw:
-          type: array
-          description: słowa kluczowe w danym języku
-          items:
-            type: string
-            description: słowa kluczowe w danym języku
-        orderIndex:
-          type: integer
-          description: 'kolejność wyświetlania abstraktów (domyślnie: 0)'
-          format: int32
-        objectId:
-          type: string
-          description: Id obiektu
-        objectType:
-          type: string
-          description: Typ obiektu
-        original:
-          type: boolean
-          description: czy streszczenie jest w języku oryginału
-    ArticlePreviewResponse:
-      type: object
-      properties:
-        id:
-          type: string
-        titlePl:
-          type: string
-        titleEn:
-          type: string
-        contentPl:
-          type: string
-        contentEn:
-          type: string
-        visibleFrom:
-          type: string
-          format: date
-        visibleTo:
-          type: string
-          format: date
-        signification:
-          type: string
-        tags:
-          type: array
-          items:
-            type: string
-        visible:
-          type: boolean
-        created:
-          type: string
-          format: date-time
-    ResearchSetRequest:
-      required:
-      - name
-      type: object
-      properties:
-        name:
           type: string
   securitySchemes:
     Authorization:

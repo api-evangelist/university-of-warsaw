@@ -207,6 +207,119 @@ paths:
       - Authorization: []
 components:
   schemas:
+    ProfileCourseResponse:
+      type: object
+      properties:
+        profileId:
+          type: string
+        courseId:
+          type: string
+        title:
+          type: string
+        titlePl:
+          type: string
+        titleEn:
+          type: string
+        subjectCode:
+          type: string
+        year:
+          type: integer
+          format: int32
+        term:
+          type: string
+        startDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+    ProfilePatentResponse:
+      type: object
+      properties:
+        profileId:
+          type: string
+        patentId:
+          type: string
+        title:
+          type: string
+        titlePl:
+          type: string
+        titleEn:
+          type: string
+        applicationNumber:
+          type: string
+        consentForEvaluation:
+          type: boolean
+        fraction:
+          type: number
+          format: double
+        decisionDate:
+          type: string
+          format: date
+    ProfileProjectResponse:
+      type: object
+      properties:
+        projectId:
+          type: string
+        title:
+          type: string
+        titlePl:
+          type: string
+        titleEn:
+          type: string
+        startDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+        roles:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProjectPublicMemberRoleResponse'
+    MyUwUnitResponse:
+      type: object
+      properties:
+        code:
+          type: string
+        namePl:
+          type: string
+        nameEn:
+          type: string
+    ProjectPublicMemberRoleResponse:
+      type: object
+      properties:
+        namePl:
+          type: string
+        nameEn:
+          type: string
+        orderIndex:
+          type: integer
+          format: int32
+    ProfilePublicationResponse:
+      type: object
+      properties:
+        profileId:
+          type: string
+        publicationId:
+          type: string
+        title:
+          type: string
+        titlePl:
+          type: string
+        titleEn:
+          type: string
+        publicationDate:
+          type: string
+        role:
+          type: string
+        year:
+          type: integer
+          format: int32
+        types:
+          type: array
+          items:
+            type: string
     ProfileMyUwResponse:
       type: object
       properties:
@@ -288,110 +401,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/MyUwBuildingResponse'
-    ProfileCourseResponse:
-      type: object
-      properties:
-        profileId:
-          type: string
-        courseId:
-          type: string
-        title:
-          type: string
-        titlePl:
-          type: string
-        titleEn:
-          type: string
-        subjectCode:
-          type: string
-        year:
-          type: integer
-          format: int32
-        term:
-          type: string
-        startDate:
-          type: string
-          format: date
-        endDate:
-          type: string
-          format: date
-    ProfilePublicationResponse:
-      type: object
-      properties:
-        profileId:
-          type: string
-        publicationId:
-          type: string
-        title:
-          type: string
-        titlePl:
-          type: string
-        titleEn:
-          type: string
-        publicationDate:
-          type: string
-        role:
-          type: string
-        year:
-          type: integer
-          format: int32
-        types:
-          type: array
-          items:
-            type: string
-    ProfilePatentResponse:
-      type: object
-      properties:
-        profileId:
-          type: string
-        patentId:
-          type: string
-        title:
-          type: string
-        titlePl:
-          type: string
-        titleEn:
-          type: string
-        applicationNumber:
-          type: string
-        consentForEvaluation:
-          type: boolean
-        fraction:
-          type: number
-          format: double
-        decisionDate:
-          type: string
-          format: date
-    ProfileProjectResponse:
-      type: object
-      properties:
-        projectId:
-          type: string
-        title:
-          type: string
-        titlePl:
-          type: string
-        titleEn:
-          type: string
-        startDate:
-          type: string
-          format: date
-        endDate:
-          type: string
-          format: date
-        roles:
-          type: array
-          items:
-            $ref: '#/components/schemas/ProjectPublicMemberRoleResponse'
-    OdataResponseProfileMyUwResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/ProfileMyUwResponse'
-        totalCount:
-          type: integer
-          format: int32
     MyUwBuildingResponse:
       type: object
       properties:
@@ -403,25 +412,16 @@ components:
           type: string
         roomNumber:
           type: string
-    ProjectPublicMemberRoleResponse:
+    OdataResponseProfileMyUwResponse:
       type: object
       properties:
-        namePl:
-          type: string
-        nameEn:
-          type: string
-        orderIndex:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProfileMyUwResponse'
+        totalCount:
           type: integer
           format: int32
-    MyUwUnitResponse:
-      type: object
-      properties:
-        code:
-          type: string
-        namePl:
-          type: string
-        nameEn:
-          type: string
   securitySchemes:
     Authorization:
       type: apiKey

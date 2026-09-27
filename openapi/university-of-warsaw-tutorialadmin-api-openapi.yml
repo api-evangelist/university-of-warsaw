@@ -110,7 +110,7 @@ paths:
       - Authorization: []
 components:
   schemas:
-    Sp4euTutorialResponse:
+    QueryTutorialItemSp4euResponse:
       type: object
       properties:
         tutorialId:
@@ -242,7 +242,7 @@ components:
           type: boolean
         description:
           type: string
-    QueryTutorialItemSp4euResponse:
+    Sp4euTutorialResponse:
       type: object
       properties:
         tutorialId:

@@ -356,16 +356,6 @@ paths:
       - Authorization: []
 components:
   schemas:
-    OdataResponsePersonSystemRoleResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/PersonSystemRoleResponse'
-        totalCount:
-          type: integer
-          format: int32
     PersonViewResponse:
       type: object
       properties:
@@ -398,25 +388,6 @@ components:
           type: string
         universityIndexNumber:
           type: string
-    PersonRoleCodeRequest:
-      type: object
-      properties:
-        departmentCode:
-          type: string
-        personIds:
-          type: array
-          items:
-            type: string
-    OdataResponsePersonViewResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/PersonViewResponse'
-        totalCount:
-          type: integer
-          format: int32
     PersonSystemRoleResponse:
       type: object
       properties:
@@ -443,6 +414,35 @@ components:
           items:
             type: string
       description: Informacje o rolach osób
+    OdataResponsePersonSystemRoleResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/PersonSystemRoleResponse'
+        totalCount:
+          type: integer
+          format: int32
+    PersonRoleCodeRequest:
+      type: object
+      properties:
+        departmentCode:
+          type: string
+        personIds:
+          type: array
+          items:
+            type: string
+    OdataResponsePersonViewResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/PersonViewResponse'
+        totalCount:
+          type: integer
+          format: int32
     PersonSystemRoleRequest:
       required:
       - personId

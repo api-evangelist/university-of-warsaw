@@ -186,37 +186,31 @@ paths:
       - Authorization: []
 components:
   schemas:
-    BuildingBonResponse:
+    CampusResponse:
       type: object
       properties:
-        publicId:
+        code:
           type: string
         namePl:
           type: string
         nameEn:
           type: string
-        campusCode:
+    BuildingFileResponse:
+      type: object
+      properties:
+        buildingFileId:
           type: string
-        campusNamePl:
+        buildingId:
           type: string
-        campusNameEn:
+        fileId:
           type: string
-        latitude:
-          type: number
-        longitude:
-          type: number
-        street:
+        extension:
           type: string
-        number:
+        name:
           type: string
-        postalCode:
+        uploadedDate:
           type: string
-        city:
-          type: string
-        descriptionPl:
-          type: string
-        descriptionEn:
-          type: string
+          format: date-time
     BuildingAccessibilityResponse:
       type: object
       properties:
@@ -254,31 +248,37 @@ components:
           type: string
         additionalInformation:
           type: string
-    CampusResponse:
+    BuildingBonResponse:
       type: object
       properties:
-        code:
+        publicId:
           type: string
         namePl:
           type: string
         nameEn:
           type: string
-    BuildingFileResponse:
-      type: object
-      properties:
-        buildingFileId:
+        campusCode:
           type: string
-        buildingId:
+        campusNamePl:
           type: string
-        fileId:
+        campusNameEn:
           type: string
-        extension:
+        latitude:
+          type: number
+        longitude:
+          type: number
+        street:
           type: string
-        name:
+        number:
           type: string
-        uploadedDate:
+        postalCode:
           type: string
-          format: date-time
+        city:
+          type: string
+        descriptionPl:
+          type: string
+        descriptionEn:
+          type: string
   securitySchemes:
     Authorization:
       type: apiKey

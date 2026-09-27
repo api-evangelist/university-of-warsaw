@@ -323,6 +323,59 @@ paths:
       - Authorization: []
 components:
   schemas:
+    PassControlOffenseRequest:
+      required:
+      - value
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        value:
+          type: string
+    PersonViewResponse:
+      type: object
+      properties:
+        personId:
+          type: string
+        university:
+          type: string
+          enum:
+          - CUNI
+          - UAH
+          - SU
+          - KU
+          - UNIMI
+          - UW
+          - UNIGE
+          - PARIS_2
+        orcid:
+          type: string
+        firstName:
+          type: string
+        middleNames:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        profileId:
+          type: string
+        degree:
+          type: string
+        universityIndexNumber:
+          type: string
+    PassControlOffenseResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        passControlId:
+          type: integer
+          format: int32
+        value:
+          type: string
     PassControlResponse:
       type: object
       properties:
@@ -431,49 +484,6 @@ components:
           type: boolean
         description:
           type: string
-    PersonViewResponse:
-      type: object
-      properties:
-        personId:
-          type: string
-        university:
-          type: string
-          enum:
-          - CUNI
-          - UAH
-          - SU
-          - KU
-          - UNIMI
-          - UW
-          - UNIGE
-          - PARIS_2
-        orcid:
-          type: string
-        firstName:
-          type: string
-        middleNames:
-          type: string
-        lastName:
-          type: string
-        email:
-          type: string
-        profileId:
-          type: string
-        degree:
-          type: string
-        universityIndexNumber:
-          type: string
-    PassControlOffenseResponse:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
-        passControlId:
-          type: integer
-          format: int32
-        value:
-          type: string
     OdataResponsePersonViewResponse:
       type: object
       properties:
@@ -484,16 +494,6 @@ components:
         totalCount:
           type: integer
           format: int32
-    PassControlOffenseRequest:
-      required:
-      - value
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
-        value:
-          type: string
   securitySchemes:
     Authorization:
       type: apiKey

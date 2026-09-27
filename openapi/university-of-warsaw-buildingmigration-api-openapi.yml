@@ -130,51 +130,13 @@ paths:
       - Authorization: []
 components:
   schemas:
-    BuildingUnitResponse:
+    BuildingUnitExtendedRequest:
       type: object
       properties:
-        id:
-          type: integer
-          format: int32
-        buildingId:
-          type: string
         unitCode:
           type: string
-        unitNamePl:
-          type: string
-        unitNameEn:
-          type: string
-        url:
-          type: string
-        fallbackUrl:
-          type: string
-        isUnitVisible:
-          type: boolean
         isMain:
           type: boolean
-    BuildingRoomResponse:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
-        buildingId:
-          type: string
-        number:
-          type: string
-        description:
-          type: string
-        floorNumber:
-          type: integer
-          format: int32
-        persons:
-          type: array
-          items:
-            $ref: '#/components/schemas/BuildingRoomPersonResponse'
-        x:
-          type: number
-        y:
-          type: number
         importSourceType:
           type: string
         importSourceId:
@@ -194,140 +156,6 @@ components:
           type: string
         degree:
           type: string
-    BuildingRoomExtendedImportRequest:
-      type: object
-      properties:
-        number:
-          type: string
-        personIds:
-          uniqueItems: true
-          type: array
-          items:
-            type: string
-        importSourceType:
-          type: string
-        importSourceId:
-          type: string
-    BuildingExtendedImportRequest:
-      type: object
-      properties:
-        namePl:
-          type: string
-        nameEn:
-          type: string
-        descriptionPl:
-          type: string
-        descriptionEn:
-          type: string
-        city:
-          type: string
-        postalCode:
-          type: string
-        street:
-          type: string
-        number:
-          type: string
-        latitude:
-          type: number
-        longitude:
-          type: number
-        campusCode:
-          type: string
-        benNumber:
-          type: string
-        usosCode:
-          type: string
-        importSourceType:
-          type: string
-        importSourceId:
-          type: string
-        visible:
-          type: boolean
-    BuildingUnitExtendedRequest:
-      type: object
-      properties:
-        unitCode:
-          type: string
-        isMain:
-          type: boolean
-        importSourceType:
-          type: string
-        importSourceId:
-          type: string
-    BuildingResponse:
-      type: object
-      properties:
-        id:
-          type: string
-        namePl:
-          type: string
-        nameEn:
-          type: string
-        namePlAlt:
-          type: string
-        nameEnAlt:
-          type: string
-        phone:
-          type: string
-        campusCode:
-          type: string
-        campusNamePl:
-          type: string
-        campusNameEn:
-          type: string
-        usosCode:
-          type: string
-        latitude:
-          type: number
-        longitude:
-          type: number
-        street:
-          type: string
-        number:
-          type: string
-        postalCode:
-          type: string
-        city:
-          type: string
-        administratorPersonId:
-          type: string
-        administratorFirstName:
-          type: string
-        administratorLastName:
-          type: string
-        administratorEmail:
-          type: string
-        descriptionPl:
-          type: string
-        descriptionEn:
-          type: string
-        descriptionPlAlt:
-          type: string
-        descriptionEnAlt:
-          type: string
-        publicId:
-          type: string
-        visibleUsos:
-          type: boolean
-        visibleOkUw:
-          type: boolean
-        visibleMyUw:
-          type: boolean
-        hasFloorPlan:
-          type: boolean
-        importSourceId:
-          type: string
-        importSourceType:
-          type: string
-        benNumber:
-          type: string
-          description: Numer biura ewidencji nieruchomości
-        buildingAttributeCodes:
-          uniqueItems: true
-          type: array
-          items:
-            type: string
-      description: Informacje o budynku
     SynchronizationResponse:
       type: object
       properties:
@@ -418,6 +246,178 @@ components:
         source:
           type: string
         invokedBy:
+          type: string
+    BuildingUnitResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        buildingId:
+          type: string
+        unitCode:
+          type: string
+        unitNamePl:
+          type: string
+        unitNameEn:
+          type: string
+        url:
+          type: string
+        fallbackUrl:
+          type: string
+        isUnitVisible:
+          type: boolean
+        isMain:
+          type: boolean
+    BuildingResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        namePl:
+          type: string
+        nameEn:
+          type: string
+        namePlAlt:
+          type: string
+        nameEnAlt:
+          type: string
+        phone:
+          type: string
+        campusCode:
+          type: string
+        campusNamePl:
+          type: string
+        campusNameEn:
+          type: string
+        usosCode:
+          type: string
+        latitude:
+          type: number
+        longitude:
+          type: number
+        street:
+          type: string
+        number:
+          type: string
+        postalCode:
+          type: string
+        city:
+          type: string
+        administratorPersonId:
+          type: string
+        administratorFirstName:
+          type: string
+        administratorLastName:
+          type: string
+        administratorEmail:
+          type: string
+        descriptionPl:
+          type: string
+        descriptionEn:
+          type: string
+        descriptionPlAlt:
+          type: string
+        descriptionEnAlt:
+          type: string
+        publicId:
+          type: string
+        visibleUsos:
+          type: boolean
+        visibleOkUw:
+          type: boolean
+        visibleMyUw:
+          type: boolean
+        hasFloorPlan:
+          type: boolean
+        importSourceId:
+          type: string
+        importSourceType:
+          type: string
+        benNumber:
+          type: string
+          description: Numer biura ewidencji nieruchomości
+        buildingAttributeCodes:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      description: Informacje o budynku
+    BuildingRoomExtendedImportRequest:
+      type: object
+      properties:
+        number:
+          type: string
+        personIds:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        importSourceType:
+          type: string
+        importSourceId:
+          type: string
+    BuildingExtendedImportRequest:
+      type: object
+      properties:
+        namePl:
+          type: string
+        nameEn:
+          type: string
+        descriptionPl:
+          type: string
+        descriptionEn:
+          type: string
+        city:
+          type: string
+        postalCode:
+          type: string
+        street:
+          type: string
+        number:
+          type: string
+        latitude:
+          type: number
+        longitude:
+          type: number
+        campusCode:
+          type: string
+        benNumber:
+          type: string
+        usosCode:
+          type: string
+        importSourceType:
+          type: string
+        importSourceId:
+          type: string
+        visible:
+          type: boolean
+    BuildingRoomResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        buildingId:
+          type: string
+        number:
+          type: string
+        description:
+          type: string
+        floorNumber:
+          type: integer
+          format: int32
+        persons:
+          type: array
+          items:
+            $ref: '#/components/schemas/BuildingRoomPersonResponse'
+        x:
+          type: number
+        y:
+          type: number
+        importSourceType:
+          type: string
+        importSourceId:
           type: string
   securitySchemes:
     Authorization:

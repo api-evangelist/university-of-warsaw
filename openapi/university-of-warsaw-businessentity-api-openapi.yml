@@ -114,6 +114,25 @@ paths:
       - Authorization: []
 components:
   schemas:
+    BusinessEntityResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Id podmiotu, id techniczne
+        acro:
+          type: string
+          description: Akronim podmiotu - wartość unikalna
+        name:
+          type: string
+          description: Nazwa podmiotu
+        type:
+          type: string
+          description: Typ podmiotu
+        countryCode:
+          type: string
+          description: Kod kraju
+      description: Podmiot
     BusinessEntityRequest:
       required:
       - acro
@@ -143,25 +162,6 @@ components:
           - PATENT_OFFICE
           - NATURAL_PERSON
           - OTHER
-        countryCode:
-          type: string
-          description: Kod kraju
-      description: Podmiot
-    BusinessEntityResponse:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Id podmiotu, id techniczne
-        acro:
-          type: string
-          description: Akronim podmiotu - wartość unikalna
-        name:
-          type: string
-          description: Nazwa podmiotu
-        type:
-          type: string
-          description: Typ podmiotu
         countryCode:
           type: string
           description: Kod kraju

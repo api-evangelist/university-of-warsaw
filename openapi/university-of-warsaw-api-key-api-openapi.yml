@@ -151,6 +151,11 @@ components:
           type: string
           description: Ważność klucza
           format: date-time
+    GeneratedApiKeyResponse:
+      type: object
+      properties:
+        authorization:
+          type: string
     ApiKeyRequest:
       required:
       - name
@@ -168,11 +173,6 @@ components:
           type: string
           description: Ważność klucza
           format: date-time
-    GeneratedApiKeyResponse:
-      type: object
-      properties:
-        authorization:
-          type: string
   securitySchemes:
     Authorization:
       type: apiKey

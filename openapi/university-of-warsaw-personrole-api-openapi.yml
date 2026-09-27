@@ -175,6 +175,43 @@ components:
         createdAt:
           type: string
           format: date-time
+    PersonRoleResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        personId:
+          type: string
+        role:
+          type: string
+          enum:
+          - ADMIN
+          - COURSE_MANAGER
+          - COURSE_CERTIFICATE_MANAGER
+          - HOUSING_OPTIONS_MANAGER
+          - MOBILITY_OPTIONS_MANAGER
+          - TUTORIAL_MANAGER
+          - PERSON_MANAGER
+          - PERSON_ROLE_MANAGER
+          - REGISTRATION_MANAGER
+        university:
+          type: string
+          enum:
+          - CUNI
+          - UAH
+          - SU
+          - KU
+          - UNIMI
+          - UW
+          - UNIGE
+          - PARIS_2
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
     OdataResponsePersonResponse:
       type: object
       properties:
@@ -216,43 +253,6 @@ components:
       required:
       - personId
       - role
-    PersonRoleResponse:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-        personId:
-          type: string
-        role:
-          type: string
-          enum:
-          - ADMIN
-          - COURSE_MANAGER
-          - COURSE_CERTIFICATE_MANAGER
-          - HOUSING_OPTIONS_MANAGER
-          - MOBILITY_OPTIONS_MANAGER
-          - TUTORIAL_MANAGER
-          - PERSON_MANAGER
-          - PERSON_ROLE_MANAGER
-          - REGISTRATION_MANAGER
-        university:
-          type: string
-          enum:
-          - CUNI
-          - UAH
-          - SU
-          - KU
-          - UNIMI
-          - UW
-          - UNIGE
-          - PARIS_2
-        firstName:
-          type: string
-        lastName:
-          type: string
-        email:
-          type: string
   securitySchemes:
     Authorization:
       type: apiKey

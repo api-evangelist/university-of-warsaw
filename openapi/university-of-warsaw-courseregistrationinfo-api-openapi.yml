@@ -93,6 +93,20 @@ paths:
       - Authorization: []
 components:
   schemas:
+    CourseRegistrationInfoRequest:
+      required:
+      - description
+      - name
+      type: object
+      properties:
+        name:
+          type: string
+          description: nazwa opisu zasad rejestracji
+        description:
+          maxLength: 50000
+          minLength: 0
+          type: string
+          description: opis zasad rejestracji
     CourseRegistrationInfoResponse:
       type: object
       properties:
@@ -110,20 +124,6 @@ components:
           type: array
           items:
             type: string
-    CourseRegistrationInfoRequest:
-      required:
-      - description
-      - name
-      type: object
-      properties:
-        name:
-          type: string
-          description: nazwa opisu zasad rejestracji
-        description:
-          maxLength: 50000
-          minLength: 0
-          type: string
-          description: opis zasad rejestracji
   securitySchemes:
     Authorization:
       type: apiKey

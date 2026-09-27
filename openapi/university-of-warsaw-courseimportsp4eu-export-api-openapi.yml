@@ -170,25 +170,6 @@ paths:
       - Authorization: []
 components:
   schemas:
-    CourseSp4euImportResponse:
-      type: object
-      properties:
-        course:
-          $ref: '#/components/schemas/CourseSp4euResponse'
-        courseRegistrationInfo:
-          $ref: '#/components/schemas/CourseRegistrationInfoResponse'
-        abstracts:
-          type: array
-          items:
-            $ref: '#/components/schemas/AbstractResponse'
-        courseProfiles:
-          type: array
-          items:
-            $ref: '#/components/schemas/CourseProfileResponse'
-        courseSyllabuses:
-          type: array
-          items:
-            $ref: '#/components/schemas/CourseSyllabusResponse'
     CourseProfileResponse:
       type: object
       properties:
@@ -229,109 +210,6 @@ components:
         isPubliclyVisible:
           type: boolean
           description: czy profil jest publiczny
-    CourseRegistrationInfoResponse:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        description:
-          type: string
-        courseIds:
-          type: array
-          items:
-            type: string
-        courseNames:
-          type: array
-          items:
-            type: string
-    CourseSp4euImportRequest:
-      type: object
-      properties:
-        is4eu:
-          type: boolean
-        publicationDate:
-          type: string
-          format: date
-        courseCode:
-          type: string
-        name:
-          type: string
-        semesterCode:
-          type: string
-        languages:
-          type: array
-          items:
-            type: string
-        url:
-          type: string
-        providedBy:
-          type: array
-          items:
-            type: string
-        publishedBy:
-          type: string
-        year:
-          type: integer
-          format: int32
-        academicYear:
-          type: string
-        ects:
-          type: number
-          format: double
-        teachingMode:
-          type: string
-        placesLimit:
-          type: integer
-          format: int32
-        startDate:
-          type: string
-          format: date
-        endDate:
-          type: string
-          format: date
-        applicationDeadline:
-          type: string
-          format: date
-        levels:
-          type: array
-          items:
-            type: string
-        instructorsEmails:
-          type: array
-          items:
-            type: string
-        areasOfInterests:
-          type: array
-          items:
-            type: string
-        flagships:
-          type: array
-          items:
-            type: string
-        facultyOrUnit:
-          type: string
-        sharedCompetencies:
-          type: array
-          items:
-            type: string
-        learningPathways:
-          type: array
-          items:
-            type: string
-        syllabusShortDescription0:
-          type: string
-        syllabusAssessmentsInfo0:
-          type: string
-        syllabusLearningOutcomes0:
-          type: string
-        syllabusPrerequirements0:
-          type: string
-        syllabusLanguageCode0:
-          type: string
-        coursesRegistrationId:
-          type: string
     CourseSyllabusResponse:
       type: object
       properties:
@@ -355,40 +233,23 @@ components:
         lang:
           type: string
           description: kod języka
-    AbstractResponse:
+    CourseRegistrationInfoResponse:
       type: object
       properties:
         id:
           type: string
-          description: Id abstraltu
-        langCode:
+        name:
           type: string
-          description: kod języka typu PL, EN, EN-GB, itp - klucz naturalny do Language, zgodny z ISO (patrz Language)
-        title:
+        description:
           type: string
-          description: 'tytuł wynalazku/patentu/wzoru użytkowego/nazwa gatunku/nazwa botaniczna/nazwa odmiany w danym języku '
-        abstr:
-          type: string
-          description: streszczenie opisu wynalazku/wzoru użytkowego w danym języku
-        keyw:
+        courseIds:
           type: array
-          description: słowa kluczowe w danym języku
           items:
             type: string
-            description: słowa kluczowe w danym języku
-        orderIndex:
-          type: integer
-          description: 'kolejność wyświetlania abstraktów (domyślnie: 0)'
-          format: int32
-        objectId:
-          type: string
-          description: Id obiektu
-        objectType:
-          type: string
-          description: Typ obiektu
-        original:
-          type: boolean
-          description: czy streszczenie jest w języku oryginału
+        courseNames:
+          type: array
+          items:
+            type: string
     CourseSp4euResponse:
       type: object
       properties:
@@ -569,6 +430,145 @@ components:
             - PhD
             - PST
       description: Informacje o kursie
+    CourseSp4euImportResponse:
+      type: object
+      properties:
+        course:
+          $ref: '#/components/schemas/CourseSp4euResponse'
+        courseRegistrationInfo:
+          $ref: '#/components/schemas/CourseRegistrationInfoResponse'
+        abstracts:
+          type: array
+          items:
+            $ref: '#/components/schemas/AbstractResponse'
+        courseProfiles:
+          type: array
+          items:
+            $ref: '#/components/schemas/CourseProfileResponse'
+        courseSyllabuses:
+          type: array
+          items:
+            $ref: '#/components/schemas/CourseSyllabusResponse'
+    AbstractResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Id abstraltu
+        langCode:
+          type: string
+          description: kod języka typu PL, EN, EN-GB, itp - klucz naturalny do Language, zgodny z ISO (patrz Language)
+        title:
+          type: string
+          description: 'tytuł wynalazku/patentu/wzoru użytkowego/nazwa gatunku/nazwa botaniczna/nazwa odmiany w danym języku '
+        abstr:
+          type: string
+          description: streszczenie opisu wynalazku/wzoru użytkowego w danym języku
+        keyw:
+          type: array
+          description: słowa kluczowe w danym języku
+          items:
+            type: string
+            description: słowa kluczowe w danym języku
+        orderIndex:
+          type: integer
+          description: 'kolejność wyświetlania abstraktów (domyślnie: 0)'
+          format: int32
+        objectId:
+          type: string
+          description: Id obiektu
+        objectType:
+          type: string
+          description: Typ obiektu
+        original:
+          type: boolean
+          description: czy streszczenie jest w języku oryginału
+    CourseSp4euImportRequest:
+      type: object
+      properties:
+        is4eu:
+          type: boolean
+        publicationDate:
+          type: string
+          format: date
+        courseCode:
+          type: string
+        name:
+          type: string
+        semesterCode:
+          type: string
+        languages:
+          type: array
+          items:
+            type: string
+        url:
+          type: string
+        providedBy:
+          type: array
+          items:
+            type: string
+        publishedBy:
+          type: string
+        year:
+          type: integer
+          format: int32
+        academicYear:
+          type: string
+        ects:
+          type: number
+          format: double
+        teachingMode:
+          type: string
+        placesLimit:
+          type: integer
+          format: int32
+        startDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+        applicationDeadline:
+          type: string
+          format: date
+        levels:
+          type: array
+          items:
+            type: string
+        instructorsEmails:
+          type: array
+          items:
+            type: string
+        areasOfInterests:
+          type: array
+          items:
+            type: string
+        flagships:
+          type: array
+          items:
+            type: string
+        facultyOrUnit:
+          type: string
+        sharedCompetencies:
+          type: array
+          items:
+            type: string
+        learningPathways:
+          type: array
+          items:
+            type: string
+        syllabusShortDescription0:
+          type: string
+        syllabusAssessmentsInfo0:
+          type: string
+        syllabusLearningOutcomes0:
+          type: string
+        syllabusPrerequirements0:
+          type: string
+        syllabusLanguageCode0:
+          type: string
+        coursesRegistrationId:
+          type: string
   securitySchemes:
     Authorization:
       type: apiKey
