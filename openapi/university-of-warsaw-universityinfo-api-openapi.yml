@@ -146,6 +146,36 @@ paths:
       - Authorization: []
 components:
   schemas:
+    ArticlePreviewResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        titlePl:
+          type: string
+        titleEn:
+          type: string
+        contentPl:
+          type: string
+        contentEn:
+          type: string
+        visibleFrom:
+          type: string
+          format: date
+        visibleTo:
+          type: string
+          format: date
+        signification:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+        visible:
+          type: boolean
+        created:
+          type: string
+          format: date-time
     UniversityInfoCreateRequest:
       required:
       - university
@@ -178,36 +208,6 @@ components:
           - UW
           - UNIGE
           - PARIS_2
-    ArticlePreviewResponse:
-      type: object
-      properties:
-        id:
-          type: string
-        titlePl:
-          type: string
-        titleEn:
-          type: string
-        contentPl:
-          type: string
-        contentEn:
-          type: string
-        visibleFrom:
-          type: string
-          format: date
-        visibleTo:
-          type: string
-          format: date
-        signification:
-          type: string
-        tags:
-          type: array
-          items:
-            type: string
-        visible:
-          type: boolean
-        created:
-          type: string
-          format: date-time
   securitySchemes:
     Authorization:
       type: apiKey

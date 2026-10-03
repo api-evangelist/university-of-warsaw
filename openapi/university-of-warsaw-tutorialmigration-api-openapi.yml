@@ -107,6 +107,129 @@ paths:
       - Authorization: []
 components:
   schemas:
+    AbstractResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Id abstraltu
+        langCode:
+          type: string
+          description: kod języka typu PL, EN, EN-GB, itp - klucz naturalny do Language, zgodny z ISO (patrz Language)
+        title:
+          type: string
+          description: 'tytuł wynalazku/patentu/wzoru użytkowego/nazwa gatunku/nazwa botaniczna/nazwa odmiany w danym języku '
+        abstr:
+          type: string
+          description: streszczenie opisu wynalazku/wzoru użytkowego w danym języku
+        keyw:
+          type: array
+          description: słowa kluczowe w danym języku
+          items:
+            type: string
+            description: słowa kluczowe w danym języku
+        orderIndex:
+          type: integer
+          description: 'kolejność wyświetlania abstraktów (domyślnie: 0)'
+          format: int32
+        objectId:
+          type: string
+          description: Id obiektu
+        objectType:
+          type: string
+          description: Typ obiektu
+        original:
+          type: boolean
+          description: czy streszczenie jest w języku oryginału
+    TutorialImportResponse:
+      type: object
+      properties:
+        tutorial:
+          $ref: '#/components/schemas/TutorialResponse'
+        abstracts:
+          type: array
+          items:
+            $ref: '#/components/schemas/AbstractResponse'
+    TutorialImportRequest:
+      type: object
+      properties:
+        tutorialCode:
+          type: string
+        modality:
+          type: string
+        level:
+          type: string
+        category:
+          type: string
+        languages:
+          type: array
+          items:
+            type: string
+        providedBy:
+          type: array
+          items:
+            type: string
+        publishedBy:
+          type: string
+        isPublished:
+          type: boolean
+        duration:
+          type: string
+        price:
+          type: string
+        isFree:
+          type: boolean
+        startingDate:
+          type: string
+          format: date
+        url:
+          type: string
+        weeklyStudy:
+          type: string
+        subtitle:
+          type: string
+        topics:
+          type: string
+        background:
+          type: string
+        objectives:
+          type: string
+        registration:
+          type: string
+        lang1CfLangCode:
+          type: string
+        lang1CfTitle:
+          type: string
+        lang1CfAbstr:
+          type: string
+        lang1CfKeyw:
+          type: array
+          items:
+            type: string
+        lang1OrderIndex:
+          type: integer
+          format: int32
+        lang1Original:
+          type: string
+        lang2CfLangCode:
+          type: string
+        lang2CfTitle:
+          type: string
+        lang2CfAbstr:
+          type: string
+        lang2CfKeyw:
+          type: array
+          items:
+            type: string
+        lang2OrderIndex:
+          type: integer
+          format: int32
+        lang2Original:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
     TutorialResponse:
       type: object
       properties:
@@ -188,129 +311,6 @@ components:
           type: string
           description: Opis tutorialu
       description: Informacje o tutorialu
-    AbstractResponse:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Id abstraltu
-        langCode:
-          type: string
-          description: kod języka typu PL, EN, EN-GB, itp - klucz naturalny do Language, zgodny z ISO (patrz Language)
-        title:
-          type: string
-          description: 'tytuł wynalazku/patentu/wzoru użytkowego/nazwa gatunku/nazwa botaniczna/nazwa odmiany w danym języku '
-        abstr:
-          type: string
-          description: streszczenie opisu wynalazku/wzoru użytkowego w danym języku
-        keyw:
-          type: array
-          description: słowa kluczowe w danym języku
-          items:
-            type: string
-            description: słowa kluczowe w danym języku
-        orderIndex:
-          type: integer
-          description: 'kolejność wyświetlania abstraktów (domyślnie: 0)'
-          format: int32
-        objectId:
-          type: string
-          description: Id obiektu
-        objectType:
-          type: string
-          description: Typ obiektu
-        original:
-          type: boolean
-          description: czy streszczenie jest w języku oryginału
-    TutorialImportRequest:
-      type: object
-      properties:
-        tutorialCode:
-          type: string
-        modality:
-          type: string
-        level:
-          type: string
-        category:
-          type: string
-        languages:
-          type: array
-          items:
-            type: string
-        providedBy:
-          type: array
-          items:
-            type: string
-        publishedBy:
-          type: string
-        isPublished:
-          type: boolean
-        duration:
-          type: string
-        price:
-          type: string
-        isFree:
-          type: boolean
-        startingDate:
-          type: string
-          format: date
-        url:
-          type: string
-        weeklyStudy:
-          type: string
-        subtitle:
-          type: string
-        topics:
-          type: string
-        background:
-          type: string
-        objectives:
-          type: string
-        registration:
-          type: string
-        lang1CfLangCode:
-          type: string
-        lang1CfTitle:
-          type: string
-        lang1CfAbstr:
-          type: string
-        lang1CfKeyw:
-          type: array
-          items:
-            type: string
-        lang1OrderIndex:
-          type: integer
-          format: int32
-        lang1Original:
-          type: string
-        lang2CfLangCode:
-          type: string
-        lang2CfTitle:
-          type: string
-        lang2CfAbstr:
-          type: string
-        lang2CfKeyw:
-          type: array
-          items:
-            type: string
-        lang2OrderIndex:
-          type: integer
-          format: int32
-        lang2Original:
-          type: string
-        title:
-          type: string
-        description:
-          type: string
-    TutorialImportResponse:
-      type: object
-      properties:
-        tutorial:
-          $ref: '#/components/schemas/TutorialResponse'
-        abstracts:
-          type: array
-          items:
-            $ref: '#/components/schemas/AbstractResponse'
   securitySchemes:
     Authorization:
       type: apiKey

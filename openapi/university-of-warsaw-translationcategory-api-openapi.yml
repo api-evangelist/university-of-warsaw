@@ -109,11 +109,16 @@ paths:
       - Authorization: []
 components:
   schemas:
-    TranslationCategoryRequest:
+    TranslationCategoryAddRequest:
       required:
       - en
+      - name
       type: object
       properties:
+        name:
+          maxLength: 255
+          minLength: 0
+          type: string
         en:
           maxLength: 255
           minLength: 0
@@ -154,16 +159,11 @@ components:
           maxLength: 255
           minLength: 0
           type: string
-    TranslationCategoryAddRequest:
+    TranslationCategoryRequest:
       required:
       - en
-      - name
       type: object
       properties:
-        name:
-          maxLength: 255
-          minLength: 0
-          type: string
         en:
           maxLength: 255
           minLength: 0

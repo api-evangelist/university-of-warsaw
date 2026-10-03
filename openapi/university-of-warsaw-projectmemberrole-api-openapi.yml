@@ -220,6 +220,20 @@ paths:
       - Authorization: []
 components:
   schemas:
+    ProjectMemberRoleResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        namePl:
+          type: string
+        nameEn:
+          type: string
+        manager:
+          type: boolean
+        regulation75:
+          type: boolean
     ProjectMemberRoleRequest:
       required:
       - namePl
@@ -232,20 +246,6 @@ components:
         nameEn:
           maxLength: 255
           minLength: 0
-          type: string
-        manager:
-          type: boolean
-        regulation75:
-          type: boolean
-    ProjectMemberRoleResponse:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
-        namePl:
-          type: string
-        nameEn:
           type: string
         manager:
           type: boolean

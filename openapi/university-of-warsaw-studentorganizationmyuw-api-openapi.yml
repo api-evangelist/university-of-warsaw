@@ -78,16 +78,6 @@ paths:
       - Authorization: []
 components:
   schemas:
-    OdataResponseStudentOrganizationResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/StudentOrganizationResponse'
-        totalCount:
-          type: integer
-          format: int32
     StudentOrganizationResponse:
       type: object
       properties:
@@ -151,6 +141,16 @@ components:
           type: string
         mainPresidentEmail:
           type: string
+    OdataResponseStudentOrganizationResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/StudentOrganizationResponse'
+        totalCount:
+          type: integer
+          format: int32
   securitySchemes:
     Authorization:
       type: apiKey

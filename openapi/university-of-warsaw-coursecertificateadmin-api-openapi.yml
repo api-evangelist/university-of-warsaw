@@ -374,6 +374,60 @@ components:
           type: string
         name:
           type: string
+    CourseCertificateRequest:
+      type: object
+      properties:
+        personId:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+        courseId:
+          type: string
+        courseName:
+          type: string
+      required:
+      - courseId
+      - courseName
+      - name
+      - personId
+    PersonResponse:
+      type: object
+      properties:
+        personId:
+          type: string
+        university:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        lastLoginTime:
+          type: string
+          format: date-time
+        createdAt:
+          type: string
+          format: date-time
+    AttachedFileRequest:
+      type: object
+      properties:
+        description:
+          type: string
+        name:
+          type: string
+    OdataResponsePersonResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/PersonResponse'
+        totalCount:
+          type: integer
+          format: int32
     DocumentPersonResponse:
       type: object
       properties:
@@ -404,60 +458,6 @@ components:
           type: object
           additionalProperties:
             type: object
-    AttachedFileRequest:
-      type: object
-      properties:
-        description:
-          type: string
-        name:
-          type: string
-    OdataResponsePersonResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/PersonResponse'
-        totalCount:
-          type: integer
-          format: int32
-    PersonResponse:
-      type: object
-      properties:
-        personId:
-          type: string
-        university:
-          type: string
-        firstName:
-          type: string
-        lastName:
-          type: string
-        email:
-          type: string
-        lastLoginTime:
-          type: string
-          format: date-time
-        createdAt:
-          type: string
-          format: date-time
-    CourseCertificateRequest:
-      type: object
-      properties:
-        personId:
-          type: string
-        name:
-          type: string
-        type:
-          type: string
-        courseId:
-          type: string
-        courseName:
-          type: string
-      required:
-      - courseId
-      - courseName
-      - name
-      - personId
   securitySchemes:
     Authorization:
       type: apiKey

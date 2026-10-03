@@ -90,29 +90,6 @@ paths:
       - Authorization: []
 components:
   schemas:
-    EconomicDepartmentDto:
-      type: object
-      properties:
-        Dzial:
-          type: string
-        OpisDzialuPl:
-          type: string
-        OpisDzialuEn:
-          type: string
-    UwEconomicDepartmentUpdateRequest:
-      type: object
-      properties:
-        uwUnitCode:
-          pattern: ^UW:.*$
-          type: string
-        internalKSeFIdentifier:
-          type: string
-        invoiceEmail:
-          type: string
-        displayNamePl:
-          type: string
-        displayNameEn:
-          type: string
     UwEconomicDepartmentResponse:
       type: object
       properties:
@@ -147,6 +124,29 @@ components:
           type: string
           description: Nazwa wyświetlana po angielsku
       description: Dział gospodarczy UW
+    UwEconomicDepartmentUpdateRequest:
+      type: object
+      properties:
+        uwUnitCode:
+          pattern: ^UW:.*$
+          type: string
+        internalKSeFIdentifier:
+          type: string
+        invoiceEmail:
+          type: string
+        displayNamePl:
+          type: string
+        displayNameEn:
+          type: string
+    EconomicDepartmentDto:
+      type: object
+      properties:
+        Dzial:
+          type: string
+        OpisDzialuPl:
+          type: string
+        OpisDzialuEn:
+          type: string
   securitySchemes:
     Authorization:
       type: apiKey

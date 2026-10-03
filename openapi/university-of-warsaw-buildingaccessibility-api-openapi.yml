@@ -820,40 +820,54 @@ paths:
       - Authorization: []
 components:
   schemas:
-    BuildingPathObjectImportAttributeRequest:
-      required:
-      - name
-      - typeId
+    BuildingPathAttributeRequest:
       type: object
       properties:
-        name:
+        description:
           type: string
-        typeId:
-          type: string
-        floor:
-          type: string
-        accessibility:
+        type:
           type: string
           enum:
-          - GENERAL
-          - PARTIAL
-          - MINIMAL
-    BuildingPathResponse:
+          - STRING
+          - INTEGER
+          - BOOLEAN
+    BuildingAccessibilityResponse:
       type: object
       properties:
-        objects:
-          type: array
-          items:
-            $ref: '#/components/schemas/BuildingPathObjectResponse'
-        accessibilityLevel:
+        id:
           type: string
-          enum:
-          - GENERAL
-          - PARTIAL
-          - MINIMAL
-        hardship:
-          type: integer
-          format: int32
+        entrance:
+          type: string
+        corridors:
+          type: string
+        elevators:
+          type: string
+        isPorterhouseAvailable:
+          type: boolean
+        porterhouseName:
+          type: string
+        porterhousePlacement:
+          type: string
+        porterhousePhone:
+          type: string
+        isToiletAvailable:
+          type: boolean
+        toiletPlacement:
+          type: string
+        accessAndParkingSpaces:
+          type: string
+        signLanguageInterpreter:
+          type: string
+        procedures:
+          type: string
+        extraHelp:
+          type: string
+        assistanceDog:
+          type: string
+        additionalCustomization:
+          type: string
+        additionalInformation:
+          type: string
     BuildingPathObjectResponse:
       type: object
       properties:
@@ -881,79 +895,6 @@ components:
           type: object
           additionalProperties:
             type: object
-    BuildingPathObjectTypeResponse:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        nameEn:
-          type: string
-        accessibilityLogic:
-          type: string
-        attributes:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/BuildingPathAttributeResponse'
-    BuildingPathObjectRequest:
-      required:
-      - attributeValues
-      - name
-      - typeId
-      type: object
-      properties:
-        name:
-          type: string
-        typeId:
-          type: string
-        floor:
-          type: string
-        accessibility:
-          type: string
-          enum:
-          - GENERAL
-          - PARTIAL
-          - MINIMAL
-        x:
-          type: number
-        y:
-          type: number
-        attributeValues:
-          type: object
-          additionalProperties:
-            type: object
-    BuildingPathEdgeRequest:
-      type: object
-      properties:
-        fromId:
-          type: string
-        toIds:
-          type: array
-          items:
-            type: string
-    BuildingPathAttributeResponse:
-      type: object
-      properties:
-        description:
-          type: string
-        type:
-          type: string
-          enum:
-          - STRING
-          - INTEGER
-          - BOOLEAN
-    BuildingPathAttributeRequest:
-      type: object
-      properties:
-        description:
-          type: string
-        type:
-          type: string
-          enum:
-          - STRING
-          - INTEGER
-          - BOOLEAN
     BuildingResponse:
       type: object
       properties:
@@ -1028,95 +969,6 @@ components:
           items:
             type: string
       description: Informacje o budynku
-    BuildingPathImportRequest:
-      required:
-      - data
-      type: object
-      properties:
-        data:
-          $ref: '#/components/schemas/BuildingPathDataImportRequest'
-    BuildingAccessibilityResponse:
-      type: object
-      properties:
-        id:
-          type: string
-        entrance:
-          type: string
-        corridors:
-          type: string
-        elevators:
-          type: string
-        isPorterhouseAvailable:
-          type: boolean
-        porterhouseName:
-          type: string
-        porterhousePlacement:
-          type: string
-        porterhousePhone:
-          type: string
-        isToiletAvailable:
-          type: boolean
-        toiletPlacement:
-          type: string
-        accessAndParkingSpaces:
-          type: string
-        signLanguageInterpreter:
-          type: string
-        procedures:
-          type: string
-        extraHelp:
-          type: string
-        assistanceDog:
-          type: string
-        additionalCustomization:
-          type: string
-        additionalInformation:
-          type: string
-    BuildingPathObjectTypeRequest:
-      required:
-      - attributes
-      - name
-      type: object
-      properties:
-        name:
-          type: string
-        nameEn:
-          type: string
-        attributes:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/BuildingPathAttributeRequest'
-        accessibilityLogic:
-          type: string
-    BuildingPathEdgeResponse:
-      type: object
-      properties:
-        id:
-          type: string
-        fromId:
-          type: string
-        fromName:
-          type: string
-        fromFloor:
-          type: string
-        fromAccessibility:
-          type: string
-          enum:
-          - GENERAL
-          - PARTIAL
-          - MINIMAL
-        toId:
-          type: string
-        toName:
-          type: string
-        toFloor:
-          type: string
-        toAccessibility:
-          type: string
-          enum:
-          - GENERAL
-          - PARTIAL
-          - MINIMAL
     BuildingPathDataImportRequest:
       required:
       - connections
@@ -1133,16 +985,71 @@ components:
             type: array
             items:
               type: string
-    BuildingPathObjectImportRequest:
+    BuildingPathObjectTypeRequest:
       required:
-      - externalAttributes
-      - id
+      - attributes
+      - name
+      type: object
+      properties:
+        name:
+          type: string
+        nameEn:
+          type: string
+        attributes:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/BuildingPathAttributeRequest'
+        accessibilityLogic:
+          type: string
+    BuildingPathObjectTypeResponse:
       type: object
       properties:
         id:
           type: string
-        externalAttributes:
-          $ref: '#/components/schemas/BuildingPathObjectImportAttributeRequest'
+        name:
+          type: string
+        nameEn:
+          type: string
+        accessibilityLogic:
+          type: string
+        attributes:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/BuildingPathAttributeResponse'
+    BuildingPathObjectImportAttributeRequest:
+      required:
+      - name
+      - typeId
+      type: object
+      properties:
+        name:
+          type: string
+        typeId:
+          type: string
+        floor:
+          type: string
+        accessibility:
+          type: string
+          enum:
+          - GENERAL
+          - PARTIAL
+          - MINIMAL
+    BuildingPathEdgeRequest:
+      type: object
+      properties:
+        fromId:
+          type: string
+        toIds:
+          type: array
+          items:
+            type: string
+    BuildingPathImportRequest:
+      required:
+      - data
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/BuildingPathDataImportRequest'
     BuildingAccessibilityRequest:
       type: object
       properties:
@@ -1178,6 +1085,99 @@ components:
           type: string
         additionalInformation:
           type: string
+    BuildingPathResponse:
+      type: object
+      properties:
+        objects:
+          type: array
+          items:
+            $ref: '#/components/schemas/BuildingPathObjectResponse'
+        accessibilityLevel:
+          type: string
+          enum:
+          - GENERAL
+          - PARTIAL
+          - MINIMAL
+        hardship:
+          type: integer
+          format: int32
+    BuildingPathEdgeResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        fromId:
+          type: string
+        fromName:
+          type: string
+        fromFloor:
+          type: string
+        fromAccessibility:
+          type: string
+          enum:
+          - GENERAL
+          - PARTIAL
+          - MINIMAL
+        toId:
+          type: string
+        toName:
+          type: string
+        toFloor:
+          type: string
+        toAccessibility:
+          type: string
+          enum:
+          - GENERAL
+          - PARTIAL
+          - MINIMAL
+    BuildingPathAttributeResponse:
+      type: object
+      properties:
+        description:
+          type: string
+        type:
+          type: string
+          enum:
+          - STRING
+          - INTEGER
+          - BOOLEAN
+    BuildingPathObjectRequest:
+      required:
+      - attributeValues
+      - name
+      - typeId
+      type: object
+      properties:
+        name:
+          type: string
+        typeId:
+          type: string
+        floor:
+          type: string
+        accessibility:
+          type: string
+          enum:
+          - GENERAL
+          - PARTIAL
+          - MINIMAL
+        x:
+          type: number
+        y:
+          type: number
+        attributeValues:
+          type: object
+          additionalProperties:
+            type: object
+    BuildingPathObjectImportRequest:
+      required:
+      - externalAttributes
+      - id
+      type: object
+      properties:
+        id:
+          type: string
+        externalAttributes:
+          $ref: '#/components/schemas/BuildingPathObjectImportAttributeRequest'
   securitySchemes:
     Authorization:
       type: apiKey

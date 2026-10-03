@@ -302,24 +302,14 @@ paths:
       - Authorization: []
 components:
   schemas:
-    PermGroupPersonResponse:
+    GroupRequest:
+      required:
+      - name
       type: object
       properties:
-        personId:
+        name:
           type: string
-          description: id osoby
-        firstName:
-          type: string
-          description: imię osoby
-        lastName:
-          type: string
-          description: nazwisko osoby
-        email:
-          type: string
-          description: email osoby
-        group:
-          type: string
-          description: nazwa grupy
+          description: Nazwa grupy uprawnień
     PersonViewResponse:
       type: object
       properties:
@@ -352,14 +342,24 @@ components:
           type: string
         universityIndexNumber:
           type: string
-    GroupRequest:
-      required:
-      - name
+    PermGroupPersonResponse:
       type: object
       properties:
-        name:
+        personId:
           type: string
-          description: Nazwa grupy uprawnień
+          description: id osoby
+        firstName:
+          type: string
+          description: imię osoby
+        lastName:
+          type: string
+          description: nazwisko osoby
+        email:
+          type: string
+          description: email osoby
+        group:
+          type: string
+          description: nazwa grupy
     PermGroupPersonRequest:
       required:
       - personIds
@@ -370,11 +370,6 @@ components:
           type: array
           items:
             type: string
-    PermGroupNameResponse:
-      type: object
-      properties:
-        name:
-          type: string
     SystemRoleResponse:
       type: object
       properties:
@@ -410,6 +405,11 @@ components:
               description: mapowanie roli na uprawnienia w Jaskrze
           description: mapowanie roli na uprawnienia w Jaskrze
       description: System role
+    PermGroupNameResponse:
+      type: object
+      properties:
+        name:
+          type: string
     OdataResponsePersonViewResponse:
       type: object
       properties:

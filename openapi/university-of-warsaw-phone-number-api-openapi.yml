@@ -287,6 +287,47 @@ paths:
       - Authorization: []
 components:
   schemas:
+    PhoneNumberResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        number:
+          type: string
+        operator:
+          type: string
+        personId:
+          type: string
+        personFirstName:
+          type: string
+        personLastName:
+          type: string
+        personEmail:
+          type: string
+        tariff:
+          type: string
+        unitCode:
+          type: string
+        unitNamePl:
+          type: string
+        unitNameEn:
+          type: string
+        economicDepartmentCode:
+          type: string
+        economicDepartmentNamePl:
+          type: string
+        economicDepartmentNameEn:
+          type: string
+    OdataResponsePersonViewResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/PersonViewResponse'
+        totalCount:
+          type: integer
+          format: int32
     PersonViewResponse:
       type: object
       properties:
@@ -319,16 +360,6 @@ components:
           type: string
         universityIndexNumber:
           type: string
-    OdataResponsePersonViewResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/PersonViewResponse'
-        totalCount:
-          type: integer
-          format: int32
     PhoneNumberRequest:
       required:
       - number
@@ -350,37 +381,6 @@ components:
         unitCode:
           type: string
         economicDepartmentCode:
-          type: string
-    PhoneNumberResponse:
-      type: object
-      properties:
-        id:
-          type: string
-        number:
-          type: string
-        operator:
-          type: string
-        personId:
-          type: string
-        personFirstName:
-          type: string
-        personLastName:
-          type: string
-        personEmail:
-          type: string
-        tariff:
-          type: string
-        unitCode:
-          type: string
-        unitNamePl:
-          type: string
-        unitNameEn:
-          type: string
-        economicDepartmentCode:
-          type: string
-        economicDepartmentNamePl:
-          type: string
-        economicDepartmentNameEn:
           type: string
   securitySchemes:
     Authorization:

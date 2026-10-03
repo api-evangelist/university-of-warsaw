@@ -238,53 +238,6 @@ paths:
       - Authorization: []
 components:
   schemas:
-    MobilityOptionResponse:
-      type: object
-      properties:
-        id:
-          type: string
-        mobilityProgram:
-          type: string
-        university:
-          type: string
-          enum:
-          - CUNI
-          - UAH
-          - SU
-          - KU
-          - UNIMI
-          - UW
-          - UNIGE
-          - PARIS_2
-        suitableFor:
-          type: array
-          items:
-            type: string
-            enum:
-            - BA
-            - MA
-            - PhD
-            - Staff
-        fundingSource:
-          type: string
-        action:
-          type: string
-        contactDetails:
-          type: string
-        description:
-          type: string
-        applicationProcedureArticleId:
-          type: string
-        is4eu:
-          type: boolean
-        type:
-          type: string
-        duration:
-          type: string
-        applicationDeadline:
-          type: string
-        areaOfStudy:
-          type: string
     ArticleRequest:
       required:
       - contentEn
@@ -322,61 +275,6 @@ components:
         visibleTo:
           type: string
           format: date
-    ArticleSp4euRequest:
-      required:
-      - contentEn
-      - contentPl
-      - signification
-      - tags
-      - titleEn
-      - titlePl
-      type: object
-      properties:
-        titlePl:
-          type: string
-        titleEn:
-          type: string
-        contentPl:
-          type: string
-        contentEn:
-          type: string
-        signification:
-          type: string
-        tags:
-          uniqueItems: true
-          type: array
-          items:
-            type: string
-    ArticlePreviewResponse:
-      type: object
-      properties:
-        id:
-          type: string
-        titlePl:
-          type: string
-        titleEn:
-          type: string
-        contentPl:
-          type: string
-        contentEn:
-          type: string
-        visibleFrom:
-          type: string
-          format: date
-        visibleTo:
-          type: string
-          format: date
-        signification:
-          type: string
-        tags:
-          type: array
-          items:
-            type: string
-        visible:
-          type: boolean
-        created:
-          type: string
-          format: date-time
     MobilityOptionRequest:
       required:
       - mobilityProgram
@@ -441,16 +339,108 @@ components:
           maxLength: 255
           minLength: 0
           type: string
-    OdataResponseMobilityOptionResponse:
+    MobilityOptionResponse:
       type: object
       properties:
-        data:
+        id:
+          type: string
+        mobilityProgram:
+          type: string
+        university:
+          type: string
+          enum:
+          - CUNI
+          - UAH
+          - SU
+          - KU
+          - UNIMI
+          - UW
+          - UNIGE
+          - PARIS_2
+        suitableFor:
           type: array
           items:
-            $ref: '#/components/schemas/MobilityOptionResponse'
-        totalCount:
-          type: integer
-          format: int32
+            type: string
+            enum:
+            - BA
+            - MA
+            - PhD
+            - Staff
+        fundingSource:
+          type: string
+        action:
+          type: string
+        contactDetails:
+          type: string
+        description:
+          type: string
+        applicationProcedureArticleId:
+          type: string
+        is4eu:
+          type: boolean
+        type:
+          type: string
+        duration:
+          type: string
+        applicationDeadline:
+          type: string
+        areaOfStudy:
+          type: string
+    ArticlePreviewResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        titlePl:
+          type: string
+        titleEn:
+          type: string
+        contentPl:
+          type: string
+        contentEn:
+          type: string
+        visibleFrom:
+          type: string
+          format: date
+        visibleTo:
+          type: string
+          format: date
+        signification:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+        visible:
+          type: boolean
+        created:
+          type: string
+          format: date-time
+    ArticleSp4euRequest:
+      required:
+      - contentEn
+      - contentPl
+      - signification
+      - tags
+      - titleEn
+      - titlePl
+      type: object
+      properties:
+        titlePl:
+          type: string
+        titleEn:
+          type: string
+        contentPl:
+          type: string
+        contentEn:
+          type: string
+        signification:
+          type: string
+        tags:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
     MobilityOptionAndArticleDto:
       required:
       - articleRequest
@@ -461,6 +451,16 @@ components:
           $ref: '#/components/schemas/MobilityOptionRequest'
         articleRequest:
           $ref: '#/components/schemas/ArticleSp4euRequest'
+    OdataResponseMobilityOptionResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/MobilityOptionResponse'
+        totalCount:
+          type: integer
+          format: int32
   securitySchemes:
     Authorization:
       type: apiKey

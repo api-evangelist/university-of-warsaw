@@ -99,6 +99,28 @@ paths:
       - Authorization: []
 components:
   schemas:
+    PersonUniversityResponse:
+      type: object
+      properties:
+        UW:
+          $ref: '#/components/schemas/PersonUniversityUWResponse'
+      description: Dodatkowe informacje z uniwersytetów, do których należy dana osoba. W tym momencie tylko UW, w przyszłości mogą pojawić się kolejne.
+    PersonUniversityUWResponse:
+      type: object
+      properties:
+        usosId:
+          type: string
+        masterId:
+          type: string
+        uidPolon:
+          type: string
+        uidPolonStud:
+          type: string
+        uidPolonDokt:
+          type: string
+        sapLogin:
+          type: string
+      description: Dodatkowe informacje o osobie jeżeli z UW. Może być nullem, jeżeli osoba nie ma związku z UW.
     OdataResponsePersonViewResponse:
       type: object
       properties:
@@ -141,28 +163,6 @@ components:
           type: string
         universityIndexNumber:
           type: string
-    PersonUniversityUWResponse:
-      type: object
-      properties:
-        usosId:
-          type: string
-        masterId:
-          type: string
-        uidPolon:
-          type: string
-        uidPolonStud:
-          type: string
-        uidPolonDokt:
-          type: string
-        sapLogin:
-          type: string
-      description: Dodatkowe informacje o osobie jeżeli z UW. Może być nullem, jeżeli osoba nie ma związku z UW.
-    PersonUniversityResponse:
-      type: object
-      properties:
-        UW:
-          $ref: '#/components/schemas/PersonUniversityUWResponse'
-      description: Dodatkowe informacje z uniwersytetów, do których należy dana osoba. W tym momencie tylko UW, w przyszłości mogą pojawić się kolejne.
   securitySchemes:
     Authorization:
       type: apiKey

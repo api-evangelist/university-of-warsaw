@@ -275,67 +275,6 @@ paths:
       - Authorization: []
 components:
   schemas:
-    ProfileResponse:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        firstName:
-          type: string
-        middleNames:
-          type: string
-        lastName:
-          type: string
-        email:
-          type: string
-        emailsOther:
-          type: array
-          items:
-            type: string
-        phone:
-          type: string
-        personId:
-          type: string
-        orcid:
-          type: string
-        uidPolon:
-          type: string
-        uidPolonStud:
-          type: string
-        uidPolonDokt:
-          type: string
-        pbnId:
-          type: string
-        scopusId:
-          type: string
-        degree:
-          type: string
-        cfKeyw:
-          type: array
-          items:
-            type: string
-        articleId:
-          type: string
-        scienceDisciplinesStatementDate:
-          type: string
-          format: date
-        roles:
-          type: array
-          items:
-            type: string
-        isPubliclyVisible:
-          type: boolean
-        profilePublicId:
-          type: string
-    ProfileUpdateOrcidResponse:
-      type: object
-      properties:
-        profileId:
-          type: string
-        uidPolon:
-          type: string
     QueryProfileItemResponse:
       type: object
       properties:
@@ -429,6 +368,43 @@ components:
         promotedPublicationsCount:
           type: integer
           format: int64
+    ProfileScienceDisciplineResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        profileId:
+          type: string
+        scienceDisciplineCode:
+          type: string
+        scienceDisciplineName:
+          type: string
+        scienceDisciplineNameEn:
+          type: string
+        scienceDisciplineEffectiveFrom:
+          type: string
+          format: date
+        scienceDisciplineEffectiveTo:
+          type: string
+          format: date
+        scienceFieldCode:
+          type: string
+        scienceFieldName:
+          type: string
+        scienceFieldNameEn:
+          type: string
+        fraction:
+          type: number
+          format: double
+    ProfileUpdateOrcidRequest:
+      type: object
+      properties:
+        profileId:
+          type: string
+        orcid:
+          type: string
+        uidPolon:
+          type: string
     ProfileImportRequest:
       type: object
       properties:
@@ -478,34 +454,67 @@ components:
           type: array
           items:
             type: string
-    ProfileScienceDisciplineResponse:
+    ProfileResponse:
       type: object
       properties:
         id:
           type: string
+        name:
+          type: string
+        firstName:
+          type: string
+        middleNames:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        emailsOther:
+          type: array
+          items:
+            type: string
+        phone:
+          type: string
+        personId:
+          type: string
+        orcid:
+          type: string
+        uidPolon:
+          type: string
+        uidPolonStud:
+          type: string
+        uidPolonDokt:
+          type: string
+        pbnId:
+          type: string
+        scopusId:
+          type: string
+        degree:
+          type: string
+        cfKeyw:
+          type: array
+          items:
+            type: string
+        articleId:
+          type: string
+        scienceDisciplinesStatementDate:
+          type: string
+          format: date
+        roles:
+          type: array
+          items:
+            type: string
+        isPubliclyVisible:
+          type: boolean
+        profilePublicId:
+          type: string
+    ProfileUpdateOrcidResponse:
+      type: object
+      properties:
         profileId:
           type: string
-        scienceDisciplineCode:
+        uidPolon:
           type: string
-        scienceDisciplineName:
-          type: string
-        scienceDisciplineNameEn:
-          type: string
-        scienceDisciplineEffectiveFrom:
-          type: string
-          format: date
-        scienceDisciplineEffectiveTo:
-          type: string
-          format: date
-        scienceFieldCode:
-          type: string
-        scienceFieldName:
-          type: string
-        scienceFieldNameEn:
-          type: string
-        fraction:
-          type: number
-          format: double
     MigrationProfileScienceDisciplineRequest:
       required:
       - fraction
@@ -522,15 +531,6 @@ components:
           description: udział procentowy
           format: double
         importSourceType:
-          type: string
-    ProfileUpdateOrcidRequest:
-      type: object
-      properties:
-        profileId:
-          type: string
-        orcid:
-          type: string
-        uidPolon:
           type: string
   securitySchemes:
     Authorization:

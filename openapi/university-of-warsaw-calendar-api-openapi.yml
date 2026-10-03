@@ -67,26 +67,6 @@ paths:
         '400':
           $ref: '#/components/responses/Error'
 components:
-  parameters:
-    format:
-      name: format
-      in: query
-      required: false
-      description: Output format. See supported output formats in the USOS API datatypes documentation.
-      schema:
-        type: string
-        enum:
-        - json
-        - jsonp
-        - xml
-        default: json
-    callback:
-      name: callback
-      in: query
-      required: false
-      description: Required only if jsonp is chosen as the return format.
-      schema:
-        type: string
   responses:
     Error:
       description: USOS API error envelope.
@@ -112,19 +92,6 @@ components:
         message: Referenced course does not exist.
         error: object_not_found
         reason: course
-    LangDict:
-      type: object
-      description: A language dictionary mapping ISO language codes to localized strings, as used throughout the USOS API.
-      properties:
-        pl:
-          type: string
-          description: Polish-language value.
-        en:
-          type: string
-          description: English-language value.
-      example:
-        pl: Uniwersytet Warszawski
-        en: The University of Warsaw
     CalendarEvent:
       type: object
       description: An academic calendar event.
@@ -141,6 +108,39 @@ components:
           type: string
         is_day_off:
           type: boolean
+    LangDict:
+      type: object
+      description: A language dictionary mapping ISO language codes to localized strings, as used throughout the USOS API.
+      properties:
+        pl:
+          type: string
+          description: Polish-language value.
+        en:
+          type: string
+          description: English-language value.
+      example:
+        pl: Uniwersytet Warszawski
+        en: The University of Warsaw
+  parameters:
+    callback:
+      name: callback
+      in: query
+      required: false
+      description: Required only if jsonp is chosen as the return format.
+      schema:
+        type: string
+    format:
+      name: format
+      in: query
+      required: false
+      description: Output format. See supported output formats in the USOS API datatypes documentation.
+      schema:
+        type: string
+        enum:
+        - json
+        - jsonp
+        - xml
+        default: json
   securitySchemes:
     oauth1a:
       type: apiKey

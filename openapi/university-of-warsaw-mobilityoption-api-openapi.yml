@@ -252,53 +252,16 @@ paths:
     - url: https://api.sp4eu.uw.edu.pl
 components:
   schemas:
-    MobilityOptionResponse:
+    OdataResponseMobilityOptionResponse:
       type: object
       properties:
-        id:
-          type: string
-        mobilityProgram:
-          type: string
-        university:
-          type: string
-          enum:
-          - CUNI
-          - UAH
-          - SU
-          - KU
-          - UNIMI
-          - UW
-          - UNIGE
-          - PARIS_2
-        suitableFor:
+        data:
           type: array
           items:
-            type: string
-            enum:
-            - BA
-            - MA
-            - PhD
-            - Staff
-        fundingSource:
-          type: string
-        action:
-          type: string
-        contactDetails:
-          type: string
-        description:
-          type: string
-        applicationProcedureArticleId:
-          type: string
-        is4eu:
-          type: boolean
-        type:
-          type: string
-        duration:
-          type: string
-        applicationDeadline:
-          type: string
-        areaOfStudy:
-          type: string
+            $ref: '#/components/schemas/MobilityOptionResponse'
+        totalCount:
+          type: integer
+          format: int32
     ArticlePreviewResponse:
       type: object
       properties:
@@ -393,16 +356,53 @@ components:
           maxLength: 255
           minLength: 0
           type: string
-    OdataResponseMobilityOptionResponse:
+    MobilityOptionResponse:
       type: object
       properties:
-        data:
+        id:
+          type: string
+        mobilityProgram:
+          type: string
+        university:
+          type: string
+          enum:
+          - CUNI
+          - UAH
+          - SU
+          - KU
+          - UNIMI
+          - UW
+          - UNIGE
+          - PARIS_2
+        suitableFor:
           type: array
           items:
-            $ref: '#/components/schemas/MobilityOptionResponse'
-        totalCount:
-          type: integer
-          format: int32
+            type: string
+            enum:
+            - BA
+            - MA
+            - PhD
+            - Staff
+        fundingSource:
+          type: string
+        action:
+          type: string
+        contactDetails:
+          type: string
+        description:
+          type: string
+        applicationProcedureArticleId:
+          type: string
+        is4eu:
+          type: boolean
+        type:
+          type: string
+        duration:
+          type: string
+        applicationDeadline:
+          type: string
+        areaOfStudy:
+          type: string
     ArticlePreviewResponse_2:
       type: object
       properties:

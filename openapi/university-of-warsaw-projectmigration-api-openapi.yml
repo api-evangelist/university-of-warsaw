@@ -433,57 +433,6 @@ paths:
       - Authorization: []
 components:
   schemas:
-    ProjectContractTypeRequest:
-      type: object
-      properties:
-        mainType:
-          maxLength: 255
-          minLength: 0
-          type: string
-        mainTypeOld:
-          maxLength: 255
-          minLength: 0
-          type: string
-        contractType:
-          maxLength: 255
-          minLength: 0
-          type: string
-        institution:
-          maxLength: 255
-          minLength: 0
-          type: string
-        groupName:
-          maxLength: 255
-          minLength: 0
-          type: string
-        typeName:
-          maxLength: 255
-          minLength: 0
-          type: string
-      description: Informacje o typie projektu
-    ProjectProfileMemberRequest:
-      required:
-      - profileId
-      type: object
-      properties:
-        id:
-          type: string
-        profileId:
-          type: string
-        roleId:
-          type: integer
-          format: int32
-        regulation75RoleId:
-          type: integer
-          format: int32
-        unitCode:
-          type: string
-        fromDate:
-          type: string
-          format: date
-        toDate:
-          type: string
-          format: date
     ProjectFinancingUwRequest:
       required:
       - unitCode
@@ -531,26 +480,49 @@ components:
           format: date
         notes:
           type: string
-    ProjectOtherInfoRequest:
+    ProjectProfileMemberRequest:
+      required:
+      - profileId
       type: object
       properties:
-        links:
-          uniqueItems: true
-          type: array
-          items:
-            $ref: '#/components/schemas/ProjectLinkRequest'
-        appendices:
-          uniqueItems: true
-          type: array
-          items:
-            $ref: '#/components/schemas/ProjectAppendixRequest'
-        notes:
-          maxLength: 2000
-          minLength: 0
+        id:
           type: string
-        projectContractTypeId:
+        profileId:
+          type: string
+        roleId:
           type: integer
           format: int32
+        regulation75RoleId:
+          type: integer
+          format: int32
+        unitCode:
+          type: string
+        fromDate:
+          type: string
+          format: date
+        toDate:
+          type: string
+          format: date
+    ProfilePersonRequest:
+      required:
+      - personId
+      type: object
+      properties:
+        personId:
+          type: string
+    GetOrCreateProfileRequest:
+      type: object
+      properties:
+        id:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        degree:
+          type: string
     ProjectRequest:
       required:
       - currencyCode
@@ -678,33 +650,26 @@ components:
           type: string
         isPrivate:
           type: boolean
-    ProfilePersonRequest:
-      required:
-      - personId
+    ProjectOtherInfoRequest:
       type: object
       properties:
-        personId:
+        links:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ProjectLinkRequest'
+        appendices:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ProjectAppendixRequest'
+        notes:
+          maxLength: 2000
+          minLength: 0
           type: string
-    ProjectFinancingInstitutionImportRequest:
-      type: object
-      properties:
-        acro:
-          type: string
-        primary:
-          type: boolean
-    GetOrCreateProfileRequest:
-      type: object
-      properties:
-        id:
-          type: string
-        firstName:
-          type: string
-        lastName:
-          type: string
-        email:
-          type: string
-        degree:
-          type: string
+        projectContractTypeId:
+          type: integer
+          format: int32
     RecordOwnersRequest:
       required:
       - departmentOwners
@@ -721,15 +686,13 @@ components:
           type: array
           items:
             type: string
-    ProjectScienceDisciplineRequest:
-      required:
-      - scienceDisciplineCode
+    ProjectFinancingInstitutionImportRequest:
       type: object
       properties:
-        scienceDisciplineCode:
+        acro:
           type: string
-        percentage:
-          type: number
+        primary:
+          type: boolean
     ProjectLinkRequest:
       required:
       - name
@@ -746,6 +709,34 @@ components:
           maxLength: 255
           minLength: 0
           type: string
+    ProjectContractTypeRequest:
+      type: object
+      properties:
+        mainType:
+          maxLength: 255
+          minLength: 0
+          type: string
+        mainTypeOld:
+          maxLength: 255
+          minLength: 0
+          type: string
+        contractType:
+          maxLength: 255
+          minLength: 0
+          type: string
+        institution:
+          maxLength: 255
+          minLength: 0
+          type: string
+        groupName:
+          maxLength: 255
+          minLength: 0
+          type: string
+        typeName:
+          maxLength: 255
+          minLength: 0
+          type: string
+      description: Informacje o typie projektu
     ProjectUwUnitRequest:
       type: object
       properties:
@@ -763,6 +754,15 @@ components:
           type: string
         main:
           type: boolean
+    ProjectScienceDisciplineRequest:
+      required:
+      - scienceDisciplineCode
+      type: object
+      properties:
+        scienceDisciplineCode:
+          type: string
+        percentage:
+          type: number
   securitySchemes:
     Authorization:
       type: apiKey

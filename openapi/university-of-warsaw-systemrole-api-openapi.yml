@@ -89,38 +89,6 @@ paths:
       - Authorization: []
 components:
   schemas:
-    SystemRoleRequest:
-      required:
-      - jaskierMapping
-      - roleCode
-      - roleName
-      - sapMapping
-      type: object
-      properties:
-        roleCode:
-          type: string
-        roleName:
-          type: string
-        comment:
-          type: string
-        orderIndex:
-          minimum: 0
-          type: integer
-          format: int32
-        sapMapping:
-          type: object
-          additionalProperties:
-            uniqueItems: true
-            type: array
-            items:
-              type: string
-        jaskierMapping:
-          type: object
-          additionalProperties:
-            uniqueItems: true
-            type: array
-            items:
-              type: string
     UpdateSystemRoleRequest:
       required:
       - jaskierMapping
@@ -185,6 +153,38 @@ components:
               description: mapowanie roli na uprawnienia w Jaskrze
           description: mapowanie roli na uprawnienia w Jaskrze
       description: System role
+    SystemRoleRequest:
+      required:
+      - jaskierMapping
+      - roleCode
+      - roleName
+      - sapMapping
+      type: object
+      properties:
+        roleCode:
+          type: string
+        roleName:
+          type: string
+        comment:
+          type: string
+        orderIndex:
+          minimum: 0
+          type: integer
+          format: int32
+        sapMapping:
+          type: object
+          additionalProperties:
+            uniqueItems: true
+            type: array
+            items:
+              type: string
+        jaskierMapping:
+          type: object
+          additionalProperties:
+            uniqueItems: true
+            type: array
+            items:
+              type: string
   securitySchemes:
     Authorization:
       type: apiKey

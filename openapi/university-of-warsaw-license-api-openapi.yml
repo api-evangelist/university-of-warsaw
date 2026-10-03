@@ -167,12 +167,9 @@ paths:
       - Authorization: []
 components:
   schemas:
-    LicenseResponse:
+    LicenseRequest:
       type: object
       properties:
-        id:
-          type: string
-          description: id licencji
         productGroup:
           type: string
           description: grupa produktowa
@@ -180,6 +177,8 @@ components:
           type: string
           description: towar
         year:
+          maximum: 3000
+          minimum: 1800
           type: integer
           description: rok
           format: int32
@@ -187,23 +186,13 @@ components:
           type: string
           description: uri
         quantity:
+          minimum: 1
           type: integer
           description: ilość
           format: int32
         economicDepartment:
           type: string
           description: kod działu gospodarczego
-        importSourceType:
-          type: string
-          description: typ źródła importu
-        importSourceId:
-          type: string
-          description: id źródła importu
-        creationTime:
-          type: string
-          description: czas utworzenia rekordu
-          format: date-time
-      description: Informacje o kursie
     QueryLicenseItemResponse:
       type: object
       properties:
@@ -241,9 +230,12 @@ components:
           description: czas utworzenia rekordu
           format: date-time
       description: Podstawowe informacje o kursie
-    LicenseRequest:
+    LicenseResponse:
       type: object
       properties:
+        id:
+          type: string
+          description: id licencji
         productGroup:
           type: string
           description: grupa produktowa
@@ -251,8 +243,6 @@ components:
           type: string
           description: towar
         year:
-          maximum: 3000
-          minimum: 1800
           type: integer
           description: rok
           format: int32
@@ -260,13 +250,23 @@ components:
           type: string
           description: uri
         quantity:
-          minimum: 1
           type: integer
           description: ilość
           format: int32
         economicDepartment:
           type: string
           description: kod działu gospodarczego
+        importSourceType:
+          type: string
+          description: typ źródła importu
+        importSourceId:
+          type: string
+          description: id źródła importu
+        creationTime:
+          type: string
+          description: czas utworzenia rekordu
+          format: date-time
+      description: Informacje o kursie
   securitySchemes:
     Authorization:
       type: apiKey

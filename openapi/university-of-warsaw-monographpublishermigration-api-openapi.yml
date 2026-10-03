@@ -75,11 +75,6 @@ paths:
       - Authorization: []
 components:
   schemas:
-    MonographPublisherImportResponse:
-      type: object
-      properties:
-        magazine:
-          $ref: '#/components/schemas/MonographPublisherResponse'
     MonographPublisherImportRequest:
       type: object
       properties:
@@ -87,6 +82,11 @@ components:
           type: string
         publishingHouse:
           type: string
+    MonographPublisherImportResponse:
+      type: object
+      properties:
+        magazine:
+          $ref: '#/components/schemas/MonographPublisherResponse'
     MonographPublisherResponse:
       type: object
       properties:

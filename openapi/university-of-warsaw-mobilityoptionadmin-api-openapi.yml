@@ -173,6 +173,105 @@ paths:
       - Authorization: []
 components:
   schemas:
+    ArticleRequest:
+      type: object
+      properties:
+        titlePl:
+          type: string
+        titleEn:
+          type: string
+        contentPl:
+          type: string
+        contentEn:
+          type: string
+        signification:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+          uniqueItems: true
+        created:
+          type: string
+        visible:
+          type: boolean
+        visibleFrom:
+          type: string
+          format: date
+        visibleTo:
+          type: string
+          format: date
+    MobilityOptionRequest:
+      type: object
+      properties:
+        mobilityProgram:
+          type: string
+        fundingSource:
+          type: string
+        action:
+          type: string
+        university:
+          type: string
+          enum:
+          - CUNI
+          - UAH
+          - SU
+          - KU
+          - UNIMI
+          - UW
+          - UNIGE
+          - PARIS_2
+        suitableFor:
+          type: array
+          items:
+            type: string
+            enum:
+            - BA
+            - MA
+            - PhD
+            - Staff
+          uniqueItems: true
+        contactDetails:
+          type: string
+        duration:
+          type: string
+        description:
+          type: string
+        applicationDeadline:
+          type: string
+        areaOfStudy:
+          type: string
+        type:
+          type: string
+    ArticlePreviewResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        titlePl:
+          type: string
+        titleEn:
+          type: string
+        contentPl:
+          type: string
+        contentEn:
+          type: string
+        visibleFrom:
+          type: string
+          format: date
+        visibleTo:
+          type: string
+          format: date
+        signification:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+        visible:
+          type: boolean
+        created:
+          type: string
     MobilityOptionResponse:
       type: object
       properties:
@@ -220,34 +319,6 @@ components:
           type: string
         areaOfStudy:
           type: string
-    ArticleRequest:
-      type: object
-      properties:
-        titlePl:
-          type: string
-        titleEn:
-          type: string
-        contentPl:
-          type: string
-        contentEn:
-          type: string
-        signification:
-          type: string
-        tags:
-          type: array
-          items:
-            type: string
-          uniqueItems: true
-        created:
-          type: string
-        visible:
-          type: boolean
-        visibleFrom:
-          type: string
-          format: date
-        visibleTo:
-          type: string
-          format: date
     ArticleSp4euRequest:
       type: object
       properties:
@@ -266,77 +337,6 @@ components:
           items:
             type: string
           uniqueItems: true
-    ArticlePreviewResponse:
-      type: object
-      properties:
-        id:
-          type: string
-        titlePl:
-          type: string
-        titleEn:
-          type: string
-        contentPl:
-          type: string
-        contentEn:
-          type: string
-        visibleFrom:
-          type: string
-          format: date
-        visibleTo:
-          type: string
-          format: date
-        signification:
-          type: string
-        tags:
-          type: array
-          items:
-            type: string
-        visible:
-          type: boolean
-        created:
-          type: string
-    MobilityOptionRequest:
-      type: object
-      properties:
-        mobilityProgram:
-          type: string
-        fundingSource:
-          type: string
-        action:
-          type: string
-        university:
-          type: string
-          enum:
-          - CUNI
-          - UAH
-          - SU
-          - KU
-          - UNIMI
-          - UW
-          - UNIGE
-          - PARIS_2
-        suitableFor:
-          type: array
-          items:
-            type: string
-            enum:
-            - BA
-            - MA
-            - PhD
-            - Staff
-          uniqueItems: true
-        contactDetails:
-          type: string
-        duration:
-          type: string
-        description:
-          type: string
-        applicationDeadline:
-          type: string
-        areaOfStudy:
-          type: string
-        type:
-          type: string
     MobilityOptionAndArticleDto:
       type: object
       properties:

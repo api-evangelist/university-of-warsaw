@@ -91,14 +91,73 @@ paths:
         '400':
           $ref: '#/components/responses/Error'
 components:
-  responses:
-    Error:
-      description: USOS API error envelope.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
+    Course:
+      type: object
+      description: A University of Warsaw course.
+      properties:
+        id:
+          type: string
+          description: ID of the course.
+        name:
+          allOf:
+          - $ref: '#/components/schemas/LangDict'
+          description: A LangDict object with the course's name.
+        homepage_url:
+          type:
+          - string
+          - 'null'
+          format: uri
+          description: Course's homepage URL, or null if none.
+        profile_url:
+          type: string
+          format: uri
+          description: Course's USOSweb profile URL.
+        is_currently_conducted:
+          type: boolean
+          description: Indicates if the course is conducted in an active academic term.
+        terms:
+          type: array
+          description: List of academic terms the course was conducted in (newest to oldest). Currently only the term id is returned.
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+        fac_id:
+          type: string
+          description: ID of the faculty which runs this course.
+        lang_id:
+          type:
+          - string
+          - 'null'
+          description: ID of the language the course is conducted in, or null if unknown.
+        ects_credits_simplified:
+          type:
+          - number
+          - 'null'
+          format: float
+          description: Number of ECTS credits usually rewarded for completing this course, or null if unknown. This value is approximate and should not be fully trusted.
+        description:
+          allOf:
+          - $ref: '#/components/schemas/LangDict'
+          description: A LangDict object (secondary field).
+        bibliography:
+          allOf:
+          - $ref: '#/components/schemas/LangDict'
+          description: A LangDict object (secondary field).
+        learning_outcomes:
+          allOf:
+          - $ref: '#/components/schemas/LangDict'
+          description: A LangDict object (secondary field).
+        assessment_criteria:
+          allOf:
+          - $ref: '#/components/schemas/LangDict'
+          description: A LangDict object (secondary field).
+        practical_placement:
+          allOf:
+          - $ref: '#/components/schemas/LangDict'
+          description: A LangDict object (secondary field).
     Error:
       type: object
       description: Error envelope returned by USOS API methods (confirmed against live responses, e.g. an unknown course_id returns object_not_found).
@@ -171,73 +230,21 @@ components:
       example:
         pl: Uniwersytet Warszawski
         en: The University of Warsaw
-    Course:
-      type: object
-      description: A University of Warsaw course.
-      properties:
-        id:
-          type: string
-          description: ID of the course.
-        name:
-          allOf:
-          - $ref: '#/components/schemas/LangDict'
-          description: A LangDict object with the course's name.
-        homepage_url:
-          type:
-          - string
-          - 'null'
-          format: uri
-          description: Course's homepage URL, or null if none.
-        profile_url:
-          type: string
-          format: uri
-          description: Course's USOSweb profile URL.
-        is_currently_conducted:
-          type: boolean
-          description: Indicates if the course is conducted in an active academic term.
-        terms:
-          type: array
-          description: List of academic terms the course was conducted in (newest to oldest). Currently only the term id is returned.
-          items:
-            type: object
-            properties:
-              id:
-                type: string
-        fac_id:
-          type: string
-          description: ID of the faculty which runs this course.
-        lang_id:
-          type:
-          - string
-          - 'null'
-          description: ID of the language the course is conducted in, or null if unknown.
-        ects_credits_simplified:
-          type:
-          - number
-          - 'null'
-          format: float
-          description: Number of ECTS credits usually rewarded for completing this course, or null if unknown. This value is approximate and should not be fully trusted.
-        description:
-          allOf:
-          - $ref: '#/components/schemas/LangDict'
-          description: A LangDict object (secondary field).
-        bibliography:
-          allOf:
-          - $ref: '#/components/schemas/LangDict'
-          description: A LangDict object (secondary field).
-        learning_outcomes:
-          allOf:
-          - $ref: '#/components/schemas/LangDict'
-          description: A LangDict object (secondary field).
-        assessment_criteria:
-          allOf:
-          - $ref: '#/components/schemas/LangDict'
-          description: A LangDict object (secondary field).
-        practical_placement:
-          allOf:
-          - $ref: '#/components/schemas/LangDict'
-          description: A LangDict object (secondary field).
+  responses:
+    Error:
+      description: USOS API error envelope.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   parameters:
+    callback:
+      name: callback
+      in: query
+      required: false
+      description: Required only if jsonp is chosen as the return format.
+      schema:
+        type: string
     format:
       name: format
       in: query
@@ -250,13 +257,6 @@ components:
         - jsonp
         - xml
         default: json
-    callback:
-      name: callback
-      in: query
-      required: false
-      description: Required only if jsonp is chosen as the return format.
-      schema:
-        type: string
   securitySchemes:
     oauth1a:
       type: apiKey

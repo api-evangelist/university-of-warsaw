@@ -326,25 +326,14 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    GiveawayResponse:
+    PermissionRequest:
       type: object
       properties:
-        id:
-          type: string
-        name:
-          type: string
-        nameEn:
-          type: string
-        url:
-          type: string
-        urlEn:
-          type: string
-        startDate:
-          type: string
-          format: date
-        endDate:
-          type: string
-          format: date
+        permissions:
+          type: object
+          additionalProperties:
+            type: integer
+            format: int32
     GiveawayCodeResponse:
       type: object
       properties:
@@ -387,14 +376,25 @@ components:
           additionalProperties:
             type: integer
             format: int32
-    PermissionRequest:
+    GiveawayResponse:
       type: object
       properties:
-        permissions:
-          type: object
-          additionalProperties:
-            type: integer
-            format: int32
+        id:
+          type: string
+        name:
+          type: string
+        nameEn:
+          type: string
+        url:
+          type: string
+        urlEn:
+          type: string
+        startDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
   securitySchemes:
     Authorization:
       type: apiKey

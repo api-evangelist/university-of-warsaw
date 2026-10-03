@@ -112,12 +112,9 @@ paths:
       - Authorization: []
 components:
   schemas:
-    MagazineResponse:
+    MagazineRequest:
       type: object
       properties:
-        id:
-          type: integer
-          format: int32
         title:
           type: string
         publisher:
@@ -142,9 +139,12 @@ components:
           type: string
         pissn:
           type: string
-    MagazineRequest:
+    MagazineResponse:
       type: object
       properties:
+        id:
+          type: integer
+          format: int32
         title:
           type: string
         publisher:

@@ -231,36 +231,6 @@ paths:
       - Authorization: []
 components:
   schemas:
-    ArticleResponse:
-      type: object
-      properties:
-        id:
-          type: string
-        titlePl:
-          type: string
-        titleEn:
-          type: string
-        contentPl:
-          type: string
-        contentEn:
-          type: string
-        visibleFrom:
-          type: string
-          format: date
-        visibleTo:
-          type: string
-          format: date
-        signification:
-          type: string
-        tags:
-          type: array
-          items:
-            type: string
-        visible:
-          type: boolean
-        created:
-          type: string
-          format: date-time
     ArticleRequest:
       required:
       - contentEn
@@ -308,6 +278,36 @@ components:
         totalCount:
           type: integer
           format: int32
+    ArticleResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        titlePl:
+          type: string
+        titleEn:
+          type: string
+        contentPl:
+          type: string
+        contentEn:
+          type: string
+        visibleFrom:
+          type: string
+          format: date
+        visibleTo:
+          type: string
+          format: date
+        signification:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+        visible:
+          type: boolean
+        created:
+          type: string
+          format: date-time
   securitySchemes:
     Authorization:
       type: apiKey

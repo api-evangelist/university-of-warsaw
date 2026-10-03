@@ -76,46 +76,6 @@ paths:
       - Authorization: []
 components:
   schemas:
-    CourseProfileResponse:
-      type: object
-      properties:
-        id:
-          type: string
-          description: id relacji course_profile
-        courseId:
-          type: string
-          description: id kursu
-        profileId:
-          type: string
-          description: id profilu
-        profilePublicId:
-          type: string
-          description: id publiczne profilu
-        profileFirstName:
-          type: string
-          description: imię osoby
-        profileLastName:
-          type: string
-          description: nazwisko osoby
-        profileEmails:
-          type: array
-          description: lista email osoby
-          deprecated: true
-          items:
-            type: string
-            description: lista email osoby
-        profileEmail:
-          type: string
-          description: email profilu
-        profileDegree:
-          type: string
-          description: stopień naukowy osoby
-        visible4eu:
-          type: boolean
-          description: czy profil instruktora jest widoczny dla portalu 4eu+
-        isPubliclyVisible:
-          type: boolean
-          description: czy profil jest publiczny
     CourseResponse:
       type: object
       properties:
@@ -360,6 +320,46 @@ components:
         original:
           type: boolean
           description: czy streszczenie jest w języku oryginału
+    CourseProfileResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: id relacji course_profile
+        courseId:
+          type: string
+          description: id kursu
+        profileId:
+          type: string
+          description: id profilu
+        profilePublicId:
+          type: string
+          description: id publiczne profilu
+        profileFirstName:
+          type: string
+          description: imię osoby
+        profileLastName:
+          type: string
+          description: nazwisko osoby
+        profileEmails:
+          type: array
+          description: lista email osoby
+          deprecated: true
+          items:
+            type: string
+            description: lista email osoby
+        profileEmail:
+          type: string
+          description: email profilu
+        profileDegree:
+          type: string
+          description: stopień naukowy osoby
+        visible4eu:
+          type: boolean
+          description: czy profil instruktora jest widoczny dla portalu 4eu+
+        isPubliclyVisible:
+          type: boolean
+          description: czy profil jest publiczny
   securitySchemes:
     Authorization:
       type: apiKey

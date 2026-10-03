@@ -52,26 +52,6 @@ paths:
         '400':
           $ref: '#/components/responses/Error'
 components:
-  parameters:
-    format:
-      name: format
-      in: query
-      required: false
-      description: Output format. See supported output formats in the USOS API datatypes documentation.
-      schema:
-        type: string
-        enum:
-        - json
-        - jsonp
-        - xml
-        default: json
-    callback:
-      name: callback
-      in: query
-      required: false
-      description: Required only if jsonp is chosen as the return format.
-      schema:
-        type: string
   responses:
     Error:
       description: USOS API error envelope.
@@ -164,6 +144,26 @@ components:
       example:
         pl: Uniwersytet Warszawski
         en: The University of Warsaw
+  parameters:
+    callback:
+      name: callback
+      in: query
+      required: false
+      description: Required only if jsonp is chosen as the return format.
+      schema:
+        type: string
+    format:
+      name: format
+      in: query
+      required: false
+      description: Output format. See supported output formats in the USOS API datatypes documentation.
+      schema:
+        type: string
+        enum:
+        - json
+        - jsonp
+        - xml
+        default: json
   securitySchemes:
     oauth1a:
       type: apiKey

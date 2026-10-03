@@ -297,21 +297,6 @@ components:
           type: string
         nameEn:
           type: string
-    PersonPrincipalResponse:
-      type: object
-      properties:
-        personId:
-          type: string
-        familyName:
-          type: string
-        email:
-          type: string
-        givenName:
-          type: string
-        units:
-          type: array
-          items:
-            $ref: '#/components/schemas/UnitPreviewResponse'
     ProfilePrincipalRequest:
       required:
       - emails
@@ -337,6 +322,21 @@ components:
           type: string
         isPubliclyVisible:
           type: boolean
+    PersonPrincipalResponse:
+      type: object
+      properties:
+        personId:
+          type: string
+        familyName:
+          type: string
+        email:
+          type: string
+        givenName:
+          type: string
+        units:
+          type: array
+          items:
+            $ref: '#/components/schemas/UnitPreviewResponse'
   securitySchemes:
     Authorization:
       type: apiKey

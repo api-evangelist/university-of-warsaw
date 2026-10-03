@@ -141,31 +141,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    PersonProfileRequest:
-      required:
-      - emails
-      - name
-      type: object
-      properties:
-        name:
-          type: string
-        firstName:
-          type: string
-        middleNames:
-          type: string
-        lastName:
-          type: string
-        emails:
-          uniqueItems: true
-          type: array
-          items:
-            type: string
-        phone:
-          type: string
-        degree:
-          type: string
-        isPubliclyVisible:
-          type: boolean
     ProfileResponse:
       type: object
       properties:
@@ -220,6 +195,31 @@ components:
           type: boolean
         profilePublicId:
           type: string
+    PersonProfileRequest:
+      required:
+      - emails
+      - name
+      type: object
+      properties:
+        name:
+          type: string
+        firstName:
+          type: string
+        middleNames:
+          type: string
+        lastName:
+          type: string
+        emails:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        phone:
+          type: string
+        degree:
+          type: string
+        isPubliclyVisible:
+          type: boolean
   securitySchemes:
     Authorization:
       type: apiKey

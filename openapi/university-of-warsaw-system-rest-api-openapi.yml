@@ -37,18 +37,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    GitProperties:
-      type: object
-      properties:
-        branch:
-          type: string
-        shortCommitId:
-          type: string
-        commitTime:
-          type: string
-          format: date-time
-        commitId:
-          type: string
     BuildProperties:
       type: object
       properties:
@@ -62,6 +50,18 @@ components:
         group:
           type: string
         artifact:
+          type: string
+    GitProperties:
+      type: object
+      properties:
+        branch:
+          type: string
+        shortCommitId:
+          type: string
+        commitTime:
+          type: string
+          format: date-time
+        commitId:
           type: string
   securitySchemes:
     Authorization:

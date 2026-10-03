@@ -150,6 +150,37 @@ paths:
       - Authorization: []
 components:
   schemas:
+    PrincipalPermissionDTO:
+      type: object
+      properties:
+        personId:
+          type: string
+        casUsosRole:
+          type: array
+          items:
+            type: string
+        functions:
+          type: array
+          items:
+            type: string
+        units:
+          type: array
+          items:
+            type: string
+        permGroups:
+          type: array
+          items:
+            type: string
+    OdataResponsePersonViewResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/PersonViewResponse'
+        totalCount:
+          type: integer
+          format: int32
     PersonViewResponse:
       type: object
       properties:
@@ -182,37 +213,6 @@ components:
           type: string
         universityIndexNumber:
           type: string
-    PrincipalPermissionDTO:
-      type: object
-      properties:
-        personId:
-          type: string
-        casUsosRole:
-          type: array
-          items:
-            type: string
-        functions:
-          type: array
-          items:
-            type: string
-        units:
-          type: array
-          items:
-            type: string
-        permGroups:
-          type: array
-          items:
-            type: string
-    OdataResponsePersonViewResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/PersonViewResponse'
-        totalCount:
-          type: integer
-          format: int32
   securitySchemes:
     Authorization:
       type: apiKey

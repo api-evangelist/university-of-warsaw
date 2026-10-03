@@ -75,6 +75,11 @@ paths:
       - Authorization: []
 components:
   schemas:
+    MagazineImportResponse:
+      type: object
+      properties:
+        magazine:
+          $ref: '#/components/schemas/MagazineResponse'
     MagazineImportRequest:
       type: object
       properties:
@@ -132,11 +137,6 @@ components:
           type: string
         pissn:
           type: string
-    MagazineImportResponse:
-      type: object
-      properties:
-        magazine:
-          $ref: '#/components/schemas/MagazineResponse'
   securitySchemes:
     Authorization:
       type: apiKey

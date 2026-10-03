@@ -156,6 +156,16 @@ paths:
       - Authorization: []
 components:
   schemas:
+    OdataResponsePersonResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/PersonResponse'
+        totalCount:
+          type: integer
+          format: int32
     PersonResponse:
       type: object
       properties:
@@ -175,6 +185,37 @@ components:
         createdAt:
           type: string
           format: date-time
+    PersonRoleRequest:
+      type: object
+      properties:
+        personId:
+          type: string
+        role:
+          type: string
+          enum:
+          - ADMIN
+          - COURSE_MANAGER
+          - COURSE_CERTIFICATE_MANAGER
+          - HOUSING_OPTIONS_MANAGER
+          - MOBILITY_OPTIONS_MANAGER
+          - TUTORIAL_MANAGER
+          - PERSON_MANAGER
+          - PERSON_ROLE_MANAGER
+          - REGISTRATION_MANAGER
+        university:
+          type: string
+          enum:
+          - CUNI
+          - UAH
+          - SU
+          - KU
+          - UNIMI
+          - UW
+          - UNIGE
+          - PARIS_2
+      required:
+      - personId
+      - role
     PersonRoleResponse:
       type: object
       properties:
@@ -212,47 +253,6 @@ components:
           type: string
         email:
           type: string
-    OdataResponsePersonResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/PersonResponse'
-        totalCount:
-          type: integer
-          format: int32
-    PersonRoleRequest:
-      type: object
-      properties:
-        personId:
-          type: string
-        role:
-          type: string
-          enum:
-          - ADMIN
-          - COURSE_MANAGER
-          - COURSE_CERTIFICATE_MANAGER
-          - HOUSING_OPTIONS_MANAGER
-          - MOBILITY_OPTIONS_MANAGER
-          - TUTORIAL_MANAGER
-          - PERSON_MANAGER
-          - PERSON_ROLE_MANAGER
-          - REGISTRATION_MANAGER
-        university:
-          type: string
-          enum:
-          - CUNI
-          - UAH
-          - SU
-          - KU
-          - UNIMI
-          - UW
-          - UNIGE
-          - PARIS_2
-      required:
-      - personId
-      - role
   securitySchemes:
     Authorization:
       type: apiKey

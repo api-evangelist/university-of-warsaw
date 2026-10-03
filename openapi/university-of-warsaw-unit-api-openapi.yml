@@ -161,6 +161,25 @@ paths:
       - Authorization: []
 components:
   schemas:
+    UnitWithHierarchyResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Unikalny kod jednostki
+        namePl:
+          type: string
+          description: Polska nazwa jednostki
+        nameEn:
+          type: string
+          description: Angielska nazwa jednostki
+        hierarchy:
+          type: array
+          description: Hierarchia jednostki
+          items:
+            type: string
+            description: Hierarchia jednostki
+      description: Jednostki organizacyjne z hierarchia
     UnitViewResponse:
       type: object
       properties:
@@ -196,25 +215,6 @@ components:
         financingCode:
           type: string
       description: Jednostki organizacyjne
-    UnitWithHierarchyResponse:
-      type: object
-      properties:
-        code:
-          type: string
-          description: Unikalny kod jednostki
-        namePl:
-          type: string
-          description: Polska nazwa jednostki
-        nameEn:
-          type: string
-          description: Angielska nazwa jednostki
-        hierarchy:
-          type: array
-          description: Hierarchia jednostki
-          items:
-            type: string
-            description: Hierarchia jednostki
-      description: Jednostki organizacyjne z hierarchia
   securitySchemes:
     Authorization:
       type: apiKey

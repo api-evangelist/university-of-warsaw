@@ -353,6 +353,72 @@ components:
           type: string
         universityIndexNumber:
           type: string
+    PublicProcurementPlanResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        item:
+          type: string
+        type:
+          type: string
+        legalBasisId:
+          type: integer
+          description: ID trybu zamówienia
+          format: int32
+        legalBasisName:
+          type: string
+          description: Tekstowa reprezentacja trybu zamówienia
+        number:
+          type: string
+        netAmountEstimate:
+          type: number
+        plannedStartYear:
+          type: integer
+          format: int32
+        plannedStartQuarter:
+          type: integer
+          format: int32
+        plannedStartMonth:
+          type: integer
+          format: int32
+        cpvCodes:
+          type: array
+          items:
+            type: string
+        departmentCodes:
+          type: array
+          items:
+            type: string
+        realizedByDepartmentCode:
+          type: string
+        responsiblePersonId:
+          type: string
+        responsiblePersonFirstName:
+          type: string
+        responsiblePersonLastName:
+          type: string
+        responsiblePersonEmail:
+          type: string
+        reportingPersonId:
+          type: string
+        reportingPersonFirstName:
+          type: string
+        reportingPersonLastName:
+          type: string
+        reportingPersonEmail:
+          type: string
+        categoryId:
+          type: integer
+          format: int32
+        categoryGroup:
+          type: string
+        categorySubgroup:
+          type: string
+        categoryName:
+          type: string
+        categoryCpvCode:
+          type: string
     PublicProcurementPlanRequest:
       required:
       - cpvCodes
@@ -424,72 +490,6 @@ components:
           type: array
           items:
             type: string
-    PublicProcurementPlanResponse:
-      type: object
-      properties:
-        id:
-          type: string
-        item:
-          type: string
-        type:
-          type: string
-        legalBasisId:
-          type: integer
-          description: ID trybu zamówienia
-          format: int32
-        legalBasisName:
-          type: string
-          description: Tekstowa reprezentacja trybu zamówienia
-        number:
-          type: string
-        netAmountEstimate:
-          type: number
-        plannedStartYear:
-          type: integer
-          format: int32
-        plannedStartQuarter:
-          type: integer
-          format: int32
-        plannedStartMonth:
-          type: integer
-          format: int32
-        cpvCodes:
-          type: array
-          items:
-            type: string
-        departmentCodes:
-          type: array
-          items:
-            type: string
-        realizedByDepartmentCode:
-          type: string
-        responsiblePersonId:
-          type: string
-        responsiblePersonFirstName:
-          type: string
-        responsiblePersonLastName:
-          type: string
-        responsiblePersonEmail:
-          type: string
-        reportingPersonId:
-          type: string
-        reportingPersonFirstName:
-          type: string
-        reportingPersonLastName:
-          type: string
-        reportingPersonEmail:
-          type: string
-        categoryId:
-          type: integer
-          format: int32
-        categoryGroup:
-          type: string
-        categorySubgroup:
-          type: string
-        categoryName:
-          type: string
-        categoryCpvCode:
-          type: string
     OdataResponsePersonViewResponse:
       type: object
       properties:

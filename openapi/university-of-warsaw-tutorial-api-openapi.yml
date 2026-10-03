@@ -301,6 +301,50 @@ paths:
     - url: https://api.sp4eu.uw.edu.pl
 components:
   schemas:
+    OdataResponseQueryTutorialItemResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/QueryTutorialItemResponse'
+        totalCount:
+          type: integer
+          format: int32
+    AbstractResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Id abstraltu
+        langCode:
+          type: string
+          description: kod języka typu PL, EN, EN-GB, itp - klucz naturalny do Language, zgodny z ISO (patrz Language)
+        title:
+          type: string
+          description: 'tytuł wynalazku/patentu/wzoru użytkowego/nazwa gatunku/nazwa botaniczna/nazwa odmiany w danym języku '
+        abstr:
+          type: string
+          description: streszczenie opisu wynalazku/wzoru użytkowego w danym języku
+        keyw:
+          type: array
+          description: słowa kluczowe w danym języku
+          items:
+            type: string
+            description: słowa kluczowe w danym języku
+        orderIndex:
+          type: integer
+          description: 'kolejność wyświetlania abstraktów (domyślnie: 0)'
+          format: int32
+        objectId:
+          type: string
+          description: Id obiektu
+        objectType:
+          type: string
+          description: Typ obiektu
+        original:
+          type: boolean
+          description: czy streszczenie jest w języku oryginału
     TutorialResponse:
       type: object
       properties:
@@ -382,6 +426,39 @@ components:
           type: string
           description: Opis tutorialu
       description: Informacje o tutorialu
+    AbstractRequest:
+      required:
+      - keyw
+      type: object
+      properties:
+        id:
+          type: string
+        langCode:
+          type: string
+          description: kod języka typu PL, EN, EN-GB, itp - klucz naturalny do Language, zgodny z ISO (patrz Language)
+        title:
+          type: string
+          description: 'tytuł wynalazku/patentu/wzoru użytkowego/nazwa gatunku/nazwa botaniczna/nazwa odmiany w danym języku '
+        abstr:
+          type: string
+          description: streszczenie opisu wynalazku/wzoru użytkowego w danym języku
+        keyw:
+          maxItems: 100
+          minItems: 0
+          uniqueItems: true
+          type: array
+          description: słowa kluczowe w danym języku
+          items:
+            type: string
+            description: słowa kluczowe w danym języku
+        orderIndex:
+          minimum: 0
+          type: integer
+          description: 'kolejność wyświetlania abstraktów (domyślnie: 0)'
+          format: int32
+        original:
+          type: boolean
+          description: czy streszczenie jest w języku oryginału
     TutorialRequest:
       required:
       - category
@@ -464,49 +541,6 @@ components:
         description:
           type: string
           description: Opis tutorialu
-    OdataResponseQueryTutorialItemResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/QueryTutorialItemResponse'
-        totalCount:
-          type: integer
-          format: int32
-    AbstractRequest:
-      required:
-      - keyw
-      type: object
-      properties:
-        id:
-          type: string
-        langCode:
-          type: string
-          description: kod języka typu PL, EN, EN-GB, itp - klucz naturalny do Language, zgodny z ISO (patrz Language)
-        title:
-          type: string
-          description: 'tytuł wynalazku/patentu/wzoru użytkowego/nazwa gatunku/nazwa botaniczna/nazwa odmiany w danym języku '
-        abstr:
-          type: string
-          description: streszczenie opisu wynalazku/wzoru użytkowego w danym języku
-        keyw:
-          maxItems: 100
-          minItems: 0
-          uniqueItems: true
-          type: array
-          description: słowa kluczowe w danym języku
-          items:
-            type: string
-            description: słowa kluczowe w danym języku
-        orderIndex:
-          minimum: 0
-          type: integer
-          description: 'kolejność wyświetlania abstraktów (domyślnie: 0)'
-          format: int32
-        original:
-          type: boolean
-          description: czy streszczenie jest w języku oryginału
     QueryTutorialItemResponse:
       type: object
       properties:
@@ -588,40 +622,16 @@ components:
           type: string
           description: Opis tutorialu
       description: Podstawowe informacje o kursie
-    AbstractResponse:
+    OdataResponseQueryTutorialItemSp4euResponse:
       type: object
       properties:
-        id:
-          type: string
-          description: Id abstraltu
-        langCode:
-          type: string
-          description: kod języka typu PL, EN, EN-GB, itp - klucz naturalny do Language, zgodny z ISO (patrz Language)
-        title:
-          type: string
-          description: 'tytuł wynalazku/patentu/wzoru użytkowego/nazwa gatunku/nazwa botaniczna/nazwa odmiany w danym języku '
-        abstr:
-          type: string
-          description: streszczenie opisu wynalazku/wzoru użytkowego w danym języku
-        keyw:
+        data:
           type: array
-          description: słowa kluczowe w danym języku
           items:
-            type: string
-            description: słowa kluczowe w danym języku
-        orderIndex:
+            $ref: '#/components/schemas/QueryTutorialItemSp4euResponse'
+        totalCount:
           type: integer
-          description: 'kolejność wyświetlania abstraktów (domyślnie: 0)'
           format: int32
-        objectId:
-          type: string
-          description: Id obiektu
-        objectType:
-          type: string
-          description: Typ obiektu
-        original:
-          type: boolean
-          description: czy streszczenie jest w języku oryginału
     QueryTutorialItemSp4euResponse:
       type: object
       properties:
@@ -766,16 +776,6 @@ components:
           items:
             type: string
             deprecated: true
-    OdataResponseQueryTutorialItemSp4euResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/QueryTutorialItemSp4euResponse'
-        totalCount:
-          type: integer
-          format: int32
   securitySchemes:
     Authorization:
       type: apiKey

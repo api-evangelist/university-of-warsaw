@@ -625,355 +625,6 @@ paths:
       - Authorization: []
 components:
   schemas:
-    CourseProfileResponse:
-      type: object
-      properties:
-        id:
-          type: string
-          description: id relacji course_profile
-        courseId:
-          type: string
-          description: id kursu
-        profileId:
-          type: string
-          description: id profilu
-        profilePublicId:
-          type: string
-          description: id publiczne profilu
-        profileFirstName:
-          type: string
-          description: imię osoby
-        profileLastName:
-          type: string
-          description: nazwisko osoby
-        profileEmails:
-          type: array
-          description: lista email osoby
-          deprecated: true
-          items:
-            type: string
-            description: lista email osoby
-        profileEmail:
-          type: string
-          description: email profilu
-        profileDegree:
-          type: string
-          description: stopień naukowy osoby
-        visible4eu:
-          type: boolean
-          description: czy profil instruktora jest widoczny dla portalu 4eu+
-        isPubliclyVisible:
-          type: boolean
-          description: czy profil jest publiczny
-    CourseSyllabusRequest:
-      required:
-      - lang
-      type: object
-      properties:
-        shortDescription:
-          type: string
-          description: opis kursu
-        prerequirements:
-          type: string
-          description: opis wstępnych wymagań do kursu
-        learningOutcomes:
-          type: string
-          description: opis efektów nauczania
-        assessmentsInfo:
-          maxLength: 15000
-          minLength: 0
-          type: string
-          description: opis warunków zaliczenia
-        lang:
-          type: string
-          description: kod języka
-    OdataResponseCourseSp4euResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/CourseSp4euResponse'
-        totalCount:
-          type: integer
-          format: int32
-    CourseProfileSp4euRequest:
-      required:
-      - profileIds
-      type: object
-      properties:
-        profileIds:
-          uniqueItems: true
-          type: array
-          description: id profili
-          items:
-            type: string
-            description: id profili
-    CourseSyllabusResponse:
-      type: object
-      properties:
-        id:
-          type: string
-        courseId:
-          type: string
-          description: id kursu
-        shortDescription:
-          type: string
-          description: opis kursu
-        prerequirements:
-          type: string
-          description: opis wstępnych wymagań do kursu
-        learningOutcomes:
-          type: string
-          description: opis efektów nauczania
-        assessmentsInfo:
-          type: string
-          description: opis warunków zaliczenia
-        lang:
-          type: string
-          description: kod języka
-    CourseRegistrationInfoAssignRequest:
-      required:
-      - courseRegistrationInfoId
-      type: object
-      properties:
-        courseRegistrationInfoId:
-          type: string
-    AbstractRequest:
-      required:
-      - keyw
-      type: object
-      properties:
-        id:
-          type: string
-        langCode:
-          type: string
-          description: kod języka typu PL, EN, EN-GB, itp - klucz naturalny do Language, zgodny z ISO (patrz Language)
-        title:
-          type: string
-          description: 'tytuł wynalazku/patentu/wzoru użytkowego/nazwa gatunku/nazwa botaniczna/nazwa odmiany w danym języku '
-        abstr:
-          type: string
-          description: streszczenie opisu wynalazku/wzoru użytkowego w danym języku
-        keyw:
-          maxItems: 100
-          minItems: 0
-          uniqueItems: true
-          type: array
-          description: słowa kluczowe w danym języku
-          items:
-            type: string
-            description: słowa kluczowe w danym języku
-        orderIndex:
-          minimum: 0
-          type: integer
-          description: 'kolejność wyświetlania abstraktów (domyślnie: 0)'
-          format: int32
-        original:
-          type: boolean
-          description: czy streszczenie jest w języku oryginału
-    AdditionalInfoRequest:
-      type: object
-      properties:
-        content:
-          type: string
-    CourseRegistrationInfoResponse:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        description:
-          type: string
-        courseIds:
-          type: array
-          items:
-            type: string
-        courseNames:
-          type: array
-          items:
-            type: string
-    CourseSp4euResponse:
-      type: object
-      properties:
-        courseId:
-          type: string
-          description: id kursu
-        subjectId:
-          type: string
-          description: id przedmiotu
-        subjectCode:
-          type: string
-          description: kod przedmiotu
-        term:
-          type: string
-          description: okres realizacji przedmiotu/ kod semestru (np. 2021/22Z)
-        sp4euPublicationDate:
-          type: string
-          description: data rozpoczęcia publikacji w student portalu
-          format: date
-        flagships4eu:
-          type: array
-          description: lista dziedzin rozwoju
-          items:
-            type: string
-            description: lista dziedzin rozwoju
-            enum:
-            - FLAG_1
-            - FLAG_2
-            - FLAG_3
-            - FLAG_4
-        faculties:
-          type: array
-          description: lista fakultetów/przedmiotów (Analiza, Algebra, Mechanika...)
-          items:
-            type: string
-            description: lista fakultetów/przedmiotów (Analiza, Algebra, Mechanika...)
-        languages:
-          type: array
-          description: lista języków, w których prowadzone są przedmioty
-          items:
-            type: string
-            description: lista języków, w których prowadzone są przedmioty
-        url:
-          type: string
-          description: adres url do strony ze szczegółowym opisem kursu
-        providedBy:
-          type: array
-          description: uczelnie, które prowadzą kurs
-          items:
-            type: string
-            description: uczelnie, które prowadzą kurs
-            enum:
-            - CUNI
-            - UAH
-            - SU
-            - KU
-            - UNIMI
-            - UW
-            - UNIGE
-            - PARIS_2
-        publishedBy:
-          type: string
-          description: nazwa uczelni, która opublikowała informację o kursie
-          enum:
-          - CUNI
-          - UAH
-          - SU
-          - KU
-          - UNIMI
-          - UW
-          - UNIGE
-          - PARIS_2
-        year:
-          type: integer
-          description: rok akademicki
-          format: int32
-        placesLimit4eu:
-          type: integer
-          description: liczba miejsc w programie 4eu+
-          format: int32
-        workload:
-          type: integer
-          description: nakład pracy studenta
-          format: int32
-        title:
-          type: string
-          description: nazwa kursu
-        levels4eu:
-          type: array
-          description: lista poziomów studiów, dla których dedykowane są zajęcia w programie 4eu+
-          items:
-            type: string
-            description: lista poziomów studiów, dla których dedykowane są zajęcia w programie 4eu+
-            enum:
-            - BA
-            - MA
-            - PhD
-            - PST
-        startDate4eu:
-          type: string
-          description: data rozpoczęcia realizacji kursu/początku semestru w programie 4eu+
-          format: date
-        endDate4eu:
-          type: string
-          description: data zakończenia realizacji kursu/zakończenia semestru w programie 4eu+
-          format: date
-        title4eu:
-          type: string
-          description: nazwa kursu na potrzeby programu 4eu+
-        facultyOrUnit4eu:
-          type: string
-          description: wydział lub jednostka organizacyjna dla 4eu+
-        ects4eu:
-          type: number
-          description: liczba punktów ECTS na potrzeby programu 4eu+
-          format: double
-        importSourceType:
-          type: string
-          description: typ źródła importu danych
-        applicationDeadline:
-          type: string
-          description: Data rejestracji
-          format: date
-        sharedCompetencies4eu:
-          type: array
-          description: Lista rozwijanych kompetencji w ramach kursu
-          items:
-            type: string
-            description: Lista rozwijanych kompetencji w ramach kursu
-            enum:
-            - Multilingualism
-            - DataLiteracy
-            - CriticalThinking
-            - Entrepreneurship
-            - SocialEngagement
-        learningPathways4eu:
-          type: array
-          description: Lista ścieżek rozwoju w ramach kursu
-          items:
-            type: string
-            description: Lista ścieżek rozwoju w ramach kursu
-        teachingMode4eu:
-          type: string
-          description: Tryb nauczania na potrzeby programu 4eu+
-          enum:
-          - Physical
-          - Online
-          - Blended
-          - Hybrid
-        areasOfInterests:
-          type: array
-          description: Obszary zainteresowań
-          items:
-            type: string
-            description: Obszary zainteresowań
-        registrationInfoId:
-          type: string
-          description: ID informacji o rejestracji
-        academicYear:
-          type: string
-          description: rok akademicki opisowy
-        additionalInfo:
-          type: string
-          description: Dodatkowe informacje o kursie
-        creationTime:
-          type: string
-          description: Data i czas utworzenia rekordu
-          format: date-time
-        levels:
-          type: array
-          description: lista poziomów studiów, dla których dedykowane są zajęcia
-          items:
-            type: string
-            description: lista poziomów studiów, dla których dedykowane są zajęcia
-            enum:
-            - BA
-            - MA
-            - PhD
-            - PST
-      description: Informacje o kursie
     CourseRequest:
       required:
       - areasOfInterests
@@ -1202,6 +853,203 @@ components:
         additionalInfo:
           type: string
           description: Dodatkowe informacje o kursie
+    CourseSp4euResponse:
+      type: object
+      properties:
+        courseId:
+          type: string
+          description: id kursu
+        subjectId:
+          type: string
+          description: id przedmiotu
+        subjectCode:
+          type: string
+          description: kod przedmiotu
+        term:
+          type: string
+          description: okres realizacji przedmiotu/ kod semestru (np. 2021/22Z)
+        sp4euPublicationDate:
+          type: string
+          description: data rozpoczęcia publikacji w student portalu
+          format: date
+        flagships4eu:
+          type: array
+          description: lista dziedzin rozwoju
+          items:
+            type: string
+            description: lista dziedzin rozwoju
+            enum:
+            - FLAG_1
+            - FLAG_2
+            - FLAG_3
+            - FLAG_4
+        faculties:
+          type: array
+          description: lista fakultetów/przedmiotów (Analiza, Algebra, Mechanika...)
+          items:
+            type: string
+            description: lista fakultetów/przedmiotów (Analiza, Algebra, Mechanika...)
+        languages:
+          type: array
+          description: lista języków, w których prowadzone są przedmioty
+          items:
+            type: string
+            description: lista języków, w których prowadzone są przedmioty
+        url:
+          type: string
+          description: adres url do strony ze szczegółowym opisem kursu
+        providedBy:
+          type: array
+          description: uczelnie, które prowadzą kurs
+          items:
+            type: string
+            description: uczelnie, które prowadzą kurs
+            enum:
+            - CUNI
+            - UAH
+            - SU
+            - KU
+            - UNIMI
+            - UW
+            - UNIGE
+            - PARIS_2
+        publishedBy:
+          type: string
+          description: nazwa uczelni, która opublikowała informację o kursie
+          enum:
+          - CUNI
+          - UAH
+          - SU
+          - KU
+          - UNIMI
+          - UW
+          - UNIGE
+          - PARIS_2
+        year:
+          type: integer
+          description: rok akademicki
+          format: int32
+        placesLimit4eu:
+          type: integer
+          description: liczba miejsc w programie 4eu+
+          format: int32
+        workload:
+          type: integer
+          description: nakład pracy studenta
+          format: int32
+        title:
+          type: string
+          description: nazwa kursu
+        levels4eu:
+          type: array
+          description: lista poziomów studiów, dla których dedykowane są zajęcia w programie 4eu+
+          items:
+            type: string
+            description: lista poziomów studiów, dla których dedykowane są zajęcia w programie 4eu+
+            enum:
+            - BA
+            - MA
+            - PhD
+            - PST
+        startDate4eu:
+          type: string
+          description: data rozpoczęcia realizacji kursu/początku semestru w programie 4eu+
+          format: date
+        endDate4eu:
+          type: string
+          description: data zakończenia realizacji kursu/zakończenia semestru w programie 4eu+
+          format: date
+        title4eu:
+          type: string
+          description: nazwa kursu na potrzeby programu 4eu+
+        facultyOrUnit4eu:
+          type: string
+          description: wydział lub jednostka organizacyjna dla 4eu+
+        ects4eu:
+          type: number
+          description: liczba punktów ECTS na potrzeby programu 4eu+
+          format: double
+        importSourceType:
+          type: string
+          description: typ źródła importu danych
+        applicationDeadline:
+          type: string
+          description: Data rejestracji
+          format: date
+        sharedCompetencies4eu:
+          type: array
+          description: Lista rozwijanych kompetencji w ramach kursu
+          items:
+            type: string
+            description: Lista rozwijanych kompetencji w ramach kursu
+            enum:
+            - Multilingualism
+            - DataLiteracy
+            - CriticalThinking
+            - Entrepreneurship
+            - SocialEngagement
+        learningPathways4eu:
+          type: array
+          description: Lista ścieżek rozwoju w ramach kursu
+          items:
+            type: string
+            description: Lista ścieżek rozwoju w ramach kursu
+        teachingMode4eu:
+          type: string
+          description: Tryb nauczania na potrzeby programu 4eu+
+          enum:
+          - Physical
+          - Online
+          - Blended
+          - Hybrid
+        areasOfInterests:
+          type: array
+          description: Obszary zainteresowań
+          items:
+            type: string
+            description: Obszary zainteresowań
+        registrationInfoId:
+          type: string
+          description: ID informacji o rejestracji
+        academicYear:
+          type: string
+          description: rok akademicki opisowy
+        additionalInfo:
+          type: string
+          description: Dodatkowe informacje o kursie
+        creationTime:
+          type: string
+          description: Data i czas utworzenia rekordu
+          format: date-time
+        levels:
+          type: array
+          description: lista poziomów studiów, dla których dedykowane są zajęcia
+          items:
+            type: string
+            description: lista poziomów studiów, dla których dedykowane są zajęcia
+            enum:
+            - BA
+            - MA
+            - PhD
+            - PST
+      description: Informacje o kursie
+    CourseProfileSp4euRequest:
+      required:
+      - profileIds
+      type: object
+      properties:
+        profileIds:
+          uniqueItems: true
+          type: array
+          description: id profili
+          items:
+            type: string
+            description: id profili
+    AdditionalInfoRequest:
+      type: object
+      properties:
+        content:
+          type: string
     AbstractResponse:
       type: object
       properties:
@@ -1236,6 +1084,158 @@ components:
         original:
           type: boolean
           description: czy streszczenie jest w języku oryginału
+    CourseSyllabusRequest:
+      required:
+      - lang
+      type: object
+      properties:
+        shortDescription:
+          type: string
+          description: opis kursu
+        prerequirements:
+          type: string
+          description: opis wstępnych wymagań do kursu
+        learningOutcomes:
+          type: string
+          description: opis efektów nauczania
+        assessmentsInfo:
+          maxLength: 15000
+          minLength: 0
+          type: string
+          description: opis warunków zaliczenia
+        lang:
+          type: string
+          description: kod języka
+    CourseRegistrationInfoResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        courseIds:
+          type: array
+          items:
+            type: string
+        courseNames:
+          type: array
+          items:
+            type: string
+    CourseRegistrationInfoAssignRequest:
+      required:
+      - courseRegistrationInfoId
+      type: object
+      properties:
+        courseRegistrationInfoId:
+          type: string
+    AbstractRequest:
+      required:
+      - keyw
+      type: object
+      properties:
+        id:
+          type: string
+        langCode:
+          type: string
+          description: kod języka typu PL, EN, EN-GB, itp - klucz naturalny do Language, zgodny z ISO (patrz Language)
+        title:
+          type: string
+          description: 'tytuł wynalazku/patentu/wzoru użytkowego/nazwa gatunku/nazwa botaniczna/nazwa odmiany w danym języku '
+        abstr:
+          type: string
+          description: streszczenie opisu wynalazku/wzoru użytkowego w danym języku
+        keyw:
+          maxItems: 100
+          minItems: 0
+          uniqueItems: true
+          type: array
+          description: słowa kluczowe w danym języku
+          items:
+            type: string
+            description: słowa kluczowe w danym języku
+        orderIndex:
+          minimum: 0
+          type: integer
+          description: 'kolejność wyświetlania abstraktów (domyślnie: 0)'
+          format: int32
+        original:
+          type: boolean
+          description: czy streszczenie jest w języku oryginału
+    OdataResponseCourseSp4euResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/CourseSp4euResponse'
+        totalCount:
+          type: integer
+          format: int32
+    CourseSyllabusResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        courseId:
+          type: string
+          description: id kursu
+        shortDescription:
+          type: string
+          description: opis kursu
+        prerequirements:
+          type: string
+          description: opis wstępnych wymagań do kursu
+        learningOutcomes:
+          type: string
+          description: opis efektów nauczania
+        assessmentsInfo:
+          type: string
+          description: opis warunków zaliczenia
+        lang:
+          type: string
+          description: kod języka
+    CourseProfileResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: id relacji course_profile
+        courseId:
+          type: string
+          description: id kursu
+        profileId:
+          type: string
+          description: id profilu
+        profilePublicId:
+          type: string
+          description: id publiczne profilu
+        profileFirstName:
+          type: string
+          description: imię osoby
+        profileLastName:
+          type: string
+          description: nazwisko osoby
+        profileEmails:
+          type: array
+          description: lista email osoby
+          deprecated: true
+          items:
+            type: string
+            description: lista email osoby
+        profileEmail:
+          type: string
+          description: email profilu
+        profileDegree:
+          type: string
+          description: stopień naukowy osoby
+        visible4eu:
+          type: boolean
+          description: czy profil instruktora jest widoczny dla portalu 4eu+
+        isPubliclyVisible:
+          type: boolean
+          description: czy profil jest publiczny
   securitySchemes:
     Authorization:
       type: apiKey

@@ -341,6 +341,30 @@ paths:
       - Authorization: []
 components:
   schemas:
+    ProfilePublicationResponse:
+      type: object
+      properties:
+        profileId:
+          type: string
+        publicationId:
+          type: string
+        title:
+          type: string
+        titlePl:
+          type: string
+        titleEn:
+          type: string
+        publicationDate:
+          type: string
+        role:
+          type: string
+        year:
+          type: integer
+          format: int32
+        types:
+          type: array
+          items:
+            type: string
     ProfileCourseResponse:
       type: object
       properties:
@@ -390,6 +414,16 @@ components:
         decisionDate:
           type: string
           format: date
+    OdataResponseProfileOkUwResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProfileOkUwResponse'
+        totalCount:
+          type: integer
+          format: int32
     ProfileProjectResponse:
       type: object
       properties:
@@ -440,50 +474,6 @@ components:
           type: array
           items:
             type: string
-    ProjectPublicMemberRoleResponse:
-      type: object
-      properties:
-        namePl:
-          type: string
-        nameEn:
-          type: string
-        orderIndex:
-          type: integer
-          format: int32
-    ProfilePublicationResponse:
-      type: object
-      properties:
-        profileId:
-          type: string
-        publicationId:
-          type: string
-        title:
-          type: string
-        titlePl:
-          type: string
-        titleEn:
-          type: string
-        publicationDate:
-          type: string
-        role:
-          type: string
-        year:
-          type: integer
-          format: int32
-        types:
-          type: array
-          items:
-            type: string
-    OdataResponseProfileOkUwResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/ProfileOkUwResponse'
-        totalCount:
-          type: integer
-          format: int32
     ScienceDisciplineResponse:
       type: object
       properties:
@@ -505,6 +495,16 @@ components:
           type: string
         scienceFieldNameEn:
           type: string
+    ProjectPublicMemberRoleResponse:
+      type: object
+      properties:
+        namePl:
+          type: string
+        nameEn:
+          type: string
+        orderIndex:
+          type: integer
+          format: int32
   securitySchemes:
     Authorization:
       type: apiKey

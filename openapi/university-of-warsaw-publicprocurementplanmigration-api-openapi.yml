@@ -181,6 +181,14 @@ components:
           type: string
         categoryCpvCode:
           type: string
+    PublicProcurementPlanExportRequest:
+      type: object
+      properties:
+        publicProcurementPlanIds:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
     PublicProcurementPlanImportRequest:
       type: object
       properties:
@@ -218,14 +226,6 @@ components:
         category:
           type: string
         cpvCodes:
-          type: array
-          items:
-            type: string
-    PublicProcurementPlanExportRequest:
-      type: object
-      properties:
-        publicProcurementPlanIds:
-          uniqueItems: true
           type: array
           items:
             type: string

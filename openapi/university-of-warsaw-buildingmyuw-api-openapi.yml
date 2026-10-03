@@ -291,56 +291,6 @@ paths:
       - Authorization: []
 components:
   schemas:
-    BuildingPublicAttributeLocationResponse:
-      type: object
-      properties:
-        id:
-          type: string
-        publicBuildingId:
-          type: string
-        namePl:
-          type: string
-        nameEn:
-          type: string
-        categoryCode:
-          type: string
-        commentPl:
-          type: string
-        commentEn:
-          type: string
-        latitude:
-          type: number
-        longitude:
-          type: number
-        campusCode:
-          type: string
-        url:
-          type: string
-    BuildingRoomPersonResponse:
-      type: object
-      properties:
-        personId:
-          type: string
-        firstName:
-          type: string
-        middleNames:
-          type: string
-        lastName:
-          type: string
-        email:
-          type: string
-        degree:
-          type: string
-    OdataResponseBuildingResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/BuildingResponse'
-        totalCount:
-          type: integer
-          format: int32
     BuildingPlanResponse:
       type: object
       properties:
@@ -353,6 +303,43 @@ components:
           type: integer
           format: int32
         fileId:
+          type: string
+    BuildingAccessibilityResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        entrance:
+          type: string
+        corridors:
+          type: string
+        elevators:
+          type: string
+        isPorterhouseAvailable:
+          type: boolean
+        porterhouseName:
+          type: string
+        porterhousePlacement:
+          type: string
+        porterhousePhone:
+          type: string
+        isToiletAvailable:
+          type: boolean
+        toiletPlacement:
+          type: string
+        accessAndParkingSpaces:
+          type: string
+        signLanguageInterpreter:
+          type: string
+        procedures:
+          type: string
+        extraHelp:
+          type: string
+        assistanceDog:
+          type: string
+        additionalCustomization:
+          type: string
+        additionalInformation:
           type: string
     BuildingResponse:
       type: object
@@ -428,6 +415,46 @@ components:
           items:
             type: string
       description: Informacje o budynku
+    BuildingRoomPersonResponse:
+      type: object
+      properties:
+        personId:
+          type: string
+        firstName:
+          type: string
+        middleNames:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        degree:
+          type: string
+    BuildingPublicAttributeLocationResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        publicBuildingId:
+          type: string
+        namePl:
+          type: string
+        nameEn:
+          type: string
+        categoryCode:
+          type: string
+        commentPl:
+          type: string
+        commentEn:
+          type: string
+        latitude:
+          type: number
+        longitude:
+          type: number
+        campusCode:
+          type: string
+        url:
+          type: string
     BuildingFileResponse:
       type: object
       properties:
@@ -444,43 +471,16 @@ components:
         uploadedDate:
           type: string
           format: date-time
-    BuildingAccessibilityResponse:
+    OdataResponseBuildingResponse:
       type: object
       properties:
-        id:
-          type: string
-        entrance:
-          type: string
-        corridors:
-          type: string
-        elevators:
-          type: string
-        isPorterhouseAvailable:
-          type: boolean
-        porterhouseName:
-          type: string
-        porterhousePlacement:
-          type: string
-        porterhousePhone:
-          type: string
-        isToiletAvailable:
-          type: boolean
-        toiletPlacement:
-          type: string
-        accessAndParkingSpaces:
-          type: string
-        signLanguageInterpreter:
-          type: string
-        procedures:
-          type: string
-        extraHelp:
-          type: string
-        assistanceDog:
-          type: string
-        additionalCustomization:
-          type: string
-        additionalInformation:
-          type: string
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/BuildingResponse'
+        totalCount:
+          type: integer
+          format: int32
     BuildingRoomResponse:
       type: object
       properties:

@@ -81,6 +81,34 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
   schemas:
+    AuthOptions:
+      type: object
+      description: Authentication requirements for a method.
+      properties:
+        consumer:
+          type: string
+          description: Consumer requirement (e.g. ignored, required, optional).
+        token:
+          type: string
+          description: Token requirement (e.g. ignored, required, optional).
+        administrative_only:
+          type: boolean
+        ssl_required:
+          type: boolean
+        scopes:
+          type: array
+          items:
+            type: string
+    MethodIndexEntry:
+      type: object
+      description: A single entry in the method index.
+      properties:
+        name:
+          type: string
+          description: Full method name, e.g. services/courses/course.
+        brief_description:
+          type: string
+          description: Short description of the method.
     Error:
       type: object
       description: Error envelope returned by USOS API methods (confirmed against live responses, e.g. an unknown course_id returns object_not_found).
@@ -98,16 +126,6 @@ components:
         message: Referenced course does not exist.
         error: object_not_found
         reason: course
-    MethodIndexEntry:
-      type: object
-      description: A single entry in the method index.
-      properties:
-        name:
-          type: string
-          description: Full method name, e.g. services/courses/course.
-        brief_description:
-          type: string
-          description: Short description of the method.
     MethodReference:
       type: object
       description: Machine-readable reference for a single method.
@@ -135,24 +153,17 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ResultField'
-    AuthOptions:
+    ResultField:
       type: object
-      description: Authentication requirements for a method.
       properties:
-        consumer:
+        name:
           type: string
-          description: Consumer requirement (e.g. ignored, required, optional).
-        token:
+        description:
           type: string
-          description: Token requirement (e.g. ignored, required, optional).
-        administrative_only:
+        is_primary:
           type: boolean
-        ssl_required:
+        is_secondary:
           type: boolean
-        scopes:
-          type: array
-          items:
-            type: string
     MethodArgument:
       type: object
       properties:
@@ -170,18 +181,14 @@ components:
           - 'null'
         description:
           type: string
-    ResultField:
-      type: object
-      properties:
-        name:
-          type: string
-        description:
-          type: string
-        is_primary:
-          type: boolean
-        is_secondary:
-          type: boolean
   parameters:
+    callback:
+      name: callback
+      in: query
+      required: false
+      description: Required only if jsonp is chosen as the return format.
+      schema:
+        type: string
     format:
       name: format
       in: query
@@ -194,13 +201,6 @@ components:
         - jsonp
         - xml
         default: json
-    callback:
-      name: callback
-      in: query
-      required: false
-      description: Required only if jsonp is chosen as the return format.
-      schema:
-        type: string
   securitySchemes:
     oauth1a:
       type: apiKey

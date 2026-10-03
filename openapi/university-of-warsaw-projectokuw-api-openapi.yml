@@ -105,6 +105,129 @@ paths:
       - Authorization: []
 components:
   schemas:
+    ProjectUwUnitResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        projectId:
+          type: string
+        unitCode:
+          type: string
+        unitNamePl:
+          type: string
+        unitNameEn:
+          type: string
+        fromDate:
+          type: string
+          format: date
+        toDate:
+          type: string
+          format: date
+        pspElement:
+          type: string
+        main:
+          type: boolean
+    ProjectOkUwProfileResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        projectId:
+          type: string
+        profileId:
+          type: string
+        profilePublicId:
+          type: string
+        profileName:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        degree:
+          type: string
+        unitCode:
+          type: string
+        unitNamePl:
+          type: string
+        unitNameEn:
+          type: string
+        roles:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProjectPublicMemberRoleResponse'
+    ProjectFinancingExternalResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        projectId:
+          type: string
+        comments:
+          type: string
+        amount:
+          type: number
+        category:
+          type: string
+        projectRole:
+          type: string
+          enum:
+          - LEADER
+          - CONSORTIUM_MEMBER
+          - FORMALIZED_COLLABORATION
+          - ECONOMIC_PARTNER
+        contractNumber:
+          type: string
+        contractDate:
+          type: string
+          format: date
+        businessEntityId:
+          type: string
+        businessEntityName:
+          type: string
+        businessEntityAcro:
+          type: string
+        businessEntityCountryCode:
+          type: string
+      description: Informacje o podmiotach zewnętrznych finansowania
+    ProjectTypeResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        type:
+          type: string
+        specificType:
+          type: string
+      description: Informacje o typie projektu
+    OdataResponseProjectOkUwQueryResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProjectOkUwQueryResponse'
+        totalCount:
+          type: integer
+          format: int32
+    ProjectLinkResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: id linku
+        projectId:
+          type: string
+          description: id projektu
+        name:
+          type: string
+          description: nazwa linku
+        url:
+          type: string
+          description: link
+      description: Link do projektu
     ProjectOkUwQueryResponse:
       type: object
       properties:
@@ -177,85 +300,6 @@ components:
           type: string
         responsibleUnitNameEn:
           type: string
-    ProjectFinancingExternalResponse:
-      type: object
-      properties:
-        id:
-          type: string
-        projectId:
-          type: string
-        comments:
-          type: string
-        amount:
-          type: number
-        category:
-          type: string
-        projectRole:
-          type: string
-          enum:
-          - LEADER
-          - CONSORTIUM_MEMBER
-          - FORMALIZED_COLLABORATION
-          - ECONOMIC_PARTNER
-        contractNumber:
-          type: string
-        contractDate:
-          type: string
-          format: date
-        businessEntityId:
-          type: string
-        businessEntityName:
-          type: string
-        businessEntityAcro:
-          type: string
-        businessEntityCountryCode:
-          type: string
-      description: Informacje o podmiotach zewnętrznych finansowania
-    ProjectLinkResponse:
-      type: object
-      properties:
-        id:
-          type: string
-          description: id linku
-        projectId:
-          type: string
-          description: id projektu
-        name:
-          type: string
-          description: nazwa linku
-        url:
-          type: string
-          description: link
-      description: Link do projektu
-    ProjectOkUwProfileResponse:
-      type: object
-      properties:
-        id:
-          type: string
-        projectId:
-          type: string
-        profileId:
-          type: string
-        profilePublicId:
-          type: string
-        profileName:
-          type: string
-        firstName:
-          type: string
-        lastName:
-          type: string
-        degree:
-          type: string
-        unitCode:
-          type: string
-        unitNamePl:
-          type: string
-        unitNameEn:
-          type: string
-        roles:
-          type: array
-          items:
-            $ref: '#/components/schemas/ProjectPublicMemberRoleResponse'
     ProjectOkUwResponse:
       type: object
       properties:
@@ -287,50 +331,6 @@ components:
         orderIndex:
           type: integer
           format: int32
-    ProjectUwUnitResponse:
-      type: object
-      properties:
-        id:
-          type: string
-        projectId:
-          type: string
-        unitCode:
-          type: string
-        unitNamePl:
-          type: string
-        unitNameEn:
-          type: string
-        fromDate:
-          type: string
-          format: date
-        toDate:
-          type: string
-          format: date
-        pspElement:
-          type: string
-        main:
-          type: boolean
-    OdataResponseProjectOkUwQueryResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/ProjectOkUwQueryResponse'
-        totalCount:
-          type: integer
-          format: int32
-    ProjectTypeResponse:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
-        type:
-          type: string
-        specificType:
-          type: string
-      description: Informacje o typie projektu
   securitySchemes:
     Authorization:
       type: apiKey

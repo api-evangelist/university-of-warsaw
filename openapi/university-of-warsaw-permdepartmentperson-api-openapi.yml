@@ -236,38 +236,6 @@ paths:
       - Authorization: []
 components:
   schemas:
-    PersonViewResponse:
-      type: object
-      properties:
-        personId:
-          type: string
-        university:
-          type: string
-          enum:
-          - CUNI
-          - UAH
-          - SU
-          - KU
-          - UNIMI
-          - UW
-          - UNIGE
-          - PARIS_2
-        orcid:
-          type: string
-        firstName:
-          type: string
-        middleNames:
-          type: string
-        lastName:
-          type: string
-        email:
-          type: string
-        profileId:
-          type: string
-        degree:
-          type: string
-        universityIndexNumber:
-          type: string
     PermDepartmentPersonRequest:
       type: object
       properties:
@@ -376,6 +344,38 @@ components:
         totalCount:
           type: integer
           format: int32
+    PersonViewResponse:
+      type: object
+      properties:
+        personId:
+          type: string
+        university:
+          type: string
+          enum:
+          - CUNI
+          - UAH
+          - SU
+          - KU
+          - UNIMI
+          - UW
+          - UNIGE
+          - PARIS_2
+        orcid:
+          type: string
+        firstName:
+          type: string
+        middleNames:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        profileId:
+          type: string
+        degree:
+          type: string
+        universityIndexNumber:
+          type: string
     PermDepartmentPersonResponse:
       type: object
       properties:

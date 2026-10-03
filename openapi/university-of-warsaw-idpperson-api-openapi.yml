@@ -120,6 +120,40 @@ paths:
       - Authorization: []
 components:
   schemas:
+    IdpPersonResponse:
+      type: object
+      properties:
+        idpPersonId:
+          type: string
+          description: Unikalny identyfikator rekordu
+        givenName:
+          type: string
+        familyName:
+          type: string
+        email:
+          type: string
+        source:
+          type: string
+        updated:
+          type: string
+          format: date-time
+        created:
+          type: string
+          format: date-time
+        university:
+          type: string
+          enum:
+          - CUNI
+          - UAH
+          - SU
+          - KU
+          - UNIMI
+          - UW
+          - UNIGE
+          - PARIS_2
+        personId:
+          type: string
+          description: Identyfikator osoby istniejącej w jednej z tabel osób zasilanych importami (np. uw_person)
     EdugainPersonRequest:
       required:
       - eduPersonPrincipalName
@@ -192,40 +226,6 @@ components:
           type: object
           additionalProperties:
             type: object
-    IdpPersonResponse:
-      type: object
-      properties:
-        idpPersonId:
-          type: string
-          description: Unikalny identyfikator rekordu
-        givenName:
-          type: string
-        familyName:
-          type: string
-        email:
-          type: string
-        source:
-          type: string
-        updated:
-          type: string
-          format: date-time
-        created:
-          type: string
-          format: date-time
-        university:
-          type: string
-          enum:
-          - CUNI
-          - UAH
-          - SU
-          - KU
-          - UNIMI
-          - UW
-          - UNIGE
-          - PARIS_2
-        personId:
-          type: string
-          description: Identyfikator osoby istniejącej w jednej z tabel osób zasilanych importami (np. uw_person)
   securitySchemes:
     Authorization:
       type: apiKey

@@ -420,6 +420,66 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    SapVim1Response:
+      type: object
+      properties:
+        nazwaRoli:
+          type: string
+        jg1:
+          type: string
+        id1TrasyOd:
+          type: string
+        jg2:
+          type: string
+        id1TrasyTo:
+          type: string
+        typAgenta:
+          type: string
+        idAgenta:
+          type: string
+    SapCoaResponse:
+      type: object
+      properties:
+        col1:
+          type: string
+        col2:
+          type: string
+        col3:
+          type: string
+        col4:
+          type: string
+        col5Dg:
+          type: string
+        col6Email:
+          type: string
+        col7:
+          type: string
+        col8Imie:
+          type: string
+        col9Nazwisko:
+          type: string
+        col10:
+          type: string
+        col11LoginSap:
+          type: string
+        col12:
+          type: string
+        col13:
+          type: string
+        col14:
+          type: string
+        col15:
+          type: string
+        col16LoginSap:
+          type: string
+        col17:
+          type: string
+        col18:
+          type: string
+        col19:
+          type: string
+        col20:
+          type: string
     PersonViewResponse:
       type: object
       properties:
@@ -498,66 +558,6 @@ components:
         sapRole:
           type: string
         sapLogin:
-          type: string
-    SapCoaResponse:
-      type: object
-      properties:
-        col1:
-          type: string
-        col2:
-          type: string
-        col3:
-          type: string
-        col4:
-          type: string
-        col5Dg:
-          type: string
-        col6Email:
-          type: string
-        col7:
-          type: string
-        col8Imie:
-          type: string
-        col9Nazwisko:
-          type: string
-        col10:
-          type: string
-        col11LoginSap:
-          type: string
-        col12:
-          type: string
-        col13:
-          type: string
-        col14:
-          type: string
-        col15:
-          type: string
-        col16LoginSap:
-          type: string
-        col17:
-          type: string
-        col18:
-          type: string
-        col19:
-          type: string
-        col20:
-          type: string
-    SapVim1Response:
-      type: object
-      properties:
-        nazwaRoli:
-          type: string
-        jg1:
-          type: string
-        id1TrasyOd:
-          type: string
-        jg2:
-          type: string
-        id1TrasyTo:
-          type: string
-        typAgenta:
-          type: string
-        idAgenta:
           type: string
     OdataResponsePersonViewResponse:
       type: object

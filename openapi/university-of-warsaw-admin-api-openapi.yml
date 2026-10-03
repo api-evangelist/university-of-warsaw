@@ -365,6 +365,38 @@ paths:
       - Authorization: []
 components:
   schemas:
+    SynchronizationCollisionResponse:
+      type: object
+      properties:
+        collision:
+          type: boolean
+        suggestedTime:
+          $ref: '#/components/schemas/LocalTime'
+        suggestedDayOfWeek:
+          type: string
+          enum:
+          - MONDAY
+          - TUESDAY
+          - WEDNESDAY
+          - THURSDAY
+          - FRIDAY
+          - SATURDAY
+          - SUNDAY
+    LocalTime:
+      type: object
+      properties:
+        hour:
+          type: integer
+          format: int32
+        minute:
+          type: integer
+          format: int32
+        second:
+          type: integer
+          format: int32
+        nano:
+          type: integer
+          format: int32
     SynchronizationCollisionRequest:
       type: object
       properties:
@@ -387,38 +419,6 @@ components:
         durationInMinutes:
           type: integer
           format: int64
-    LocalTime:
-      type: object
-      properties:
-        hour:
-          type: integer
-          format: int32
-        minute:
-          type: integer
-          format: int32
-        second:
-          type: integer
-          format: int32
-        nano:
-          type: integer
-          format: int32
-    SynchronizationCollisionResponse:
-      type: object
-      properties:
-        collision:
-          type: boolean
-        suggestedTime:
-          $ref: '#/components/schemas/LocalTime'
-        suggestedDayOfWeek:
-          type: string
-          enum:
-          - MONDAY
-          - TUESDAY
-          - WEDNESDAY
-          - THURSDAY
-          - FRIDAY
-          - SATURDAY
-          - SUNDAY
     SynchronizationResponse:
       type: object
       properties:
