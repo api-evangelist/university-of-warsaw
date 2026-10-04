@@ -213,6 +213,41 @@ paths:
       - Authorization: []
 components:
   schemas:
+    HistoryResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        whoType:
+          type: string
+        whoId:
+          type: string
+        whoName:
+          type: string
+        eventTime:
+          type: string
+          format: date-time
+        operation:
+          type: string
+        changes:
+          type: string
+        objType:
+          type: string
+        objId:
+          type: string
+        relationId:
+          type: string
+        relationName:
+          type: string
+    FieldChange:
+      type: object
+      properties:
+        fieldName:
+          type: string
+        before:
+          type: object
+        after:
+          type: object
     HistoryDisplayResponse:
       type: object
       properties:
@@ -233,41 +268,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/FieldChange'
-        objType:
-          type: string
-        objId:
-          type: string
-        relationId:
-          type: string
-        relationName:
-          type: string
-    FieldChange:
-      type: object
-      properties:
-        fieldName:
-          type: string
-        before:
-          type: object
-        after:
-          type: object
-    HistoryResponse:
-      type: object
-      properties:
-        id:
-          type: string
-        whoType:
-          type: string
-        whoId:
-          type: string
-        whoName:
-          type: string
-        eventTime:
-          type: string
-          format: date-time
-        operation:
-          type: string
-        changes:
-          type: string
         objType:
           type: string
         objId:

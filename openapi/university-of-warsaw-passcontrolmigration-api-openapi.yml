@@ -115,6 +115,49 @@ paths:
       - Authorization: []
 components:
   schemas:
+    PassControlImportRequest:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        year:
+          type: string
+        passIndex:
+          type: integer
+          format: int32
+        passNumber:
+          type: string
+        description:
+          type: string
+        validFrom:
+          type: string
+          format: date
+        validTo:
+          type: string
+          format: date
+        firstName:
+          type: string
+        lastName:
+          type: string
+        phoneNumber:
+          type: string
+        email:
+          type: string
+        vehicleRegistrationNumbers:
+          type: array
+          items:
+            type: string
+        departmentCode:
+          type: string
+        parkingLots:
+          type: array
+          items:
+            type: string
+        isSuspended:
+          type: boolean
+        type:
+          type: string
     PassControlResponse:
       type: object
       properties:
@@ -167,49 +210,6 @@ components:
         isSuspended:
           type: boolean
       description: Informacje o przepustkach samochodowych
-    PassControlImportRequest:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
-        year:
-          type: string
-        passIndex:
-          type: integer
-          format: int32
-        passNumber:
-          type: string
-        description:
-          type: string
-        validFrom:
-          type: string
-          format: date
-        validTo:
-          type: string
-          format: date
-        firstName:
-          type: string
-        lastName:
-          type: string
-        phoneNumber:
-          type: string
-        email:
-          type: string
-        vehicleRegistrationNumbers:
-          type: array
-          items:
-            type: string
-        departmentCode:
-          type: string
-        parkingLots:
-          type: array
-          items:
-            type: string
-        isSuspended:
-          type: boolean
-        type:
-          type: string
   securitySchemes:
     Authorization:
       type: apiKey

@@ -145,6 +145,219 @@ paths:
       - Authorization: []
 components:
   schemas:
+    OdataResponseQueryProjectsItemResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/QueryProjectsItemResponse'
+        totalCount:
+          type: integer
+          format: int32
+    AbstractResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Id abstraltu
+        langCode:
+          type: string
+          description: kod języka typu PL, EN, EN-GB, itp - klucz naturalny do Language, zgodny z ISO (patrz Language)
+        title:
+          type: string
+          description: 'tytuł wynalazku/patentu/wzoru użytkowego/nazwa gatunku/nazwa botaniczna/nazwa odmiany w danym języku '
+        abstr:
+          type: string
+          description: streszczenie opisu wynalazku/wzoru użytkowego w danym języku
+        keyw:
+          type: array
+          description: słowa kluczowe w danym języku
+          items:
+            type: string
+            description: słowa kluczowe w danym języku
+        orderIndex:
+          type: integer
+          description: 'kolejność wyświetlania abstraktów (domyślnie: 0)'
+          format: int32
+        objectId:
+          type: string
+          description: Id obiektu
+        objectType:
+          type: string
+          description: Typ obiektu
+        original:
+          type: boolean
+          description: czy streszczenie jest w języku oryginału
+    ProjectMyUwProfileResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        projectId:
+          type: string
+        profileId:
+          type: string
+        profilePublicId:
+          type: string
+        isPubliclyVisible:
+          type: boolean
+        profileName:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        degree:
+          type: string
+        type:
+          type: string
+          enum:
+          - MEMBER
+          - CONTACT
+        roles:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProjectPublicMemberRoleResponse'
+    ProjectScienceDisciplineResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        projectId:
+          type: string
+        scienceDisciplineCode:
+          type: string
+        scienceDisciplineName:
+          type: string
+        scienceDisciplineNameEn:
+          type: string
+        scienceFieldCode:
+          type: string
+        scienceFieldName:
+          type: string
+        scienceFieldNameEn:
+          type: string
+        percentage:
+          type: number
+    ProjectDisciplineResponse:
+      type: object
+      properties:
+        isDisciplineAssigned:
+          type: boolean
+        scienceDisciplines:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProjectScienceDisciplineResponse'
+        specialities:
+          type: array
+          items:
+            type: string
+    ProjectPublicMemberRoleResponse:
+      type: object
+      properties:
+        namePl:
+          type: string
+        nameEn:
+          type: string
+        orderIndex:
+          type: integer
+          format: int32
+    QueryProjectsItemResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        startDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+        acro:
+          type: string
+        projectName:
+          type: string
+        polonId:
+          type: string
+        keywords:
+          type: array
+          items:
+            type: string
+        competitionNumber:
+          type: string
+        competitionName:
+          type: string
+        projectNumber:
+          type: string
+        registrationNumber:
+          type: string
+        grantAgreementNumber:
+          type: string
+        budget:
+          type: number
+        budgetUw:
+          type: number
+        currencyCode:
+          type: string
+        internationalProject:
+          type: boolean
+        partnershipProject:
+          type: boolean
+        roleUw:
+          type: string
+        startDateUw:
+          type: string
+          format: date
+        endDateUw:
+          type: string
+          format: date
+        status:
+          type: string
+          enum:
+          - UNDER_EVALUATION
+          - AWAITING
+          - IN_PROGRESS
+          - COMPLETED_NOT_SETTLED
+          - COMPLETED_SETTLED
+        auditRequired:
+          type: boolean
+        responsibleProfileId:
+          type: string
+        responsibleProfileName:
+          type: string
+        responsibleUnitCode:
+          type: string
+        responsibleUnitNamePl:
+          type: string
+        responsibleUnitNameEn:
+          type: string
+        langCode:
+          type: string
+        projectContractTypeId:
+          type: integer
+          format: int32
+        pspElement:
+          type: string
+        hasManager:
+          type: boolean
+        managerProfileId:
+          type: string
+        managerProfileName:
+          type: string
+        researchManagerProfileId:
+          type: string
+        researchManagerProfileName:
+          type: string
+        intermediaryInstitutionName:
+          type: string
+        financingInstitutionName:
+          type: string
+        uwContractNumber:
+          type: string
+        isPrivate:
+          type: boolean
+      description: Podstawowe informacje o projekcie
     ProjectResponse:
       type: object
       properties:
@@ -291,219 +504,6 @@ components:
           type: string
         isPrivate:
           type: boolean
-    QueryProjectsItemResponse:
-      type: object
-      properties:
-        id:
-          type: string
-        startDate:
-          type: string
-          format: date
-        endDate:
-          type: string
-          format: date
-        acro:
-          type: string
-        projectName:
-          type: string
-        polonId:
-          type: string
-        keywords:
-          type: array
-          items:
-            type: string
-        competitionNumber:
-          type: string
-        competitionName:
-          type: string
-        projectNumber:
-          type: string
-        registrationNumber:
-          type: string
-        grantAgreementNumber:
-          type: string
-        budget:
-          type: number
-        budgetUw:
-          type: number
-        currencyCode:
-          type: string
-        internationalProject:
-          type: boolean
-        partnershipProject:
-          type: boolean
-        roleUw:
-          type: string
-        startDateUw:
-          type: string
-          format: date
-        endDateUw:
-          type: string
-          format: date
-        status:
-          type: string
-          enum:
-          - UNDER_EVALUATION
-          - AWAITING
-          - IN_PROGRESS
-          - COMPLETED_NOT_SETTLED
-          - COMPLETED_SETTLED
-        auditRequired:
-          type: boolean
-        responsibleProfileId:
-          type: string
-        responsibleProfileName:
-          type: string
-        responsibleUnitCode:
-          type: string
-        responsibleUnitNamePl:
-          type: string
-        responsibleUnitNameEn:
-          type: string
-        langCode:
-          type: string
-        projectContractTypeId:
-          type: integer
-          format: int32
-        pspElement:
-          type: string
-        hasManager:
-          type: boolean
-        managerProfileId:
-          type: string
-        managerProfileName:
-          type: string
-        researchManagerProfileId:
-          type: string
-        researchManagerProfileName:
-          type: string
-        intermediaryInstitutionName:
-          type: string
-        financingInstitutionName:
-          type: string
-        uwContractNumber:
-          type: string
-        isPrivate:
-          type: boolean
-      description: Podstawowe informacje o projekcie
-    ProjectDisciplineResponse:
-      type: object
-      properties:
-        isDisciplineAssigned:
-          type: boolean
-        scienceDisciplines:
-          type: array
-          items:
-            $ref: '#/components/schemas/ProjectScienceDisciplineResponse'
-        specialities:
-          type: array
-          items:
-            type: string
-    OdataResponseQueryProjectsItemResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/QueryProjectsItemResponse'
-        totalCount:
-          type: integer
-          format: int32
-    AbstractResponse:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Id abstraltu
-        langCode:
-          type: string
-          description: kod języka typu PL, EN, EN-GB, itp - klucz naturalny do Language, zgodny z ISO (patrz Language)
-        title:
-          type: string
-          description: 'tytuł wynalazku/patentu/wzoru użytkowego/nazwa gatunku/nazwa botaniczna/nazwa odmiany w danym języku '
-        abstr:
-          type: string
-          description: streszczenie opisu wynalazku/wzoru użytkowego w danym języku
-        keyw:
-          type: array
-          description: słowa kluczowe w danym języku
-          items:
-            type: string
-            description: słowa kluczowe w danym języku
-        orderIndex:
-          type: integer
-          description: 'kolejność wyświetlania abstraktów (domyślnie: 0)'
-          format: int32
-        objectId:
-          type: string
-          description: Id obiektu
-        objectType:
-          type: string
-          description: Typ obiektu
-        original:
-          type: boolean
-          description: czy streszczenie jest w języku oryginału
-    ProjectMyUwProfileResponse:
-      type: object
-      properties:
-        id:
-          type: string
-        projectId:
-          type: string
-        profileId:
-          type: string
-        profilePublicId:
-          type: string
-        isPubliclyVisible:
-          type: boolean
-        profileName:
-          type: string
-        firstName:
-          type: string
-        lastName:
-          type: string
-        degree:
-          type: string
-        type:
-          type: string
-          enum:
-          - MEMBER
-          - CONTACT
-        roles:
-          type: array
-          items:
-            $ref: '#/components/schemas/ProjectPublicMemberRoleResponse'
-    ProjectScienceDisciplineResponse:
-      type: object
-      properties:
-        id:
-          type: string
-        projectId:
-          type: string
-        scienceDisciplineCode:
-          type: string
-        scienceDisciplineName:
-          type: string
-        scienceDisciplineNameEn:
-          type: string
-        scienceFieldCode:
-          type: string
-        scienceFieldName:
-          type: string
-        scienceFieldNameEn:
-          type: string
-        percentage:
-          type: number
-    ProjectPublicMemberRoleResponse:
-      type: object
-      properties:
-        namePl:
-          type: string
-        nameEn:
-          type: string
-        orderIndex:
-          type: integer
-          format: int32
   securitySchemes:
     Authorization:
       type: apiKey

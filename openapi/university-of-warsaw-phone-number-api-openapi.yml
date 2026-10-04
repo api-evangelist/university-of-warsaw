@@ -287,6 +287,28 @@ paths:
       - Authorization: []
 components:
   schemas:
+    PhoneNumberRequest:
+      required:
+      - number
+      - personId
+      type: object
+      properties:
+        number:
+          type: string
+        operator:
+          maxLength: 64
+          minLength: 0
+          type: string
+        personId:
+          type: string
+        tariff:
+          maxLength: 64
+          minLength: 0
+          type: string
+        unitCode:
+          type: string
+        economicDepartmentCode:
+          type: string
     PhoneNumberResponse:
       type: object
       properties:
@@ -359,28 +381,6 @@ components:
         degree:
           type: string
         universityIndexNumber:
-          type: string
-    PhoneNumberRequest:
-      required:
-      - number
-      - personId
-      type: object
-      properties:
-        number:
-          type: string
-        operator:
-          maxLength: 64
-          minLength: 0
-          type: string
-        personId:
-          type: string
-        tariff:
-          maxLength: 64
-          minLength: 0
-          type: string
-        unitCode:
-          type: string
-        economicDepartmentCode:
           type: string
   securitySchemes:
     Authorization:

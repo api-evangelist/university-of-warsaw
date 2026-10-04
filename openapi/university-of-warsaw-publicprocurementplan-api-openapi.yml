@@ -321,38 +321,6 @@ paths:
       - Authorization: []
 components:
   schemas:
-    PersonViewResponse:
-      type: object
-      properties:
-        personId:
-          type: string
-        university:
-          type: string
-          enum:
-          - CUNI
-          - UAH
-          - SU
-          - KU
-          - UNIMI
-          - UW
-          - UNIGE
-          - PARIS_2
-        orcid:
-          type: string
-        firstName:
-          type: string
-        middleNames:
-          type: string
-        lastName:
-          type: string
-        email:
-          type: string
-        profileId:
-          type: string
-        degree:
-          type: string
-        universityIndexNumber:
-          type: string
     PublicProcurementPlanResponse:
       type: object
       properties:
@@ -419,6 +387,16 @@ components:
           type: string
         categoryCpvCode:
           type: string
+    OdataResponsePersonViewResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/PersonViewResponse'
+        totalCount:
+          type: integer
+          format: int32
     PublicProcurementPlanRequest:
       required:
       - cpvCodes
@@ -490,16 +468,38 @@ components:
           type: array
           items:
             type: string
-    OdataResponsePersonViewResponse:
+    PersonViewResponse:
       type: object
       properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/PersonViewResponse'
-        totalCount:
-          type: integer
-          format: int32
+        personId:
+          type: string
+        university:
+          type: string
+          enum:
+          - CUNI
+          - UAH
+          - SU
+          - KU
+          - UNIMI
+          - UW
+          - UNIGE
+          - PARIS_2
+        orcid:
+          type: string
+        firstName:
+          type: string
+        middleNames:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        profileId:
+          type: string
+        degree:
+          type: string
+        universityIndexNumber:
+          type: string
   securitySchemes:
     Authorization:
       type: apiKey

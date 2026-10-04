@@ -112,73 +112,97 @@ components:
           type: boolean
           description: czy streszczenie jest w języku oryginału
       description: lista abstraktów
-    PublicationVenueRequest:
-      type: object
-      properties:
-        title:
-          type: string
-          description: Tytuł
-        issn:
-          type: string
-          description: ISSN - międzynarodowy numer identyfikacyjny czasopism i wydawnictw ciągłych
-        eissn:
-          type: string
-          description: E-ISSN - wersja ISSN dla publikacji elektronicznych.
-        isbn:
-          type: string
-          description: ISBN - międzynarodowy numer identyfikacyjny książek i wydawnictw zwartych.
-        publisher:
-          type: string
-          description: Wydawca
-        doi:
-          type: string
-          description: DOI (Digital Object Identifier)
-        uri:
-          type: string
-          description: Link do czasopisma/publikacji
-      description: dane czasopisma/książki
-    PublicationProfileResponse:
+    SynchronizationResponse:
       type: object
       properties:
         id:
           type: string
-          description: id relacji course_person
-        publicationId:
+        type:
           type: string
-          description: id kursu
-        name:
+          enum:
+          - ACHIEVEMENTS_SUMMARY
+          - ADMIN
+          - ARTICLE
+          - ASSET
+          - BUILDING
+          - BUILDING_ACCESSIBILITY
+          - BUILDING_ATTRIBUTE
+          - BUILDING_BON
+          - BUILDING_PATH_OBJECT_TYPE
+          - BUILDING_PUBLIC
+          - BUSINESS_ENTITY
+          - CAMPUS
+          - COURSE
+          - COURSE_REGISTRATION_INFO
+          - CURRENCY
+          - EVENT
+          - FAQ
+          - GIVEAWAY
+          - ITEM_USED
+          - IT_SERVICE
+          - LABORATORY
+          - LABORATORY_TYPE
+          - LEGAL_BASIS
+          - LICENSE
+          - MOBILITY_OPTION
+          - MAGAZINE
+          - MONOGRAPH_PUBLISHER
+          - FRAMEWORK_AGREEMENT
+          - HOUSING_OPTION
+          - PATENT
+          - PASS_CONTROL
+          - PASS_CONTROL_PUBLIC
+          - PASS_CONTROL_DICTIONARY
+          - PERMISSION
+          - PERM_DEPARTMENT_PERSON
+          - PERM_DEPARTMENT_CAS_ROLE
+          - PERSON
+          - PERSON_ID_CARD
+          - PHONE_NUMBER
+          - PROFILE
+          - PROFILE_PUBLIC
+          - PROFILE_MYUW
+          - PERSON_PROFILE_MYUW
+          - PROJECT
+          - PROJECT_PUBLIC
+          - PROJECT_MIGRATION
+          - PROJECT_DICTIONARY
+          - PROJECT_PROGRAM
+          - PROJECT_INTERNATIONAL
+          - PROJECT_PROGRAM_DETAILED
+          - PROJECT_PROGRAM_CONTRACT
+          - PROJECT_TYPE
+          - PROJECT_REPORT
+          - PSP_ELEMENT
+          - PUBLICATION
+          - PUBLICATION_VENUE
+          - RESEARCH_SET
+          - PERSON_SYSTEM_ROLE
+          - PERSON_SYSTEM_ROLE_API
+          - SAP_OBJECT_ACCESS
+          - SYSTEM_ROLE
+          - PUBLIC_PROCUREMENT_PLAN
+          - PUBLIC_PROCUREMENT_PLAN_CATEGORY
+          - SAP_ROLE
+          - STUDENT_ORGANIZATION
+          - TRANSLATION
+          - TRANSLATION_CATEGORY
+          - TUTORIAL
+          - UNIVERSITY_INFO
+          - UW_ECONOMIC_DEPARTMENT
+          - UW_PERSON
+          - UW_PERSON_EMPLOYEE_DATA
+          - UW_UNIT
+        started:
           type: string
-          description: imię i nazwisko autora (ustawiane dowolnie)
-        profileId:
+          format: date-time
+        ended:
           type: string
-          description: id profilu
-        profilePublicId:
+          format: date-time
+        source:
           type: string
-          description: id publiczne profilu
-        profileFirstName:
+        invokedBy:
           type: string
-          description: imię osoby
-        profileLastName:
-          type: string
-          description: nazwisko osoby
-        profileEmails:
-          type: array
-          description: emaile osoby
-          items:
-            type: string
-            description: emaile osoby
-        profileDegree:
-          type: string
-          description: stopień naukowy osoby
-        role:
-          type: string
-          description: rola osoby
-        email:
-          type: string
-          description: email
-        isPubliclyVisible:
-          type: boolean
-          description: czy profil jest publiczny
     PublicationExtendedImportProfileRequest:
       type: object
       properties:
@@ -200,6 +224,19 @@ components:
           - EDITOR
           - TRANSLATOR
       description: lista profile
+    PublicationExtendedImportResponse:
+      type: object
+      properties:
+        publication:
+          $ref: '#/components/schemas/PublicationResponse'
+        abstracts:
+          type: array
+          items:
+            $ref: '#/components/schemas/AbstractResponse'
+        profiles:
+          type: array
+          items:
+            $ref: '#/components/schemas/PublicationProfileResponse'
     PublicationResponse:
       type: object
       properties:
@@ -244,6 +281,48 @@ components:
           type: string
           format: date-time
       description: Informacje o publikacji
+    PublicationProfileResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: id relacji course_person
+        publicationId:
+          type: string
+          description: id kursu
+        name:
+          type: string
+          description: imię i nazwisko autora (ustawiane dowolnie)
+        profileId:
+          type: string
+          description: id profilu
+        profilePublicId:
+          type: string
+          description: id publiczne profilu
+        profileFirstName:
+          type: string
+          description: imię osoby
+        profileLastName:
+          type: string
+          description: nazwisko osoby
+        profileEmails:
+          type: array
+          description: emaile osoby
+          items:
+            type: string
+            description: emaile osoby
+        profileDegree:
+          type: string
+          description: stopień naukowy osoby
+        role:
+          type: string
+          description: rola osoby
+        email:
+          type: string
+          description: email
+        isPubliclyVisible:
+          type: boolean
+          description: czy profil jest publiczny
     AbstractResponse:
       type: object
       properties:
@@ -278,19 +357,31 @@ components:
         original:
           type: boolean
           description: czy streszczenie jest w języku oryginału
-    PublicationExtendedImportResponse:
+    PublicationVenueRequest:
       type: object
       properties:
-        publication:
-          $ref: '#/components/schemas/PublicationResponse'
-        abstracts:
-          type: array
-          items:
-            $ref: '#/components/schemas/AbstractResponse'
-        profiles:
-          type: array
-          items:
-            $ref: '#/components/schemas/PublicationProfileResponse'
+        title:
+          type: string
+          description: Tytuł
+        issn:
+          type: string
+          description: ISSN - międzynarodowy numer identyfikacyjny czasopism i wydawnictw ciągłych
+        eissn:
+          type: string
+          description: E-ISSN - wersja ISSN dla publikacji elektronicznych.
+        isbn:
+          type: string
+          description: ISBN - międzynarodowy numer identyfikacyjny książek i wydawnictw zwartych.
+        publisher:
+          type: string
+          description: Wydawca
+        doi:
+          type: string
+          description: DOI (Digital Object Identifier)
+        uri:
+          type: string
+          description: Link do czasopisma/publikacji
+      description: dane czasopisma/książki
     PublicationExtendedImportRequest:
       required:
       - abstracts
@@ -399,97 +490,6 @@ components:
           description: id źródła importu np. 612321
         publicationVenue:
           $ref: '#/components/schemas/PublicationVenueRequest'
-    SynchronizationResponse:
-      type: object
-      properties:
-        id:
-          type: string
-        type:
-          type: string
-          enum:
-          - ACHIEVEMENTS_SUMMARY
-          - ADMIN
-          - ARTICLE
-          - ASSET
-          - BUILDING
-          - BUILDING_ACCESSIBILITY
-          - BUILDING_ATTRIBUTE
-          - BUILDING_BON
-          - BUILDING_PATH_OBJECT_TYPE
-          - BUILDING_PUBLIC
-          - BUSINESS_ENTITY
-          - CAMPUS
-          - COURSE
-          - COURSE_REGISTRATION_INFO
-          - CURRENCY
-          - EVENT
-          - FAQ
-          - GIVEAWAY
-          - ITEM_USED
-          - IT_SERVICE
-          - LABORATORY
-          - LABORATORY_TYPE
-          - LEGAL_BASIS
-          - LICENSE
-          - MOBILITY_OPTION
-          - MAGAZINE
-          - MONOGRAPH_PUBLISHER
-          - FRAMEWORK_AGREEMENT
-          - HOUSING_OPTION
-          - PATENT
-          - PASS_CONTROL
-          - PASS_CONTROL_PUBLIC
-          - PASS_CONTROL_DICTIONARY
-          - PERMISSION
-          - PERM_DEPARTMENT_PERSON
-          - PERM_DEPARTMENT_CAS_ROLE
-          - PERSON
-          - PERSON_ID_CARD
-          - PHONE_NUMBER
-          - PROFILE
-          - PROFILE_PUBLIC
-          - PROFILE_MYUW
-          - PERSON_PROFILE_MYUW
-          - PROJECT
-          - PROJECT_PUBLIC
-          - PROJECT_MIGRATION
-          - PROJECT_DICTIONARY
-          - PROJECT_PROGRAM
-          - PROJECT_INTERNATIONAL
-          - PROJECT_PROGRAM_DETAILED
-          - PROJECT_PROGRAM_CONTRACT
-          - PROJECT_TYPE
-          - PROJECT_REPORT
-          - PSP_ELEMENT
-          - PUBLICATION
-          - PUBLICATION_VENUE
-          - RESEARCH_SET
-          - PERSON_SYSTEM_ROLE
-          - PERSON_SYSTEM_ROLE_API
-          - SAP_OBJECT_ACCESS
-          - SYSTEM_ROLE
-          - PUBLIC_PROCUREMENT_PLAN
-          - PUBLIC_PROCUREMENT_PLAN_CATEGORY
-          - SAP_ROLE
-          - STUDENT_ORGANIZATION
-          - TRANSLATION
-          - TRANSLATION_CATEGORY
-          - TUTORIAL
-          - UNIVERSITY_INFO
-          - UW_ECONOMIC_DEPARTMENT
-          - UW_PERSON
-          - UW_PERSON_EMPLOYEE_DATA
-          - UW_UNIT
-        started:
-          type: string
-          format: date-time
-        ended:
-          type: string
-          format: date-time
-        source:
-          type: string
-        invokedBy:
-          type: string
   securitySchemes:
     Authorization:
       type: apiKey

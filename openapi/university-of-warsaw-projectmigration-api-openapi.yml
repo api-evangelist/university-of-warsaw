@@ -433,95 +433,12 @@ paths:
       - Authorization: []
 components:
   schemas:
-    ProjectFinancingUwRequest:
-      required:
-      - unitCode
-      type: object
-      properties:
-        id:
-          type: string
-        unitCode:
-          type: string
-        year:
-          type: integer
-          format: int32
-        grossPlanned:
-          type: number
-        grossRealized:
-          type: number
-        netPlanned:
-          type: number
-        netRealized:
-          type: number
-        openAccessPlanned:
-          type: number
-        openAccessRealized:
-          type: number
-        indirectPlanned:
-          type: number
-        indirectRealized:
-          type: number
-        apparatusPlanned:
-          type: number
-        apparatusRealized:
-          type: number
-    ProjectAppendixRequest:
-      required:
-      - documentDate
-      - number
-      type: object
-      properties:
-        id:
-          type: string
-        number:
-          type: string
-        documentDate:
-          type: string
-          format: date
-        notes:
-          type: string
-    ProjectProfileMemberRequest:
-      required:
-      - profileId
-      type: object
-      properties:
-        id:
-          type: string
-        profileId:
-          type: string
-        roleId:
-          type: integer
-          format: int32
-        regulation75RoleId:
-          type: integer
-          format: int32
-        unitCode:
-          type: string
-        fromDate:
-          type: string
-          format: date
-        toDate:
-          type: string
-          format: date
     ProfilePersonRequest:
       required:
       - personId
       type: object
       properties:
         personId:
-          type: string
-    GetOrCreateProfileRequest:
-      type: object
-      properties:
-        id:
-          type: string
-        firstName:
-          type: string
-        lastName:
-          type: string
-        email:
-          type: string
-        degree:
           type: string
     ProjectRequest:
       required:
@@ -650,6 +567,60 @@ components:
           type: string
         isPrivate:
           type: boolean
+    GetOrCreateProfileRequest:
+      type: object
+      properties:
+        id:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        degree:
+          type: string
+    ProjectScienceDisciplineRequest:
+      required:
+      - scienceDisciplineCode
+      type: object
+      properties:
+        scienceDisciplineCode:
+          type: string
+        percentage:
+          type: number
+    ProjectFinancingUwRequest:
+      required:
+      - unitCode
+      type: object
+      properties:
+        id:
+          type: string
+        unitCode:
+          type: string
+        year:
+          type: integer
+          format: int32
+        grossPlanned:
+          type: number
+        grossRealized:
+          type: number
+        netPlanned:
+          type: number
+        netRealized:
+          type: number
+        openAccessPlanned:
+          type: number
+        openAccessRealized:
+          type: number
+        indirectPlanned:
+          type: number
+        indirectRealized:
+          type: number
+        apparatusPlanned:
+          type: number
+        apparatusRealized:
+          type: number
     ProjectOtherInfoRequest:
       type: object
       properties:
@@ -670,45 +641,6 @@ components:
         projectContractTypeId:
           type: integer
           format: int32
-    RecordOwnersRequest:
-      required:
-      - departmentOwners
-      - personOwners
-      type: object
-      properties:
-        departmentOwners:
-          uniqueItems: true
-          type: array
-          items:
-            type: string
-        personOwners:
-          uniqueItems: true
-          type: array
-          items:
-            type: string
-    ProjectFinancingInstitutionImportRequest:
-      type: object
-      properties:
-        acro:
-          type: string
-        primary:
-          type: boolean
-    ProjectLinkRequest:
-      required:
-      - name
-      - url
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          maxLength: 255
-          minLength: 0
-          type: string
-        url:
-          maxLength: 255
-          minLength: 0
-          type: string
     ProjectContractTypeRequest:
       type: object
       properties:
@@ -737,6 +669,60 @@ components:
           minLength: 0
           type: string
       description: Informacje o typie projektu
+    ProjectLinkRequest:
+      required:
+      - name
+      - url
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          maxLength: 255
+          minLength: 0
+          type: string
+        url:
+          maxLength: 255
+          minLength: 0
+          type: string
+    ProjectAppendixRequest:
+      required:
+      - documentDate
+      - number
+      type: object
+      properties:
+        id:
+          type: string
+        number:
+          type: string
+        documentDate:
+          type: string
+          format: date
+        notes:
+          type: string
+    ProjectProfileMemberRequest:
+      required:
+      - profileId
+      type: object
+      properties:
+        id:
+          type: string
+        profileId:
+          type: string
+        roleId:
+          type: integer
+          format: int32
+        regulation75RoleId:
+          type: integer
+          format: int32
+        unitCode:
+          type: string
+        fromDate:
+          type: string
+          format: date
+        toDate:
+          type: string
+          format: date
     ProjectUwUnitRequest:
       type: object
       properties:
@@ -754,15 +740,29 @@ components:
           type: string
         main:
           type: boolean
-    ProjectScienceDisciplineRequest:
+    RecordOwnersRequest:
       required:
-      - scienceDisciplineCode
+      - departmentOwners
+      - personOwners
       type: object
       properties:
-        scienceDisciplineCode:
+        departmentOwners:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        personOwners:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+    ProjectFinancingInstitutionImportRequest:
+      type: object
+      properties:
+        acro:
           type: string
-        percentage:
-          type: number
+        primary:
+          type: boolean
   securitySchemes:
     Authorization:
       type: apiKey

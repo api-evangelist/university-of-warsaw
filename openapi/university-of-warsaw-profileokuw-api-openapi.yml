@@ -341,56 +341,16 @@ paths:
       - Authorization: []
 components:
   schemas:
-    ProfilePublicationResponse:
+    OdataResponseProfileOkUwResponse:
       type: object
       properties:
-        profileId:
-          type: string
-        publicationId:
-          type: string
-        title:
-          type: string
-        titlePl:
-          type: string
-        titleEn:
-          type: string
-        publicationDate:
-          type: string
-        role:
-          type: string
-        year:
-          type: integer
-          format: int32
-        types:
+        data:
           type: array
           items:
-            type: string
-    ProfileCourseResponse:
-      type: object
-      properties:
-        profileId:
-          type: string
-        courseId:
-          type: string
-        title:
-          type: string
-        titlePl:
-          type: string
-        titleEn:
-          type: string
-        subjectCode:
-          type: string
-        year:
+            $ref: '#/components/schemas/ProfileOkUwResponse'
+        totalCount:
           type: integer
           format: int32
-        term:
-          type: string
-        startDate:
-          type: string
-          format: date
-        endDate:
-          type: string
-          format: date
     ProfilePatentResponse:
       type: object
       properties:
@@ -414,16 +374,6 @@ components:
         decisionDate:
           type: string
           format: date
-    OdataResponseProfileOkUwResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/ProfileOkUwResponse'
-        totalCount:
-          type: integer
-          format: int32
     ProfileProjectResponse:
       type: object
       properties:
@@ -474,6 +424,42 @@ components:
           type: array
           items:
             type: string
+    ProjectPublicMemberRoleResponse:
+      type: object
+      properties:
+        namePl:
+          type: string
+        nameEn:
+          type: string
+        orderIndex:
+          type: integer
+          format: int32
+    ProfileCourseResponse:
+      type: object
+      properties:
+        profileId:
+          type: string
+        courseId:
+          type: string
+        title:
+          type: string
+        titlePl:
+          type: string
+        titleEn:
+          type: string
+        subjectCode:
+          type: string
+        year:
+          type: integer
+          format: int32
+        term:
+          type: string
+        startDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
     ScienceDisciplineResponse:
       type: object
       properties:
@@ -495,16 +481,30 @@ components:
           type: string
         scienceFieldNameEn:
           type: string
-    ProjectPublicMemberRoleResponse:
+    ProfilePublicationResponse:
       type: object
       properties:
-        namePl:
+        profileId:
           type: string
-        nameEn:
+        publicationId:
           type: string
-        orderIndex:
+        title:
+          type: string
+        titlePl:
+          type: string
+        titleEn:
+          type: string
+        publicationDate:
+          type: string
+        role:
+          type: string
+        year:
           type: integer
           format: int32
+        types:
+          type: array
+          items:
+            type: string
   securitySchemes:
     Authorization:
       type: apiKey

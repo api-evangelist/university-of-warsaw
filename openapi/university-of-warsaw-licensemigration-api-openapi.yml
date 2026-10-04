@@ -122,30 +122,6 @@ components:
       properties:
         license:
           $ref: '#/components/schemas/LicenseResponse'
-    LicenseImportRequest:
-      required:
-      - importSourceId
-      - importSourceType
-      type: object
-      properties:
-        productGroup:
-          type: string
-        merchandise:
-          type: string
-        year:
-          type: integer
-          format: int32
-        cfUri:
-          type: string
-        quantity:
-          type: integer
-          format: int32
-        economicDepartment:
-          type: string
-        importSourceType:
-          type: string
-        importSourceId:
-          type: string
     LicenseResponse:
       type: object
       properties:
@@ -183,6 +159,30 @@ components:
           description: czas utworzenia rekordu
           format: date-time
       description: Informacje o kursie
+    LicenseImportRequest:
+      required:
+      - importSourceId
+      - importSourceType
+      type: object
+      properties:
+        productGroup:
+          type: string
+        merchandise:
+          type: string
+        year:
+          type: integer
+          format: int32
+        cfUri:
+          type: string
+        quantity:
+          type: integer
+          format: int32
+        economicDepartment:
+          type: string
+        importSourceType:
+          type: string
+        importSourceId:
+          type: string
   securitySchemes:
     Authorization:
       type: apiKey

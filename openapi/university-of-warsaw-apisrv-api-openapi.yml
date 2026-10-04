@@ -66,6 +66,26 @@ paths:
         '400':
           $ref: '#/components/responses/Error'
 components:
+  parameters:
+    callback:
+      name: callback
+      in: query
+      required: false
+      description: Required only if jsonp is chosen as the return format.
+      schema:
+        type: string
+    format:
+      name: format
+      in: query
+      required: false
+      description: Output format. See supported output formats in the USOS API datatypes documentation.
+      schema:
+        type: string
+        enum:
+        - json
+        - jsonp
+        - xml
+        default: json
   responses:
     Error:
       description: USOS API error envelope.
@@ -74,23 +94,46 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
   schemas:
-    Error:
+    Installation:
       type: object
-      description: Error envelope returned by USOS API methods (confirmed against live responses, e.g. an unknown course_id returns object_not_found).
+      description: Information on a USOS API installation.
       properties:
-        message:
+        base_url:
           type: string
-          description: Human-readable error message.
-        error:
+          description: Base URL of this installation. For backward compatibility this always starts with http://, but https:// should be used.
+        version:
           type: string
-          description: Machine-readable error code, e.g. object_not_found.
-        reason:
+          description: Human-readable version string (undocumented structure).
+        machine_version:
           type: string
-          description: Additional reason detail, e.g. the offending object type.
-      example:
-        message: Referenced course does not exist.
-        error: object_not_found
-        reason: course
+          description: Machine-readable version in 0.0.0.0-0 format.
+          pattern: ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+-[0-9]+$
+        usos_schema_version:
+          type: string
+          description: Version of the USOS database used by this installation.
+        institution_name:
+          allOf:
+          - $ref: '#/components/schemas/LangDict'
+          description: Name of the owning institution, or null if unknown.
+        institution:
+          allOf:
+          - $ref: '#/components/schemas/Faculty'
+          description: The primary faculty object for this institution.
+        contact_emails:
+          type: array
+          description: Email addresses of local USOS API administrators.
+          items:
+            type: string
+            format: email
+        schac_id:
+          type: string
+          description: Unique institution ID in SCHAC format (primary domain name).
+        mcards_support:
+          type: boolean
+          description: True if mCards (mLegitymacje) are supported.
+        mobile_usos_support:
+          type: boolean
+          description: True if Mobile USOS is supported.
     Faculty:
       type: object
       description: A faculty or organizational unit.
@@ -145,46 +188,23 @@ components:
         is_public:
           type: boolean
           description: Whether the faculty is public.
-    Installation:
+    Error:
       type: object
-      description: Information on a USOS API installation.
+      description: Error envelope returned by USOS API methods (confirmed against live responses, e.g. an unknown course_id returns object_not_found).
       properties:
-        base_url:
+        message:
           type: string
-          description: Base URL of this installation. For backward compatibility this always starts with http://, but https:// should be used.
-        version:
+          description: Human-readable error message.
+        error:
           type: string
-          description: Human-readable version string (undocumented structure).
-        machine_version:
+          description: Machine-readable error code, e.g. object_not_found.
+        reason:
           type: string
-          description: Machine-readable version in 0.0.0.0-0 format.
-          pattern: ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+-[0-9]+$
-        usos_schema_version:
-          type: string
-          description: Version of the USOS database used by this installation.
-        institution_name:
-          allOf:
-          - $ref: '#/components/schemas/LangDict'
-          description: Name of the owning institution, or null if unknown.
-        institution:
-          allOf:
-          - $ref: '#/components/schemas/Faculty'
-          description: The primary faculty object for this institution.
-        contact_emails:
-          type: array
-          description: Email addresses of local USOS API administrators.
-          items:
-            type: string
-            format: email
-        schac_id:
-          type: string
-          description: Unique institution ID in SCHAC format (primary domain name).
-        mcards_support:
-          type: boolean
-          description: True if mCards (mLegitymacje) are supported.
-        mobile_usos_support:
-          type: boolean
-          description: True if Mobile USOS is supported.
+          description: Additional reason detail, e.g. the offending object type.
+      example:
+        message: Referenced course does not exist.
+        error: object_not_found
+        reason: course
     LangDict:
       type: object
       description: A language dictionary mapping ISO language codes to localized strings, as used throughout the USOS API.
@@ -198,26 +218,6 @@ components:
       example:
         pl: Uniwersytet Warszawski
         en: The University of Warsaw
-  parameters:
-    callback:
-      name: callback
-      in: query
-      required: false
-      description: Required only if jsonp is chosen as the return format.
-      schema:
-        type: string
-    format:
-      name: format
-      in: query
-      required: false
-      description: Output format. See supported output formats in the USOS API datatypes documentation.
-      schema:
-        type: string
-        enum:
-        - json
-        - jsonp
-        - xml
-        default: json
   securitySchemes:
     oauth1a:
       type: apiKey

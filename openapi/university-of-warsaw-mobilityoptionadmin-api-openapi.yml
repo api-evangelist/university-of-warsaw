@@ -173,34 +173,6 @@ paths:
       - Authorization: []
 components:
   schemas:
-    ArticleRequest:
-      type: object
-      properties:
-        titlePl:
-          type: string
-        titleEn:
-          type: string
-        contentPl:
-          type: string
-        contentEn:
-          type: string
-        signification:
-          type: string
-        tags:
-          type: array
-          items:
-            type: string
-          uniqueItems: true
-        created:
-          type: string
-        visible:
-          type: boolean
-        visibleFrom:
-          type: string
-          format: date
-        visibleTo:
-          type: string
-          format: date
     MobilityOptionRequest:
       type: object
       properties:
@@ -243,6 +215,31 @@ components:
           type: string
         type:
           type: string
+    ArticleSp4euRequest:
+      type: object
+      properties:
+        titlePl:
+          type: string
+        titleEn:
+          type: string
+        contentPl:
+          type: string
+        contentEn:
+          type: string
+        signification:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+          uniqueItems: true
+    MobilityOptionAndArticleDto:
+      type: object
+      properties:
+        mobilityOptionRequest:
+          $ref: '#/components/schemas/MobilityOptionRequest'
+        articleRequest:
+          $ref: '#/components/schemas/ArticleSp4euRequest'
     ArticlePreviewResponse:
       type: object
       properties:
@@ -319,7 +316,7 @@ components:
           type: string
         areaOfStudy:
           type: string
-    ArticleSp4euRequest:
+    ArticleRequest:
       type: object
       properties:
         titlePl:
@@ -337,13 +334,16 @@ components:
           items:
             type: string
           uniqueItems: true
-    MobilityOptionAndArticleDto:
-      type: object
-      properties:
-        mobilityOptionRequest:
-          $ref: '#/components/schemas/MobilityOptionRequest'
-        articleRequest:
-          $ref: '#/components/schemas/ArticleSp4euRequest'
+        created:
+          type: string
+        visible:
+          type: boolean
+        visibleFrom:
+          type: string
+          format: date
+        visibleTo:
+          type: string
+          format: date
   securitySchemes:
     Authorization:
       type: apiKey

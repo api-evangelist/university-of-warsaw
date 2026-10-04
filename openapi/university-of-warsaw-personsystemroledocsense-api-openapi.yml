@@ -43,6 +43,16 @@ paths:
       - Authorization: []
 components:
   schemas:
+    RoleAssignment:
+      required:
+      - departmentCode
+      - roleCode
+      type: object
+      properties:
+        roleCode:
+          type: string
+        departmentCode:
+          type: string
     DsRoleRequest:
       required:
       - roles
@@ -55,16 +65,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/RoleAssignment'
-    RoleAssignment:
-      required:
-      - departmentCode
-      - roleCode
-      type: object
-      properties:
-        roleCode:
-          type: string
-        departmentCode:
-          type: string
   securitySchemes:
     Authorization:
       type: apiKey

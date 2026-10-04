@@ -138,6 +138,11 @@ paths:
       - Authorization: []
 components:
   schemas:
+    GeneratedApiKeyResponse:
+      type: object
+      properties:
+        authorization:
+          type: string
     ApiKeyResponse:
       type: object
       properties:
@@ -151,11 +156,6 @@ components:
           type: string
           description: Ważność klucza
           format: date-time
-    GeneratedApiKeyResponse:
-      type: object
-      properties:
-        authorization:
-          type: string
     ApiKeyRequest:
       required:
       - name

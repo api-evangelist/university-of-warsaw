@@ -931,6 +931,38 @@ paths:
       - Authorization: []
 components:
   schemas:
+    AssortmentResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        catalogNumber:
+          type: string
+        unit:
+          type: string
+        netPrice:
+          type: number
+        frameworkAgreementId:
+          type: string
+        position:
+          type: integer
+          format: int32
+      description: asortyment
+    FrameworkAgreementAcceptanceRecipientResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+          enum:
+          - GROUP
+        includeIn:
+          type: string
     FrameworkAgreementFullResponse:
       type: object
       properties:
@@ -981,60 +1013,6 @@ components:
         netValue:
           type: number
       description: umowa ramowa
-    AssortmentResponse:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        catalogNumber:
-          type: string
-        unit:
-          type: string
-        netPrice:
-          type: number
-        frameworkAgreementId:
-          type: string
-        position:
-          type: integer
-          format: int32
-      description: asortyment
-    FrameworkAgreementOrderResponse:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-        frameworkAgreementId:
-          type: string
-        orderId:
-          type: string
-        assortment:
-          type: string
-        economicDepartment:
-          type: string
-        pzpMode:
-          type: string
-        applicant:
-          type: string
-        netValue:
-          type: number
-        status:
-          type: string
-    FrameworkAgreementAcceptanceRecipientResponse:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        type:
-          type: string
-          enum:
-          - GROUP
-        includeIn:
-          type: string
     AssortmentRequest:
       required:
       - position
@@ -1107,6 +1085,28 @@ components:
           enum:
           - GROUP
         includeIn:
+          type: string
+    FrameworkAgreementOrderResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        frameworkAgreementId:
+          type: string
+        orderId:
+          type: string
+        assortment:
+          type: string
+        economicDepartment:
+          type: string
+        pzpMode:
+          type: string
+        applicant:
+          type: string
+        netValue:
+          type: number
+        status:
           type: string
     FrameworkAgreementItemResponse:
       type: object

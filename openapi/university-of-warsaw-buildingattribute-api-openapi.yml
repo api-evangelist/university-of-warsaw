@@ -182,16 +182,6 @@ components:
           type: string
         nameEn:
           type: string
-    UpsertBuildingAttributeCategoryRequest:
-      required:
-      - categories
-      type: object
-      properties:
-        categories:
-          uniqueItems: true
-          type: array
-          items:
-            $ref: '#/components/schemas/BuildingAttributeCategoryRequest'
     BuildingAttributeResponse:
       type: object
       properties:
@@ -203,6 +193,16 @@ components:
           type: string
         category:
           type: string
+    UpsertBuildingAttributeCategoryRequest:
+      required:
+      - categories
+      type: object
+      properties:
+        categories:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/BuildingAttributeCategoryRequest'
   securitySchemes:
     Authorization:
       type: apiKey

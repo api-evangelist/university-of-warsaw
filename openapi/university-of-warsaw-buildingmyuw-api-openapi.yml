@@ -291,7 +291,7 @@ paths:
       - Authorization: []
 components:
   schemas:
-    BuildingPlanResponse:
+    BuildingRoomResponse:
       type: object
       properties:
         id:
@@ -299,10 +299,49 @@ components:
           format: int32
         buildingId:
           type: string
+        number:
+          type: string
+        description:
+          type: string
         floorNumber:
           type: integer
           format: int32
-        fileId:
+        persons:
+          type: array
+          items:
+            $ref: '#/components/schemas/BuildingRoomPersonResponse'
+        x:
+          type: number
+        y:
+          type: number
+        importSourceType:
+          type: string
+        importSourceId:
+          type: string
+    BuildingPublicAttributeLocationResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        publicBuildingId:
+          type: string
+        namePl:
+          type: string
+        nameEn:
+          type: string
+        categoryCode:
+          type: string
+        commentPl:
+          type: string
+        commentEn:
+          type: string
+        latitude:
+          type: number
+        longitude:
+          type: number
+        campusCode:
+          type: string
+        url:
           type: string
     BuildingAccessibilityResponse:
       type: object
@@ -340,6 +379,29 @@ components:
         additionalCustomization:
           type: string
         additionalInformation:
+          type: string
+    OdataResponseBuildingResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/BuildingResponse'
+        totalCount:
+          type: integer
+          format: int32
+    BuildingPlanResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        buildingId:
+          type: string
+        floorNumber:
+          type: integer
+          format: int32
+        fileId:
           type: string
     BuildingResponse:
       type: object
@@ -430,31 +492,6 @@ components:
           type: string
         degree:
           type: string
-    BuildingPublicAttributeLocationResponse:
-      type: object
-      properties:
-        id:
-          type: string
-        publicBuildingId:
-          type: string
-        namePl:
-          type: string
-        nameEn:
-          type: string
-        categoryCode:
-          type: string
-        commentPl:
-          type: string
-        commentEn:
-          type: string
-        latitude:
-          type: number
-        longitude:
-          type: number
-        campusCode:
-          type: string
-        url:
-          type: string
     BuildingFileResponse:
       type: object
       properties:
@@ -471,43 +508,6 @@ components:
         uploadedDate:
           type: string
           format: date-time
-    OdataResponseBuildingResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/BuildingResponse'
-        totalCount:
-          type: integer
-          format: int32
-    BuildingRoomResponse:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
-        buildingId:
-          type: string
-        number:
-          type: string
-        description:
-          type: string
-        floorNumber:
-          type: integer
-          format: int32
-        persons:
-          type: array
-          items:
-            $ref: '#/components/schemas/BuildingRoomPersonResponse'
-        x:
-          type: number
-        y:
-          type: number
-        importSourceType:
-          type: string
-        importSourceId:
-          type: string
   securitySchemes:
     Authorization:
       type: apiKey

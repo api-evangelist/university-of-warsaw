@@ -601,6 +601,16 @@ components:
           type: string
           description: Ważność klucza
           format: date-time
+    PermRequestsSet:
+      required:
+      - requests
+      type: object
+      properties:
+        requests:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/PermRequest'
     PermApiKeyResponse:
       type: object
       properties:
@@ -721,9 +731,11 @@ components:
             - QUERY_4EU
             - READ_4EU
             - CREATE_4EU
-    ObjectTypePermsResponse:
+    PermCasRoleResponse:
       type: object
       properties:
+        role:
+          type: string
         objectType:
           type: string
           enum:
@@ -839,10 +851,15 @@ components:
             - QUERY_4EU
             - READ_4EU
             - CREATE_4EU
-    PermCasRoleResponse:
+    PermGroupNameResponse:
       type: object
       properties:
-        role:
+        name:
+          type: string
+    PermGroupResponse:
+      type: object
+      properties:
+        group:
           type: string
         objectType:
           type: string
@@ -1098,11 +1115,6 @@ components:
             - QUERY_4EU
             - READ_4EU
             - CREATE_4EU
-    PermGroupNameResponse:
-      type: object
-      properties:
-        name:
-          type: string
     PermRequest:
       required:
       - objectType
@@ -1224,11 +1236,9 @@ components:
             - QUERY_4EU
             - READ_4EU
             - CREATE_4EU
-    PermGroupResponse:
+    ObjectTypePermsResponse:
       type: object
       properties:
-        group:
-          type: string
         objectType:
           type: string
           enum:
@@ -1344,16 +1354,6 @@ components:
             - QUERY_4EU
             - READ_4EU
             - CREATE_4EU
-    PermRequestsSet:
-      required:
-      - requests
-      type: object
-      properties:
-        requests:
-          uniqueItems: true
-          type: array
-          items:
-            $ref: '#/components/schemas/PermRequest'
   securitySchemes:
     Authorization:
       type: apiKey

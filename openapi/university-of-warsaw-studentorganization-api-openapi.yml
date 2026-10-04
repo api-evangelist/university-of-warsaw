@@ -717,6 +717,46 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    StudentOrganizationLinkRequest:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        url:
+          type: string
+    StudentOrganizationNameRequest:
+      type: object
+      properties:
+        id:
+          type: string
+        namePl:
+          maxLength: 255
+          minLength: 0
+          type: string
+        nameEn:
+          maxLength: 255
+          minLength: 0
+          type: string
+        shortNamePl:
+          maxLength: 255
+          minLength: 0
+          type: string
+        shortNameEn:
+          maxLength: 255
+          minLength: 0
+          type: string
+        dateFrom:
+          type: string
+          format: date
+        dateTo:
+          type: string
+          format: date
+        note:
+          maxLength: 1000
+          minLength: 0
+          type: string
     StudentOrganizationFounderRequest:
       required:
       - personId
@@ -733,6 +773,130 @@ components:
         yearOfStudy:
           type: integer
           format: int32
+    StudentOrganizationSupervisorResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        personId:
+          type: string
+        name:
+          type: string
+        degree:
+          type: string
+        email:
+          type: string
+        role:
+          type: string
+        dateFrom:
+          type: string
+          format: date
+        dateTo:
+          type: string
+          format: date
+        note:
+          type: string
+        unitCode:
+          type: string
+        unitNamePl:
+          type: string
+        unitNameEn:
+          type: string
+    StudentOrganizationBoardMemberResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        personId:
+          type: string
+        name:
+          type: string
+        preferredName:
+          type: string
+        usosId:
+          type: string
+        email:
+          type: string
+        phoneNumbers:
+          type: array
+          items:
+            type: string
+        role:
+          type: string
+        dateFrom:
+          type: string
+          format: date
+        dateTo:
+          type: string
+          format: date
+        note:
+          type: string
+        fieldOfStudy:
+          type: string
+        yearOfStudy:
+          type: integer
+          format: int32
+        universityIndexNumber:
+          type: string
+    StudentOrganizationActivityRequest:
+      required:
+      - mainProfile
+      type: object
+      properties:
+        id:
+          type: string
+        mainProfile:
+          type: string
+        dateFrom:
+          type: string
+          format: date
+        dateTo:
+          type: string
+          format: date
+        note:
+          maxLength: 1000
+          minLength: 0
+          type: string
+    StudentOrganizationUnitResponse:
+      type: object
+      properties:
+        unitCode:
+          type: string
+        unitNamePl:
+          type: string
+        unitNameEn:
+          type: string
+        dateFrom:
+          type: string
+          format: date
+        dateTo:
+          type: string
+          format: date
+        note:
+          type: string
+    StudentOrganizationSupervisorRequest:
+      required:
+      - personId
+      type: object
+      properties:
+        id:
+          type: string
+        personId:
+          type: string
+        dateFrom:
+          type: string
+          format: date
+        dateTo:
+          type: string
+          format: date
+        role:
+          type: string
+        note:
+          maxLength: 1000
+          minLength: 0
+          type: string
+        unitCode:
+          type: string
     StudentOrganizationRelationsReportResponse:
       type: object
       properties:
@@ -774,58 +938,106 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/StudentOrganizationLinkResponse'
-    StudentOrganizationSupervisorRequest:
-      required:
-      - personId
+    StudentOrganizationReportResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        year:
+          type: integer
+          format: int32
+        submittedDate:
+          type: string
+          format: date
+        accepted:
+          type: boolean
+        note:
+          type: string
+    StudentOrganizationRequest:
+      type: object
+      properties:
+        registeredDate:
+          type: string
+          format: date
+        contactPersonId:
+          type: string
+        registerNumber:
+          type: integer
+          format: int32
+        email:
+          type: string
+        url:
+          type: string
+        type:
+          type: string
+          enum:
+          - GENERAL
+          - STUDENT
+          - DOCTORAL
+        initNamePl:
+          type: string
+        initNameEn:
+          type: string
+    StudentOrganizationFounderResponse:
       type: object
       properties:
         id:
           type: string
         personId:
           type: string
-        dateFrom:
+        studentOrganizationId:
+          type: string
+        note:
+          type: string
+        name:
+          type: string
+        preferredName:
+          type: string
+        email:
+          type: string
+        usosId:
+          type: string
+        universityIndexNumber:
+          type: string
+        phoneNumbers:
+          type: array
+          items:
+            type: string
+        fieldOfStudy:
+          type: string
+        yearOfStudy:
+          type: integer
+          format: int32
+    StudentOrganizationReportRequest:
+      required:
+      - accepted
+      - submittedDate
+      - year
+      type: object
+      properties:
+        id:
+          type: string
+        year:
+          minimum: 1
+          type: integer
+          format: int32
+        submittedDate:
           type: string
           format: date
-        dateTo:
-          type: string
-          format: date
-        role:
-          type: string
+        accepted:
+          type: boolean
         note:
           maxLength: 1000
           minLength: 0
           type: string
+    StudentOrganizationUnitRequest:
+      required:
+      - unitCode
+      type: object
+      properties:
+        id:
+          type: string
         unitCode:
-          type: string
-    StudentOrganizationLinkRequest:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        url:
-          type: string
-    StudentOrganizationNameRequest:
-      type: object
-      properties:
-        id:
-          type: string
-        namePl:
-          maxLength: 255
-          minLength: 0
-          type: string
-        nameEn:
-          maxLength: 255
-          minLength: 0
-          type: string
-        shortNamePl:
-          maxLength: 255
-          minLength: 0
-          type: string
-        shortNameEn:
-          maxLength: 255
-          minLength: 0
           type: string
         dateFrom:
           type: string
@@ -847,7 +1059,43 @@ components:
         totalCount:
           type: integer
           format: int32
-    StudentOrganizationStatusRequest:
+    StudentOrganizationActivityResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        mainProfile:
+          type: string
+        dateFrom:
+          type: string
+          format: date
+        dateTo:
+          type: string
+          format: date
+        note:
+          type: string
+    StudentOrganizationNameResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        namePl:
+          type: string
+        nameEn:
+          type: string
+        shortNamePl:
+          type: string
+        shortNameEn:
+          type: string
+        dateFrom:
+          type: string
+          format: date
+        dateTo:
+          type: string
+          format: date
+        note:
+          type: string
+    StudentOrganizationStatusResponse:
       type: object
       properties:
         id:
@@ -865,8 +1113,38 @@ components:
           type: string
           format: date
         note:
-          maxLength: 1000
-          minLength: 0
+          type: string
+    PersonViewResponse:
+      type: object
+      properties:
+        personId:
+          type: string
+        university:
+          type: string
+          enum:
+          - CUNI
+          - UAH
+          - SU
+          - KU
+          - UNIMI
+          - UW
+          - UNIGE
+          - PARIS_2
+        orcid:
+          type: string
+        firstName:
+          type: string
+        middleNames:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        profileId:
+          type: string
+        degree:
+          type: string
+        universityIndexNumber:
           type: string
     StudentOrganizationBoardMemberRequest:
       required:
@@ -913,210 +1191,35 @@ components:
         yearOfStudy:
           type: integer
           format: int32
-    StudentOrganizationBoardMemberResponse:
+    StudentOrganizationStatusRequest:
       type: object
       properties:
         id:
           type: string
-        personId:
-          type: string
-        name:
-          type: string
-        preferredName:
-          type: string
-        usosId:
-          type: string
-        email:
-          type: string
-        phoneNumbers:
-          type: array
-          items:
-            type: string
-        role:
-          type: string
-        dateFrom:
-          type: string
-          format: date
-        dateTo:
-          type: string
-          format: date
-        note:
-          type: string
-        fieldOfStudy:
-          type: string
-        yearOfStudy:
-          type: integer
-          format: int32
-        universityIndexNumber:
-          type: string
-    StudentOrganizationActivityResponse:
-      type: object
-      properties:
-        id:
-          type: string
-        mainProfile:
-          type: string
-        dateFrom:
-          type: string
-          format: date
-        dateTo:
-          type: string
-          format: date
-        note:
-          type: string
-    StudentOrganizationUnitResponse:
-      type: object
-      properties:
-        unitCode:
-          type: string
-        unitNamePl:
-          type: string
-        unitNameEn:
-          type: string
-        dateFrom:
-          type: string
-          format: date
-        dateTo:
-          type: string
-          format: date
-        note:
-          type: string
-    StudentOrganizationReportRequest:
-      required:
-      - accepted
-      - submittedDate
-      - year
-      type: object
-      properties:
-        id:
-          type: string
-        year:
-          minimum: 1
-          type: integer
-          format: int32
-        submittedDate:
-          type: string
-          format: date
-        accepted:
-          type: boolean
-        note:
-          maxLength: 1000
-          minLength: 0
-          type: string
-    StudentOrganizationActivityRequest:
-      required:
-      - mainProfile
-      type: object
-      properties:
-        id:
-          type: string
-        mainProfile:
-          type: string
-        dateFrom:
-          type: string
-          format: date
-        dateTo:
-          type: string
-          format: date
-        note:
-          maxLength: 1000
-          minLength: 0
-          type: string
-    StudentOrganizationFounderResponse:
-      type: object
-      properties:
-        id:
-          type: string
-        personId:
-          type: string
-        studentOrganizationId:
-          type: string
-        note:
-          type: string
-        name:
-          type: string
-        preferredName:
-          type: string
-        email:
-          type: string
-        usosId:
-          type: string
-        universityIndexNumber:
-          type: string
-        phoneNumbers:
-          type: array
-          items:
-            type: string
-        fieldOfStudy:
-          type: string
-        yearOfStudy:
-          type: integer
-          format: int32
-    StudentOrganizationReportResponse:
-      type: object
-      properties:
-        id:
-          type: string
-        year:
-          type: integer
-          format: int32
-        submittedDate:
-          type: string
-          format: date
-        accepted:
-          type: boolean
-        note:
-          type: string
-    StudentOrganizationUnitRequest:
-      required:
-      - unitCode
-      type: object
-      properties:
-        id:
-          type: string
-        unitCode:
-          type: string
-        dateFrom:
-          type: string
-          format: date
-        dateTo:
-          type: string
-          format: date
-        note:
-          maxLength: 1000
-          minLength: 0
-          type: string
-    PersonViewResponse:
-      type: object
-      properties:
-        personId:
-          type: string
-        university:
+        status:
           type: string
           enum:
-          - CUNI
-          - UAH
-          - SU
-          - KU
-          - UNIMI
-          - UW
-          - UNIGE
-          - PARIS_2
-        orcid:
+          - ACTIVE
+          - SUSPENDED
+          - CLOSED
+        dateFrom:
           type: string
-        firstName:
+          format: date
+        dateTo:
           type: string
-        middleNames:
+          format: date
+        note:
+          maxLength: 1000
+          minLength: 0
           type: string
-        lastName:
+    StudentOrganizationLinkResponse:
+      type: object
+      properties:
+        id:
           type: string
-        email:
+        name:
           type: string
-        profileId:
-          type: string
-        degree:
-          type: string
-        universityIndexNumber:
+        url:
           type: string
     StudentOrganizationResponse:
       type: object
@@ -1180,109 +1283,6 @@ components:
         mainPresidentName:
           type: string
         mainPresidentEmail:
-          type: string
-    StudentOrganizationNameResponse:
-      type: object
-      properties:
-        id:
-          type: string
-        namePl:
-          type: string
-        nameEn:
-          type: string
-        shortNamePl:
-          type: string
-        shortNameEn:
-          type: string
-        dateFrom:
-          type: string
-          format: date
-        dateTo:
-          type: string
-          format: date
-        note:
-          type: string
-    StudentOrganizationRequest:
-      type: object
-      properties:
-        registeredDate:
-          type: string
-          format: date
-        contactPersonId:
-          type: string
-        registerNumber:
-          type: integer
-          format: int32
-        email:
-          type: string
-        url:
-          type: string
-        type:
-          type: string
-          enum:
-          - GENERAL
-          - STUDENT
-          - DOCTORAL
-        initNamePl:
-          type: string
-        initNameEn:
-          type: string
-    StudentOrganizationLinkResponse:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        url:
-          type: string
-    StudentOrganizationStatusResponse:
-      type: object
-      properties:
-        id:
-          type: string
-        status:
-          type: string
-          enum:
-          - ACTIVE
-          - SUSPENDED
-          - CLOSED
-        dateFrom:
-          type: string
-          format: date
-        dateTo:
-          type: string
-          format: date
-        note:
-          type: string
-    StudentOrganizationSupervisorResponse:
-      type: object
-      properties:
-        id:
-          type: string
-        personId:
-          type: string
-        name:
-          type: string
-        degree:
-          type: string
-        email:
-          type: string
-        role:
-          type: string
-        dateFrom:
-          type: string
-          format: date
-        dateTo:
-          type: string
-          format: date
-        note:
-          type: string
-        unitCode:
-          type: string
-        unitNamePl:
-          type: string
-        unitNameEn:
           type: string
   securitySchemes:
     Authorization:

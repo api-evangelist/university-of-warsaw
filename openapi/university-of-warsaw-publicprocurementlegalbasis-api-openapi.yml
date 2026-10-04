@@ -136,15 +136,13 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    LegalBasisRequest:
-      required:
-      - name
-      - visibleFor
+    LegalBasisResponse:
       type: object
       properties:
+        id:
+          type: integer
+          format: int32
         name:
-          maxLength: 256
-          minLength: 0
           type: string
         visibleFor:
           uniqueItems: true
@@ -155,13 +153,15 @@ components:
             - DOCSENSE
             - FRAMEWORK_AGREEMENT
             - PUBLIC_PROCUREMENT_PLAN
-    LegalBasisResponse:
+    LegalBasisRequest:
+      required:
+      - name
+      - visibleFor
       type: object
       properties:
-        id:
-          type: integer
-          format: int32
         name:
+          maxLength: 256
+          minLength: 0
           type: string
         visibleFor:
           uniqueItems: true

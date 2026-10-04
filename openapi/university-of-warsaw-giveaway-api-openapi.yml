@@ -334,20 +334,25 @@ components:
           additionalProperties:
             type: integer
             format: int32
-    GiveawayCodeResponse:
+    GiveawayResponse:
       type: object
       properties:
         id:
           type: string
-        code:
+        name:
           type: string
-        personId:
+        nameEn:
           type: string
-        receivedAt:
+        url:
+          type: string
+        urlEn:
+          type: string
+        startDate:
           type: string
           format: date
-        used:
-          type: boolean
+        endDate:
+          type: string
+          format: date
     GiveawayRequest:
       required:
       - endDate
@@ -376,25 +381,20 @@ components:
           additionalProperties:
             type: integer
             format: int32
-    GiveawayResponse:
+    GiveawayCodeResponse:
       type: object
       properties:
         id:
           type: string
-        name:
+        code:
           type: string
-        nameEn:
+        personId:
           type: string
-        url:
-          type: string
-        urlEn:
-          type: string
-        startDate:
+        receivedAt:
           type: string
           format: date
-        endDate:
-          type: string
-          format: date
+        used:
+          type: boolean
   securitySchemes:
     Authorization:
       type: apiKey

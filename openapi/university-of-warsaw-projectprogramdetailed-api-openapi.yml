@@ -133,15 +133,6 @@ paths:
       - Authorization: []
 components:
   schemas:
-    ProjectProgramDetailRequest:
-      required:
-      - name
-      type: object
-      properties:
-        name:
-          maxLength: 255
-          minLength: 0
-          type: string
     ProjectProgramDetailedResponse:
       type: object
       properties:
@@ -151,6 +142,15 @@ components:
         name:
           type: string
       description: Informacje o programie projektu
+    ProjectProgramDetailRequest:
+      required:
+      - name
+      type: object
+      properties:
+        name:
+          maxLength: 255
+          minLength: 0
+          type: string
   securitySchemes:
     Authorization:
       type: apiKey

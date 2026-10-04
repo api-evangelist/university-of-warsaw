@@ -217,15 +217,22 @@ components:
           type: string
         descriptionEn:
           type: string
-    CampusResponse:
+    BuildingFileResponse:
       type: object
       properties:
-        code:
+        buildingFileId:
           type: string
-        namePl:
+        buildingId:
           type: string
-        nameEn:
+        fileId:
           type: string
+        extension:
+          type: string
+        name:
+          type: string
+        uploadedDate:
+          type: string
+          format: date-time
     BuildingAccessibilityResponse:
       type: object
       properties:
@@ -263,22 +270,15 @@ components:
           type: string
         additionalInformation:
           type: string
-    BuildingFileResponse:
+    CampusResponse:
       type: object
       properties:
-        buildingFileId:
+        code:
           type: string
-        buildingId:
+        namePl:
           type: string
-        fileId:
+        nameEn:
           type: string
-        extension:
-          type: string
-        name:
-          type: string
-        uploadedDate:
-          type: string
-          format: date-time
   securitySchemes:
     Authorization:
       type: apiKey

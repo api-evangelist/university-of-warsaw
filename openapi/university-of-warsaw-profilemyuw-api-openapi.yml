@@ -207,67 +207,6 @@ paths:
       - Authorization: []
 components:
   schemas:
-    ProfilePublicationResponse:
-      type: object
-      properties:
-        profileId:
-          type: string
-        publicationId:
-          type: string
-        title:
-          type: string
-        titlePl:
-          type: string
-        titleEn:
-          type: string
-        publicationDate:
-          type: string
-        role:
-          type: string
-        year:
-          type: integer
-          format: int32
-        types:
-          type: array
-          items:
-            type: string
-    MyUwBuildingResponse:
-      type: object
-      properties:
-        publicBuildingId:
-          type: string
-        namePl:
-          type: string
-        nameEn:
-          type: string
-        roomNumber:
-          type: string
-    ProfileCourseResponse:
-      type: object
-      properties:
-        profileId:
-          type: string
-        courseId:
-          type: string
-        title:
-          type: string
-        titlePl:
-          type: string
-        titleEn:
-          type: string
-        subjectCode:
-          type: string
-        year:
-          type: integer
-          format: int32
-        term:
-          type: string
-        startDate:
-          type: string
-          format: date
-        endDate:
-          type: string
-          format: date
     ProfileMyUwResponse:
       type: object
       properties:
@@ -349,6 +288,25 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/MyUwBuildingResponse'
+    MyUwUnitResponse:
+      type: object
+      properties:
+        code:
+          type: string
+        namePl:
+          type: string
+        nameEn:
+          type: string
+    OdataResponseProfileMyUwResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProfileMyUwResponse'
+        totalCount:
+          type: integer
+          format: int32
     ProfilePatentResponse:
       type: object
       properties:
@@ -393,16 +351,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ProjectPublicMemberRoleResponse'
-    OdataResponseProfileMyUwResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/ProfileMyUwResponse'
-        totalCount:
-          type: integer
-          format: int32
     ProjectPublicMemberRoleResponse:
       type: object
       properties:
@@ -413,15 +361,67 @@ components:
         orderIndex:
           type: integer
           format: int32
-    MyUwUnitResponse:
+    MyUwBuildingResponse:
       type: object
       properties:
-        code:
+        publicBuildingId:
           type: string
         namePl:
           type: string
         nameEn:
           type: string
+        roomNumber:
+          type: string
+    ProfileCourseResponse:
+      type: object
+      properties:
+        profileId:
+          type: string
+        courseId:
+          type: string
+        title:
+          type: string
+        titlePl:
+          type: string
+        titleEn:
+          type: string
+        subjectCode:
+          type: string
+        year:
+          type: integer
+          format: int32
+        term:
+          type: string
+        startDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+    ProfilePublicationResponse:
+      type: object
+      properties:
+        profileId:
+          type: string
+        publicationId:
+          type: string
+        title:
+          type: string
+        titlePl:
+          type: string
+        titleEn:
+          type: string
+        publicationDate:
+          type: string
+        role:
+          type: string
+        year:
+          type: integer
+          format: int32
+        types:
+          type: array
+          items:
+            type: string
   securitySchemes:
     Authorization:
       type: apiKey

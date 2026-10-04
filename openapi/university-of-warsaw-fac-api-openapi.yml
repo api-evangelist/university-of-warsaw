@@ -52,6 +52,26 @@ paths:
         '400':
           $ref: '#/components/responses/Error'
 components:
+  parameters:
+    callback:
+      name: callback
+      in: query
+      required: false
+      description: Required only if jsonp is chosen as the return format.
+      schema:
+        type: string
+    format:
+      name: format
+      in: query
+      required: false
+      description: Output format. See supported output formats in the USOS API datatypes documentation.
+      schema:
+        type: string
+        enum:
+        - json
+        - jsonp
+        - xml
+        default: json
   responses:
     Error:
       description: USOS API error envelope.
@@ -60,23 +80,6 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
   schemas:
-    Error:
-      type: object
-      description: Error envelope returned by USOS API methods (confirmed against live responses, e.g. an unknown course_id returns object_not_found).
-      properties:
-        message:
-          type: string
-          description: Human-readable error message.
-        error:
-          type: string
-          description: Machine-readable error code, e.g. object_not_found.
-        reason:
-          type: string
-          description: Additional reason detail, e.g. the offending object type.
-      example:
-        message: Referenced course does not exist.
-        error: object_not_found
-        reason: course
     Faculty:
       type: object
       description: A faculty or organizational unit.
@@ -131,6 +134,23 @@ components:
         is_public:
           type: boolean
           description: Whether the faculty is public.
+    Error:
+      type: object
+      description: Error envelope returned by USOS API methods (confirmed against live responses, e.g. an unknown course_id returns object_not_found).
+      properties:
+        message:
+          type: string
+          description: Human-readable error message.
+        error:
+          type: string
+          description: Machine-readable error code, e.g. object_not_found.
+        reason:
+          type: string
+          description: Additional reason detail, e.g. the offending object type.
+      example:
+        message: Referenced course does not exist.
+        error: object_not_found
+        reason: course
     LangDict:
       type: object
       description: A language dictionary mapping ISO language codes to localized strings, as used throughout the USOS API.
@@ -144,26 +164,6 @@ components:
       example:
         pl: Uniwersytet Warszawski
         en: The University of Warsaw
-  parameters:
-    callback:
-      name: callback
-      in: query
-      required: false
-      description: Required only if jsonp is chosen as the return format.
-      schema:
-        type: string
-    format:
-      name: format
-      in: query
-      required: false
-      description: Output format. See supported output formats in the USOS API datatypes documentation.
-      schema:
-        type: string
-        enum:
-        - json
-        - jsonp
-        - xml
-        default: json
   securitySchemes:
     oauth1a:
       type: apiKey

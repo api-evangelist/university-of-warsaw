@@ -170,6 +170,23 @@ paths:
       - Authorization: []
 components:
   schemas:
+    CourseRegistrationInfoResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        courseIds:
+          type: array
+          items:
+            type: string
+        courseNames:
+          type: array
+          items:
+            type: string
     CourseSp4euResponse:
       type: object
       properties:
@@ -369,6 +386,63 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/CourseSyllabusResponse'
+    AbstractResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Id abstraltu
+        langCode:
+          type: string
+          description: kod języka typu PL, EN, EN-GB, itp - klucz naturalny do Language, zgodny z ISO (patrz Language)
+        title:
+          type: string
+          description: 'tytuł wynalazku/patentu/wzoru użytkowego/nazwa gatunku/nazwa botaniczna/nazwa odmiany w danym języku '
+        abstr:
+          type: string
+          description: streszczenie opisu wynalazku/wzoru użytkowego w danym języku
+        keyw:
+          type: array
+          description: słowa kluczowe w danym języku
+          items:
+            type: string
+            description: słowa kluczowe w danym języku
+        orderIndex:
+          type: integer
+          description: 'kolejność wyświetlania abstraktów (domyślnie: 0)'
+          format: int32
+        objectId:
+          type: string
+          description: Id obiektu
+        objectType:
+          type: string
+          description: Typ obiektu
+        original:
+          type: boolean
+          description: czy streszczenie jest w języku oryginału
+    CourseSyllabusResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        courseId:
+          type: string
+          description: id kursu
+        shortDescription:
+          type: string
+          description: opis kursu
+        prerequirements:
+          type: string
+          description: opis wstępnych wymagań do kursu
+        learningOutcomes:
+          type: string
+          description: opis efektów nauczania
+        assessmentsInfo:
+          type: string
+          description: opis warunków zaliczenia
+        lang:
+          type: string
+          description: kod języka
     CourseSp4euImportRequest:
       type: object
       properties:
@@ -455,80 +529,6 @@ components:
           type: string
         coursesRegistrationId:
           type: string
-    AbstractResponse:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Id abstraltu
-        langCode:
-          type: string
-          description: kod języka typu PL, EN, EN-GB, itp - klucz naturalny do Language, zgodny z ISO (patrz Language)
-        title:
-          type: string
-          description: 'tytuł wynalazku/patentu/wzoru użytkowego/nazwa gatunku/nazwa botaniczna/nazwa odmiany w danym języku '
-        abstr:
-          type: string
-          description: streszczenie opisu wynalazku/wzoru użytkowego w danym języku
-        keyw:
-          type: array
-          description: słowa kluczowe w danym języku
-          items:
-            type: string
-            description: słowa kluczowe w danym języku
-        orderIndex:
-          type: integer
-          description: 'kolejność wyświetlania abstraktów (domyślnie: 0)'
-          format: int32
-        objectId:
-          type: string
-          description: Id obiektu
-        objectType:
-          type: string
-          description: Typ obiektu
-        original:
-          type: boolean
-          description: czy streszczenie jest w języku oryginału
-    CourseRegistrationInfoResponse:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        description:
-          type: string
-        courseIds:
-          type: array
-          items:
-            type: string
-        courseNames:
-          type: array
-          items:
-            type: string
-    CourseSyllabusResponse:
-      type: object
-      properties:
-        id:
-          type: string
-        courseId:
-          type: string
-          description: id kursu
-        shortDescription:
-          type: string
-          description: opis kursu
-        prerequirements:
-          type: string
-          description: opis wstępnych wymagań do kursu
-        learningOutcomes:
-          type: string
-          description: opis efektów nauczania
-        assessmentsInfo:
-          type: string
-          description: opis warunków zaliczenia
-        lang:
-          type: string
-          description: kod języka
     CourseProfileResponse:
       type: object
       properties:

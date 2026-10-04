@@ -131,16 +131,6 @@ paths:
       - Authorization: []
 components:
   schemas:
-    OdataResponseDocsensePersonResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/DocsensePersonResponse'
-        totalCount:
-          type: integer
-          format: int32
     DocsensePersonResponse:
       type: object
       properties:
@@ -162,6 +152,16 @@ components:
           type: string
         expId:
           type: string
+    OdataResponseDocsensePersonResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/DocsensePersonResponse'
+        totalCount:
+          type: integer
+          format: int32
   securitySchemes:
     Authorization:
       type: apiKey

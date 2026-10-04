@@ -365,11 +365,58 @@ paths:
       - Authorization: []
 components:
   schemas:
+    DocumentPersonResponse:
+      type: object
+      properties:
+        documentId:
+          type: string
+        files:
+          type: array
+          items:
+            $ref: '#/components/schemas/AttachedFileResponse'
+        name:
+          type: string
+        created:
+          type: string
+          format: date-time
+        personId:
+          type: string
+        university:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        type:
+          type: string
+        details:
+          type: object
+          additionalProperties:
+            type: object
     AttachedFileResponse:
       type: object
       properties:
         fileId:
           type: string
+        description:
+          type: string
+        name:
+          type: string
+    OdataResponsePersonResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/PersonResponse'
+        totalCount:
+          type: integer
+          format: int32
+    AttachedFileRequest:
+      type: object
+      properties:
         description:
           type: string
         name:
@@ -411,53 +458,6 @@ components:
         createdAt:
           type: string
           format: date-time
-    AttachedFileRequest:
-      type: object
-      properties:
-        description:
-          type: string
-        name:
-          type: string
-    OdataResponsePersonResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/PersonResponse'
-        totalCount:
-          type: integer
-          format: int32
-    DocumentPersonResponse:
-      type: object
-      properties:
-        documentId:
-          type: string
-        files:
-          type: array
-          items:
-            $ref: '#/components/schemas/AttachedFileResponse'
-        name:
-          type: string
-        created:
-          type: string
-          format: date-time
-        personId:
-          type: string
-        university:
-          type: string
-        firstName:
-          type: string
-        lastName:
-          type: string
-        email:
-          type: string
-        type:
-          type: string
-        details:
-          type: object
-          additionalProperties:
-            type: object
   securitySchemes:
     Authorization:
       type: apiKey

@@ -66,15 +66,6 @@ paths:
       - Authorization: []
 components:
   schemas:
-    AttachedFileResponse:
-      type: object
-      properties:
-        fileId:
-          type: string
-        description:
-          type: string
-        name:
-          type: string
     DocumentResponse:
       type: object
       properties:
@@ -95,6 +86,15 @@ components:
           type: object
           additionalProperties:
             type: object
+    AttachedFileResponse:
+      type: object
+      properties:
+        fileId:
+          type: string
+        description:
+          type: string
+        name:
+          type: string
   securitySchemes:
     Authorization:
       type: apiKey

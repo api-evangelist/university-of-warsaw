@@ -231,43 +231,6 @@ paths:
       - Authorization: []
 components:
   schemas:
-    ArticleRequest:
-      required:
-      - contentEn
-      - contentPl
-      - signification
-      - tags
-      - titleEn
-      - titlePl
-      - visibleFrom
-      type: object
-      properties:
-        titlePl:
-          type: string
-        titleEn:
-          type: string
-        contentPl:
-          type: string
-        contentEn:
-          type: string
-        signification:
-          type: string
-        tags:
-          uniqueItems: true
-          type: array
-          items:
-            type: string
-        created:
-          type: string
-          format: date-time
-        visible:
-          type: boolean
-        visibleFrom:
-          type: string
-          format: date
-        visibleTo:
-          type: string
-          format: date
     OdataResponseArticleResponse:
       type: object
       properties:
@@ -308,6 +271,43 @@ components:
         created:
           type: string
           format: date-time
+    ArticleRequest:
+      required:
+      - contentEn
+      - contentPl
+      - signification
+      - tags
+      - titleEn
+      - titlePl
+      - visibleFrom
+      type: object
+      properties:
+        titlePl:
+          type: string
+        titleEn:
+          type: string
+        contentPl:
+          type: string
+        contentEn:
+          type: string
+        signification:
+          type: string
+        tags:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        created:
+          type: string
+          format: date-time
+        visible:
+          type: boolean
+        visibleFrom:
+          type: string
+          format: date
+        visibleTo:
+          type: string
+          format: date
   securitySchemes:
     Authorization:
       type: apiKey

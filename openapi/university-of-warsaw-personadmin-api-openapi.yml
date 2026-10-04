@@ -96,16 +96,6 @@ paths:
       - Authorization: []
 components:
   schemas:
-    OdataResponsePersonResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/PersonResponse'
-        totalCount:
-          type: integer
-          format: int32
     PersonResponse:
       type: object
       properties:
@@ -125,6 +115,16 @@ components:
         createdAt:
           type: string
           format: date-time
+    OdataResponsePersonResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/PersonResponse'
+        totalCount:
+          type: integer
+          format: int32
   securitySchemes:
     Authorization:
       type: apiKey

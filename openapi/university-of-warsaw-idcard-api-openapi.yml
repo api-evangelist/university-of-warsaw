@@ -116,6 +116,16 @@ paths:
       - Authorization: []
 components:
   schemas:
+    OdataResponsePersonIdCardResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/PersonIdCardResponse'
+        totalCount:
+          type: integer
+          format: int32
     PersonIdCardResponse:
       type: object
       properties:
@@ -153,16 +163,6 @@ components:
           type: string
         importSourceId:
           type: string
-    OdataResponsePersonIdCardResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/PersonIdCardResponse'
-        totalCount:
-          type: integer
-          format: int32
     SynchronizationResponse:
       type: object
       properties:

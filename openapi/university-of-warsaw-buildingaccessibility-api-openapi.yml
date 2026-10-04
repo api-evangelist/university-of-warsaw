@@ -820,17 +820,24 @@ paths:
       - Authorization: []
 components:
   schemas:
-    BuildingPathAttributeRequest:
+    BuildingPathObjectImportAttributeRequest:
+      required:
+      - name
+      - typeId
       type: object
       properties:
-        description:
+        name:
           type: string
-        type:
+        typeId:
+          type: string
+        floor:
+          type: string
+        accessibility:
           type: string
           enum:
-          - STRING
-          - INTEGER
-          - BOOLEAN
+          - GENERAL
+          - PARTIAL
+          - MINIMAL
     BuildingAccessibilityResponse:
       type: object
       properties:
@@ -868,33 +875,6 @@ components:
           type: string
         additionalInformation:
           type: string
-    BuildingPathObjectResponse:
-      type: object
-      properties:
-        id:
-          type: string
-        buildingId:
-          type: string
-        name:
-          type: string
-        typeId:
-          type: string
-        floor:
-          type: string
-        accessibility:
-          type: string
-          enum:
-          - GENERAL
-          - PARTIAL
-          - MINIMAL
-        x:
-          type: number
-        y:
-          type: number
-        attributeValues:
-          type: object
-          additionalProperties:
-            type: object
     BuildingResponse:
       type: object
       properties:
@@ -969,22 +949,17 @@ components:
           items:
             type: string
       description: Informacje o budynku
-    BuildingPathDataImportRequest:
-      required:
-      - connections
-      - objects
+    BuildingPathAttributeRequest:
       type: object
       properties:
-        objects:
-          type: array
-          items:
-            $ref: '#/components/schemas/BuildingPathObjectImportRequest'
-        connections:
-          type: array
-          items:
-            type: array
-            items:
-              type: string
+        description:
+          type: string
+        type:
+          type: string
+          enum:
+          - STRING
+          - INTEGER
+          - BOOLEAN
     BuildingPathObjectTypeRequest:
       required:
       - attributes
@@ -1016,8 +991,45 @@ components:
           type: object
           additionalProperties:
             $ref: '#/components/schemas/BuildingPathAttributeResponse'
-    BuildingPathObjectImportAttributeRequest:
+    BuildingPathEdgeRequest:
+      type: object
+      properties:
+        fromId:
+          type: string
+        toIds:
+          type: array
+          items:
+            type: string
+    BuildingPathObjectResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        buildingId:
+          type: string
+        name:
+          type: string
+        typeId:
+          type: string
+        floor:
+          type: string
+        accessibility:
+          type: string
+          enum:
+          - GENERAL
+          - PARTIAL
+          - MINIMAL
+        x:
+          type: number
+        y:
+          type: number
+        attributeValues:
+          type: object
+          additionalProperties:
+            type: object
+    BuildingPathObjectRequest:
       required:
+      - attributeValues
       - name
       - typeId
       type: object
@@ -1034,73 +1046,14 @@ components:
           - GENERAL
           - PARTIAL
           - MINIMAL
-    BuildingPathEdgeRequest:
-      type: object
-      properties:
-        fromId:
-          type: string
-        toIds:
-          type: array
-          items:
-            type: string
-    BuildingPathImportRequest:
-      required:
-      - data
-      type: object
-      properties:
-        data:
-          $ref: '#/components/schemas/BuildingPathDataImportRequest'
-    BuildingAccessibilityRequest:
-      type: object
-      properties:
-        entrance:
-          type: string
-        corridors:
-          type: string
-        elevators:
-          type: string
-        isPorterhouseAvailable:
-          type: boolean
-        porterhouseName:
-          type: string
-        porterhousePlacement:
-          type: string
-        porterhousePhone:
-          type: string
-        isToiletAvailable:
-          type: boolean
-        toiletPlacement:
-          type: string
-        accessAndParkingSpaces:
-          type: string
-        signLanguageInterpreter:
-          type: string
-        procedures:
-          type: string
-        extraHelp:
-          type: string
-        assistanceDog:
-          type: string
-        additionalCustomization:
-          type: string
-        additionalInformation:
-          type: string
-    BuildingPathResponse:
-      type: object
-      properties:
-        objects:
-          type: array
-          items:
-            $ref: '#/components/schemas/BuildingPathObjectResponse'
-        accessibilityLevel:
-          type: string
-          enum:
-          - GENERAL
-          - PARTIAL
-          - MINIMAL
-        hardship:
-          type: integer
-          format: int32
+        x:
+          type: number
+        y:
+          type: number
+        attributeValues:
+          type: object
+          additionalProperties:
+            type: object
     BuildingPathEdgeResponse:
       type: object
       properties:
@@ -1141,33 +1094,6 @@ components:
           - STRING
           - INTEGER
           - BOOLEAN
-    BuildingPathObjectRequest:
-      required:
-      - attributeValues
-      - name
-      - typeId
-      type: object
-      properties:
-        name:
-          type: string
-        typeId:
-          type: string
-        floor:
-          type: string
-        accessibility:
-          type: string
-          enum:
-          - GENERAL
-          - PARTIAL
-          - MINIMAL
-        x:
-          type: number
-        y:
-          type: number
-        attributeValues:
-          type: object
-          additionalProperties:
-            type: object
     BuildingPathObjectImportRequest:
       required:
       - externalAttributes
@@ -1178,6 +1104,80 @@ components:
           type: string
         externalAttributes:
           $ref: '#/components/schemas/BuildingPathObjectImportAttributeRequest'
+    BuildingPathImportRequest:
+      required:
+      - data
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/BuildingPathDataImportRequest'
+    BuildingPathResponse:
+      type: object
+      properties:
+        objects:
+          type: array
+          items:
+            $ref: '#/components/schemas/BuildingPathObjectResponse'
+        accessibilityLevel:
+          type: string
+          enum:
+          - GENERAL
+          - PARTIAL
+          - MINIMAL
+        hardship:
+          type: integer
+          format: int32
+    BuildingPathDataImportRequest:
+      required:
+      - connections
+      - objects
+      type: object
+      properties:
+        objects:
+          type: array
+          items:
+            $ref: '#/components/schemas/BuildingPathObjectImportRequest'
+        connections:
+          type: array
+          items:
+            type: array
+            items:
+              type: string
+    BuildingAccessibilityRequest:
+      type: object
+      properties:
+        entrance:
+          type: string
+        corridors:
+          type: string
+        elevators:
+          type: string
+        isPorterhouseAvailable:
+          type: boolean
+        porterhouseName:
+          type: string
+        porterhousePlacement:
+          type: string
+        porterhousePhone:
+          type: string
+        isToiletAvailable:
+          type: boolean
+        toiletPlacement:
+          type: string
+        accessAndParkingSpaces:
+          type: string
+        signLanguageInterpreter:
+          type: string
+        procedures:
+          type: string
+        extraHelp:
+          type: string
+        assistanceDog:
+          type: string
+        additionalCustomization:
+          type: string
+        additionalInformation:
+          type: string
   securitySchemes:
     Authorization:
       type: apiKey

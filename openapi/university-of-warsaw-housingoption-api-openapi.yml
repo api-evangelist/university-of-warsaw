@@ -242,6 +242,31 @@ paths:
       - Authorization: []
 components:
   schemas:
+    OdataResponseHousingOptionsResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/HousingOptionsResponse'
+        totalCount:
+          type: integer
+          format: int32
+    HousingOptionFileResponse:
+      type: object
+      properties:
+        housingOptionFileId:
+          type: string
+        housingOptionId:
+          type: string
+        fileId:
+          type: string
+        extension:
+          type: string
+        name:
+          type: string
+        uploadedDate:
+          type: string
     HousingOptionsResponse:
       type: object
       properties:
@@ -366,31 +391,6 @@ components:
             type: string
         publish:
           type: boolean
-    OdataResponseHousingOptionsResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/HousingOptionsResponse'
-        totalCount:
-          type: integer
-          format: int32
-    HousingOptionFileResponse:
-      type: object
-      properties:
-        housingOptionFileId:
-          type: string
-        housingOptionId:
-          type: string
-        fileId:
-          type: string
-        extension:
-          type: string
-        name:
-          type: string
-        uploadedDate:
-          type: string
     HousingOptionsRequest:
       type: object
       properties:

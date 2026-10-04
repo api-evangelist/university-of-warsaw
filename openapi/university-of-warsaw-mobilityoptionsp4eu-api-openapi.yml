@@ -238,43 +238,6 @@ paths:
       - Authorization: []
 components:
   schemas:
-    ArticleRequest:
-      required:
-      - contentEn
-      - contentPl
-      - signification
-      - tags
-      - titleEn
-      - titlePl
-      - visibleFrom
-      type: object
-      properties:
-        titlePl:
-          type: string
-        titleEn:
-          type: string
-        contentPl:
-          type: string
-        contentEn:
-          type: string
-        signification:
-          type: string
-        tags:
-          uniqueItems: true
-          type: array
-          items:
-            type: string
-        created:
-          type: string
-          format: date-time
-        visible:
-          type: boolean
-        visibleFrom:
-          type: string
-          format: date
-        visibleTo:
-          type: string
-          format: date
     MobilityOptionRequest:
       required:
       - mobilityProgram
@@ -339,6 +302,81 @@ components:
           maxLength: 255
           minLength: 0
           type: string
+    OdataResponseMobilityOptionResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/MobilityOptionResponse'
+        totalCount:
+          type: integer
+          format: int32
+    ArticleSp4euRequest:
+      required:
+      - contentEn
+      - contentPl
+      - signification
+      - tags
+      - titleEn
+      - titlePl
+      type: object
+      properties:
+        titlePl:
+          type: string
+        titleEn:
+          type: string
+        contentPl:
+          type: string
+        contentEn:
+          type: string
+        signification:
+          type: string
+        tags:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+    MobilityOptionAndArticleDto:
+      required:
+      - articleRequest
+      - mobilityOptionRequest
+      type: object
+      properties:
+        mobilityOptionRequest:
+          $ref: '#/components/schemas/MobilityOptionRequest'
+        articleRequest:
+          $ref: '#/components/schemas/ArticleSp4euRequest'
+    ArticlePreviewResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        titlePl:
+          type: string
+        titleEn:
+          type: string
+        contentPl:
+          type: string
+        contentEn:
+          type: string
+        visibleFrom:
+          type: string
+          format: date
+        visibleTo:
+          type: string
+          format: date
+        signification:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+        visible:
+          type: boolean
+        created:
+          type: string
+          format: date-time
     MobilityOptionResponse:
       type: object
       properties:
@@ -386,37 +424,7 @@ components:
           type: string
         areaOfStudy:
           type: string
-    ArticlePreviewResponse:
-      type: object
-      properties:
-        id:
-          type: string
-        titlePl:
-          type: string
-        titleEn:
-          type: string
-        contentPl:
-          type: string
-        contentEn:
-          type: string
-        visibleFrom:
-          type: string
-          format: date
-        visibleTo:
-          type: string
-          format: date
-        signification:
-          type: string
-        tags:
-          type: array
-          items:
-            type: string
-        visible:
-          type: boolean
-        created:
-          type: string
-          format: date-time
-    ArticleSp4euRequest:
+    ArticleRequest:
       required:
       - contentEn
       - contentPl
@@ -424,6 +432,7 @@ components:
       - tags
       - titleEn
       - titlePl
+      - visibleFrom
       type: object
       properties:
         titlePl:
@@ -441,26 +450,17 @@ components:
           type: array
           items:
             type: string
-    MobilityOptionAndArticleDto:
-      required:
-      - articleRequest
-      - mobilityOptionRequest
-      type: object
-      properties:
-        mobilityOptionRequest:
-          $ref: '#/components/schemas/MobilityOptionRequest'
-        articleRequest:
-          $ref: '#/components/schemas/ArticleSp4euRequest'
-    OdataResponseMobilityOptionResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/MobilityOptionResponse'
-        totalCount:
-          type: integer
-          format: int32
+        created:
+          type: string
+          format: date-time
+        visible:
+          type: boolean
+        visibleFrom:
+          type: string
+          format: date
+        visibleTo:
+          type: string
+          format: date
   securitySchemes:
     Authorization:
       type: apiKey

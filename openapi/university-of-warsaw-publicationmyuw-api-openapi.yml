@@ -93,6 +93,50 @@ paths:
       - Authorization: []
 components:
   schemas:
+    PublicationResponse:
+      type: object
+      properties:
+        publicationId:
+          type: string
+          description: id publikacji
+        cfUri:
+          type: string
+          description: link do publikacji
+        doi:
+          type: string
+          description: link do globalnie unikalnego identyfikatora
+        publicationDate:
+          type: string
+          description: data wydania publikacji
+        year:
+          type: integer
+          description: rok wydania publikacji
+          format: int32
+        types:
+          type: array
+          description: typ publikacji
+          items:
+            type: string
+            description: typ publikacji
+        languages:
+          type: array
+          description: lista języków publikacji
+          items:
+            type: string
+            description: lista języków publikacji
+        cfTitle:
+          type: string
+          description: tytuł publikacji pobierany z abstraktu o najniższym indeksie
+        cfKeyw:
+          type: array
+          description: słowa kluczowe pobierane z abstraktu o najniższym indeksie
+          items:
+            type: string
+            description: słowa kluczowe pobierane z abstraktu o najniższym indeksie
+        creationTime:
+          type: string
+          format: date-time
+      description: Informacje o publikacji
     PublicationProfileResponse:
       type: object
       properties:
@@ -169,50 +213,6 @@ components:
         original:
           type: boolean
           description: czy streszczenie jest w języku oryginału
-    PublicationResponse:
-      type: object
-      properties:
-        publicationId:
-          type: string
-          description: id publikacji
-        cfUri:
-          type: string
-          description: link do publikacji
-        doi:
-          type: string
-          description: link do globalnie unikalnego identyfikatora
-        publicationDate:
-          type: string
-          description: data wydania publikacji
-        year:
-          type: integer
-          description: rok wydania publikacji
-          format: int32
-        types:
-          type: array
-          description: typ publikacji
-          items:
-            type: string
-            description: typ publikacji
-        languages:
-          type: array
-          description: lista języków publikacji
-          items:
-            type: string
-            description: lista języków publikacji
-        cfTitle:
-          type: string
-          description: tytuł publikacji pobierany z abstraktu o najniższym indeksie
-        cfKeyw:
-          type: array
-          description: słowa kluczowe pobierane z abstraktu o najniższym indeksie
-          items:
-            type: string
-            description: słowa kluczowe pobierane z abstraktu o najniższym indeksie
-        creationTime:
-          type: string
-          format: date-time
-      description: Informacje o publikacji
   securitySchemes:
     Authorization:
       type: apiKey

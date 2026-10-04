@@ -187,6 +187,48 @@ paths:
       - Authorization: []
 components:
   schemas:
+    AssetDetailsResponse:
+      type: object
+      properties:
+        sapId:
+          type: string
+        otDate:
+          type: string
+          format: date
+        otNumber:
+          type: string
+        shelfLifeFrom:
+          type: string
+          format: date
+        shelfLifeTo:
+          type: string
+          format: date
+        purposeOfUsage:
+          type: string
+        commercialUsage:
+          type: boolean
+        commercialUsageFrom:
+          type: string
+          format: date
+        description:
+          type: string
+    AssetProjectResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        startDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+        acro:
+          type: string
+        projectName:
+          type: string
+        projectNumber:
+          type: string
     AssetDetailsRequest:
       type: object
       properties:
@@ -212,22 +254,51 @@ components:
           maxLength: 5000
           minLength: 0
           type: string
-    AssetProjectResponse:
+    AssetResearchSetResponse:
+      type: object
+      properties:
+        cfSetId:
+          type: string
+        name:
+          type: string
+        creationTime:
+          type: string
+          format: date-time
+    AssetQueryResponse:
       type: object
       properties:
         id:
           type: string
-        startDate:
+        sapId:
+          type: string
+        name:
+          type: string
+        departmentCode:
+          type: string
+        inventoryNumber:
+          type: string
+        grwName:
+          type: string
+        initialValue:
+          type: number
+        objectType:
+          type: string
+        description:
+          type: string
+        shelfLifeFrom:
           type: string
           format: date
-        endDate:
+        shelfLifeTo:
           type: string
           format: date
-        acro:
+        commercialUsage:
+          type: boolean
+        commercialUsageFrom:
           type: string
-        projectName:
+          format: date
+        purposeOfUse:
           type: string
-        projectNumber:
+        yearAcquisition:
           type: string
     AssetResponse:
       type: object
@@ -294,42 +365,6 @@ components:
           type: string
         yearAcquisition:
           type: string
-    AssetQueryResponse:
-      type: object
-      properties:
-        id:
-          type: string
-        sapId:
-          type: string
-        name:
-          type: string
-        departmentCode:
-          type: string
-        inventoryNumber:
-          type: string
-        grwName:
-          type: string
-        initialValue:
-          type: number
-        objectType:
-          type: string
-        description:
-          type: string
-        shelfLifeFrom:
-          type: string
-          format: date
-        shelfLifeTo:
-          type: string
-          format: date
-        commercialUsage:
-          type: boolean
-        commercialUsageFrom:
-          type: string
-          format: date
-        purposeOfUse:
-          type: string
-        yearAcquisition:
-          type: string
     OdataResponseAssetQueryResponse:
       type: object
       properties:
@@ -340,41 +375,6 @@ components:
         totalCount:
           type: integer
           format: int32
-    AssetDetailsResponse:
-      type: object
-      properties:
-        sapId:
-          type: string
-        otDate:
-          type: string
-          format: date
-        otNumber:
-          type: string
-        shelfLifeFrom:
-          type: string
-          format: date
-        shelfLifeTo:
-          type: string
-          format: date
-        purposeOfUsage:
-          type: string
-        commercialUsage:
-          type: boolean
-        commercialUsageFrom:
-          type: string
-          format: date
-        description:
-          type: string
-    AssetResearchSetResponse:
-      type: object
-      properties:
-        cfSetId:
-          type: string
-        name:
-          type: string
-        creationTime:
-          type: string
-          format: date-time
   securitySchemes:
     Authorization:
       type: apiKey

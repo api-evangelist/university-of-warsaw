@@ -420,6 +420,63 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    OdataResponsePersonViewResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/PersonViewResponse'
+        totalCount:
+          type: integer
+          format: int32
+    SapWorkflowResponse:
+      type: object
+      properties:
+        col1:
+          type: string
+        col2:
+          type: string
+        col3:
+          type: string
+        col4:
+          type: string
+        col5:
+          type: string
+        col6:
+          type: string
+        col7:
+          type: string
+        col8:
+          type: string
+        col9:
+          type: string
+        col10:
+          type: string
+        col11:
+          type: string
+    SapVim2Response:
+      type: object
+      properties:
+        nazwaRoli:
+          type: string
+        jgOd:
+          type: string
+        id1Trasy:
+          type: string
+        jgDo:
+          type: string
+        typAgenta:
+          type: string
+        idAgenta:
+          type: string
+    SapSecurityResponse:
+      type: object
+      properties:
+        sapRole:
+          type: string
+        sapLogin:
+          type: string
     SapVim1Response:
       type: object
       properties:
@@ -512,63 +569,6 @@ components:
           type: string
         universityIndexNumber:
           type: string
-    SapVim2Response:
-      type: object
-      properties:
-        nazwaRoli:
-          type: string
-        jgOd:
-          type: string
-        id1Trasy:
-          type: string
-        jgDo:
-          type: string
-        typAgenta:
-          type: string
-        idAgenta:
-          type: string
-    SapWorkflowResponse:
-      type: object
-      properties:
-        col1:
-          type: string
-        col2:
-          type: string
-        col3:
-          type: string
-        col4:
-          type: string
-        col5:
-          type: string
-        col6:
-          type: string
-        col7:
-          type: string
-        col8:
-          type: string
-        col9:
-          type: string
-        col10:
-          type: string
-        col11:
-          type: string
-    SapSecurityResponse:
-      type: object
-      properties:
-        sapRole:
-          type: string
-        sapLogin:
-          type: string
-    OdataResponsePersonViewResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/PersonViewResponse'
-        totalCount:
-          type: integer
-          format: int32
   securitySchemes:
     Authorization:
       type: apiKey

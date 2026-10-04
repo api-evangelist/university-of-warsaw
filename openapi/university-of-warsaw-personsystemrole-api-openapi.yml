@@ -356,6 +356,25 @@ paths:
       - Authorization: []
 components:
   schemas:
+    OdataResponsePersonViewResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/PersonViewResponse'
+        totalCount:
+          type: integer
+          format: int32
+    PersonRoleCodeRequest:
+      type: object
+      properties:
+        departmentCode:
+          type: string
+        personIds:
+          type: array
+          items:
+            type: string
     PersonViewResponse:
       type: object
       properties:
@@ -388,6 +407,16 @@ components:
           type: string
         universityIndexNumber:
           type: string
+    OdataResponsePersonSystemRoleResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/PersonSystemRoleResponse'
+        totalCount:
+          type: integer
+          format: int32
     PersonSystemRoleResponse:
       type: object
       properties:
@@ -429,35 +458,6 @@ components:
           type: array
           items:
             type: string
-    OdataResponsePersonSystemRoleResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/PersonSystemRoleResponse'
-        totalCount:
-          type: integer
-          format: int32
-    PersonRoleCodeRequest:
-      type: object
-      properties:
-        departmentCode:
-          type: string
-        personIds:
-          type: array
-          items:
-            type: string
-    OdataResponsePersonViewResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/PersonViewResponse'
-        totalCount:
-          type: integer
-          format: int32
   securitySchemes:
     Authorization:
       type: apiKey

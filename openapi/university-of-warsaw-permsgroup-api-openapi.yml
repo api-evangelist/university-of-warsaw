@@ -302,6 +302,21 @@ paths:
       - Authorization: []
 components:
   schemas:
+    OdataResponsePersonViewResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/PersonViewResponse'
+        totalCount:
+          type: integer
+          format: int32
+    PermGroupNameResponse:
+      type: object
+      properties:
+        name:
+          type: string
     GroupRequest:
       required:
       - name
@@ -310,6 +325,24 @@ components:
         name:
           type: string
           description: Nazwa grupy uprawnień
+    PermGroupPersonResponse:
+      type: object
+      properties:
+        personId:
+          type: string
+          description: id osoby
+        firstName:
+          type: string
+          description: imię osoby
+        lastName:
+          type: string
+          description: nazwisko osoby
+        email:
+          type: string
+          description: email osoby
+        group:
+          type: string
+          description: nazwa grupy
     PersonViewResponse:
       type: object
       properties:
@@ -342,34 +375,6 @@ components:
           type: string
         universityIndexNumber:
           type: string
-    PermGroupPersonResponse:
-      type: object
-      properties:
-        personId:
-          type: string
-          description: id osoby
-        firstName:
-          type: string
-          description: imię osoby
-        lastName:
-          type: string
-          description: nazwisko osoby
-        email:
-          type: string
-          description: email osoby
-        group:
-          type: string
-          description: nazwa grupy
-    PermGroupPersonRequest:
-      required:
-      - personIds
-      type: object
-      properties:
-        personIds:
-          uniqueItems: true
-          type: array
-          items:
-            type: string
     SystemRoleResponse:
       type: object
       properties:
@@ -405,21 +410,16 @@ components:
               description: mapowanie roli na uprawnienia w Jaskrze
           description: mapowanie roli na uprawnienia w Jaskrze
       description: System role
-    PermGroupNameResponse:
+    PermGroupPersonRequest:
+      required:
+      - personIds
       type: object
       properties:
-        name:
-          type: string
-    OdataResponsePersonViewResponse:
-      type: object
-      properties:
-        data:
+        personIds:
+          uniqueItems: true
           type: array
           items:
-            $ref: '#/components/schemas/PersonViewResponse'
-        totalCount:
-          type: integer
-          format: int32
+            type: string
   securitySchemes:
     Authorization:
       type: apiKey

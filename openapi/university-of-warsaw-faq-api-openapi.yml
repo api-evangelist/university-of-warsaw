@@ -419,22 +419,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    FaqRequest:
-      required:
-      - answer
-      - langCode
-      - question
-      type: object
-      properties:
-        question:
-          type: string
-        answer:
-          type: string
-        langCode:
-          type: string
-          enum:
-          - pl
-          - en
     FaqResponse:
       type: object
       properties:
@@ -516,6 +500,22 @@ components:
           - UW_PERSON
           - UW_PERSON_EMPLOYEE_DATA
           - UW_UNIT
+        question:
+          type: string
+        answer:
+          type: string
+        langCode:
+          type: string
+          enum:
+          - pl
+          - en
+    FaqRequest:
+      required:
+      - answer
+      - langCode
+      - question
+      type: object
+      properties:
         question:
           type: string
         answer:

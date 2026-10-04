@@ -57,6 +57,16 @@ paths:
       - Authorization: []
 components:
   schemas:
+    OdataResponseQueryProjectPublicItemResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/QueryProjectPublicItemResponse'
+        totalCount:
+          type: integer
+          format: int32
     QueryProjectPublicItemResponse:
       type: object
       properties:
@@ -178,16 +188,6 @@ components:
         created:
           type: string
           format: date-time
-    OdataResponseQueryProjectPublicItemResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/QueryProjectPublicItemResponse'
-        totalCount:
-          type: integer
-          format: int32
   securitySchemes:
     Authorization:
       type: apiKey

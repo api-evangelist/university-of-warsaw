@@ -323,38 +323,68 @@ paths:
       - Authorization: []
 components:
   schemas:
-    PersonViewResponse:
+    OdataResponsePersonViewResponse:
       type: object
       properties:
-        personId:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/PersonViewResponse'
+        totalCount:
+          type: integer
+          format: int32
+    PassControlResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        year:
           type: string
-        university:
-          type: string
-          enum:
-          - CUNI
-          - UAH
-          - SU
-          - KU
-          - UNIMI
-          - UW
-          - UNIGE
-          - PARIS_2
-        orcid:
-          type: string
+        passIndex:
+          type: integer
+          format: int32
         firstName:
-          type: string
-        middleNames:
           type: string
         lastName:
           type: string
         email:
           type: string
-        profileId:
+        phoneNumber:
           type: string
-        degree:
+        departmentCode:
           type: string
-        universityIndexNumber:
+        departmentName:
           type: string
+        passNumber:
+          type: string
+        vehicleRegistrationNumbers:
+          type: array
+          items:
+            type: string
+        parkingLots:
+          type: array
+          items:
+            type: string
+        type:
+          type: string
+          enum:
+          - N
+          - O
+          - P
+          - R
+          - S
+        validFrom:
+          type: string
+          format: date
+        validTo:
+          type: string
+          format: date
+        description:
+          type: string
+        isSuspended:
+          type: boolean
+      description: Informacje o przepustkach samochodowych
     PassControlRequest:
       required:
       - isSuspended
@@ -411,58 +441,6 @@ components:
           type: boolean
         description:
           type: string
-    PassControlResponse:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
-        year:
-          type: string
-        passIndex:
-          type: integer
-          format: int32
-        firstName:
-          type: string
-        lastName:
-          type: string
-        email:
-          type: string
-        phoneNumber:
-          type: string
-        departmentCode:
-          type: string
-        departmentName:
-          type: string
-        passNumber:
-          type: string
-        vehicleRegistrationNumbers:
-          type: array
-          items:
-            type: string
-        parkingLots:
-          type: array
-          items:
-            type: string
-        type:
-          type: string
-          enum:
-          - N
-          - O
-          - P
-          - R
-          - S
-        validFrom:
-          type: string
-          format: date
-        validTo:
-          type: string
-          format: date
-        description:
-          type: string
-        isSuspended:
-          type: boolean
-      description: Informacje o przepustkach samochodowych
     PassControlOffenseResponse:
       type: object
       properties:
@@ -484,16 +462,38 @@ components:
           format: int32
         value:
           type: string
-    OdataResponsePersonViewResponse:
+    PersonViewResponse:
       type: object
       properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/PersonViewResponse'
-        totalCount:
-          type: integer
-          format: int32
+        personId:
+          type: string
+        university:
+          type: string
+          enum:
+          - CUNI
+          - UAH
+          - SU
+          - KU
+          - UNIMI
+          - UW
+          - UNIGE
+          - PARIS_2
+        orcid:
+          type: string
+        firstName:
+          type: string
+        middleNames:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        profileId:
+          type: string
+        degree:
+          type: string
+        universityIndexNumber:
+          type: string
   securitySchemes:
     Authorization:
       type: apiKey

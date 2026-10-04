@@ -220,35 +220,6 @@ paths:
       - Authorization: []
 components:
   schemas:
-    UwUnitRequest:
-      required:
-      - nameEn
-      - namePl
-      - uwCode
-      type: object
-      properties:
-        uwCode:
-          type: string
-        namePl:
-          type: string
-        nameEn:
-          type: string
-        hierarchy:
-          type: array
-          items:
-            type: string
-        existsFrom:
-          type: string
-          format: date
-        existsTo:
-          type: string
-          format: date
-        isVisible:
-          type: boolean
-        sapCode:
-          type: string
-        url:
-          type: string
     UwUnitResponse:
       type: object
       properties:
@@ -278,6 +249,35 @@ components:
           type: string
           format: date
       description: Jednostki organizacyjne UW
+    UwUnitRequest:
+      required:
+      - nameEn
+      - namePl
+      - uwCode
+      type: object
+      properties:
+        uwCode:
+          type: string
+        namePl:
+          type: string
+        nameEn:
+          type: string
+        hierarchy:
+          type: array
+          items:
+            type: string
+        existsFrom:
+          type: string
+          format: date
+        existsTo:
+          type: string
+          format: date
+        isVisible:
+          type: boolean
+        sapCode:
+          type: string
+        url:
+          type: string
     SynchronizationResponse:
       type: object
       properties:

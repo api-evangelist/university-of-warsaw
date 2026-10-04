@@ -257,6 +257,40 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    ProfilePrincipalRequest:
+      required:
+      - emails
+      - name
+      type: object
+      properties:
+        name:
+          type: string
+        firstName:
+          type: string
+        middleNames:
+          type: string
+        lastName:
+          type: string
+        emails:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        phone:
+          type: string
+        degree:
+          type: string
+        isPubliclyVisible:
+          type: boolean
+    UnitPreviewResponse:
+      type: object
+      properties:
+        code:
+          type: string
+        namePl:
+          type: string
+        nameEn:
+          type: string
     ProfilePrincipalResponse:
       type: object
       properties:
@@ -288,40 +322,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/UnitPreviewResponse'
-    UnitPreviewResponse:
-      type: object
-      properties:
-        code:
-          type: string
-        namePl:
-          type: string
-        nameEn:
-          type: string
-    ProfilePrincipalRequest:
-      required:
-      - emails
-      - name
-      type: object
-      properties:
-        name:
-          type: string
-        firstName:
-          type: string
-        middleNames:
-          type: string
-        lastName:
-          type: string
-        emails:
-          uniqueItems: true
-          type: array
-          items:
-            type: string
-        phone:
-          type: string
-        degree:
-          type: string
-        isPubliclyVisible:
-          type: boolean
     PersonPrincipalResponse:
       type: object
       properties:

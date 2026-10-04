@@ -1705,6 +1705,75 @@ paths:
       - Authorization: []
 components:
   schemas:
+    BuildingRoomResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        buildingId:
+          type: string
+        number:
+          type: string
+        description:
+          type: string
+        floorNumber:
+          type: integer
+          format: int32
+        persons:
+          type: array
+          items:
+            $ref: '#/components/schemas/BuildingRoomPersonResponse'
+        x:
+          type: number
+        y:
+          type: number
+        importSourceType:
+          type: string
+        importSourceId:
+          type: string
+    OdataResponseBuildingResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/BuildingResponse'
+        totalCount:
+          type: integer
+          format: int32
+    OdataResponsePersonViewResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/PersonViewResponse'
+        totalCount:
+          type: integer
+          format: int32
+    BuildingUnitResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        buildingId:
+          type: string
+        unitCode:
+          type: string
+        unitNamePl:
+          type: string
+        unitNameEn:
+          type: string
+        url:
+          type: string
+        fallbackUrl:
+          type: string
+        isUnitVisible:
+          type: boolean
+        isMain:
+          type: boolean
     BuildingPlanResponse:
       type: object
       properties:
@@ -1718,54 +1787,6 @@ components:
           format: int32
         fileId:
           type: string
-    BuildingRequest:
-      type: object
-      properties:
-        namePl:
-          type: string
-        nameEn:
-          type: string
-        namePlAlt:
-          type: string
-        nameEnAlt:
-          type: string
-        phone:
-          type: string
-        usosCode:
-          type: string
-        latitude:
-          type: number
-        longitude:
-          type: number
-        street:
-          type: string
-        number:
-          type: string
-        city:
-          type: string
-        postalCode:
-          type: string
-        benNumber:
-          type: string
-          description: Numer biura ewidencji nieruchomości
-        administratorPersonId:
-          type: string
-        campusCode:
-          type: string
-        descriptionPl:
-          type: string
-        descriptionEn:
-          type: string
-        descriptionPlAlt:
-          type: string
-        descriptionEnAlt:
-          type: string
-        visibleUsos:
-          type: boolean
-        visibleOkUw:
-          type: boolean
-        visibleMyUw:
-          type: boolean
     BuildingResponse:
       type: object
       properties:
@@ -1840,38 +1861,6 @@ components:
           items:
             type: string
       description: Informacje o budynku
-    PersonViewResponse:
-      type: object
-      properties:
-        personId:
-          type: string
-        university:
-          type: string
-          enum:
-          - CUNI
-          - UAH
-          - SU
-          - KU
-          - UNIMI
-          - UW
-          - UNIGE
-          - PARIS_2
-        orcid:
-          type: string
-        firstName:
-          type: string
-        middleNames:
-          type: string
-        lastName:
-          type: string
-        email:
-          type: string
-        profileId:
-          type: string
-        degree:
-          type: string
-        universityIndexNumber:
-          type: string
     BuildingRoomPersonResponse:
       type: object
       properties:
@@ -1887,30 +1876,31 @@ components:
           type: string
         degree:
           type: string
-    BuildingAttributeLocationRequest:
-      required:
-      - categoryCode
-      - nameEn
-      - namePl
+    HistoryResponse:
       type: object
       properties:
-        commentPl:
+        id:
           type: string
-        commentEn:
+        whoType:
           type: string
-        latitude:
-          type: number
-          format: double
-        longitude:
-          type: number
-          format: double
-        namePl:
+        whoId:
           type: string
-        nameEn:
+        whoName:
           type: string
-        categoryCode:
+        eventTime:
           type: string
-        url:
+          format: date-time
+        operation:
+          type: string
+        changes:
+          type: string
+        objType:
+          type: string
+        objId:
+          type: string
+        relationId:
+          type: string
+        relationName:
           type: string
     BuildingPlanRequest:
       type: object
@@ -1918,16 +1908,31 @@ components:
         floorNumber:
           type: integer
           format: int32
-    OdataResponsePersonViewResponse:
+    BuildingAttributeLocationResponse:
       type: object
       properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/PersonViewResponse'
-        totalCount:
-          type: integer
-          format: int32
+        id:
+          type: string
+        buildingId:
+          type: string
+        namePl:
+          type: string
+        nameEn:
+          type: string
+        categoryCode:
+          type: string
+        commentPl:
+          type: string
+        commentEn:
+          type: string
+        latitude:
+          type: number
+        longitude:
+          type: number
+        campusCode:
+          type: string
+        url:
+          type: string
     BuildingRoomRequest:
       required:
       - floorNumber
@@ -1961,31 +1966,13 @@ components:
           type: string
         nameEn:
           type: string
-    BuildingAttributeLocationResponse:
+    BuildingUnitRequest:
       type: object
       properties:
-        id:
+        unitCode:
           type: string
-        buildingId:
-          type: string
-        namePl:
-          type: string
-        nameEn:
-          type: string
-        categoryCode:
-          type: string
-        commentPl:
-          type: string
-        commentEn:
-          type: string
-        latitude:
-          type: number
-        longitude:
-          type: number
-        campusCode:
-          type: string
-        url:
-          type: string
+        mainId:
+          type: boolean
     BuildingFileResponse:
       type: object
       properties:
@@ -2002,98 +1989,111 @@ components:
         uploadedDate:
           type: string
           format: date-time
-    HistoryResponse:
+    PersonViewResponse:
       type: object
       properties:
-        id:
+        personId:
           type: string
-        whoType:
+        university:
           type: string
-        whoId:
+          enum:
+          - CUNI
+          - UAH
+          - SU
+          - KU
+          - UNIMI
+          - UW
+          - UNIGE
+          - PARIS_2
+        orcid:
           type: string
-        whoName:
+        firstName:
           type: string
-        eventTime:
+        middleNames:
           type: string
-          format: date-time
-        operation:
+        lastName:
           type: string
-        changes:
+        email:
           type: string
-        objType:
+        profileId:
           type: string
-        objId:
+        degree:
           type: string
-        relationId:
+        universityIndexNumber:
           type: string
-        relationName:
-          type: string
-    OdataResponseBuildingResponse:
+    BuildingRequest:
       type: object
       properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/BuildingResponse'
-        totalCount:
-          type: integer
-          format: int32
-    BuildingUnitResponse:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
-        buildingId:
+        namePl:
           type: string
-        unitCode:
+        nameEn:
           type: string
-        unitNamePl:
+        namePlAlt:
           type: string
-        unitNameEn:
+        nameEnAlt:
           type: string
-        url:
+        phone:
           type: string
-        fallbackUrl:
+        usosCode:
           type: string
-        isUnitVisible:
-          type: boolean
-        isMain:
-          type: boolean
-    BuildingRoomResponse:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
-        buildingId:
+        latitude:
+          type: number
+        longitude:
+          type: number
+        street:
           type: string
         number:
           type: string
-        description:
+        city:
           type: string
-        floorNumber:
-          type: integer
-          format: int32
-        persons:
-          type: array
-          items:
-            $ref: '#/components/schemas/BuildingRoomPersonResponse'
-        x:
-          type: number
-        y:
-          type: number
-        importSourceType:
+        postalCode:
           type: string
-        importSourceId:
+        benNumber:
           type: string
-    BuildingUnitRequest:
+          description: Numer biura ewidencji nieruchomości
+        administratorPersonId:
+          type: string
+        campusCode:
+          type: string
+        descriptionPl:
+          type: string
+        descriptionEn:
+          type: string
+        descriptionPlAlt:
+          type: string
+        descriptionEnAlt:
+          type: string
+        visibleUsos:
+          type: boolean
+        visibleOkUw:
+          type: boolean
+        visibleMyUw:
+          type: boolean
+    BuildingAttributeLocationRequest:
+      required:
+      - categoryCode
+      - nameEn
+      - namePl
       type: object
       properties:
-        unitCode:
+        commentPl:
           type: string
-        mainId:
-          type: boolean
+        commentEn:
+          type: string
+        latitude:
+          type: number
+          format: double
+        longitude:
+          type: number
+          format: double
+        namePl:
+          type: string
+        nameEn:
+          type: string
+        categoryCode:
+          type: string
+        url:
+          type: string
   securitySchemes:
     Authorization:
       type: apiKey

@@ -149,6 +149,36 @@ paths:
     - url: https://api.sp4eu.uw.edu.pl
 components:
   schemas:
+    ArticlePreviewResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        titlePl:
+          type: string
+        titleEn:
+          type: string
+        contentPl:
+          type: string
+        contentEn:
+          type: string
+        visibleFrom:
+          type: string
+          format: date
+        visibleTo:
+          type: string
+          format: date
+        signification:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+        visible:
+          type: boolean
+        created:
+          type: string
+          format: date-time
     ArticleRequest:
       required:
       - contentEn
@@ -186,64 +216,6 @@ components:
         visibleTo:
           type: string
           format: date
-    ArticlePreviewResponse:
-      type: object
-      properties:
-        id:
-          type: string
-        titlePl:
-          type: string
-        titleEn:
-          type: string
-        contentPl:
-          type: string
-        contentEn:
-          type: string
-        visibleFrom:
-          type: string
-          format: date
-        visibleTo:
-          type: string
-          format: date
-        signification:
-          type: string
-        tags:
-          type: array
-          items:
-            type: string
-        visible:
-          type: boolean
-        created:
-          type: string
-          format: date-time
-    ArticleRequest_2:
-      type: object
-      properties:
-        titlePl:
-          type: string
-        titleEn:
-          type: string
-        contentPl:
-          type: string
-        contentEn:
-          type: string
-        signification:
-          type: string
-        tags:
-          type: array
-          items:
-            type: string
-          uniqueItems: true
-        created:
-          type: string
-        visible:
-          type: boolean
-        visibleFrom:
-          type: string
-          format: date
-        visibleTo:
-          type: string
-          format: date
     ArticlePreviewResponse_2:
       type: object
       properties:
@@ -273,6 +245,34 @@ components:
           type: boolean
         created:
           type: string
+    ArticleRequest_2:
+      type: object
+      properties:
+        titlePl:
+          type: string
+        titleEn:
+          type: string
+        contentPl:
+          type: string
+        contentEn:
+          type: string
+        signification:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+          uniqueItems: true
+        created:
+          type: string
+        visible:
+          type: boolean
+        visibleFrom:
+          type: string
+          format: date
+        visibleTo:
+          type: string
+          format: date
   securitySchemes:
     Authorization:
       type: apiKey

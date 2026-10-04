@@ -80,9 +80,12 @@ components:
       properties:
         magazine:
           $ref: '#/components/schemas/MagazineResponse'
-    MagazineImportRequest:
+    MagazineResponse:
       type: object
       properties:
+        id:
+          type: integer
+          format: int32
         title:
           type: string
         publisher:
@@ -107,12 +110,9 @@ components:
           type: string
         pissn:
           type: string
-    MagazineResponse:
+    MagazineImportRequest:
       type: object
       properties:
-        id:
-          type: integer
-          format: int32
         title:
           type: string
         publisher:

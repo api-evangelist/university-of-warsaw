@@ -133,6 +133,22 @@ paths:
       - Authorization: []
 components:
   schemas:
+    ItemUsedFileResponse:
+      type: object
+      properties:
+        itemUsedFileId:
+          type: string
+        itemUsedId:
+          type: string
+        fileId:
+          type: string
+        extension:
+          type: string
+        name:
+          type: string
+        uploadedDate:
+          type: string
+          format: date-time
     ItemUsedResponse:
       type: object
       properties:
@@ -163,22 +179,6 @@ components:
         quantity:
           type: integer
           format: int32
-    ItemUsedFileResponse:
-      type: object
-      properties:
-        itemUsedFileId:
-          type: string
-        itemUsedId:
-          type: string
-        fileId:
-          type: string
-        extension:
-          type: string
-        name:
-          type: string
-        uploadedDate:
-          type: string
-          format: date-time
     OdataResponseItemUsedResponse:
       type: object
       properties:

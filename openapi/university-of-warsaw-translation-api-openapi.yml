@@ -126,6 +126,33 @@ paths:
       - Authorization: []
 components:
   schemas:
+    TranslationResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        en:
+          type: string
+        pl:
+          type: string
+        fr:
+          type: string
+        it:
+          type: string
+        da:
+          type: string
+        de:
+          type: string
+        cs:
+          type: string
+        uk:
+          type: string
+        ru:
+          type: string
+        be:
+          type: string
+        category:
+          type: string
     TranslationRequest:
       required:
       - category
@@ -198,33 +225,6 @@ components:
         ru:
           type: string
         be:
-          type: string
-    TranslationResponse:
-      type: object
-      properties:
-        id:
-          type: string
-        en:
-          type: string
-        pl:
-          type: string
-        fr:
-          type: string
-        it:
-          type: string
-        da:
-          type: string
-        de:
-          type: string
-        cs:
-          type: string
-        uk:
-          type: string
-        ru:
-          type: string
-        be:
-          type: string
-        category:
           type: string
   securitySchemes:
     Authorization:

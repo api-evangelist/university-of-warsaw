@@ -276,16 +276,21 @@ components:
           type: string
         invokedBy:
           type: string
-    OdataResponseUwPersonResponse:
+    UwPersonFunction:
       type: object
       properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/UwPersonResponse'
-        totalCount:
-          type: integer
-          format: int32
+        namePl:
+          type: string
+        nameEn:
+          type: string
+        unitCode:
+          type: string
+        startDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
     UwPersonResponse:
       type: object
       properties:
@@ -325,19 +330,33 @@ components:
           type: array
           items:
             type: string
-    UwPersonEmployeeDataRequest:
+    OdataResponseUwPersonResponse:
       type: object
       properties:
-        osId:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/UwPersonResponse'
+        totalCount:
+          type: integer
+          format: int32
+    UwPersonEmploymentResponse:
+      type: object
+      properties:
+        namePl:
           type: string
-        employments:
-          type: array
-          items:
-            $ref: '#/components/schemas/UwPersonEmployment'
-        functions:
-          type: array
-          items:
-            $ref: '#/components/schemas/UwPersonFunction'
+        nameEn:
+          type: string
+        unitCode:
+          type: string
+        unitNamePl:
+          type: string
+        unitNameEn:
+          type: string
+        groupName:
+          type: string
+        subgroupName:
+          type: string
     UwPersonFunctionResponse:
       type: object
       properties:
@@ -351,6 +370,17 @@ components:
           type: string
         unitNameEn:
           type: string
+    UwPersonEmployeeDataResponse:
+      type: object
+      properties:
+        functions:
+          type: array
+          items:
+            $ref: '#/components/schemas/UwPersonFunctionResponse'
+        employments:
+          type: array
+          items:
+            $ref: '#/components/schemas/UwPersonEmploymentResponse'
     UwPersonEmployment:
       type: object
       properties:
@@ -381,49 +411,19 @@ components:
           type: string
         unitNameEn:
           type: string
-    UwPersonEmployeeDataResponse:
+    UwPersonEmployeeDataRequest:
       type: object
       properties:
-        functions:
-          type: array
-          items:
-            $ref: '#/components/schemas/UwPersonFunctionResponse'
+        osId:
+          type: string
         employments:
           type: array
           items:
-            $ref: '#/components/schemas/UwPersonEmploymentResponse'
-    UwPersonFunction:
-      type: object
-      properties:
-        namePl:
-          type: string
-        nameEn:
-          type: string
-        unitCode:
-          type: string
-        startDate:
-          type: string
-          format: date
-        endDate:
-          type: string
-          format: date
-    UwPersonEmploymentResponse:
-      type: object
-      properties:
-        namePl:
-          type: string
-        nameEn:
-          type: string
-        unitCode:
-          type: string
-        unitNamePl:
-          type: string
-        unitNameEn:
-          type: string
-        groupName:
-          type: string
-        subgroupName:
-          type: string
+            $ref: '#/components/schemas/UwPersonEmployment'
+        functions:
+          type: array
+          items:
+            $ref: '#/components/schemas/UwPersonFunction'
   securitySchemes:
     Authorization:
       type: apiKey

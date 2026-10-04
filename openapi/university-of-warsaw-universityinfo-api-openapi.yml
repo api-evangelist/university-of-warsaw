@@ -146,6 +146,22 @@ paths:
       - Authorization: []
 components:
   schemas:
+    UniversityInfoCreateRequest:
+      required:
+      - university
+      type: object
+      properties:
+        university:
+          type: string
+          enum:
+          - CUNI
+          - UAH
+          - SU
+          - KU
+          - UNIMI
+          - UW
+          - UNIGE
+          - PARIS_2
     ArticlePreviewResponse:
       type: object
       properties:
@@ -176,22 +192,6 @@ components:
         created:
           type: string
           format: date-time
-    UniversityInfoCreateRequest:
-      required:
-      - university
-      type: object
-      properties:
-        university:
-          type: string
-          enum:
-          - CUNI
-          - UAH
-          - SU
-          - KU
-          - UNIMI
-          - UW
-          - UNIGE
-          - PARIS_2
     UniversityInfoResponse:
       type: object
       properties:

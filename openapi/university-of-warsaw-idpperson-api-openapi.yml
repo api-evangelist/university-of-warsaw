@@ -120,6 +120,38 @@ paths:
       - Authorization: []
 components:
   schemas:
+    IdpPersonUpsertRequest:
+      required:
+      - attributes
+      - email
+      - familyName
+      - givenName
+      type: object
+      properties:
+        personSourceId:
+          type: string
+          description: Id osoby. Jeśli personId == null, zostanie wygenerowane UUID
+        givenName:
+          type: string
+        familyName:
+          type: string
+        email:
+          type: string
+        university:
+          type: string
+          enum:
+          - CUNI
+          - UAH
+          - SU
+          - KU
+          - UNIMI
+          - UW
+          - UNIGE
+          - PARIS_2
+        attributes:
+          type: object
+          additionalProperties:
+            type: object
     IdpPersonResponse:
       type: object
       properties:
@@ -154,6 +186,16 @@ components:
         personId:
           type: string
           description: Identyfikator osoby istniejącej w jednej z tabel osób zasilanych importami (np. uw_person)
+    OdataResponseIdpPersonResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/IdpPersonResponse'
+        totalCount:
+          type: integer
+          format: int32
     EdugainPersonRequest:
       required:
       - eduPersonPrincipalName
@@ -184,48 +226,6 @@ components:
           - UW
           - UNIGE
           - PARIS_2
-    OdataResponseIdpPersonResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/IdpPersonResponse'
-        totalCount:
-          type: integer
-          format: int32
-    IdpPersonUpsertRequest:
-      required:
-      - attributes
-      - email
-      - familyName
-      - givenName
-      type: object
-      properties:
-        personSourceId:
-          type: string
-          description: Id osoby. Jeśli personId == null, zostanie wygenerowane UUID
-        givenName:
-          type: string
-        familyName:
-          type: string
-        email:
-          type: string
-        university:
-          type: string
-          enum:
-          - CUNI
-          - UAH
-          - SU
-          - KU
-          - UNIMI
-          - UW
-          - UNIGE
-          - PARIS_2
-        attributes:
-          type: object
-          additionalProperties:
-            type: object
   securitySchemes:
     Authorization:
       type: apiKey

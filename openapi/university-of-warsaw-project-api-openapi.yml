@@ -983,482 +983,11 @@ paths:
       - Authorization: []
 components:
   schemas:
-    ProjectUwUnitResponse:
-      type: object
-      properties:
-        id:
-          type: string
-        projectId:
-          type: string
-        unitCode:
-          type: string
-        unitNamePl:
-          type: string
-        unitNameEn:
-          type: string
-        fromDate:
-          type: string
-          format: date
-        toDate:
-          type: string
-          format: date
-        pspElement:
-          type: string
-        main:
-          type: boolean
-    ProjectFinancingRequest:
-      required:
-      - financingExternalInstitutions
-      - financingInstitutions
-      - financingUwUnits
-      - projectUwUnits
-      type: object
-      properties:
-        financingInstitutions:
-          uniqueItems: true
-          type: array
-          items:
-            $ref: '#/components/schemas/ProjectFinancingInstitutionRequest'
-        financingUwUnits:
-          uniqueItems: true
-          type: array
-          items:
-            $ref: '#/components/schemas/ProjectFinancingUwRequest'
-        financingExternalInstitutions:
-          uniqueItems: true
-          type: array
-          items:
-            $ref: '#/components/schemas/ProjectFinancingExternalRequest'
-        projectUwUnits:
-          uniqueItems: true
-          type: array
-          items:
-            $ref: '#/components/schemas/ProjectUwUnitRequest'
-        details:
-          $ref: '#/components/schemas/ProjectFinancingDetailsRequest'
-        additionalInfo:
-          $ref: '#/components/schemas/ProjectFinancingAdditionalInfoRequest'
     ProjectRelationsRequest:
       type: object
       properties:
         parentId:
           type: string
-    ProjectFinancingResponse:
-      type: object
-      properties:
-        financingUwUnits:
-          type: array
-          items:
-            $ref: '#/components/schemas/ProjectFinancingUwResponse'
-        financingInstitutions:
-          type: array
-          items:
-            $ref: '#/components/schemas/ProjectFinancingInstitutionResponse'
-        financingExternalInstitutions:
-          type: array
-          items:
-            $ref: '#/components/schemas/ProjectFinancingExternalResponse'
-        projectUwUnits:
-          type: array
-          items:
-            $ref: '#/components/schemas/ProjectUwUnitResponse'
-        details:
-          $ref: '#/components/schemas/ProjectFinancingDetailsResponse'
-        additionalInfo:
-          $ref: '#/components/schemas/ProjectFinancingAdditionalInfoResponse'
-    ProjectFinancingExternalResponse:
-      type: object
-      properties:
-        id:
-          type: string
-        projectId:
-          type: string
-        comments:
-          type: string
-        amount:
-          type: number
-        category:
-          type: string
-        projectRole:
-          type: string
-          enum:
-          - LEADER
-          - CONSORTIUM_MEMBER
-          - FORMALIZED_COLLABORATION
-          - ECONOMIC_PARTNER
-        contractNumber:
-          type: string
-        contractDate:
-          type: string
-          format: date
-        businessEntityId:
-          type: string
-        businessEntityName:
-          type: string
-        businessEntityAcro:
-          type: string
-        businessEntityCountryCode:
-          type: string
-      description: Informacje o podmiotach zewnętrznych finansowania
-    ProjectOtherInfoRequest:
-      type: object
-      properties:
-        links:
-          uniqueItems: true
-          type: array
-          items:
-            $ref: '#/components/schemas/ProjectLinkRequest'
-        appendices:
-          uniqueItems: true
-          type: array
-          items:
-            $ref: '#/components/schemas/ProjectAppendixRequest'
-        notes:
-          maxLength: 2000
-          minLength: 0
-          type: string
-        projectContractTypeId:
-          type: integer
-          format: int32
-    ProjectDisciplineResponse:
-      type: object
-      properties:
-        isDisciplineAssigned:
-          type: boolean
-        scienceDisciplines:
-          type: array
-          items:
-            $ref: '#/components/schemas/ProjectScienceDisciplineResponse'
-        specialities:
-          type: array
-          items:
-            type: string
-    ProjectProfileContactRequest:
-      type: object
-      properties:
-        id:
-          type: string
-        profileId:
-          type: string
-        unitCode:
-          type: string
-    ProjectContractTypeResponse:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
-        mainType:
-          type: string
-        mainTypeOld:
-          type: string
-        contractType:
-          type: string
-        institution:
-          type: string
-        groupName:
-          type: string
-        typeName:
-          type: string
-      description: Informacje o typie projektu
-    ProjectUwUnitRequest:
-      type: object
-      properties:
-        id:
-          type: string
-        unitCode:
-          type: string
-        fromDate:
-          type: string
-          format: date
-        toDate:
-          type: string
-          format: date
-        pspElement:
-          type: string
-        main:
-          type: boolean
-    ProjectScienceDisciplineResponse:
-      type: object
-      properties:
-        id:
-          type: string
-        projectId:
-          type: string
-        scienceDisciplineCode:
-          type: string
-        scienceDisciplineName:
-          type: string
-        scienceDisciplineNameEn:
-          type: string
-        scienceFieldCode:
-          type: string
-        scienceFieldName:
-          type: string
-        scienceFieldNameEn:
-          type: string
-        percentage:
-          type: number
-    OdataResponsePersonViewResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/PersonViewResponse'
-        totalCount:
-          type: integer
-          format: int32
-    BusinessEntityResponse:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Id podmiotu, id techniczne
-        acro:
-          type: string
-          description: Akronim podmiotu - wartość unikalna
-        name:
-          type: string
-          description: Nazwa podmiotu
-        type:
-          type: string
-          description: Typ podmiotu
-        countryCode:
-          type: string
-          description: Kod kraju
-      description: Podmiot
-    ProjectFilterRequest:
-      type: object
-      properties:
-        activeFrom:
-          type: string
-          format: date
-        activeTo:
-          type: string
-          format: date
-        unitCodes:
-          type: array
-          items:
-            type: string
-        scienceDisciplines:
-          type: array
-          items:
-            type: string
-    ProjectFinancingUwRequest:
-      required:
-      - unitCode
-      type: object
-      properties:
-        id:
-          type: string
-        unitCode:
-          type: string
-        year:
-          type: integer
-          format: int32
-        grossPlanned:
-          type: number
-        grossRealized:
-          type: number
-        netPlanned:
-          type: number
-        netRealized:
-          type: number
-        openAccessPlanned:
-          type: number
-        openAccessRealized:
-          type: number
-        indirectPlanned:
-          type: number
-        indirectRealized:
-          type: number
-        apparatusPlanned:
-          type: number
-        apparatusRealized:
-          type: number
-    ProjectAppendixRequest:
-      required:
-      - documentDate
-      - number
-      type: object
-      properties:
-        id:
-          type: string
-        number:
-          type: string
-        documentDate:
-          type: string
-          format: date
-        notes:
-          type: string
-    ProjectAssetsRequest:
-      type: object
-      properties:
-        assetSapId:
-          type: string
-        assetCustomName:
-          type: string
-    OdataResponseOdataHeaderFilterResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/OdataHeaderFilterResponse'
-        totalCount:
-          type: integer
-          format: int32
-    ProjectLinkRequest:
-      required:
-      - name
-      - url
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          maxLength: 255
-          minLength: 0
-          type: string
-        url:
-          maxLength: 255
-          minLength: 0
-          type: string
-    OdataResponseQueryProjectsItemResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/QueryProjectsItemResponse'
-        totalCount:
-          type: integer
-          format: int32
-    ProjectFinancingDetailsResponse:
-      type: object
-      properties:
-        grantAgreementNumber:
-          type: string
-        grantAgreementDate:
-          type: string
-          format: date
-        budget:
-          type: number
-        budgetUw:
-          type: number
-        grantAmount:
-          type: number
-        ownContributionRequired:
-          type: boolean
-        ownContribution:
-          type: number
-    OdataResponseAssetQueryResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/AssetQueryResponse'
-        totalCount:
-          type: integer
-          format: int32
-    ProjectLinkResponse:
-      type: object
-      properties:
-        id:
-          type: string
-          description: id linku
-        projectId:
-          type: string
-          description: id projektu
-        name:
-          type: string
-          description: nazwa linku
-        url:
-          type: string
-          description: link
-      description: Link do projektu
-    ProjectFinancingAdditionalInfoResponse:
-      type: object
-      properties:
-        bankAccountNumber:
-          type: string
-        financingModel:
-          type: string
-          enum:
-          - ADVANCE_PAYMENT
-          - REFUNDED
-          - MIXED
-        vatQualification:
-          type: string
-          enum:
-          - FULL_EXEMPTION
-          - PRE_FACTOR
-          - STRUCTURE_INDICATOR
-          - PRE_FACTOR_AND_STRUCTURE_INDICATOR
-          - NO_EXEMPTION
-        publicAid:
-          type: boolean
-        deMinimisAid:
-          type: boolean
-    ProjectAssetResponse:
-      type: object
-      properties:
-        projectId:
-          type: string
-        sapId:
-          type: string
-        assetCustomName:
-          type: string
-        name:
-          type: string
-        description:
-          type: string
-        purposeOfUse:
-          type: string
-        shelfLifeFrom:
-          type: string
-          format: date
-        shelfLifeTo:
-          type: string
-          format: date
-        inventoryNumber:
-          type: string
-        commercialUsage:
-          type: boolean
-        commercialUsageFrom:
-          type: string
-          format: date
-        otDate:
-          type: string
-          format: date
-        otNumber:
-          type: string
-        subInventoryNumber:
-          type: string
-        value:
-          type: number
-        currency:
-          type: string
-    ProjectTeamRequest:
-      required:
-      - projectMembers
-      - projectProfileContacts
-      type: object
-      properties:
-        projectMembers:
-          uniqueItems: true
-          type: array
-          items:
-            $ref: '#/components/schemas/ProjectProfileMemberRequest'
-        projectProfileContacts:
-          uniqueItems: true
-          type: array
-          items:
-            $ref: '#/components/schemas/ProjectProfileContactRequest'
-        details:
-          $ref: '#/components/schemas/ProjectTeamDetailsRequest'
     RecordOwnersResponse:
       type: object
       properties:
@@ -1470,49 +999,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/PersonViewResponse'
-    AbstractRequest:
-      required:
-      - keyw
-      type: object
-      properties:
-        id:
-          type: string
-        langCode:
-          type: string
-          description: kod języka typu PL, EN, EN-GB, itp - klucz naturalny do Language, zgodny z ISO (patrz Language)
-        title:
-          type: string
-          description: 'tytuł wynalazku/patentu/wzoru użytkowego/nazwa gatunku/nazwa botaniczna/nazwa odmiany w danym języku '
-        abstr:
-          type: string
-          description: streszczenie opisu wynalazku/wzoru użytkowego w danym języku
-        keyw:
-          maxItems: 100
-          minItems: 0
-          uniqueItems: true
-          type: array
-          description: słowa kluczowe w danym języku
-          items:
-            type: string
-            description: słowa kluczowe w danym języku
-        orderIndex:
-          minimum: 0
-          type: integer
-          description: 'kolejność wyświetlania abstraktów (domyślnie: 0)'
-          format: int32
-        original:
-          type: boolean
-          description: czy streszczenie jest w języku oryginału
-    OdataResponseQueryProfileItemResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/QueryProfileItemResponse'
-        totalCount:
-          type: integer
-          format: int32
     QueryProfileItemResponse:
       type: object
       properties:
@@ -1606,206 +1092,281 @@ components:
         promotedPublicationsCount:
           type: integer
           format: int64
-    ProjectAbstractRequest:
-      required:
-      - langCode
-      - otherAbstracts
+    ProjectTeamDetailsResponse:
       type: object
       properties:
-        langCode:
-          type: string
-        projectAbstract:
-          type: string
-        otherAbstracts:
-          uniqueItems: true
-          type: array
-          items:
-            $ref: '#/components/schemas/AbstractRequest'
-    PersonViewResponse:
-      type: object
-      properties:
-        personId:
-          type: string
-        university:
+        regulation75:
           type: string
           enum:
-          - CUNI
-          - UAH
-          - SU
-          - KU
-          - UNIMI
-          - UW
-          - UNIGE
-          - PARIS_2
-        orcid:
+          - P
+          - F
+          - ND
+        hasManager:
+          type: boolean
+        managerProfileId:
           type: string
-        firstName:
+        managerProfileName:
           type: string
-        middleNames:
+        researchManagerProfileId:
           type: string
-        lastName:
+        researchManagerProfileName:
           type: string
-        email:
-          type: string
-        profileId:
-          type: string
-        degree:
-          type: string
-        universityIndexNumber:
-          type: string
-    ProjectRequest:
-      required:
-      - currencyCode
-      - grantAgreementDate
-      - grantAgreementNumber
-      - keywords
-      - projectName
-      - responsibleUnitCode
-      - roleUw
+    HistoryResponse:
       type: object
       properties:
-        projectName:
-          maxLength: 255
-          minLength: 0
+        id:
           type: string
-        acro:
-          maxLength: 255
-          minLength: 0
+        whoType:
           type: string
-        keywords:
+        whoId:
+          type: string
+        whoName:
+          type: string
+        eventTime:
+          type: string
+          format: date-time
+        operation:
+          type: string
+        changes:
+          type: string
+        objType:
+          type: string
+        objId:
+          type: string
+        relationId:
+          type: string
+        relationName:
+          type: string
+    ProjectOtherInfoResponse:
+      type: object
+      properties:
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProjectLinkResponse'
+        appendices:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProjectAppendixResponse'
+        notes:
+          type: string
+        projectContractTypeId:
+          type: integer
+          format: int32
+    ProjectFinancingRequest:
+      required:
+      - financingExternalInstitutions
+      - financingInstitutions
+      - financingUwUnits
+      - projectUwUnits
+      type: object
+      properties:
+        financingInstitutions:
           uniqueItems: true
           type: array
           items:
-            type: string
-        polonId:
-          maxLength: 255
+            $ref: '#/components/schemas/ProjectFinancingInstitutionRequest'
+        financingUwUnits:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ProjectFinancingUwRequest'
+        financingExternalInstitutions:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ProjectFinancingExternalRequest'
+        projectUwUnits:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ProjectUwUnitRequest'
+        details:
+          $ref: '#/components/schemas/ProjectFinancingDetailsRequest'
+        additionalInfo:
+          $ref: '#/components/schemas/ProjectFinancingAdditionalInfoRequest'
+    ProjectOtherInfoRequest:
+      type: object
+      properties:
+        links:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ProjectLinkRequest'
+        appendices:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ProjectAppendixRequest'
+        notes:
+          maxLength: 2000
           minLength: 0
           type: string
-        grantAgreementNumber:
-          maxLength: 255
-          minLength: 0
-          type: string
-        grantAgreementDate:
-          type: string
-          format: date
-        pspElement:
-          type: string
-        projectNumber:
-          maxLength: 255
-          minLength: 0
-          type: string
-        registrationNumber:
-          maxLength: 255
-          minLength: 0
-          type: string
-        decisionNumber:
-          maxLength: 255
-          minLength: 0
-          type: string
-        decisionDate:
-          type: string
-          format: date
-        projectTypeId:
+        projectContractTypeId:
           type: integer
           format: int32
-        projectProgramId:
-          type: integer
-          format: int32
-        projectProgramDetailedId:
-          type: integer
-          format: int32
-        competitionNumber:
-          maxLength: 255
-          minLength: 0
+    ProjectFinancingExternalRequest:
+      required:
+      - businessEntityId
+      type: object
+      properties:
+        id:
           type: string
-        competitionName:
-          maxLength: 255
-          minLength: 0
+        businessEntityId:
           type: string
-        intermediaryInstitutionId:
+        comments:
           type: string
-        startDate:
-          type: string
-          format: date
-        endDate:
-          type: string
-          format: date
-        budget:
+        amount:
           type: number
-        budgetUw:
-          type: number
-        currencyCode:
+        category:
           type: string
-        partnershipProject:
-          type: boolean
-        internationalProject:
-          type: boolean
-        internationalDetailProjectId:
-          type: integer
-          format: int32
-        roleUw:
+          enum:
+          - UNIVERSITY
+          - SCIENTIFIC_INSTITUTION
+          - ENTREPRENEUR
+          - LOCAL_GOVERNMENT_UNIT
+          - NON_GOVERNMENTAL_ORGANIZATION
+          - STATE_ADMINISTRATION
+          - OTHER
+        projectRole:
           type: string
           enum:
           - LEADER
           - CONSORTIUM_MEMBER
-          - SELF_EXECUTION
-          - SUBCONTRACTOR
-        startDateUw:
+          - FORMALIZED_COLLABORATION
+          - ECONOMIC_PARTNER
+        contractNumber:
+          type: string
+        contractDate:
           type: string
           format: date
-        endDateUw:
-          type: string
-          format: date
-        settlementDate:
-          type: string
-          format: date
-        status:
-          type: string
-          enum:
-          - UNDER_EVALUATION
-          - AWAITING
-          - IN_PROGRESS
-          - COMPLETED_NOT_SETTLED
-          - COMPLETED_SETTLED
-        auditRequired:
-          type: boolean
-        shelfLifeDate:
-          type: string
-          format: date
-        responsibleUnitCode:
-          type: string
-        responsibleProfileId:
-          type: string
-        uwContractNumber:
-          type: string
-        isPrivate:
-          type: boolean
-    ProjectAbstractResponse:
+    AssetResponse:
       type: object
       properties:
-        projectName:
+        id:
           type: string
-        langCode:
+        name:
           type: string
-        projectAbstract:
+        initialValue:
+          type: number
+        depreciationAmount:
+          type: number
+        currencyCode:
           type: string
-        keywords:
+        amortizationMethod:
+          type: string
+        inventoryNumber:
+          type: string
+        initialSapId:
+          type: string
+        sapId:
+          type: string
+        departmentCode:
+          type: string
+        unitName:
+          type: string
+        uwCode:
+          type: string
+        objectType:
+          type: string
+        grwName:
+          type: string
+        kst:
+          type: string
+        documentNumber:
+          type: string
+        admissionDate:
+          type: string
+        liquidationDate:
+          type: string
+        otDate:
+          type: string
+          format: date
+        otNumber:
+          type: string
+        purchaseDate:
+          type: string
+        personId:
+          type: string
+        description:
+          type: string
+        shelfLifeFrom:
+          type: string
+          format: date
+        shelfLifeTo:
+          type: string
+          format: date
+        commercialUsage:
+          type: boolean
+        commercialUsageFrom:
+          type: string
+          format: date
+        purposeOfUse:
+          type: string
+        yearAcquisition:
+          type: string
+    ProjectScienceDisciplineResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        projectId:
+          type: string
+        scienceDisciplineCode:
+          type: string
+        scienceDisciplineName:
+          type: string
+        scienceDisciplineNameEn:
+          type: string
+        scienceFieldCode:
+          type: string
+        scienceFieldName:
+          type: string
+        scienceFieldNameEn:
+          type: string
+        percentage:
+          type: number
+    ProjectDisciplineResponse:
+      type: object
+      properties:
+        isDisciplineAssigned:
+          type: boolean
+        scienceDisciplines:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProjectScienceDisciplineResponse'
+        specialities:
           type: array
           items:
             type: string
-        otherAbstracts:
-          type: array
-          items:
-            $ref: '#/components/schemas/AbstractResponse'
-    ProjectRelationsResponse:
+    OdataResponseAssetQueryResponse:
       type: object
       properties:
-        parent:
-          $ref: '#/components/schemas/QueryProjectsItemResponse'
-        subprojects:
+        data:
           type: array
           items:
-            $ref: '#/components/schemas/QueryProjectsItemResponse'
+            $ref: '#/components/schemas/AssetQueryResponse'
+        totalCount:
+          type: integer
+          format: int32
+    ProjectFinancingDetailsRequest:
+      type: object
+      properties:
+        grantAmount:
+          type: number
+        ownContributionRequired:
+          type: boolean
+        ownContribution:
+          type: number
+    ProjectProfileContactRequest:
+      type: object
+      properties:
+        id:
+          type: string
+        profileId:
+          type: string
+        unitCode:
+          type: string
     QueryProjectsItemResponse:
       type: object
       properties:
@@ -1901,200 +1462,6 @@ components:
         isPrivate:
           type: boolean
       description: Podstawowe informacje o projekcie
-    ProjectFinancingDetailsRequest:
-      type: object
-      properties:
-        grantAmount:
-          type: number
-        ownContributionRequired:
-          type: boolean
-        ownContribution:
-          type: number
-    AssetQueryResponse:
-      type: object
-      properties:
-        id:
-          type: string
-        sapId:
-          type: string
-        name:
-          type: string
-        departmentCode:
-          type: string
-        inventoryNumber:
-          type: string
-        grwName:
-          type: string
-        initialValue:
-          type: number
-        objectType:
-          type: string
-        description:
-          type: string
-        shelfLifeFrom:
-          type: string
-          format: date
-        shelfLifeTo:
-          type: string
-          format: date
-        commercialUsage:
-          type: boolean
-        commercialUsageFrom:
-          type: string
-          format: date
-        purposeOfUse:
-          type: string
-        yearAcquisition:
-          type: string
-    ProjectTeamDetailsResponse:
-      type: object
-      properties:
-        regulation75:
-          type: string
-          enum:
-          - P
-          - F
-          - ND
-        hasManager:
-          type: boolean
-        managerProfileId:
-          type: string
-        managerProfileName:
-          type: string
-        researchManagerProfileId:
-          type: string
-        researchManagerProfileName:
-          type: string
-    OdataHeaderFilterResponse:
-      type: object
-      properties:
-        text:
-          type: string
-        value:
-          type: string
-    ProjectFinancingInstitutionResponse:
-      type: object
-      properties:
-        id:
-          type: string
-        projectId:
-          type: string
-        businessEntityId:
-          type: string
-        businessEntityName:
-          type: string
-        businessEntityAcronym:
-          type: string
-        percentage:
-          type: integer
-          format: int32
-        amount:
-          type: number
-        comment:
-          type: string
-        contractNumber:
-          type: string
-        primary:
-          type: boolean
-    HistoryResponse:
-      type: object
-      properties:
-        id:
-          type: string
-        whoType:
-          type: string
-        whoId:
-          type: string
-        whoName:
-          type: string
-        eventTime:
-          type: string
-          format: date-time
-        operation:
-          type: string
-        changes:
-          type: string
-        objType:
-          type: string
-        objId:
-          type: string
-        relationId:
-          type: string
-        relationName:
-          type: string
-    ProjectOtherInfoResponse:
-      type: object
-      properties:
-        links:
-          type: array
-          items:
-            $ref: '#/components/schemas/ProjectLinkResponse'
-        appendices:
-          type: array
-          items:
-            $ref: '#/components/schemas/ProjectAppendixResponse'
-        notes:
-          type: string
-        projectContractTypeId:
-          type: integer
-          format: int32
-    UwEconomicDepartmentResponse:
-      type: object
-      properties:
-        uwCode:
-          type: string
-          description: Unikalny kod działu gospodarczego
-        uwUnitCode:
-          type: string
-          description: Unikalny kod jednostki
-        namePl:
-          type: string
-          description: Polska nazwa działu gospodarczego
-        nameEn:
-          type: string
-          description: Angielska nazwa działu gospodarczego
-        unitNamePl:
-          type: string
-          description: Polska nazwa jednostki
-        unitNameEn:
-          type: string
-          description: Angielska nazwa jednostki
-        internalKSeFIdentifier:
-          type: string
-          description: Identyfikator wewnętrzny KSeF
-        invoiceEmail:
-          type: string
-          description: Faktura email
-        displayNamePl:
-          type: string
-          description: Nazwa wyświetlana po polsku
-        displayNameEn:
-          type: string
-          description: Nazwa wyświetlana po angielsku
-      description: Dział gospodarczy UW
-    ProjectFinancingAdditionalInfoRequest:
-      type: object
-      properties:
-        bankAccountNumber:
-          type: string
-        financingModel:
-          type: string
-          enum:
-          - ADVANCE_PAYMENT
-          - REFUNDED
-          - MIXED
-        vatQualification:
-          type: string
-          enum:
-          - FULL_EXEMPTION
-          - PRE_FACTOR
-          - STRUCTURE_INDICATOR
-          - PRE_FACTOR_AND_STRUCTURE_INDICATOR
-          - NO_EXEMPTION
-        publicAid:
-          type: boolean
-        deMinimisAid:
-          type: boolean
     ProjectResponse:
       type: object
       properties:
@@ -2241,30 +1608,7 @@ components:
           type: string
         isPrivate:
           type: boolean
-    ProjectProfileMemberRequest:
-      required:
-      - profileId
-      type: object
-      properties:
-        id:
-          type: string
-        profileId:
-          type: string
-        roleId:
-          type: integer
-          format: int32
-        regulation75RoleId:
-          type: integer
-          format: int32
-        unitCode:
-          type: string
-        fromDate:
-          type: string
-          format: date
-        toDate:
-          type: string
-          format: date
-    ProjectFinancingUwResponse:
+    ProjectUwUnitResponse:
       type: object
       properties:
         id:
@@ -2273,84 +1617,253 @@ components:
           type: string
         unitCode:
           type: string
-        year:
-          type: integer
-          format: int32
         unitNamePl:
           type: string
         unitNameEn:
           type: string
-        grossPlanned:
-          type: number
-        grossRealized:
-          type: number
-        netPlanned:
-          type: number
-        netRealized:
-          type: number
-        openAccessPlanned:
-          type: number
-        openAccessRealized:
-          type: number
-        indirectPlanned:
-          type: number
-        indirectRealized:
-          type: number
-        apparatusPlanned:
-          type: number
-        apparatusRealized:
-          type: number
-    RecordOwnersRequest:
-      required:
-      - departmentOwners
-      - personOwners
+        fromDate:
+          type: string
+          format: date
+        toDate:
+          type: string
+          format: date
+        pspElement:
+          type: string
+        main:
+          type: boolean
+    ProjectTeamResponse:
       type: object
       properties:
-        departmentOwners:
-          uniqueItems: true
+        projectProfileContacts:
           type: array
           items:
-            type: string
-        personOwners:
-          uniqueItems: true
+            $ref: '#/components/schemas/ProjectProfileContactResponse'
+        projectMembers:
           type: array
           items:
-            type: string
-    ProjectFinancingExternalRequest:
-      required:
-      - businessEntityId
+            $ref: '#/components/schemas/ProjectProfileMemberResponse'
+        details:
+          $ref: '#/components/schemas/ProjectTeamDetailsResponse'
+    ProjectProfileContactResponse:
       type: object
       properties:
         id:
           type: string
-        businessEntityId:
+        projectId:
           type: string
-        comments:
+        profileId:
           type: string
-        amount:
+        profileName:
+          type: string
+        profileEmails:
+          type: array
+          items:
+            type: string
+        profilePhone:
+          type: string
+        unitCode:
+          type: string
+        unitNamePl:
+          type: string
+        unitNameEn:
+          type: string
+        email:
+          type: string
+    ProjectLinkResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: id linku
+        projectId:
+          type: string
+          description: id projektu
+        name:
+          type: string
+          description: nazwa linku
+        url:
+          type: string
+          description: link
+      description: Link do projektu
+    ProjectAbstractResponse:
+      type: object
+      properties:
+        projectName:
+          type: string
+        langCode:
+          type: string
+        projectAbstract:
+          type: string
+        keywords:
+          type: array
+          items:
+            type: string
+        otherAbstracts:
+          type: array
+          items:
+            $ref: '#/components/schemas/AbstractResponse'
+    OdataResponseOdataHeaderFilterResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/OdataHeaderFilterResponse'
+        totalCount:
+          type: integer
+          format: int32
+    ProjectDisciplineRequest:
+      required:
+      - scienceDisciplines
+      - specialities
+      type: object
+      properties:
+        isDisciplineAssigned:
+          type: boolean
+        scienceDisciplines:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ProjectScienceDisciplineRequest'
+        specialities:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+    ProjectRequest:
+      required:
+      - currencyCode
+      - grantAgreementDate
+      - grantAgreementNumber
+      - keywords
+      - projectName
+      - responsibleUnitCode
+      - roleUw
+      type: object
+      properties:
+        projectName:
+          maxLength: 255
+          minLength: 0
+          type: string
+        acro:
+          maxLength: 255
+          minLength: 0
+          type: string
+        keywords:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        polonId:
+          maxLength: 255
+          minLength: 0
+          type: string
+        grantAgreementNumber:
+          maxLength: 255
+          minLength: 0
+          type: string
+        grantAgreementDate:
+          type: string
+          format: date
+        pspElement:
+          type: string
+        projectNumber:
+          maxLength: 255
+          minLength: 0
+          type: string
+        registrationNumber:
+          maxLength: 255
+          minLength: 0
+          type: string
+        decisionNumber:
+          maxLength: 255
+          minLength: 0
+          type: string
+        decisionDate:
+          type: string
+          format: date
+        projectTypeId:
+          type: integer
+          format: int32
+        projectProgramId:
+          type: integer
+          format: int32
+        projectProgramDetailedId:
+          type: integer
+          format: int32
+        competitionNumber:
+          maxLength: 255
+          minLength: 0
+          type: string
+        competitionName:
+          maxLength: 255
+          minLength: 0
+          type: string
+        intermediaryInstitutionId:
+          type: string
+        startDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+        budget:
           type: number
-        category:
+        budgetUw:
+          type: number
+        currencyCode:
           type: string
-          enum:
-          - UNIVERSITY
-          - SCIENTIFIC_INSTITUTION
-          - ENTREPRENEUR
-          - LOCAL_GOVERNMENT_UNIT
-          - NON_GOVERNMENTAL_ORGANIZATION
-          - STATE_ADMINISTRATION
-          - OTHER
-        projectRole:
+        partnershipProject:
+          type: boolean
+        internationalProject:
+          type: boolean
+        internationalDetailProjectId:
+          type: integer
+          format: int32
+        roleUw:
           type: string
           enum:
           - LEADER
           - CONSORTIUM_MEMBER
-          - FORMALIZED_COLLABORATION
-          - ECONOMIC_PARTNER
-        contractNumber:
-          type: string
-        contractDate:
+          - SELF_EXECUTION
+          - SUBCONTRACTOR
+        startDateUw:
           type: string
           format: date
+        endDateUw:
+          type: string
+          format: date
+        settlementDate:
+          type: string
+          format: date
+        status:
+          type: string
+          enum:
+          - UNDER_EVALUATION
+          - AWAITING
+          - IN_PROGRESS
+          - COMPLETED_NOT_SETTLED
+          - COMPLETED_SETTLED
+        auditRequired:
+          type: boolean
+        shelfLifeDate:
+          type: string
+          format: date
+        responsibleUnitCode:
+          type: string
+        responsibleProfileId:
+          type: string
+        uwContractNumber:
+          type: string
+        isPrivate:
+          type: boolean
+    ProjectAssetsRequest:
+      type: object
+      properties:
+        assetSapId:
+          type: string
+        assetCustomName:
+          type: string
     ProjectProfileMemberResponse:
       type: object
       properties:
@@ -2388,53 +1901,67 @@ components:
         toDate:
           type: string
           format: date
-    AssetResponse:
+    AbstractResponse:
       type: object
       properties:
         id:
           type: string
-        name:
+          description: Id abstraltu
+        langCode:
           type: string
-        initialValue:
-          type: number
-        depreciationAmount:
-          type: number
-        currencyCode:
+          description: kod języka typu PL, EN, EN-GB, itp - klucz naturalny do Language, zgodny z ISO (patrz Language)
+        title:
           type: string
-        amortizationMethod:
+          description: 'tytuł wynalazku/patentu/wzoru użytkowego/nazwa gatunku/nazwa botaniczna/nazwa odmiany w danym języku '
+        abstr:
           type: string
-        inventoryNumber:
+          description: streszczenie opisu wynalazku/wzoru użytkowego w danym języku
+        keyw:
+          type: array
+          description: słowa kluczowe w danym języku
+          items:
+            type: string
+            description: słowa kluczowe w danym języku
+        orderIndex:
+          type: integer
+          description: 'kolejność wyświetlania abstraktów (domyślnie: 0)'
+          format: int32
+        objectId:
           type: string
-        initialSapId:
+          description: Id obiektu
+        objectType:
+          type: string
+          description: Typ obiektu
+        original:
+          type: boolean
+          description: czy streszczenie jest w języku oryginału
+    ProjectRelationsResponse:
+      type: object
+      properties:
+        parent:
+          $ref: '#/components/schemas/QueryProjectsItemResponse'
+        subprojects:
+          type: array
+          items:
+            $ref: '#/components/schemas/QueryProjectsItemResponse'
+    AssetQueryResponse:
+      type: object
+      properties:
+        id:
           type: string
         sapId:
           type: string
+        name:
+          type: string
         departmentCode:
           type: string
-        unitName:
-          type: string
-        uwCode:
-          type: string
-        objectType:
+        inventoryNumber:
           type: string
         grwName:
           type: string
-        kst:
-          type: string
-        documentNumber:
-          type: string
-        admissionDate:
-          type: string
-        liquidationDate:
-          type: string
-        otDate:
-          type: string
-          format: date
-        otNumber:
-          type: string
-        purchaseDate:
-          type: string
-        personId:
+        initialValue:
+          type: number
+        objectType:
           type: string
         description:
           type: string
@@ -2453,21 +1980,405 @@ components:
           type: string
         yearAcquisition:
           type: string
-    ProjectTeamDetailsRequest:
+    ProjectFinancingAdditionalInfoRequest:
       type: object
       properties:
-        regulation75:
+        bankAccountNumber:
+          type: string
+        financingModel:
           type: string
           enum:
-          - P
-          - F
-          - ND
-        managerProfileId:
+          - ADVANCE_PAYMENT
+          - REFUNDED
+          - MIXED
+        vatQualification:
           type: string
-        researchManagerProfileId:
-          type: string
-        hasManager:
+          enum:
+          - FULL_EXEMPTION
+          - PRE_FACTOR
+          - STRUCTURE_INDICATOR
+          - PRE_FACTOR_AND_STRUCTURE_INDICATOR
+          - NO_EXEMPTION
+        publicAid:
           type: boolean
+        deMinimisAid:
+          type: boolean
+    ProjectFilterRequest:
+      type: object
+      properties:
+        activeFrom:
+          type: string
+          format: date
+        activeTo:
+          type: string
+          format: date
+        unitCodes:
+          type: array
+          items:
+            type: string
+        scienceDisciplines:
+          type: array
+          items:
+            type: string
+    ProjectFinancingAdditionalInfoResponse:
+      type: object
+      properties:
+        bankAccountNumber:
+          type: string
+        financingModel:
+          type: string
+          enum:
+          - ADVANCE_PAYMENT
+          - REFUNDED
+          - MIXED
+        vatQualification:
+          type: string
+          enum:
+          - FULL_EXEMPTION
+          - PRE_FACTOR
+          - STRUCTURE_INDICATOR
+          - PRE_FACTOR_AND_STRUCTURE_INDICATOR
+          - NO_EXEMPTION
+        publicAid:
+          type: boolean
+        deMinimisAid:
+          type: boolean
+    ProjectFinancingUwResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        projectId:
+          type: string
+        unitCode:
+          type: string
+        year:
+          type: integer
+          format: int32
+        unitNamePl:
+          type: string
+        unitNameEn:
+          type: string
+        grossPlanned:
+          type: number
+        grossRealized:
+          type: number
+        netPlanned:
+          type: number
+        netRealized:
+          type: number
+        openAccessPlanned:
+          type: number
+        openAccessRealized:
+          type: number
+        indirectPlanned:
+          type: number
+        indirectRealized:
+          type: number
+        apparatusPlanned:
+          type: number
+        apparatusRealized:
+          type: number
+    ProjectAssetResponse:
+      type: object
+      properties:
+        projectId:
+          type: string
+        sapId:
+          type: string
+        assetCustomName:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        purposeOfUse:
+          type: string
+        shelfLifeFrom:
+          type: string
+          format: date
+        shelfLifeTo:
+          type: string
+          format: date
+        inventoryNumber:
+          type: string
+        commercialUsage:
+          type: boolean
+        commercialUsageFrom:
+          type: string
+          format: date
+        otDate:
+          type: string
+          format: date
+        otNumber:
+          type: string
+        subInventoryNumber:
+          type: string
+        value:
+          type: number
+        currency:
+          type: string
+    BusinessEntityResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Id podmiotu, id techniczne
+        acro:
+          type: string
+          description: Akronim podmiotu - wartość unikalna
+        name:
+          type: string
+          description: Nazwa podmiotu
+        type:
+          type: string
+          description: Typ podmiotu
+        countryCode:
+          type: string
+          description: Kod kraju
+      description: Podmiot
+    ProjectFinancingInstitutionRequest:
+      required:
+      - businessEntityId
+      type: object
+      properties:
+        id:
+          type: string
+        businessEntityId:
+          type: string
+        percentage:
+          maximum: 100
+          minimum: 0
+          type: integer
+          format: int32
+        amount:
+          type: number
+        comment:
+          maxLength: 255
+          minLength: 0
+          type: string
+        contractNumber:
+          type: string
+        primary:
+          type: boolean
+    ProjectAppendixResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: id aneksu do projektu
+        projectId:
+          type: string
+          description: id projektu
+        number:
+          type: string
+          description: id numer do aneksu
+        documentDate:
+          type: string
+          format: date
+        notes:
+          type: string
+      description: Aneks do projektu
+    OdataResponseQueryProfileItemResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/QueryProfileItemResponse'
+        totalCount:
+          type: integer
+          format: int32
+    ProjectFinancingDetailsResponse:
+      type: object
+      properties:
+        grantAgreementNumber:
+          type: string
+        grantAgreementDate:
+          type: string
+          format: date
+        budget:
+          type: number
+        budgetUw:
+          type: number
+        grantAmount:
+          type: number
+        ownContributionRequired:
+          type: boolean
+        ownContribution:
+          type: number
+    OdataResponsePersonViewResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/PersonViewResponse'
+        totalCount:
+          type: integer
+          format: int32
+    AbstractRequest:
+      required:
+      - keyw
+      type: object
+      properties:
+        id:
+          type: string
+        langCode:
+          type: string
+          description: kod języka typu PL, EN, EN-GB, itp - klucz naturalny do Language, zgodny z ISO (patrz Language)
+        title:
+          type: string
+          description: 'tytuł wynalazku/patentu/wzoru użytkowego/nazwa gatunku/nazwa botaniczna/nazwa odmiany w danym języku '
+        abstr:
+          type: string
+          description: streszczenie opisu wynalazku/wzoru użytkowego w danym języku
+        keyw:
+          maxItems: 100
+          minItems: 0
+          uniqueItems: true
+          type: array
+          description: słowa kluczowe w danym języku
+          items:
+            type: string
+            description: słowa kluczowe w danym języku
+        orderIndex:
+          minimum: 0
+          type: integer
+          description: 'kolejność wyświetlania abstraktów (domyślnie: 0)'
+          format: int32
+        original:
+          type: boolean
+          description: czy streszczenie jest w języku oryginału
+    ProjectAppendixRequest:
+      required:
+      - documentDate
+      - number
+      type: object
+      properties:
+        id:
+          type: string
+        number:
+          type: string
+        documentDate:
+          type: string
+          format: date
+        notes:
+          type: string
+    ProjectLinkRequest:
+      required:
+      - name
+      - url
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          maxLength: 255
+          minLength: 0
+          type: string
+        url:
+          maxLength: 255
+          minLength: 0
+          type: string
+    ProjectFinancingResponse:
+      type: object
+      properties:
+        financingUwUnits:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProjectFinancingUwResponse'
+        financingInstitutions:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProjectFinancingInstitutionResponse'
+        financingExternalInstitutions:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProjectFinancingExternalResponse'
+        projectUwUnits:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProjectUwUnitResponse'
+        details:
+          $ref: '#/components/schemas/ProjectFinancingDetailsResponse'
+        additionalInfo:
+          $ref: '#/components/schemas/ProjectFinancingAdditionalInfoResponse'
+    PersonViewResponse:
+      type: object
+      properties:
+        personId:
+          type: string
+        university:
+          type: string
+          enum:
+          - CUNI
+          - UAH
+          - SU
+          - KU
+          - UNIMI
+          - UW
+          - UNIGE
+          - PARIS_2
+        orcid:
+          type: string
+        firstName:
+          type: string
+        middleNames:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        profileId:
+          type: string
+        degree:
+          type: string
+        universityIndexNumber:
+          type: string
+    UwEconomicDepartmentResponse:
+      type: object
+      properties:
+        uwCode:
+          type: string
+          description: Unikalny kod działu gospodarczego
+        uwUnitCode:
+          type: string
+          description: Unikalny kod jednostki
+        namePl:
+          type: string
+          description: Polska nazwa działu gospodarczego
+        nameEn:
+          type: string
+          description: Angielska nazwa działu gospodarczego
+        unitNamePl:
+          type: string
+          description: Polska nazwa jednostki
+        unitNameEn:
+          type: string
+          description: Angielska nazwa jednostki
+        internalKSeFIdentifier:
+          type: string
+          description: Identyfikator wewnętrzny KSeF
+        invoiceEmail:
+          type: string
+          description: Faktura email
+        displayNamePl:
+          type: string
+          description: Nazwa wyświetlana po polsku
+        displayNameEn:
+          type: string
+          description: Nazwa wyświetlana po angielsku
+      description: Dział gospodarczy UW
+    ProjectScienceDisciplineRequest:
+      required:
+      - scienceDisciplineCode
+      type: object
+      properties:
+        scienceDisciplineCode:
+          type: string
+        percentage:
+          type: number
     ProfileResponse:
       type: object
       properties:
@@ -2522,147 +2433,236 @@ components:
           type: boolean
         profilePublicId:
           type: string
-    AbstractResponse:
+    ProjectContractTypeResponse:
       type: object
       properties:
         id:
+          type: integer
+          format: int32
+        mainType:
           type: string
-          description: Id abstraltu
+        mainTypeOld:
+          type: string
+        contractType:
+          type: string
+        institution:
+          type: string
+        groupName:
+          type: string
+        typeName:
+          type: string
+      description: Informacje o typie projektu
+    ProjectAbstractRequest:
+      required:
+      - langCode
+      - otherAbstracts
+      type: object
+      properties:
         langCode:
           type: string
-          description: kod języka typu PL, EN, EN-GB, itp - klucz naturalny do Language, zgodny z ISO (patrz Language)
-        title:
+        projectAbstract:
           type: string
-          description: 'tytuł wynalazku/patentu/wzoru użytkowego/nazwa gatunku/nazwa botaniczna/nazwa odmiany w danym języku '
-        abstr:
-          type: string
-          description: streszczenie opisu wynalazku/wzoru użytkowego w danym języku
-        keyw:
+        otherAbstracts:
+          uniqueItems: true
           type: array
-          description: słowa kluczowe w danym języku
           items:
-            type: string
-            description: słowa kluczowe w danym języku
-        orderIndex:
-          type: integer
-          description: 'kolejność wyświetlania abstraktów (domyślnie: 0)'
-          format: int32
-        objectId:
-          type: string
-          description: Id obiektu
-        objectType:
-          type: string
-          description: Typ obiektu
-        original:
-          type: boolean
-          description: czy streszczenie jest w języku oryginału
-    ProjectFinancingInstitutionRequest:
-      required:
-      - businessEntityId
+            $ref: '#/components/schemas/AbstractRequest'
+    ProjectUwUnitRequest:
       type: object
       properties:
         id:
+          type: string
+        unitCode:
+          type: string
+        fromDate:
+          type: string
+          format: date
+        toDate:
+          type: string
+          format: date
+        pspElement:
+          type: string
+        main:
+          type: boolean
+    ProjectTeamDetailsRequest:
+      type: object
+      properties:
+        regulation75:
+          type: string
+          enum:
+          - P
+          - F
+          - ND
+        managerProfileId:
+          type: string
+        researchManagerProfileId:
+          type: string
+        hasManager:
+          type: boolean
+    ProjectTeamRequest:
+      required:
+      - projectMembers
+      - projectProfileContacts
+      type: object
+      properties:
+        projectMembers:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ProjectProfileMemberRequest'
+        projectProfileContacts:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ProjectProfileContactRequest'
+        details:
+          $ref: '#/components/schemas/ProjectTeamDetailsRequest'
+    OdataResponseQueryProjectsItemResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/QueryProjectsItemResponse'
+        totalCount:
+          type: integer
+          format: int32
+    ProjectFinancingUwRequest:
+      required:
+      - unitCode
+      type: object
+      properties:
+        id:
+          type: string
+        unitCode:
+          type: string
+        year:
+          type: integer
+          format: int32
+        grossPlanned:
+          type: number
+        grossRealized:
+          type: number
+        netPlanned:
+          type: number
+        netRealized:
+          type: number
+        openAccessPlanned:
+          type: number
+        openAccessRealized:
+          type: number
+        indirectPlanned:
+          type: number
+        indirectRealized:
+          type: number
+        apparatusPlanned:
+          type: number
+        apparatusRealized:
+          type: number
+    OdataHeaderFilterResponse:
+      type: object
+      properties:
+        text:
+          type: string
+        value:
+          type: string
+    ProjectFinancingExternalResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        projectId:
+          type: string
+        comments:
+          type: string
+        amount:
+          type: number
+        category:
+          type: string
+        projectRole:
+          type: string
+          enum:
+          - LEADER
+          - CONSORTIUM_MEMBER
+          - FORMALIZED_COLLABORATION
+          - ECONOMIC_PARTNER
+        contractNumber:
+          type: string
+        contractDate:
+          type: string
+          format: date
+        businessEntityId:
+          type: string
+        businessEntityName:
+          type: string
+        businessEntityAcro:
+          type: string
+        businessEntityCountryCode:
+          type: string
+      description: Informacje o podmiotach zewnętrznych finansowania
+    ProjectFinancingInstitutionResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        projectId:
           type: string
         businessEntityId:
           type: string
+        businessEntityName:
+          type: string
+        businessEntityAcronym:
+          type: string
         percentage:
-          maximum: 100
-          minimum: 0
           type: integer
           format: int32
         amount:
           type: number
         comment:
-          maxLength: 255
-          minLength: 0
           type: string
         contractNumber:
           type: string
         primary:
           type: boolean
-    ProjectTeamResponse:
-      type: object
-      properties:
-        projectProfileContacts:
-          type: array
-          items:
-            $ref: '#/components/schemas/ProjectProfileContactResponse'
-        projectMembers:
-          type: array
-          items:
-            $ref: '#/components/schemas/ProjectProfileMemberResponse'
-        details:
-          $ref: '#/components/schemas/ProjectTeamDetailsResponse'
-    ProjectProfileContactResponse:
+    ProjectProfileMemberRequest:
+      required:
+      - profileId
       type: object
       properties:
         id:
-          type: string
-        projectId:
           type: string
         profileId:
           type: string
-        profileName:
-          type: string
-        profileEmails:
-          type: array
-          items:
-            type: string
-        profilePhone:
-          type: string
+        roleId:
+          type: integer
+          format: int32
+        regulation75RoleId:
+          type: integer
+          format: int32
         unitCode:
           type: string
-        unitNamePl:
-          type: string
-        unitNameEn:
-          type: string
-        email:
-          type: string
-    ProjectAppendixResponse:
-      type: object
-      properties:
-        id:
-          type: string
-          description: id aneksu do projektu
-        projectId:
-          type: string
-          description: id projektu
-        number:
-          type: string
-          description: id numer do aneksu
-        documentDate:
+        fromDate:
           type: string
           format: date
-        notes:
+        toDate:
           type: string
-      description: Aneks do projektu
-    ProjectDisciplineRequest:
+          format: date
+    RecordOwnersRequest:
       required:
-      - scienceDisciplines
-      - specialities
+      - departmentOwners
+      - personOwners
       type: object
       properties:
-        isDisciplineAssigned:
-          type: boolean
-        scienceDisciplines:
-          uniqueItems: true
-          type: array
-          items:
-            $ref: '#/components/schemas/ProjectScienceDisciplineRequest'
-        specialities:
+        departmentOwners:
           uniqueItems: true
           type: array
           items:
             type: string
-    ProjectScienceDisciplineRequest:
-      required:
-      - scienceDisciplineCode
-      type: object
-      properties:
-        scienceDisciplineCode:
-          type: string
-        percentage:
-          type: number
+        personOwners:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
   securitySchemes:
     Authorization:
       type: apiKey

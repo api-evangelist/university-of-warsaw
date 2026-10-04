@@ -89,13 +89,16 @@ paths:
       - Authorization: []
 components:
   schemas:
-    UpdateSystemRoleRequest:
+    SystemRoleRequest:
       required:
       - jaskierMapping
+      - roleCode
       - roleName
       - sapMapping
       type: object
       properties:
+        roleCode:
+          type: string
         roleName:
           type: string
         comment:
@@ -153,16 +156,13 @@ components:
               description: mapowanie roli na uprawnienia w Jaskrze
           description: mapowanie roli na uprawnienia w Jaskrze
       description: System role
-    SystemRoleRequest:
+    UpdateSystemRoleRequest:
       required:
       - jaskierMapping
-      - roleCode
       - roleName
       - sapMapping
       type: object
       properties:
-        roleCode:
-          type: string
         roleName:
           type: string
         comment:

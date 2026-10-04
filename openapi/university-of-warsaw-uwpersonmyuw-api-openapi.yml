@@ -73,6 +73,38 @@ paths:
       - Authorization: []
 components:
   schemas:
+    MyUwUnitResponse:
+      type: object
+      properties:
+        code:
+          type: string
+        namePl:
+          type: string
+        nameEn:
+          type: string
+    MyUwPersonUnitResponse:
+      type: object
+      properties:
+        unit:
+          $ref: '#/components/schemas/MyUwUnitResponse'
+        unitHierarchy:
+          type: array
+          items:
+            $ref: '#/components/schemas/MyUwUnitResponse'
+        roleNamePl:
+          type: string
+        roleNameEn:
+          type: string
+    OdataResponseMyUwPersonQueryResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/MyUwPersonQueryResponse'
+        totalCount:
+          type: integer
+          format: int32
     MyUwBuildingResponse:
       type: object
       properties:
@@ -119,38 +151,6 @@ components:
           type: array
           items:
             type: string
-    OdataResponseMyUwPersonQueryResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/MyUwPersonQueryResponse'
-        totalCount:
-          type: integer
-          format: int32
-    MyUwPersonUnitResponse:
-      type: object
-      properties:
-        unit:
-          $ref: '#/components/schemas/MyUwUnitResponse'
-        unitHierarchy:
-          type: array
-          items:
-            $ref: '#/components/schemas/MyUwUnitResponse'
-        roleNamePl:
-          type: string
-        roleNameEn:
-          type: string
-    MyUwUnitResponse:
-      type: object
-      properties:
-        code:
-          type: string
-        namePl:
-          type: string
-        nameEn:
-          type: string
   securitySchemes:
     Authorization:
       type: apiKey

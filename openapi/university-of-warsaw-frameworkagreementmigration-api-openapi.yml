@@ -104,20 +104,6 @@ paths:
       - Authorization: []
 components:
   schemas:
-    AssortmentImportRequest:
-      type: object
-      properties:
-        name:
-          type: string
-        catalogNumber:
-          type: string
-        unit:
-          type: string
-        netPrice:
-          type: number
-        position:
-          type: integer
-          format: int32
     AssortmentResponse:
       type: object
       properties:
@@ -137,6 +123,20 @@ components:
           type: integer
           format: int32
       description: asortyment
+    AssortmentImportRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        catalogNumber:
+          type: string
+        unit:
+          type: string
+        netPrice:
+          type: number
+        position:
+          type: integer
+          format: int32
   securitySchemes:
     Authorization:
       type: apiKey

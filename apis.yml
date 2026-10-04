@@ -3767,8 +3767,6 @@ apis:
   humanURL: https://danebadawcze.uw.edu.pl/
   baseURL: https://danebadawcze.uw.edu.pl/api/
   tags:
-  - APIKeys
-  tags_raw:
   - API Key
   properties:
   - type: OpenAPI
@@ -3793,8 +3791,6 @@ apis:
   humanURL: https://danebadawcze.uw.edu.pl/
   baseURL: https://danebadawcze.uw.edu.pl/api/
   tags:
-  - Phone Numbers
-  tags_raw:
   - Phone Number
   properties:
   - type: OpenAPI
