@@ -4,6 +4,7 @@ generated_by: planning/capability-mapping/scripts/classify_capabilities.py
 model: claude-opus-5
 frame:
 - Education
+- Software & Technology
 min_confidence: 0.7
 capability_model:
   source: https://github.com/vincentmakes/turbo-ea-capabilities
@@ -11,8 +12,73 @@ capability_model:
   attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
     CC BY 4.0
   notice: NOTICE
-edge_count: 1
+edge_count: 21
 edges:
+- tag: Patent
+  spec_file: university-of-warsaw-patent-api-openapi.yml
+  capability_id: BC-840.10
+  capability_id_l1: BC-840
+  capability_name: Patent Portfolio Management
+  confidence: 0.9
+  evidence: GET /api/v1/Patent/{cfPatId}/InstitutionalOwner getPatentInstitutionalOwners 'Czytanie listy
+    współwłaścicieli instytucjonalnych patentu'; schemas ProtectionTypeResponse, PatentFinancingResponse,
+    PatentAuthorRequest
+  reason: 'A full patent register: patent records, inventors/authors, institutional co-owners, protection
+    subject and type, and financing sources. This plainly realises Patent Portfolio Management.'
+- tag: Permissions
+  spec_file: university-of-warsaw-permissions-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.88
+  evidence: POST /api/v1/Admin/CasRoles/{casRole}/Permissions  upsertCasRolesPermissions  Aktualizuje
+    listę uprawnień powiązanych z rolą cas; GET /api/v1/Admin/ApiKey/{apiKeyName}/Permissions
+  reason: Administration of permission sets bound to units, internal groups, CAS roles and API keys, including
+    reset to defaults. This is unambiguously authorisation/entitlement administration, the core of Identity
+    & Access Management.
+- tag: PermsGroup
+  spec_file: university-of-warsaw-permsgroup-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.85
+  evidence: POST /api/v1/PermsGroups  addPermsGroup  Dodaje grupę uprawnień; POST /api/v1/PermsGroups/{name}/Members/UpdateBySystemRole  Nadpisuje
+    członków grupy na podstawie roli systemowej
+  reason: Lifecycle of permission groups and their membership, including population from system roles.
+    Classic group-based access control administration, mapping to Identity & Access Management.
+- tag: IdpPerson
+  spec_file: university-of-warsaw-idpperson-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.8
+  evidence: POST /api/v1/IdpPerson "Aktualizacja bądź dodawanie osoby (idp_person)"; POST /api/v1/IdpPerson/Edugain/Sp4eu
+    "Aktualizacja osoby sp4eu (idp_person)"; schema EdugainPersonRequest
+  reason: Operations maintain identity-provider person records and synchronise them with the eduGAIN/SP4EU
+    federation — identity and federated access administration, not HR person mastering. Some ambiguity
+    remains about whether this is better read as master data, so not maximal confidence.
+- tag: PersonSystemRole
+  spec_file: university-of-warsaw-personsystemrole-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.8
+  evidence: POST /api/v1/PersonSystemRole  addPersonSystemRole  Dodanie roli do osoby; POST /api/v1/PersonSystemRole/RoleCode/{roleCode}/Assign  assignSystemRole  Przypisanie
+    roli do rekordu
+  reason: Explicit assignment, update and removal of system roles for persons, with listing by role code.
+    This is system role-based access administration, mapping to Identity & Access Management rather than
+    any HR or academic capability.
+- tag: PublicProcurementPlan
+  spec_file: university-of-warsaw-publicprocurementplan-api-openapi.yml
+  capability_id: BC-500
+  capability_id_l1: BC-500
+  capability_name: Procurement Management
+  confidence: 0.8
+  evidence: POST /api/v1/PublicProcurementPlan addProcurementPlan; 'Find all procurement plans'; POST
+    /api/v1/PublicProcurementPlan/Merge mergeProcurementPlans
+  reason: Full lifecycle management of public procurement plans (create, update, merge/unmerge, hierarchy
+    ancestors, responsible-person lookup). This is the planning front end of procurement; L2 left null
+    because procurement planning spans sourcing and spend planning without the spec naming either.
 - tag: courses
   spec_file: university-of-warsaw-courses-api-openapi.yml
   capability_id: BC-4700.40
@@ -24,3 +90,157 @@ edges:
   reason: Exposes the institutional course catalogue (course and course-edition descriptions) from the
     academic database — programme/course catalogue publication. Some ambiguity between catalogue management
     and course design.
+- tag: CalculatePermissions
+  spec_file: university-of-warsaw-calculatepermissions-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.78
+  evidence: calculate  Wyliczanie uprawnień użytkownika; calculateForPerson  Wyliczanie uprawnień użytkownika
+    dla konkretnej osoby; PrincipalPermissionDTO
+  reason: Computes the effective permissions of a user/principal, with person lookup to resolve the principal
+    — authorisation resolution, which belongs to Identity & Access Management. Person search is a supporting
+    lookup, not customer data management.
+- tag: PermDepartmentCasRole
+  spec_file: university-of-warsaw-permdepartmentcasrole-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.78
+  evidence: PUT /api/v1/PermDepartmentCasRole/{id}  updatePermDepartmentCasRole  Update perm department
+    cas role
+  reason: CRUD over the binding of CAS (central authentication service) roles to departments — i.e. authorisation
+    role administration. This is access management plumbing, which maps to Identity & Access Management
+    rather than any academic or HR capability.
+- tag: FrameworkAgreement
+  spec_file: university-of-warsaw-frameworkagreement-api-openapi.yml
+  capability_id: BC-500.20
+  capability_id_l1: BC-500
+  capability_name: Procurement Contract Management
+  confidence: 0.75
+  evidence: GET /api/v1/FrameworkAgreement/{id}  'Czytanie informacji o umowie ramowej z podanym id';
+    'Lista asortymentów dla danej umowy ramowej'; FrameworkAgreementOrderResponse
+  reason: '''Umowa ramowa'' is a procurement framework agreement; the surface manages agreement records,
+    their assortment (catalogue of goods), acceptance recipients and linked orders — i.e. procurement
+    contract lifecycle rather than general legal contracting. Some residual ambiguity between BC-500.20
+    and generic contract management.'
+- tag: UwPerson
+  spec_file: university-of-warsaw-uwperson-api-openapi.yml
+  capability_id: BC-300.70
+  capability_id_l1: BC-300
+  capability_name: HR Operations Management
+  confidence: 0.75
+  evidence: POST /api/v1/UwPerson/ImportEmployeeData  importEmployeeData  Import informacji o zatrudnieniu;
+    GET /api/v1/UwPerson/{personId}/Employment  getEmployeeData  Czytanie informacji o aktualnym zatrudnieniu
+  reason: Operations ingest and expose employment records, roles and functions for university staff (UwPersonEmployment,
+    UwPersonEmployeeDataResponse) — employee record keeping, i.e. HR Operations Management.
+- tag: Assets
+  spec_file: university-of-warsaw-assets-api-openapi.yml
+  capability_id: BC-200.40
+  capability_id_l1: BC-200
+  capability_name: Fixed Asset Accounting
+  confidence: 0.72
+  evidence: getAssetDetails  Czytaj szczegóły ze środka trwałego; updateAsset  Aktualizuj informacje o
+    środku trwałym; removeAsset  Usuwanie środka trwałego
+  reason: CRUD over 'środki trwałe' (fixed assets) keyed by SAP id, with links to research equipment sets
+    and projects — a fixed-asset register. Fixed Asset Accounting is the closest candidate; some ambiguity
+    since this is asset-register stewardship rather than depreciation accounting.
+- tag: PermDepartmentPerson
+  spec_file: university-of-warsaw-permdepartmentperson-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.72
+  evidence: POST /api/v1/PermDepartmentPerson  addPermDepartmentPerson  Add perm department person; GET
+    /api/v1/PermDepartmentPerson/SearchPerson  searchPersonForPermDepartment
+  reason: Operations attach persons to departmental permission records and search persons for that assignment
+    — granting/revoking access rights to individuals, i.e. IAM. Some ambiguity because a person-search
+    read is also present, but the governing object is a permission assignment.
+- tag: PersonRole
+  spec_file: university-of-warsaw-personrole-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.72
+  evidence: POST /api/v1/PersonRole  upsertRole  Upsert role; DELETE /api/v1/PersonRole  deleteRole
+  reason: Assignment and removal of roles for persons, with person search to select the subject. Role
+    assignment is authorisation administration, i.e. IAM. Slight ambiguity because 'role' is unqualified
+    here, but the sibling PermGroup/SystemRole tags make the access-control reading clear.
+- tag: PersonSystemRoleDocsense
+  spec_file: university-of-warsaw-personsystemroledocsense-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.72
+  evidence: PATCH /api/v1/Docsense/PersonSystemRole/Assign — 'Przypisanie ról systemowych do osoby przez
+    DocSense'; schema RoleAssignment
+  reason: Operations assign and revoke system roles for a person in an integrated application, which is
+    role/entitlement administration — Identity & Access Management. Some chance this is better read as
+    pure application plumbing, hence moderate confidence.
+- tag: Building
+  spec_file: university-of-warsaw-building-api-openapi.yml
+  capability_id: BC-700.40
+  capability_id_l1: BC-700
+  capability_name: Space Management
+  confidence: 0.7
+  evidence: updateBuildingRoom  Aktualizacja pokoju budynku; updateBuildingPlan  Aktualizacja piętra budynku;
+    getBuildingPlanImage_1  Pobranie obrazu piętra budynku
+  reason: Registry of buildings, their units, rooms and floor plans, including room-to-person association
+    (BuildingRoomPersonResponse) — space and occupancy management within facilities. Sub-capability choice
+    between Space Management and broader FM carries some ambiguity.
+- tag: ItService
+  spec_file: university-of-warsaw-itservice-api-openapi.yml
+  capability_id: BC-600
+  capability_id_l1: BC-600
+  capability_name: Information Technology Management
+  confidence: 0.7
+  evidence: POST /api/v1/ItService "Dodanie rejestru systemu"; GET /api/v1/ItService/PublicOrProtected
+    "Listowanie danych o publicznych bądź chronionych serwisach it"
+  reason: CRUD over a register of the institution's IT systems/services, with descriptive articles and
+    logos — an IT service/application catalogue. Evidence does not clearly discriminate between IT Service
+    Management (service catalogue) and IT Application Management (application portfolio), so only the
+    L1 is asserted.
+- tag: PersonPrincipal
+  spec_file: university-of-warsaw-personprincipal-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.7
+  evidence: GET /api/v1/principal/person/permissions  principalPermissions  Uprawnienia aktualnie zalogowanej
+    osoby; GET /api/v1/principal/person/authenticated  isAuthenticated
+  reason: 'Surface for the currently authenticated principal: identity, authentication status and effective
+    permissions (including per-object). This is identity/authorisation runtime, mapping to IAM; the profile-picture
+    operations are incidental plumbing.'
+- tag: PublicProcurementLegalBasis
+  spec_file: university-of-warsaw-publicprocurementlegalbasis-api-openapi.yml
+  capability_id: BC-500
+  capability_id_l1: BC-500
+  capability_name: Procurement Management
+  confidence: 0.7
+  evidence: GET /api/v1/PublicProcurementLegalBasis findAllProcurementPlanProcedures 'Find all procurement
+    plan procedures'; schemas LegalBasisRequest, LegalBasisResponse
+  reason: CRUD over the legal basis / procedure types used for public procurement plans — reference data
+    within the institution's procurement process. Clearly procurement domain, but too generic to pin a
+    sub-capability (sourcing vs contract terms), so only L1 is asserted.
+- tag: PublicProcurementPlanCategory
+  spec_file: university-of-warsaw-publicprocurementplancategory-api-openapi.yml
+  capability_id: BC-500
+  capability_id_l1: BC-500
+  capability_name: Procurement Management
+  confidence: 0.7
+  evidence: GET /api/v1/PublicProcurementPlanCategory findAllProcurementPlanCategories 'Find all procurement
+    plan categories'
+  reason: CRUD over categories applied to public procurement plans — procurement reference/classification
+    data. Procurement L1 is safe; it is unclear whether these categories serve category-management strategy
+    or merely plan taxonomy, so no L2.
+- tag: Publication
+  spec_file: university-of-warsaw-publication-api-openapi.yml
+  capability_id: BC-810.10
+  capability_id_l1: BC-810
+  capability_name: Research Management
+  confidence: 0.7
+  evidence: POST /api/v1/Publication addPublication 'Dodawanie publikacji'; GET /api/v1/Publication/{publicationId}/Profile
+    'Lista autorów publikacji'; GET /api/v1/Publication/{publicationId}/Abstract 'Lista abstraktów publikacji'
+  reason: Registry of scholarly publications with authors (profiles), abstracts and venues — the institution's
+    research-output repository, i.e. management of research artefacts. Mapped to Research Management;
+    confidence held at 0.7 because a knowledge-repository reading (BC-830) is also defensible.
