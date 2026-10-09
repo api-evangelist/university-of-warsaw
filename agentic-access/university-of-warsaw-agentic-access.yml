@@ -1,4 +1,4 @@
-generated: '2026-09-16'
+generated: '2026-09-23'
 method: generated
 source: openapi/university-of-warsaw-achievementssummary-api-openapi.yml, openapi/university-of-warsaw-admin-api-openapi.yml,
   openapi/university-of-warsaw-analysis-api-openapi.yml, openapi/university-of-warsaw-api-key-api-openapi.yml,
@@ -77,11 +77,11 @@ description: Recommended x-agentic-access execution contracts, classified heuris
 summary:
   operations: 1076
   by_action_class:
-    connected: 603
-    acting: 473
+    connected: 604
+    acting: 472
   by_consequence:
-    read: 603
-    write: 461
+    read: 604
+    write: 460
     safety-critical: 12
   human_in_the_loop_required: 12
 operations:
@@ -10133,18 +10133,12 @@ operations:
   method: post
   operationId: queryForActiveProjects
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /api/v1/Project/{projectId}/History
   method: get
   operationId: getProjectHistory
